@@ -12,16 +12,12 @@ import { initFlowbite } from 'flowbite';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']  
 })
-export class AppComponent{
+export class AppComponent {
   title = 'FooTalent';
   public readonly VAPID_PUBLIC_KEY = 'BAeWX7N_MJx-3QNtLbU55xXxlda9AVTjqcLGhbC6eoUU9GZFqVxzjyNusIME9k_2OWp4IXbYMnlJlxzD0r5shlw';
 
   constructor(private swPush: SwPush, private pushservice: PushService) {
     // this.subscribeToNotifications();
-  }
-
-  ngOnInit(): void {
-    initFlowbite();
   }
 
   // subscribeToNotifications(): void {
