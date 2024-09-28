@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Credentials, UserInfo } from '../../Interfaces/credentials';
 import { AccountsService } from '../../Services/accounts.service';
 
+
 @Component({
   selector: 'app-signup',
   standalone: true,
@@ -23,7 +24,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  botonSignIn() {
+  botonSignUp() {
     if (this.email === "" || this.password === "" || this.confirmPassword === "") {
       alert("Todos los campos son obligatorios");
       return;
@@ -42,7 +43,7 @@ export class SignupComponent implements OnInit {
       rol: "user"
     };
 
-    this._accountsService.sigIn(user).subscribe(data => {
+    this._accountsService.signUp(user).subscribe(data => {
 
       console.log("El usuario fue registrado con exito");
     });

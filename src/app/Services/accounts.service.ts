@@ -13,7 +13,7 @@ export class AccountsService {
     this.appUrl = "http://localhost:3000/api/v1/auth";
   }
 
-  sigIn(credentials: UserInfo) {
+  signUp(credentials: UserInfo) {
     return this.http.post(this.appUrl + "/register", credentials);
   }
 

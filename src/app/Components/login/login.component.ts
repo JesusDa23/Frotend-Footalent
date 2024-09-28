@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountsService } from '../../Services/accounts.service';
 import { Credentials, resLoginUser } from '../../Interfaces/credentials';
+import { log } from 'node:console';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,7 @@ export class LoginComponent implements OnInit {
   dni: string = ""
   password: string = ""
 
-  constructor(private _accountsService: AccountsService) { }
+  constructor(private _accountsService: AccountsService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -37,6 +39,10 @@ export class LoginComponent implements OnInit {
     this._accountsService.logIn(user).subscribe((data) => {
       let dataCast = data as resLoginUser
       sessionStorage.setItem('token', dataCast.token);
+      if(sessionStorage.getItem("token") != null){
+        this.router.navigate(['/my-profile']);
+      }
+
     });
 
   }
