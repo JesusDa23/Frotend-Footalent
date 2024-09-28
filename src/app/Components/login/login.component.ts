@@ -37,6 +37,8 @@ export class LoginComponent implements OnInit {
     }
 
     this._accountsService.logIn(user).subscribe((data) => {
+      console.log("data", data);
+
       let dataCast = data as resLoginUser
       sessionStorage.setItem('token', dataCast.token);
       if(sessionStorage.getItem("token") != null){
