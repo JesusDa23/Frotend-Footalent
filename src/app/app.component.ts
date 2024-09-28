@@ -9,6 +9,7 @@ import { initFlowbite } from 'flowbite';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, LoginComponent],
+  imports: [RouterOutlet, LoginComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']  
 })
