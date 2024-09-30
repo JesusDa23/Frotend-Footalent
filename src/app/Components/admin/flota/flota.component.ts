@@ -2,20 +2,23 @@ import { Component } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FlotaService } from '../../../Services/flota.service';
 import { FlowbiteService } from '../../../Services/flowbite.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { error } from 'console';
 
 @Component({
   selector: 'app-flota',
   standalone: true,
-  imports: [NgFor,ReactiveFormsModule],
+  imports: [NgFor,ReactiveFormsModule, NgIf],
   templateUrl: './flota.component.html',
   styleUrl: './flota.component.css'
 })
 export class FlotaComponent {
   flotas:any = [];
   vehicleForm: FormGroup;
+
+  isEditMode = false;
+  selectedVehicleId: string | null = null;
 
   constructor(private flotaService: FlotaService, private flowbiteService: FlowbiteService, private fb: FormBuilder){
     this.vehicleForm = this.fb.group({
@@ -78,8 +81,6 @@ export class FlotaComponent {
       });
     }
   }
-  
-
 
   onDelete(id:any){
     Swal.fire({
@@ -105,4 +106,8 @@ export class FlotaComponent {
       }
     });
   }
+
+  onEdit(vehicle: any){
+  }
+
 }

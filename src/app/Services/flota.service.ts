@@ -1,24 +1,30 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientService } from './http-client.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FlotaService {
-  private apiUrl = environment.apiUrl
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClientService) { }
 
   createNewFlota(data: any){
-    return this.http.post(`${this.apiUrl}/v1/vehicles/save`,{data})
+    return this.http.post(data,'/v1/vehicles/save');
   }
 
   getFlotas(){
-    return this.http.get(`${this.apiUrl}/v1/vehicles/rtv`);
+    return this.http.get(`/v1/vehicles/rtv`);
   }
 
-  deleteFlotas(id:any){
-    return this.http.delete(`${this.apiUrl}/v1/vehicles/del/${id}`)
+  getFlotaById(id: number){
+    return this.http.get(`/v1/vehicles/rtv/${id}`)
+  }
+
+  deleteFlotas(id:number){
+    return this.http.delete(`/v1/vehicles/del/${id}` );
+  }
+
+  updateFlotas(id:number, data:any){
+    return this.http.put( data,`/v1/vehicles/del/${id}` );
   }
 }
