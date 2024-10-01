@@ -1,58 +1,87 @@
 <!-- Main modal -->
 <app-editmodal
-*ngIf="selectedVehicle" 
+*ngIf="isEditMode" 
 [vehicle]="selectedVehicle" 
 (vehicleUpdated)="onVehicleUpdated(selectedVehicle.id, $event)"
 (vehicleCreated)="onVehicleCreated($event)"
-(modalClosed)="onCloseModal()">
+(modalClosed)="onCloseModal()"><button (click)="onCloseModal()">x</button>
 </app-editmodal>
 
 
   <div *ngFor="let vehicle of flotas" class="vehicle-card">
     <div class="desktop-view">
-        <tr>
-            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Marca</th>
-            <th scope="col" class="px-6 py-3">Modelo</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Año</th>
-            <th scope="col" class="px-6 py-3">vin</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Placa</th>
-            <th scope="col" class="px-6 py-3">Color</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Kilometraje</th>
-            <th scope="col" class="px-6 py-3">Dueño</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Estado</th>
-            <th scope="col" class="px-6 py-3">Acción</th>
-        </tr>
-        <tr>
-            <th scope="col" class="px-6 py-3 ">{{vehicle.make}}</th>
-            <th scope="col" class="px-6 py-3">{{vehicle.model}}</th>
-            <th scope="col" class="px-6 py-3 ">{{vehicle.year}}</th>
-            <th scope="col" class="px-6 py-3">{{vehicle.vin}}</th>
-            <th scope="col" class="px-6 py-3 ">{{vehicle.plate}}</th>
-            <th scope="col" class="px-6 py-3">{{vehicle.color}}</th>
-            <th scope="col" class="px-6 py-3 ">{{vehicle.mileage}}</th>
-            <th scope="col" class="px-6 py-3">{{vehicle.owner}}</th>
-            <th scope="col" class="px-6 py-3 ">{{vehicle.state}}</th>
-            <th scope="col" class="px-6 py-3">
-                <button (click)="onEdit(vehicle)">Edit</button>
-                <button (click)="onDelete(vehicle.id)">Delete</button>
-            </th>
-        </tr>
-    </div>
+        <!-- Button to create vehicle -->
+        <div class="flex justify-end mb-4">
+          <button 
+            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow" (click)="openCreateVehicleModal()">
+            Create Vehicle
+          </button>
+        </div>
+      
+        <!-- Table for displaying vehicles -->
+        <table class="min-w-full divide-y divide-gray-200 table-auto shadow-md sm:rounded-lg">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Marca</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Modelo</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Año</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">VIN</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Placa</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Color</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kilometraje</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dueño</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acción</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let vehicle of flotas" class="hover:bg-gray-100">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.make }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.model }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.year }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.vin }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.plate }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.color }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.mileage }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.owner }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.state }}</td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
   
-    <div class="mobile-view">
-        <h3>Lista de vehiculos</h3>
-
-        <div>
-            <tr scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">{{vehicle.make}}</tr>
-            <tr scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">{{vehicle.model}}</tr>
-            <tr scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">{{ vehicle.plate }}</tr>
-            <tr scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">{{ vehicle.status }}</tr>
-        <div>
-      <button (click)="onEdit(vehicle)">Edit</button>
-      <button (click)="onDelete(vehicle.id)">Delete</button>
-    </div>
+      <div class="mobile-view sm:hidden">
+        <ul class="space-y-4 p-4">
+          <li *ngFor="let vehicle of flotas" 
+              class="bg-white rounded-lg shadow-md p-4 flex flex-col space-y-2 hover:bg-gray-50 transition ease-in-out duration-200">
+            
+            <!-- Vehicle Details -->
+            <div>
+              <p class="text-lg font-semibold text-gray-900">{{ vehicle.make }}</p>
+              <p class="text-sm text-gray-700">{{ vehicle.model }}</p>
+              <p class="text-sm text-gray-500">Plate: {{ vehicle.plate }}</p>
+              <p class="text-sm font-medium p-2 rounded-lg" 
+                [ngClass]="{
+                    'border-2 border-green-500 text-green-700': vehicle.state === 'available', 
+                    'border-2 border-yellow-500 text-yellow-700': vehicle.state === 'on maintenance'
+                    }">
+          Status: {{ vehicle.state }}
+        </p>
+            </div>
+            
+          </li>
+        </ul>
+      
+        <!-- Create Vehicle Button -->
+        <div class="fixed bottom-4 right-4">
+          <button 
+            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full shadow-lg">
+            Create Vehicle
+          </button>
+        </div>
+      </div>
+      
+     
   </div>
-
-
-  <button class="btn btn-success" (click)="openCreateVehicleModal()">Create Vehicle</button>
-  
