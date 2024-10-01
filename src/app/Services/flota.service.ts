@@ -25,6 +25,6 @@ export class FlotaService {
   }
 
   updateFlotas(id:number, data:any){
-    return this.http.put( data,`/v1/vehicles/del/${id}` );
+    return this.http.put( data,`/v1/vehicles/update/${id}` );
   }
 }

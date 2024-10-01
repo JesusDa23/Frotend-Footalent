@@ -1,0 +1,40 @@
+<div class="modal-content">
+    <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+      <h2 *ngIf="vehicle">Edit Vehicle</h2>
+      <h2 *ngIf="!vehicle">Add New Vehicle</h2>
+  
+      <label for="make">Make:</label>
+      <input id="make" formControlName="make" required>
+  
+      <label for="model">Model:</label>
+      <input id="model" formControlName="model" required>
+  
+      <label for="year">Year:</label>
+      <input id="year" type="number" formControlName="year" required>
+  
+      <label for="vin">VIN:</label>
+      <input id="vin" formControlName="vin" required>
+  
+      <label for="plate">Plate:</label>
+      <input id="plate" formControlName="plate" required>
+  
+      <label for="color">Color:</label>
+      <input id="color" formControlName="color">
+  
+      <label for="mileage">Mileage:</label>
+      <input id="mileage" type="number" formControlName="mileage">
+  
+      <label for="owner">Owner:</label>
+      <input id="owner" formControlName="owner">
+  
+      <label for="status">Status:</label>
+      <select id="status" formControlName="status" required>
+        <option value="available">Available</option>
+        <option value="sold">Sold</option>
+        <option value="maintenance">Maintenance</option>
+      </select>
+  
+      <button type="submit">Save</button>
+    </form>
+  </div>
+  

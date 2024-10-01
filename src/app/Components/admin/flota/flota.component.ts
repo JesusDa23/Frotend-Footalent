@@ -3,13 +3,14 @@ import Swal from 'sweetalert2';
 import { FlotaService } from '../../../Services/flota.service';
 import { FlowbiteService } from '../../../Services/flowbite.service';
 import { NgFor, NgIf } from '@angular/common';
-import { FormGroup, FormControl, Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { error } from 'console';
+import { Validators, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { Vehicle } from '../../models/vehicle.model';
+import { EditmodalComponent } from './editmodal/editmodal.component';
 
 @Component({
   selector: 'app-flota',
   standalone: true,
-  imports: [NgFor,ReactiveFormsModule, NgIf],
+  imports: [NgFor,ReactiveFormsModule, NgIf, EditmodalComponent],
   templateUrl: './flota.component.html',
   styleUrl: './flota.component.css'
 })
@@ -18,28 +19,38 @@ export class FlotaComponent {
   vehicleForm: FormGroup;
 
   isEditMode = false;
-  selectedVehicleId: string | null = null;
+  selectedVehicle: Vehicle | null = null;
 
   constructor(private flotaService: FlotaService, private flowbiteService: FlowbiteService, private fb: FormBuilder){
     this.vehicleForm = this.fb.group({
       make: ['', [Validators.required]],
       model: ['', [Validators.required]],
-      year: ['', [Validators.required]],
+      year: ['', [Validators.required, Validators.min(1886)]],
       vin: ['', [Validators.required]],
       plate: ['', [Validators.required]],
-      color: ['', [Validators.required]],
-      mileage: ['', [Validators.required]],
-      owner: ['', [Validators.required]],
-      status: ['', [Validators.required]],
-    })
+      color: [''],
+      mileage: [0],
+      owner: [''],
+      status: ['', [Validators.required]]
+    });
   }
 
   ngOnInit(){
     this.flowbiteService.loadFlowbite(() => {});
-    this.flotaService.getFlotas().subscribe( data => {
-      this.flotas = data
-      console.log(this.flotas)
-    })
+    this.loadFlotas();
+    if (this.selectedVehicle) {
+      this.isEditMode = true;
+    }
+  }
+
+  loadFlotas() {
+    this.flotaService.getFlotas().subscribe(data => {
+      this.flotas = data;
+    });
+  }
+
+  onEdit(vehicle: Vehicle) {
+    this.selectedVehicle = vehicle;
   }
 
   onSubmit() {
@@ -107,7 +118,19 @@ export class FlotaComponent {
     });
   }
 
-  onEdit(vehicle: any){
+
+  onVehicleUpdated(id:any, updatedVehicle: Vehicle) {
+    this.flotaService.updateFlotas(id,updatedVehicle).subscribe(() => {
+      this.loadFlotas
+      Swal.fire('Updated!', 'The vehicle has been updated.', 'success');
+    });
   }
+  onVehicleCreated(newVehicle: Vehicle) {
+    this.flotaService.createNewFlota(newVehicle).subscribe(() => {
+      this.loadFlotas();
+      Swal.fire('Created!', 'The new vehicle has been created.', 'success');
+    });
+  }
+  
 
 }

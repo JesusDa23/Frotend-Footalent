@@ -1,0 +1,25 @@
+.vehicle-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+  }
+  
+  .desktop-view {
+    display: block; /* Default is to show for desktop */
+  }
+  
+  .mobile-view {
+    display: none; /* Default is to hide for desktop */
+  }
+  
+  /* Show mobile view on small screens */
+  @media (max-width: 768px) {
+    .desktop-view {
+      display: none; /* Hide desktop view */
+    }
+    .mobile-view {
+      display: block; /* Show mobile view */
+    }
+  }
+  
