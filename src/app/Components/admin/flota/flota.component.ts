@@ -2,15 +2,16 @@ import { Component } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FlotaService } from '../../../Services/flota.service';
 import { FlowbiteService } from '../../../Services/flowbite.service';
-import { NgFor, NgIf, NgClass } from '@angular/common';
+import { NgFor, NgIf, NgClass, UpperCasePipe } from '@angular/common';
 import { Validators, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Vehicle } from '../../models/vehicle.model';
 import { EditmodalComponent } from './editmodal/editmodal.component';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-flota',
   standalone: true,
-  imports: [NgFor,ReactiveFormsModule, NgIf, EditmodalComponent, NgClass],
+  imports: [NgFor,ReactiveFormsModule, NgIf, EditmodalComponent, NgClass, UpperCasePipe,HeaderComponent],
   templateUrl: './flota.component.html',
   styleUrl: './flota.component.css'
 })

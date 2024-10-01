@@ -1,87 +1,38 @@
 <!-- Main modal -->
-<app-editmodal
+<!-- <app-editmodal
 *ngIf="isEditMode" 
 [vehicle]="selectedVehicle" 
 (vehicleUpdated)="onVehicleUpdated(selectedVehicle?.id, $event)"
 (vehicleCreated)="onVehicleCreated($event)"
 (modalClosed)="onCloseModal()"><button (click)="onCloseModal()">x</button>
-</app-editmodal>
+</app-editmodal> -->
 
 
-  <div *ngFor="let vehicle of flotas" class="vehicle-card">
-    <div class="desktop-view">
-        <!-- Button to create vehicle -->
-        <div class="flex justify-end mb-4">
-          <button 
-            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow" (click)="openCreateVehicleModal()">
-            Create Vehicle
-          </button>
-        </div>
-      
-        <!-- Table for displaying vehicles -->
-        <table class="min-w-full divide-y divide-gray-200 table-auto shadow-md sm:rounded-lg">
-          <thead class="bg-gray-50">
-            <tr>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Marca</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Modelo</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Año</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">VIN</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Placa</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Color</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kilometraje</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dueño</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acción</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
-            <tr *ngFor="let vehicle of flotas" class="hover:bg-gray-100">
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.make }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.model }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.year }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.vin }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.plate }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.color }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.mileage }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.owner }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ vehicle.state }}</td>
-              
-            </tr>
-          </tbody>
-        </table>
+<div class="p-4 bg-white">
+    <div class="flex flex-wrap gap-[8px] justify-center">
+      <!-- Vehículo 1 -->
+      <div class="p-3 bg-white shadow-md rounded border-2 border-cardBorder w-40 flex flex-col" *ngFor="let vehicle of flotas">
+        <h2 class="text-[14px] font-bold">{{ vehicle.make }} {{vehicle.model}}</h2>
+        <p>{{ vehicle.plate | uppercase}}</p>
+        <span class="flex items-center rounded-2xl p-1" [ngClass]="{
+            'bg-green-300': vehicle.status === 'available', 
+            'bg-yellow-300': vehicle.status === 'on maintenance',
+            'bg-red-500': vehicle.status === 'occupied ',
+            'bg-slate-800': vehicle.status === 'disable'
+            }">
+          <i class="fas fa-circle text-[8px] mr-2" [ngClass]="{
+            'border-2 border-green-500 text-green-700': vehicle.status === 'available', 
+            'border-2 border-yellow-500 text-yellow-700': vehicle.status === 'on maintenance',
+            'border-2 border-red-500 text-red-950': vehicle.status === 'occupied ',
+            'border-2 border-slate-700 text-white': vehicle.status === 'disable'
+            }"></i>  
+          {{ vehicle.status }}
+        </span>
+        <button class="mt-2 border border-cardBorder px-4 py-2 rounded">Ver Perfil</button>
       </div>
-      
-  
-      <div class="mobile-view sm:hidden">
-        <ul class="space-y-4 p-4">
-          <li *ngFor="let vehicle of flotas" 
-              class="bg-white rounded-lg shadow-md p-4 flex flex-col space-y-2 hover:bg-gray-50 transition ease-in-out duration-200">
-            
-            <!-- Vehicle Details -->
-            <div>
-              <p class="text-lg font-semibold text-gray-900">{{ vehicle.make }}</p>
-              <p class="text-sm text-gray-700">{{ vehicle.model }}</p>
-              <p class="text-sm text-gray-500">Plate: {{ vehicle.plate }}</p>
-              <p class="text-sm font-medium p-2 rounded-lg" 
-                [ngClass]="{
-                    'border-2 border-green-500 text-green-700': vehicle.state === 'available', 
-                    'border-2 border-yellow-500 text-yellow-700': vehicle.state === 'on maintenance'
-                    }">
-          Status: {{ vehicle.state }}
-        </p>
-            </div>
-            
-          </li>
-        </ul>
-      
-        <!-- Create Vehicle Button -->
-        <div class="fixed bottom-4 right-4">
-          <button 
-            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full shadow-lg">
-            Create Vehicle
-          </button>
-        </div>
-      </div>
-      
-     
+    </div>
   </div>
+
+<div class="fixed bottom-0 w-full p-4 bg-bgBtn flex justify-center">
+    <button class="bg-btnColor text-white px-4 py-2 rounded">Agregar vehículo</button>
+</div>

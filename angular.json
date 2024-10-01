@@ -24,11 +24,17 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
               }
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/flowbite/dist/flowbite.min.css"
+              "node_modules/flowbite/dist/flowbite.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
               
             ],
             "scripts": ["node_modules/flowbite/dist/flowbite.min.js"],
@@ -96,7 +102,8 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/flowbite/dist/flowbite.min.css"
+              "node_modules/flowbite/dist/flowbite.min.css",
+                "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": ["node_modules/flowbite/dist/flowbite.min.js"]
           }
