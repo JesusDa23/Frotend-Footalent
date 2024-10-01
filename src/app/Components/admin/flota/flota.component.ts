@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FlotaService } from '../../../Services/flota.service';
 import { FlowbiteService } from '../../../Services/flowbite.service';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgClass } from '@angular/common';
 import { Validators, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Vehicle } from '../../models/vehicle.model';
 import { EditmodalComponent } from './editmodal/editmodal.component';
@@ -10,7 +10,7 @@ import { EditmodalComponent } from './editmodal/editmodal.component';
 @Component({
   selector: 'app-flota',
   standalone: true,
-  imports: [NgFor,ReactiveFormsModule, NgIf, EditmodalComponent],
+  imports: [NgFor,ReactiveFormsModule, NgIf, EditmodalComponent, NgClass],
   templateUrl: './flota.component.html',
   styleUrl: './flota.component.css'
 })
@@ -47,10 +47,6 @@ export class FlotaComponent {
     this.flotaService.getFlotas().subscribe(data => {
       this.flotas = data;
     });
-  }
-
-  onEdit(vehicle: Vehicle) {
-    this.selectedVehicle = vehicle;
   }
 
   onSubmit() {
@@ -118,7 +114,9 @@ export class FlotaComponent {
     });
   }
 
-
+  onEdit(vehicle: Vehicle) {
+    this.selectedVehicle = vehicle;
+  }
   onVehicleUpdated(id:any, updatedVehicle: Vehicle) {
     this.flotaService.updateFlotas(id,updatedVehicle).subscribe(() => {
       this.loadFlotas
@@ -133,7 +131,7 @@ export class FlotaComponent {
   }
   openCreateVehicleModal() {
     this.selectedVehicle = null;  // Set to null for creating a new vehicle
-    this.isEditMode = false;  // Set mode to create
+    this.isEditMode = true;  // Set mode to create
   }
   onCloseModal() {
     this.isEditMode = false;
