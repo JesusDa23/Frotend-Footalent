@@ -6,6 +6,6 @@
   </header>
 
   <nav class="flex justify-around bg-white p-2 shadow-md">
-    <button class="font-bold border-b-4 border-blue-500">Flota vehicular</button>
-    <button>Conductores</button>
-  </nav>
+    <button routerLink="/home" routerLinkActive="border-blue-500 text-blue-500" class="font-bold border-b-4" [routerLinkActiveOptions]="{exact: true}">Flota vehicular</button>
+    <button routerLink="/conductores" routerLinkActive="border-blue-500 text-blue-500" class="font-bold border-b-4" [routerLinkActiveOptions]="{exact: true}">Conductores</button>
+</nav>
