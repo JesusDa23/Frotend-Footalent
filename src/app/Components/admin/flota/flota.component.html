@@ -3,7 +3,8 @@
 *ngIf="selectedVehicle" 
 [vehicle]="selectedVehicle" 
 (vehicleUpdated)="onVehicleUpdated(selectedVehicle?.id, $event)"
-(vehicleCreated)="onVehicleCreated($event)">
+(vehicleCreated)="onVehicleCreated($event)"
+(modalClosed)="onCloseModal()">
 </app-editmodal>
 
 
@@ -52,4 +53,6 @@
     </div>
   </div>
 
+
+  <button class="btn btn-success" (click)="openCreateVehicleModal()">Create Vehicle</button>
   

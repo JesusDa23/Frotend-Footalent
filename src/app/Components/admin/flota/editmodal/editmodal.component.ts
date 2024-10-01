@@ -13,6 +13,7 @@ export class EditmodalComponent {
   @Input() vehicle!: Vehicle | null;  // Input from parent component
   @Output() vehicleUpdated = new EventEmitter<Vehicle>();  // Event to emit edited data
   @Output() vehicleCreated = new EventEmitter<Vehicle>()
+  @Output() modalClosed = new EventEmitter<void>();
   vehicleForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -45,5 +46,10 @@ export class EditmodalComponent {
       // Emit the new vehicle data
       this.vehicleCreated.emit(this.vehicleForm.value);
     }
+  }
+
+  onCloseModal() {
+    // Emit an event to notify parent to close the modal
+    this.modalClosed.emit();
   }
 }

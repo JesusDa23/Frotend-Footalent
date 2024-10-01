@@ -1,7 +1,10 @@
+<div class="modal-header">
+    <div class="modal-title">{{ vehicle ? 'Edit Vehicle' : 'Create New Vehicle' }}</div>
+    <button type="button" class="btn-close" (click)="onCloseModal()"></button>
+  </div>
+  
 <div class="modal-content">
     <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
-      <h2 *ngIf="vehicle">Edit Vehicle</h2>
-      <h2 *ngIf="!vehicle">Add New Vehicle</h2>
   
       <label for="make">Make:</label>
       <input id="make" formControlName="make" required>
@@ -38,3 +41,13 @@
     </form>
   </div>
   
+
+  <div class="modal-footer">
+    <!-- Back Button to close the modal -->
+    <button type="button" class="btn btn-secondary" (click)="onCloseModal()">Back</button>
+    
+    <!-- Create/Edit Button -->
+    <button type="submit" class="btn btn-primary" [disabled]="vehicleForm.invalid">
+      {{ vehicle ? 'Save Changes' : 'Create Vehicle' }}
+    </button>
+  </div>

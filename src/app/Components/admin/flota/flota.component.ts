@@ -131,6 +131,14 @@ export class FlotaComponent {
       Swal.fire('Created!', 'The new vehicle has been created.', 'success');
     });
   }
+  openCreateVehicleModal() {
+    this.selectedVehicle = null;  // Set to null for creating a new vehicle
+    this.isEditMode = false;  // Set mode to create
+  }
+  onCloseModal() {
+    this.isEditMode = false;
+    this.selectedVehicle = null;
+  }
   
 
 }
