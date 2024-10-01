@@ -2,7 +2,7 @@
 <app-editmodal
 *ngIf="selectedVehicle" 
 [vehicle]="selectedVehicle" 
-(vehicleUpdated)="onVehicleUpdated(selectedVehicle?.id, $event)"
+(vehicleUpdated)="onVehicleUpdated(selectedVehicle.id, $event)"
 (vehicleCreated)="onVehicleCreated($event)"
 (modalClosed)="onCloseModal()">
 </app-editmodal>

@@ -125,12 +125,14 @@ export class FlotaComponent {
       Swal.fire('Updated!', 'The vehicle has been updated.', 'success');
     });
   }
+
   onVehicleCreated(newVehicle: Vehicle) {
     this.flotaService.createNewFlota(newVehicle).subscribe(() => {
       this.loadFlotas();
       Swal.fire('Created!', 'The new vehicle has been created.', 'success');
     });
   }
+  
   openCreateVehicleModal() {
     this.selectedVehicle = null;  // Set to null for creating a new vehicle
     this.isEditMode = false;  // Set mode to create
