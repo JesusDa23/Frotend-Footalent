@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomecComponent } from './homec.component';
+import { HeadercComponent } from './headerc.component';
 
-describe('HomeComponent', () => {
-  let component: HomecComponent;
-  let fixture: ComponentFixture<HomecComponent>;
+describe('HeadercComponent', () => {
+  let component: HeadercComponent;
+  let fixture: ComponentFixture<HeadercComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HomecComponent]
+      imports: [HeadercComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HomecComponent);
+    fixture = TestBed.createComponent(HeadercComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

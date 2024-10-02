@@ -33,3 +33,11 @@ export interface ChecklistData {
     afirmacion?: boolean;
   }
   
+
+  export class Checklistreport {
+    fecha?: Date;
+    descripcion?: string;
+    pasajeros?: number;
+    detalles?: string;
+  }
+  

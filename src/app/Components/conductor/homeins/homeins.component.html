@@ -1,0 +1,27 @@
+<div class="p-4 bg-white">
+    <div class="flex flex-wrap gap-[8px] justify-center">
+      <!-- Vehículo 1 -->
+      <div class="p-3 bg-white shadow-md rounded border-2 border-cardBorder w-40 flex flex-col" *ngFor="let vehicle of flotas">
+        <h2 class="text-[14px] font-bold">{{ vehicle.make }} {{vehicle.model}}</h2>
+        <p>{{ vehicle.plate | uppercase}}</p>
+        <span class="flex items-center rounded-2xl p-1" [ngClass]="{
+            'bg-green-300': vehicle.status === 'available', 
+            'bg-yellow-300': vehicle.status === 'on maintenance',
+            'bg-red-500': vehicle.status === 'occupied ',
+            'bg-slate-800': vehicle.status === 'disabled'
+            }">
+          <i class="fas fa-circle text-[8px] mr-2" [ngClass]="{
+            'border-2 border-green-500 text-green-700': vehicle.status === 'available', 
+            'border-2 border-yellow-500 text-yellow-700': vehicle.status === 'on maintenance',
+            'border-2 border-red-500 text-red-950': vehicle.status === 'occupied ',
+            'border-2 border-slate-700 text-white': vehicle.status === 'disabled'
+            }"></i>  
+          {{ vehicle.status }}
+        </span>
+        <button routerLink="/Inspeccion"
+        class="mt-2 border bg-blue-950 hover:bg-blue-900 border-cardBorder px-4 py-2 rounded text-white">inspeccionar</button>
+      </div>
+    </div>
+  </div>
+
+
