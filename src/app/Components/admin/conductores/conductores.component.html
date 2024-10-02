@@ -1,1 +1,39 @@
 <app-header></app-header>
+
+
+<main>
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        @for (user of retrievedUsers; track user) {
+
+
+        <div class="example-box" cdkDrag>
+            <img class="driverPic" src="https://picsum.photos/50/50?random" alt="Foto Conductor">
+
+            <div class="textContainer">
+
+                <p class="driverName">{{user.name}}</p>
+
+                <p class="subtitle">Conductor</p>
+
+            </div>
+            <div class="ml-auto">
+                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M5 10H19M14 19L12 21L10 19M14 5L12 3L10 5M5 14H19" stroke="#5d5d5d" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        }
+    </div>
+</main>
+
+
+<section>
+    <div class="fixed bottom-0 w-full p-4 bg-bgBtn flex justify-center">
+        <button class="bg-btnColor text-white w-11/12 px-4 py-2 rounded">Agregar conductor</button>
+    </div>
+</section>

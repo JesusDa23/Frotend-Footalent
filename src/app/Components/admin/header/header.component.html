@@ -1,3 +1,5 @@
+<div class="container sticky top-0 left-0 right-0">
+
   <header class="flex items-center justify-between p-4 bg-header shadow-md">
     <img src="../../../../assets/svg/Logo.svg" alt="Logo" class="h-10">
     <button class="p-2">
@@ -5,7 +7,13 @@
     </button>
   </header>
 
-  <nav class="flex justify-around bg-white p-2 shadow-md">
-    <button routerLink="/home" routerLinkActive="border-blue-500 text-blue-500" class="font-bold border-b-4" [routerLinkActiveOptions]="{exact: true}">Flota vehicular</button>
-    <button routerLink="/conductores" routerLinkActive="border-blue-500 text-blue-500" class="font-bold border-b-4" [routerLinkActiveOptions]="{exact: true}">Conductores</button>
-</nav>
+  <nav class="flex justify-around bg-white p-2 pt-4 shadow-md">
+    <button routerLink="/home"
+      routerLinkActive="border-blue-500 text-blue-950 font-semibold border-b-4 padding-b-10 border-blue-950 "
+      class="font-medium " [routerLinkActiveOptions]="{exact: true}">Flota vehicular</button>
+    <button routerLink="/conductores"
+      routerLinkActive="border-blue-500 text-blue-950 font-semibold border-b-4 border-blue-950 " class="font-medium "
+      [routerLinkActiveOptions]="{exact: true}">Conductores</button>
+  </nav>
+
+</div>

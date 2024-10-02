@@ -2,13 +2,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Credentials, UserInfo } from '../Interfaces/credentials';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountsService {
   private appUrl: string;
-  requestHeaders!: HttpHeaders;
+  private requestHeaders: HttpHeaders = new HttpHeaders();
+
   constructor(private http: HttpClient) {
     this.appUrl = "http://localhost:3000/api/v1/auth";
   }
@@ -19,6 +21,21 @@ export class AccountsService {
 
   logIn(credentials: Credentials) {
     return this.http.post(this.appUrl + "/login", credentials);
+  }
+
+  // Para construir headers 
+  private construirHeaders(): void {
+    const token = sessionStorage.getItem('token');
+    this.requestHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+
+    if (token) {
+      this.requestHeaders = this.requestHeaders.set('Authorization', `Bearer ${token}`);
+    }
+  }
+  // Para obtener la lista de todos los conductores
+  retrieveUsers(): Observable<any> {
+    this.construirHeaders(); 
+    return this.http.get(this.appUrl + '/users', { headers: this.requestHeaders });
   }
 
 
@@ -38,6 +55,6 @@ export class AccountsService {
           this.construirHeaders();
           return this.http.get(this.appUrl + "/ruta", { headers: this.requestHeaders });
         }
-          asd
+          
   */
 }
