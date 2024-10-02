@@ -25,8 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   botonLogIn() {
-    console.log("DNI:", this.email);
-    console.log("Password:", this.password);
+
 
     if (this.email == "" || this.password == "") {
       Swal.fire({

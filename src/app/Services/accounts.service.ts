@@ -12,6 +12,16 @@ export class AccountsService {
   private appUrl: string;
   private requestHeaders: HttpHeaders = new HttpHeaders();
 
+ // Para construir headers 
+  private construirHeaders(): void {
+    const token = sessionStorage.getItem('token');
+    this.requestHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+
+    if (token) {
+      this.requestHeaders = this.requestHeaders.set('Authorization', `Bearer ${token}`);
+    }
+  }
+
   constructor(private http: HttpClient) {
     this.appUrl = `${environment.apiUrl}/v1/auth`;
   }
@@ -21,18 +31,10 @@ export class AccountsService {
   }
 
   logIn(credentials: Credentials) {
+
     return this.http.post(this.appUrl + "/login", credentials);
   }
 
-  // Para construir headers 
-  private construirHeaders(): void {
-    const token = sessionStorage.getItem('token');
-    this.requestHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-
-    if (token) {
-      this.requestHeaders = this.requestHeaders.set('Authorization', `Bearer ${token}`);
-    }
-  }
   // Para obtener la lista de todos los conductores
   retrieveUsers(): Observable<any> {
     this.construirHeaders(); 
