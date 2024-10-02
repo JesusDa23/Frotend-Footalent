@@ -8,6 +8,7 @@ import { HomeComponent } from './Components/admin/home/home.component';
 import { ConductoresComponent } from './Components/admin/conductores/conductores.component';
 import { FlotaComponent } from './Components/admin/flota/flota.component';
 import { InspeccionComponent } from './Components/conductor/inspeccion/inspeccion.component';
+import { CrearVehiculoComponent } from './Components/admin/flota/crear-vehiculo/crear-vehiculo.component';
 
 
 export const routes: Routes = [
@@ -19,7 +20,7 @@ export const routes: Routes = [
   { path: 'conductores', component: ConductoresComponent, canActivate:[authGuard]},
   { path:'flota', component: FlotaComponent, canActivate: [authGuard]},
   { path:'inspeccion', component: InspeccionComponent, canActivate: [authGuard]},
-  
+  { path: 'crear-flota', component:CrearVehiculoComponent, canActivate:[authGuard] }
 
 ];
 
