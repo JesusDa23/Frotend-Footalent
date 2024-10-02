@@ -1,0 +1,35 @@
+<div>Accesorios de Seguridad</div>
+<div class="p-4">
+    <h2 class="text-2xl font-bold mb-4">Accesorios de Seguridad</h2>
+    
+    <form [formGroup]="accesoriosSeguridad">
+      <div class="space-y-4">
+        <div class="flex items-center">
+          <input type="checkbox" id="extintor" formControlName="extintor" class="mr-2">
+          <label for="extintor" class="text-lg">Extintor</label>
+        </div>
+        
+        <div class="flex items-center">
+          <input type="checkbox" id="botiquin" formControlName="botiquin" class="mr-2">
+          <label for="botiquin" class="text-lg">Botiquín</label>
+        </div>
+        
+        <div class="flex items-center">
+          <input type="checkbox" id="gato" formControlName="gato" class="mr-2">
+          <label for="gato" class="text-lg">Gato</label>
+        </div>
+        
+        <div class="flex items-center">
+          <input type="checkbox" id="senales" formControlName="senales" class="mr-2">
+          <label for="senales" class="text-lg">Señales Reflectivas</label>
+        </div>
+        
+        <div class="flex items-center">
+          <input type="checkbox" id="llantaRepuesto" formControlName="llantaRepuesto" class="mr-2">
+          <label for="llantaRepuesto" class="text-lg">Llanta de Repuesto</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  

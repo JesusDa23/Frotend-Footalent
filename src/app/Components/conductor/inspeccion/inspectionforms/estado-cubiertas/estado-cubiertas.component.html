@@ -1,0 +1,33 @@
+<div>Estado de Cubiertas</div>
+<div class="p-4">
+    <h2 class="text-2xl font-bold mb-4">Estado de Cubiertas</h2>
+    
+    <form [formGroup]="estadoCubiertas">
+      <div class="space-y-4">
+        <div class="flex items-center">
+          <input type="checkbox" id="cubiertaDelanteraIzquierda" formControlName="cubiertaDelanteraIzquierda" class="mr-2">
+          <label for="cubiertaDelanteraIzquierda" class="text-lg">Cubierta Delantera Izquierda</label>
+        </div>
+        
+        <div class="flex items-center">
+          <input type="checkbox" id="cubiertaDelanteraDerecha" formControlName="cubiertaDelanteraDerecha" class="mr-2">
+          <label for="cubiertaDelanteraDerecha" class="text-lg">Cubierta Delantera Derecha</label>
+        </div>
+        
+        <div class="flex items-center">
+          <input type="checkbox" id="cubiertaTraseraIzquierda" formControlName="cubiertaTraseraIzquierda" class="mr-2">
+          <label for="cubiertaTraseraIzquierda" class="text-lg">Cubierta Trasera Izquierda</label>
+        </div>
+        
+        <div class="flex items-center">
+          <input type="checkbox" id="cubiertaTraseraDerecha" formControlName="cubiertaTraseraDerecha" class="mr-2">
+          <label for="cubiertaTraseraDerecha" class="text-lg">Cubierta Trasera Derecha</label>
+        </div>
+        
+        <div class="flex items-center">
+          <input type="checkbox" id="cubiertaRepuesto" formControlName="cubiertaRepuesto" class="mr-2">
+          <label for="cubiertaRepuesto" class="text-lg">Cubierta de Repuesto</label>
+        </div>
+      </div>
+    </form>
+  </div>

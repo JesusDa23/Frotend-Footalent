@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Credentials, UserInfo } from '../Interfaces/credentials';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AccountsService {
   private appUrl: string;
   requestHeaders!: HttpHeaders;
   constructor(private http: HttpClient) {
-    this.appUrl = "http://localhost:3000/api/v1/auth";
+    this.appUrl = `${environment.apiUrl}/v1/auth`;
   }
 
   signUp(credentials: UserInfo) {
