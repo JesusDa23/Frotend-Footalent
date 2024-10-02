@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CheckheaderComponent } from "../../checkheader/checkheader.component";
 
 @Component({
   selector: 'app-parte-externa',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, CheckheaderComponent],
   templateUrl: './parte-externa.component.html',
   styleUrl: './parte-externa.component.css'
 })

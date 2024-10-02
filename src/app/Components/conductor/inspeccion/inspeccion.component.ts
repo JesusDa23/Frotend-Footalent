@@ -13,6 +13,7 @@ import { ParteInternaComponent } from './inspectionforms/parte-interna/parte-int
 import { TapasyOtrosComponent } from './inspectionforms/tapasy-otros/tapasy-otros.component';
 import { ChecklistService } from '../../../Services/checklist.service';
 import { FormdataserviceService } from '../../../Services/formdataservice.service';
+import { Checklist } from '../../models/checklist.model';
 
 
 
@@ -39,6 +40,8 @@ import { FormdataserviceService } from '../../../Services/formdataservice.servic
 })
 export class InspeccionComponent {
 
+  checklist: Checklist = new Checklist();
+
   checklistData: any = {
     sistemaLuces: {},
     estadoCubiertas: {},
@@ -63,9 +66,6 @@ export class InspeccionComponent {
 
 
   }
-
-
- 
 
   currentSection: number = 0;
   totalSections: number = 7;
@@ -127,10 +127,24 @@ export class InspeccionComponent {
   }
 
   submitForm() {
+    this.createChecklist();
     const finalData = this.checklistService.getChecklistData();
     console.log("Final form data:", this.checklistData);
     console.log(finalData); // You can log or send this to the server
-    // Logic to send finalData to the server goes here
+    
+  }
+
+  createChecklist(): void {
+    this.checklistService.createChecklist(this.checklist).subscribe({
+      next: (response: Checklist) => {
+        console.log('Checklist created successfully:', response);
+        // Handle successful response, maybe reset form or show a success message
+      },
+      error: (error: any) => {
+        console.error('Error creating checklist:', error);
+        // Handle error, show error message, etc.
+      }
+    });
   }
   
 }

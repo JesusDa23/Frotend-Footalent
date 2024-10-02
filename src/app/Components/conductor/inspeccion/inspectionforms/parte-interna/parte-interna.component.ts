@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ChecklistService } from '../../../../../Services/checklist.service';
+import { CheckheaderComponent } from "../../checkheader/checkheader.component";
 
 @Component({
   selector: 'app-parte-interna',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, CheckheaderComponent],
   templateUrl: './parte-interna.component.html',
   styleUrl: './parte-interna.component.css'
 })

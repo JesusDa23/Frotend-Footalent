@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ChecklistService } from '../../../../../Services/checklist.service';
+import { CheckheaderComponent } from "../../checkheader/checkheader.component";
 
 @Component({
   selector: 'app-tapasy-otros',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CheckheaderComponent],
   templateUrl: './tapasy-otros.component.html',
   styleUrl: './tapasy-otros.component.css'
 })

@@ -42,7 +42,7 @@
   
     <!-- Conditional Next or Submit Button -->
     <button *ngIf="!isLastSection(); else submitButton"
-      class="bg-blue-950 hover:bg-blue-800 text-white font-bold py-2 px-4 mx-auto rounded" 
+      class="bg-blue-950 hover:bg-blue-900 text-white font-bold py-2 px-4 mx-auto rounded" 
       (click)="nextSection()">
       Adelante
     </button>
@@ -50,7 +50,7 @@
     <!-- Submit Button -->
     <ng-template #submitButton>
       <button 
-        class="bg-blue-950 hover:bg-blue-800 text-white font-bold py-2 px-4 mx-auto rounded" 
+        class="bg-blue-950 hover:bg-blue-900 text-white font-bold py-2 px-4 mx-auto rounded" 
         (click)="submitForm()">
         Terminar
       </button>

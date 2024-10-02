@@ -29,7 +29,7 @@ export class ChecklistService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.post<Checklist>(this.apiUrl, checklist, { headers });
+    return this.http.post<Checklist>(`${this.apiUrl}/save`, checklist, { headers });
   }
 
   // Method to update an existing checklist
@@ -37,7 +37,7 @@ export class ChecklistService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    return this.http.put<Checklist>(`${this.apiUrl}/${id}`, checklist, { headers });
+    return this.http.put<Checklist>(`${this.apiUrl}/update${id}`, checklist, { headers });
   }
 
   // Method to delete a checklist

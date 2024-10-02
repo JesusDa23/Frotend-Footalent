@@ -1,41 +1,47 @@
-<!-- src/app/components/sistema-luces/sistema-luces.component.html -->
-<div>Sistema de Luces</div>
-<form [formGroup]="lucesForm">
-    <label>
-      <input type="checkbox" formControlName="luzDelanteraAlta">
-      Luz Delantera Alta
-    </label>
+<app-checkheader></app-checkheader>
+  <div class="p-4">
+    <h2 class="bg-blue-950 text-white font-bold py-2 px-4 mx-auto mb-4 text-center">Sistema de luces</h2>
   
-    <label>
-      <input type="checkbox" formControlName="luzDelanteraBaja">
-      Luz Delantera Baja
-    </label>
+    <form [formGroup]="lucesForm">
+      <div class="space-y-4">
+        <div class="flex items-center">
+          <input type="checkbox" id="luzDelanteraAlta" formControlName="luzDelanteraAlta" class="mr-2">
+          <label for="luzDelanteraAlta" class="text-lg">Luz Delantera Alta</label>
+        </div>
   
-    <label>
-      <input type="checkbox" formControlName="lucesEmergencia">
-      Luces de Emergencia
-    </label>
+        <div class="flex items-center">
+          <input type="checkbox" id="luzDelanteraBaja" formControlName="luzDelanteraBaja" class="mr-2">
+          <label for="luzDelanteraBaja" class="text-lg">Luz Delantera Baja</label>
+        </div>
   
-    <label>
-      <input type="checkbox" formControlName="lucesDireccionalesDelanteras">
-      Luces Direccionales Delanteras
-    </label>
+        <div class="flex items-center">
+          <input type="checkbox" id="lucesEmergencia" formControlName="lucesEmergencia" class="mr-2">
+          <label for="lucesEmergencia" class="text-lg">Luces de Emergencia</label>
+        </div>
   
-    <label>
-      <input type="checkbox" formControlName="lucesDireccionalesPosteriores">
-      Luces Direccionales Posteriores
-    </label>
+        <div class="flex items-center">
+          <input type="checkbox" id="lucesDireccionalesDelanteras" formControlName="lucesDireccionalesDelanteras" class="mr-2">
+          <label for="lucesDireccionalesDelanteras" class="text-lg">Luces Direccionales Delanteras
+        </label>
+        </div>
   
-    <label>
-      <input type="checkbox" formControlName="luzReversa">
-      Luz Reversa
-    </label>
+        <div class="flex items-center">
+          <input type="checkbox" id="lucesDireccionalesPosteriores" formControlName="lucesDireccionalesPosteriores" class="mr-2">
+          <label for="lucesDireccionalesPosteriores" class="text-lg">Luces Direccionales Posteriores</label>
+        </div>
   
-    <label>
-      <input type="checkbox" formControlName="lucesdeFrenoPosterior">
-      Luces de Freno Posterior
-    </label>
+        <div class="flex items-center">
+          <input type="checkbox" id="luzReversa" formControlName="luzReversa" class="mr-2">
+          <label for="luzReversa" class="text-lg">Luz Reversa</label>
+        </div>
+
+        <div class="flex items-center">
+            <input type="checkbox" id="lucesdeFrenoPosterior" formControlName="lucesdeFrenoPosterior" class="mr-2">
+            <label for="lucesdeFrenoPosterior" class="text-lg">Luces de Freno Posterior</label>
+        </div>
+
+      </div>
+    </form>
+  </div>
   
-    
-  </form>
   

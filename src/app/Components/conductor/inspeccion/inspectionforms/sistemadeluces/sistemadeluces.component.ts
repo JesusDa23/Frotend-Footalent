@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { FormsModule, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
+import { ChecklistComponent } from "../../../../admin/checklist/checklist.component";
+import { CheckheaderComponent } from "../../checkheader/checkheader.component";
 
 @Component({
   selector: 'app-sistemadeluces',
   standalone: true,
-  imports: [ FormsModule, NgFor, ReactiveFormsModule ],
+  imports: [FormsModule, NgFor, ReactiveFormsModule, ChecklistComponent, CheckheaderComponent],
   templateUrl: './sistemadeluces.component.html',
   styleUrl: './sistemadeluces.component.css'
 })
