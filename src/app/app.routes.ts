@@ -7,6 +7,7 @@ import { ProfileComponent } from './Components/user/profile/profile.component';
 import { authGuard } from './guards/auth.guard';
 import { HomeComponent } from './Components/admin/home/home.component';
 import { ConductoresComponent } from './Components/admin/conductores/conductores.component';
+import { CrearVehiculoComponent } from './Components/admin/flota/crear-vehiculo/crear-vehiculo.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -14,7 +15,8 @@ export const routes: Routes = [
   { path: 'signup', title: "Sign Up", component: SignupComponent },
   { path: 'my-profile', title: "Personal Profile", component: ProfileComponent, canActivate: [authGuard] },
   { path:'home', component: HomeComponent, canActivate: [authGuard]},
-  { path: 'conductores', component: ConductoresComponent, canActivate:[authGuard]}
+  { path: 'conductores', component: ConductoresComponent, canActivate:[authGuard]},
+  { path: 'crear-flota', component:CrearVehiculoComponent, canActivate:[authGuard] }
 ];
 
 @NgModule({
