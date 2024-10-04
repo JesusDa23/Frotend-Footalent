@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         let dataCast = data as resLoginUser;
         sessionStorage.setItem('token', dataCast.token);
         if(sessionStorage.getItem("token") != null){
-          this.router.navigate(['/my-profile']);
+          this.router.navigate(['/homec']);
         }
       },
       error: err => {

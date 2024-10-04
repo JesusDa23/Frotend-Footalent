@@ -1,0 +1,14 @@
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Sections</h1>
+  
+    <!-- List of Sections -->
+    <ul>
+      <li 
+        *ngFor="let section of sections" 
+        class="bg-gray-100 border p-2 mb-2 rounded"
+      >
+        {{ section.name }}
+      </li>
+    </ul>
+  </div>
+  

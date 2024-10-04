@@ -1,7 +1,6 @@
 <app-headerc></app-headerc>
 
 <form (ngSubmit)="onSubmit()" class="max-w-lg mx-auto p-4 bg-white rounded shadow-md">
-    <h2 class="text-xl font-bold mb-4">Checklist Form</h2>
     
     <div class="mb-4">
       <label for="fecha" class="block text-gray-700 font-semibold mb-2">Fecha:</label>
@@ -35,8 +34,7 @@
         [(ngModel)]="checklistreport.pasajeros" 
         name="pasajeros" 
         required 
-        class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:border-blue-500"
-      />
+        class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:border-blue-500"/>
     </div>
   
     <div class="mb-4">
@@ -50,12 +48,10 @@
         class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:border-blue-500"
       ></textarea>
     </div>
-  
+
     <button 
       type="submit" 
-      class="w-full bg-blue-950 text-white font-semibold py-2 rounded hover:bg-blue-900"
-    >
+      class="w-full bg-blue-950 text-white font-semibold py-2 rounded hover:bg-blue-900">
       Enviar
     </button>
   </form>
-  

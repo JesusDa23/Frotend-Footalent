@@ -23,7 +23,7 @@ export class AccountsService {
   }
 
   constructor(private http: HttpClient) {
-    this.appUrl = `${environment.apiUrl}/v1/auth`;
+    this.appUrl = `${environment.apiUrl}/auth`;
   }
 
   signUp(credentials: UserInfo) {

@@ -1,0 +1,72 @@
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Manage Categories</h1>
+  
+    <!-- Add or Edit Category -->
+    <div class="mb-4">
+      <input 
+        type="text" 
+        class="border p-2 w-full rounded" 
+        placeholder="Enter category name" 
+        [(ngModel)]="categoryName" 
+      />
+      
+      <button 
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-2 rounded" 
+        (click)="isEditing ? updateCategory() : createCategory()"
+      >
+        {{ isEditing ? 'Update Category' : 'Add Category' }}
+      </button>
+  
+      <!-- Show Cancel button when editing -->
+      <button 
+        *ngIf="isEditing"
+        class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mt-2 ml-2 rounded"
+        (click)="cancelEdit()"
+      >
+        Cancel
+      </button>
+      <button class="fixed top-4 right-4 bg-blue-500 text-white p-2 rounded" (click)="toggleButtons()">
+        Toggle Actions
+      </button>
+    </div>
+  
+    <!-- Display List of Categories -->
+    <div *ngIf="categories.length > 0" >
+      <h2 class="text-xl font-semibold">Categories List</h2>
+      <ul>
+        <li 
+          *ngFor="let category of categories" 
+          class="bg-gray-100 border p-2 mb-2 rounded flex justify-between items-center"
+        
+          (click)="onCategoryClick(category)"
+          
+          >
+          <span class="m-2">{{ category.name }}</span>
+          <div>
+            <!-- Edit and Delete buttons -->
+            <div *ngIf="showActions" class="">
+                <button  class="bg-green-500 text-white p-1 rounded" (click)="editCategory(category)">
+                    Edit
+                </button>
+                <button class="bg-red-500 text-white p-1 ml-2 rounded" (click)="deleteCategory(category._id!)">
+                    Delete
+                </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  <!-- Message if no sections are available -->
+ <div *ngIf="selectedCategory" class="mt-6">
+    <h2 class="text-xl font-semibold mb-2">Sections for {{ selectedCategory.name }}</h2>
+    <ul>
+      <li 
+        *ngFor="let section of sections" 
+        class="bg-gray-100 border p-2 mb-2 rounded"
+      >
+        {{ section.name }}
+      </li>
+    </ul>
+  </div>
+</div>
