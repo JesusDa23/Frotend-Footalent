@@ -98,10 +98,6 @@ export class ListcheckComponent {
     );
   }
 
-  onSectionClick(section: Section): void {
-    this.router.navigate(['/sections',section._id]); 
-  }
-
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
@@ -112,18 +108,21 @@ export class ListcheckComponent {
       if (currentScroll > this.lastScrollTop) {
         // Scrolling down
         bottomBar.classList.remove('translate-y-0');
-        topBar!.classList.remove('translate-y-0');
         bottomBar.classList.add('translate-y-full');
-        topBar!.classList.add('translate-y-full');
+        topBar!.classList.remove('translate-y-0');
+        topBar!.classList.add('-translate-y-full');
       } else {
         // Scrolling up
         bottomBar.classList.remove('translate-y-full');
-        topBar!.classList.remove('translate-y-full');
         bottomBar.classList.add('translate-y-0');
+        topBar!.classList.remove('-translate-y-full');
         topBar!.classList.add('translate-y-0');
       }
       this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
     }
+  }
+  onSectionClick(section: Section): void {
+    this.router.navigate(['/sections',section._id]); 
   }
   
   goBack() {

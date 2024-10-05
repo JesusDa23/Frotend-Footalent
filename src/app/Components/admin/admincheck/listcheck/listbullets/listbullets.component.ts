@@ -1,9 +1,10 @@
 import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdmincheckService } from '../../../../../Services/admincheck.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Bullet } from '../../../../models/bullet.model';
+
 
 @Component({
   selector: 'app-listbullets',
@@ -27,7 +28,8 @@ export class ListbulletsComponent {
   constructor(
     private route: ActivatedRoute,
     private admincheckService: AdmincheckService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -112,8 +114,8 @@ export class ListbulletsComponent {
       this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
     }
   }
-  goBack() {
-    this.router.navigate(['..']); // Navigate back in history
+  goBack(): void {
+    this.location.back();
   }
   
 

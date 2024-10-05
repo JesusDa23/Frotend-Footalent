@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Category } from '../../models/category.model';
 import { AdmincheckService } from '../../../Services/admincheck.service';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Section } from '../../models/section.model';
 import { Router } from '@angular/router';
 
@@ -25,7 +25,7 @@ export class AdmincheckComponent {
   editedCategory: Category | null = null ;  // To store the category being edited
   isEditing: boolean = false; 
 
-  constructor(private admincheckService: AdmincheckService, private router: Router) {}
+  constructor(private admincheckService: AdmincheckService, private router: Router, private location: Location) {}
 
   ngOnInit(): void {
     // Load categories when component is initialized
@@ -118,6 +118,10 @@ export class AdmincheckComponent {
 
   onCategoryClick(category: Category): void {
     this.router.navigate(['/listcheck', category._id]); 
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }
