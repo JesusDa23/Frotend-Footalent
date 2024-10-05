@@ -36,12 +36,8 @@
       <ul>
         <li 
           *ngFor="let category of categories" 
-          class="bg-gray-100 border p-2 mb-2 rounded flex justify-between items-center"
-        
-          (click)="onCategoryClick(category)"
-          
-          >
-          <span class="m-2">{{ category.name }}</span>
+          class="bg-gray-100 border p-2 mb-2 rounded flex justify-between items-center">
+          <div class="m-2 pr-5" (click)="onCategoryClick(category)">{{ category.name }}</div>
           <div>
             <!-- Edit and Delete buttons -->
             <div *ngIf="showActions" class="">

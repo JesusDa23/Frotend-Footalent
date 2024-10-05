@@ -3,4 +3,5 @@ export interface Bullet {
     description: string;
     code: string;
     section: string; // sectionId
+    requerido: Boolean;
   }

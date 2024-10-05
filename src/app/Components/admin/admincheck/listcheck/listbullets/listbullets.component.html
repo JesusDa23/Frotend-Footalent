@@ -1,0 +1,96 @@
+<!-- header.component.html -->
+<!-- <header class="fixed top-0 left-0 right-0 z-10 bg-white shadow transition-transform duration-300">
+    <div class="flex justify-between items-center p-4">
+      <button (click)="goBack()" class="text-blue-500">
+        Go Back
+      </button>
+      <h1 class="text-lg font-semibold">Header Title</h1>
+    </div>
+  </header> -->
+
+<div class="container mx-auto p-4">
+    <!-- Input field to add a new section, visible when showNewSectionInput is true -->
+<div *ngIf="showNewBulletInput" class="mt-2">
+    <input
+      [(ngModel)]="newBulletDescription"
+      (keydown.enter)="createBullet()"
+      placeholder="Enter new section name"
+      class="border p-2 rounded-md w-full mb-2"
+    />
+  </div>
+
+
+  <div *ngIf="bullets.length > 0; else noBullets">
+    <!-- Toggle Delete Buttons -->
+    <button (click)="toggleDeleteButtons()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+      Delete
+    </button>
+  
+    <ul class="mt-4">
+        <li *ngFor="let bullet of bullets" class="flex justify-between items-center mb-2">
+          <!-- Bullet description with border and hover effect -->
+          <div class="flex justify-between items-center border-b border-gray-300 py-2 hover:bg-gray-100 transition duration-200 flex-grow">
+            {{ bullet.description }}
+          </div>
+      
+          <!-- Delete button (visible based on toggle) -->
+          <label class="inline-flex items-center cursor-pointer ml-2">
+            <input type="checkbox" class="sr-only peer">
+            <button *ngIf="showDeleteButtons"
+                    (click)="deleteBullet(bullet._id!)"
+                    class="bg-red-500 text-white px-2 ring-2 rounded-full hover:bg-red-600 mr-2">
+              x
+            </button>
+            
+            <div class="relative w-9 h-5 bg-red-600 peer-focus:outline-none active:outline-blue 
+                        rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full 
+                        peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] 
+                        after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full 
+                        after:h-4 after:w-4 after:transition-all peer-checked:bg-green-600 right-0" 
+                 (click)="toggleRequerido(bullet)">
+            </div>
+          </label>
+        </li>
+      </ul>
+      
+  </div>
+  
+  <ng-template #noBullets>
+    <p>No bullets found for this section.</p>
+  </ng-template>
+  
+
+    <div
+        id="bottom-bar"
+        class="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-2 transition-transform duration-300 transform translate-y-0"
+            >
+        <button
+            class="w-full bg-[#0a135d] rounded p-2 text-white text-center"
+            (click)="showNewBulletInput = true"
+            >
+            Crear check
+        </button>
+    </div>
+
+
+  
+  
+  
+  <!-- Error message -->
+  <div *ngIf="errorMessage" class="text-red-500">
+    {{ errorMessage }}
+  </div>
+  
+  
+  <ng-template #noBullets>
+    <p>No bullets found for this section.</p>
+  </ng-template>
+  
+  <div *ngIf="errorMessage" class="text-red-500">
+    {{ errorMessage }}
+  </div>
+  
+
+
+
+</div>

@@ -44,27 +44,49 @@ export class AdmincheckService {
   }
 
   // 5. Method to create a bullet
-  createBullet(bullet: Bullet): Observable<Bullet> {
-    return this.http.post<Bullet>(`${this.apiUrl}/bullets`, bullet, { headers: this.headers });
+  createBullet(bullet: { description: string; requerido: boolean; sectionId: string }): Observable<Bullet> {
+    return this.http.post<Bullet>(`${this.apiUrl}/bullets`, bullet);
   }
 
   // 6. Method to get bullets by section
   getBulletsBySection(sectionId: string): Observable<Bullet[]> {
-    return this.http.get<Bullet[]>(`${this.apiUrl}/bullets?section=${sectionId}`);
+    return this.http.get<Bullet[]>(`${this.apiUrl}/sections/${sectionId}/bullets`);
   }
+    // Update an existing bullet
+  updateBullet(bulletId: string, description: string): Observable<Bullet> {
+    return this.http.patch<Bullet>(`${this.apiUrl}/bullets/${bulletId}`, { description });
+  }
+
+    // Delete a bullet  
+  deleteBullet(bulletId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/bullets/${bulletId}`);
+  }
+  
 
     // Update a category by ID
   updateCategory(id: string, category: Category): Observable<Category> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    return this.http.put<Category>(`${this.apiUrl}/categories/${id}`, category, { headers });
+    return this.http.put<Category>(`${this.apiUrl}/categories/${id}`, category, { headers: this.headers });
   }
 
   // Delete a category by ID
   deleteCategory(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/categories/${id}`);
   }
+
+  updateSection(sectionId: string, section: Section): Observable<Section> {
+    return this.http.put<Section>(`${this.apiUrl}/sections/${sectionId}`, section, { headers: this.headers });
+  }
+
+  addBullet(sectionId: string, bullet: { description: string }): Observable<Section> {
+    const url = `${this.apiUrl}/sections/${sectionId}/bullets`;
+    return this.http.post<Section>(url, bullet);
+  }
+
+  updateRequerido(bulletId: string, requerido: boolean): Observable<Bullet> {
+    return this.http.patch<Bullet>(`${this.apiUrl}/bullets/${bulletId}/requerido`, { requerido });
+  }
+  
+  
 
 
 }
