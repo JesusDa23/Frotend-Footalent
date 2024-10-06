@@ -9,29 +9,42 @@
 
 
 <div class="p-4 bg-white">
-    <div class="flex flex-wrap gap-[8px] justify-center">
-      <!-- Vehículo 1 -->
-      <div class="p-3 bg-white shadow-md rounded border-2 border-cardBorder w-40 flex flex-col" *ngFor="let vehicle of flotas">
-        <h2 class="text-[14px] font-bold">{{ vehicle.make }} {{vehicle.model}}</h2>
-        <p>{{ vehicle.plate | uppercase}}</p>
-        <span class="flex items-center rounded-2xl p-1" [ngClass]="{
-            'bg-green-300': vehicle.status === 'available', 
-            'bg-yellow-300': vehicle.status === 'on maintenance',
-            'bg-red-500': vehicle.status === 'occupied ',
-            'bg-slate-800': vehicle.status === 'disabled'
-            }">
-          <i class="fas fa-circle text-[8px] mr-2" [ngClass]="{
-            'border-2 border-green-500 text-green-700': vehicle.status === 'available', 
-            'border-2 border-yellow-500 text-yellow-700': vehicle.status === 'on maintenance',
-            'border-2 border-red-500 text-red-950': vehicle.status === 'occupied ',
-            'border-2 border-slate-700 text-white': vehicle.status === 'disabled'
-            }"></i>  
-          {{ vehicle.status }}
-        </span>
-        <button class="mt-2 border border-cardBorder px-4 py-2 rounded">Ver Perfil</button>
+  <div class="flex flex-col gap-4 justify-center">
+    <!-- Vehículo -->
+    <div class="p-4 bg-white  border border-gray-300 w-full max-w-lg flex items-center justify-between" *ngFor="let vehicle of flotas">
+      <!-- Información del vehículo -->
+      <div class="flex flex-col">
+        <h2 class="text-[16px] font-bold">{{ vehicle.make }} - {{vehicle.model}}</h2>
+        <p class="text-sm text-gray-500">{{ vehicle.plate | uppercase}}</p>
       </div>
+
+      <!-- Estado del vehículo -->
+      <div class="flex items-center">
+        <span class="flex items-center rounded-full px-2 py-1 text-white text-sm" 
+              [ngClass]="{
+                'bg-disponible': vehicle.status === 'Disponible', 
+                'bg-reparacion': vehicle.status === 'Reparacion',
+                'bg-ocupado': vehicle.status === 'Ocupado',
+                'bg-deshabilitado': vehicle.status === 'Deshabilitado'
+              }">
+          <!-- Icono del círculo de estado -->
+          <i class="fas fa-circle text-xs mr-2"
+             [ngClass]="{
+                'text-textDisponible': vehicle.status === 'Disponible', 
+                'text-textReparacion': vehicle.status === 'Reparacion',
+                'text-textOcupado': vehicle.status === 'Ocupado',
+                'text-textDeshabilitado': vehicle.status === 'Deshabilitado'
+              }"></i>  
+          {{ vehicle.status | titlecase }}
+        </span>
+      </div>
+
+      <button class="ml-4">
+        <i class="fas fa-chevron-right text-gray-500"></i>
+      </button>
     </div>
   </div>
+</div>
 
 <div class="fixed bottom-0 w-full p-4 bg-bgBtn flex justify-center">
     <button class="bg-btnColor text-white  w-11/12 px-4 py-2 rounded">Agregar vehículo</button>

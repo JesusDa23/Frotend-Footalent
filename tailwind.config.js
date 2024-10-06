@@ -11,7 +11,15 @@ module.exports = {
         header: '#FAFAFA',
         cardBorder: '#BFBFBF',
         bgBtn: '#AEAFB2',
-        btnColor: '#0A135D'
+        btnColor: '#0A135D',
+        disponible: '#15690B',
+        textDisponible: '#59F63A',
+        ocupado: '#9E1618',
+        textOcupado: '#FE6B6D',
+        reparacion: '#C39F0B',
+        textReparacion: '#815B12',
+        deshabilitado: '#5B5C5F',
+        textDeshabilitado: '#F5F5F6'
       }
     },
   },
