@@ -1,0 +1,60 @@
+<!-- header.component.html -->
+<header 
+    id="top-bar"
+class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
+    <div class="flex justify-between p-4">
+      <button (click)="goBack()" class="text-blue-500">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+        <h1 class="text-lg text-white">Secciones</h1>
+      <nav class="mx-1 text-[#0a135d]">|</nav>
+    </div>
+  </header>
+  
+
+
+<div class="container mx-auto p-4 pt-16"> 
+    
+    <!-- Input field to add a new section, visible when showNewSectionInput is true -->
+    <div *ngIf="showNewSectionInput" class="mt-2">
+      <input
+        [(ngModel)]="newSectionName"
+        (keydown.enter)="addSection()"
+        placeholder="Nombre de nueva seccion"
+        class="border p-2 rounded-md w-full mb-2"
+      />
+    </div>
+  
+    <!-- List of sections with edit button -->
+    <div *ngFor="let section of sections; let i = index" class="my-2 ">
+      <!-- Display section name with edit button -->
+      <div class="bg-blue-100 border p-2 mb-2 flex justify-between py-2 transition-shadow duration-200 hover:shadow-lg p-1" 
+        (click)="onSectionClick(section)">
+        <p class="text-lg m-2">{{ section.name }}</p> 
+      </div>
+    </div>
+
+    <!-- Error Message (if any) -->
+    <div *ngIf="errorMessage" class="text-red-500 mt-2">
+      {{ errorMessage }}
+    </div>
+    
+    <!-- Button to add a new section -->
+
+    <!-- <div id="bottom-bar"
+        class="fixed bottom-0 left-0 right-0 bg-[#E8EFFF] shadow-lg p-2 transition-transform duration-300 
+        transform translate-y-0"
+            >
+        <button
+            class="w-full bg-[#0a135d] rounded p-2 text-white text-center"
+            (click)="showNewSectionInput = true"
+            >
+            Crear seccion
+        </button>
+    </div> -->
+
+
+  </div>
+  

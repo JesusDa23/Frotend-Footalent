@@ -1,0 +1,39 @@
+<app-checkheader/>
+<div class="p-4">
+    <h2 class="bg-blue-950 hover:bg-blue-900 text-white font-bold py-2 px-4 mx-auto mb-4 text-center">Parte Externa</h2>
+  
+    <form [formGroup]="parteExterna">
+      <div class="space-y-4">
+        <div class="flex items-center">
+          <input type="checkbox" id="parachoques" formControlName="parachoques" class="mr-2">
+          <label for="parachoques" class="text-lg">Parachoques</label>
+        </div>
+  
+        <div class="flex items-center">
+          <input type="checkbox" id="puertas" formControlName="puertas" class="mr-2">
+          <label for="puertas" class="text-lg">Puertas</label>
+        </div>
+  
+        <div class="flex items-center">
+          <input type="checkbox" id="ventanas" formControlName="ventanas" class="mr-2">
+          <label for="ventanas" class="text-lg">Ventanas</label>
+        </div>
+  
+        <div class="flex items-center">
+          <input type="checkbox" id="espejos" formControlName="espejos" class="mr-2">
+          <label for="espejos" class="text-lg">Espejos Laterales</label>
+        </div>
+  
+        <div class="flex items-center">
+          <input type="checkbox" id="faros" formControlName="faros" class="mr-2">
+          <label for="faros" class="text-lg">Faros</label>
+        </div>
+  
+        <div class="flex items-center">
+          <input type="checkbox" id="carroceria" formControlName="carroceria" class="mr-2">
+          <label for="carroceria" class="text-lg">Carrocería</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  

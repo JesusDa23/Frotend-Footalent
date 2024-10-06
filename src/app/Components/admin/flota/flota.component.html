@@ -18,13 +18,13 @@
             'bg-green-300': vehicle.status === 'available', 
             'bg-yellow-300': vehicle.status === 'on maintenance',
             'bg-red-500': vehicle.status === 'occupied ',
-            'bg-slate-800': vehicle.status === 'disable'
+            'bg-slate-800': vehicle.status === 'disabled'
             }">
           <i class="fas fa-circle text-[8px] mr-2" [ngClass]="{
             'border-2 border-green-500 text-green-700': vehicle.status === 'available', 
             'border-2 border-yellow-500 text-yellow-700': vehicle.status === 'on maintenance',
             'border-2 border-red-500 text-red-950': vehicle.status === 'occupied ',
-            'border-2 border-slate-700 text-white': vehicle.status === 'disable'
+            'border-2 border-slate-700 text-white': vehicle.status === 'disabled'
             }"></i>  
           {{ vehicle.status }}
         </span>
@@ -34,5 +34,5 @@
   </div>
 
 <div class="fixed bottom-0 w-full p-4 bg-bgBtn flex justify-center">
-    <button class="bg-btnColor text-white px-4 py-2 rounded" routerLink='/crear-flota' routerLinkActive="router-link-active" >Agregar vehículo</button>
+    <button class="bg-btnColor text-white  w-11/12 px-4 py-2 rounded">Agregar vehículo</button>
 </div>

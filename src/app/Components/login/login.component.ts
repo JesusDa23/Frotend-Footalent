@@ -3,18 +3,19 @@ import { FormsModule } from '@angular/forms';
 import { AccountsService } from '../../Services/accounts.service';
 import { Credentials, resLoginUser } from '../../Interfaces/credentials';
 import { log } from 'node:console';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
 
-  dni: string = ""
+  email: string = ""
   password: string = ""
 
   constructor(private _accountsService: AccountsService, private router: Router) { }
@@ -24,25 +25,44 @@ export class LoginComponent implements OnInit {
   }
 
   botonLogIn() {
-    console.log("DNI:", this.dni);
-    console.log("Password:", this.password);
 
-    if (this.dni == "" || this.password == "") {
-      alert("Todos los campos son obligatorios")
+
+    if (this.email == "" || this.password == "") {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Todos los campos son obligatorios.",
+        showConfirmButton: false,
+        timer: 1600
+      });
+      return;
     }
 
     let user: Credentials = {
-      dni: this.dni,
+      email: this.email,
       password: this.password
     }
+    this._accountsService.logIn(user).subscribe({
+      next: data => {
+        console.log("data", data);
 
-    this._accountsService.logIn(user).subscribe((data) => {
-      let dataCast = data as resLoginUser
-      sessionStorage.setItem('token', dataCast.token);
-      if(sessionStorage.getItem("token") != null){
-        this.router.navigate(['/my-profile']);
+        let dataCast = data as resLoginUser;
+        sessionStorage.setItem('token', dataCast.token);
+        if(sessionStorage.getItem("token") != null){
+          this.router.navigate(['/homec']);
+        }
+      },
+      error: err => {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `Error al iniciar sesión\n${err.error.error}`,
+          showConfirmButton: false,
+          timer: 1600
+        });
+        console.log("data", err);
+
       }
-
     });
 
   }

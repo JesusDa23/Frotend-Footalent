@@ -1,1 +1,57 @@
-<p>reporte works!</p>
+<app-headerc></app-headerc>
+
+<form (ngSubmit)="onSubmit()" class="max-w-lg mx-auto p-4 bg-white rounded shadow-md">
+    
+    <div class="mb-4">
+      <label for="fecha" class="block text-gray-700 font-semibold mb-2">Fecha:</label>
+      <input 
+        type="date" 
+        id="fecha" 
+        [(ngModel)]="checklistreport.fecha" 
+        name="fecha" 
+        required 
+        class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:border-blue-500"
+      />
+    </div>
+  
+    <div class="mb-4">
+      <label for="descripcion" class="block text-gray-700 font-semibold mb-2">Descripción:</label>
+      <input 
+        type="text" 
+        id="descripcion" 
+        [(ngModel)]="checklistreport.descripcion" 
+        name="descripcion" 
+        required 
+        class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:border-blue-500"
+      />
+    </div>
+  
+    <div class="mb-4">
+      <label for="pasajeros" class="block text-gray-700 font-semibold mb-2">Pasajeros:</label>
+      <input 
+        type="number" 
+        id="pasajeros" 
+        [(ngModel)]="checklistreport.pasajeros" 
+        name="pasajeros" 
+        required 
+        class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:border-blue-500"/>
+    </div>
+  
+    <div class="mb-4">
+      <label for="detalles" class="block text-gray-700 font-semibold mb-2">Detalles del Estado del Vehículo:</label>
+      <textarea 
+        id="detalles" 
+        [(ngModel)]="checklistreport.detalles" 
+        name="detalles" 
+        required 
+        rows="4"
+        class="w-full border border-gray-300 rounded p-2 focus:outline-none focus:border-blue-500"
+      ></textarea>
+    </div>
+
+    <button 
+      type="submit" 
+      class="w-full bg-blue-950 text-white font-semibold py-2 rounded hover:bg-blue-900">
+      Enviar
+    </button>
+  </form>

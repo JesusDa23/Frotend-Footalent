@@ -1,0 +1,34 @@
+<app-checkheader/>
+<div class="p-4">
+    <h2 class="bg-blue-950 hover:bg-blue-900 text-white font-bold py-2 px-4 mx-auto mb-4 text-center">Documentación</h2>
+  
+    <form [formGroup]="documentacion">
+      <div class="space-y-4">
+        <div class="flex items-center">
+          <input type="checkbox" id="tarjetaPropiedad" formControlName="tarjetaPropiedad" class="mr-2">
+          <label for="tarjetaPropiedad" class="text-lg">Licencia de Conduccion</label>
+        </div>
+  
+        <div class="flex items-center">
+          <input type="checkbox" id="soat" formControlName="soat" class="mr-2">
+          <label for="soat" class="text-lg">Tarjeta Verde</label>
+        </div>
+  
+        <div class="flex items-center">
+          <input type="checkbox" id="revisionTecnica" formControlName="revisionTecnica" class="mr-2">
+          <label for="revisionTecnica" class="text-lg">Revisión Técnica</label>
+        </div>
+  
+        <div class="flex items-center">
+          <input type="checkbox" id="impuestoVehicular" formControlName="impuestoVehicular" class="mr-2">
+          <label for="impuestoVehicular" class="text-lg">Papeles Seguro</label>
+        </div>
+  
+        <div class="flex items-center">
+          <input type="checkbox" id="manualVehiculo" formControlName="manualVehiculo" class="mr-2">
+          <label for="manualVehiculo" class="text-lg">Tarjeta GNC</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  
