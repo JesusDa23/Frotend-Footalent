@@ -5,7 +5,22 @@
     </button>
   </header>
 
+  <header class="flex items-center justify-between p-4 bg-blue-900 text-white shadow-md">
+    <!-- Sección de bienvenida y rol -->
+    <div>
+      <h1 class="text-xl">Bienvenido, Tomás</h1>
+      <span class="text-sm">Administrador</span>
+    </div>
+  
+    <!-- Ícono del menú hamburguesa -->
+    <button class="p-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </button>
+  </header>
+
   <nav class="flex justify-around bg-white p-2 shadow-md">
     <button routerLink="/home" routerLinkActive="border-blue-500 text-blue-500" class="font-bold border-b-4" [routerLinkActiveOptions]="{exact: true}">Flota vehicular</button>
     <button routerLink="/conductores" routerLinkActive="border-blue-500 text-blue-500" class="font-bold border-b-4" [routerLinkActiveOptions]="{exact: true}">Conductores</button>
-</nav>
+  </nav>
