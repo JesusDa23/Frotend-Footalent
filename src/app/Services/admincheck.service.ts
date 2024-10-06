@@ -85,6 +85,13 @@ export class AdmincheckService {
   updateRequerido(bulletId: string, requerido: boolean): Observable<Bullet> {
     return this.http.patch<Bullet>(`${this.apiUrl}/bullets/${bulletId}/requerido`, { requerido });
   }
+
+
+
+  getCategoriesWithSections() {
+    return this.http.get<Category[]>('${this.apiUrl}/categories-with-sections');
+  }
+  
   
   
 

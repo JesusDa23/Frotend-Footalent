@@ -1,0 +1,17 @@
+/* sections-by-category.component.css */
+h2 {
+    margin-bottom: 1rem;
+    color: #1a202c;
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+  
+  li {
+    background-color: #f7fafc;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+  }
+  

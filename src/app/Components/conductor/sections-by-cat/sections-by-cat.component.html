@@ -1,0 +1,9 @@
+<h1>section by cat</h1>
+<div *ngFor="let category of categories">
+    <h2 class="text-xl font-semibold">{{ category.name }}</h2>
+    <ul>
+      <li *ngFor="let section of category.sections" class="p-4 shadow-md mb-2 hover:shadow-lg transition">
+        {{ section.name }}
+      </li>
+    </ul>
+  </div>

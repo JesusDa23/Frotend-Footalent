@@ -6,6 +6,8 @@ import { NgFor, NgIf, NgClass, UpperCasePipe } from '@angular/common';
 import { Validators, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Vehicle } from '../../models/vehicle.model';
 import { HeadercComponent } from '../headerc/headerc.component';
+import { Router } from '@angular/router';
+import { Category } from '../../models/category.model';
 
 
 
@@ -24,7 +26,11 @@ export class HomeinsComponent {
   isEditMode = false;
   selectedVehicle: Vehicle | null = null;
 
-  constructor(private flotaService: FlotaService, private flowbiteService: FlowbiteService, private fb: FormBuilder){
+  constructor(
+    private flotaService: FlotaService, 
+    private flowbiteService: FlowbiteService, 
+    private router: Router,
+    private fb: FormBuilder){
     this.vehicleForm = this.fb.group({
       make: ['', [Validators.required]],
       model: ['', [Validators.required]],
@@ -141,6 +147,23 @@ export class HomeinsComponent {
   onCloseModal() {
     this.isEditMode = false;
     this.selectedVehicle = null;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  openins(vehicle: Vehicle) {
+    this.router.navigate(['/listcheck', vehicle.category])
   }
   
 
