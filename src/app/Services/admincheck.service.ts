@@ -37,11 +37,6 @@ export class AdmincheckService {
   getSectionsByCategory(categoryId: string): Observable<Section[]> {
     return this.http.get<Section[]>(`${this.apiUrl}/sections/category/${categoryId}`);
   }
-  
-
-  getSectionsByCategory1(categoryId: string): Observable<Section[]> {
-    return this.http.get<Section[]>(`${this.apiUrl}/sections/category/${categoryId}`);
-  }
 
   // 5. Method to create a bullet
   createBullet(bullet: { description: string; requerido: boolean; sectionId: string }): Observable<Bullet> {
@@ -86,11 +81,6 @@ export class AdmincheckService {
     return this.http.patch<Bullet>(`${this.apiUrl}/bullets/${bulletId}/requerido`, { requerido });
   }
 
-
-
-  getCategoriesWithSections() {
-    return this.http.get<Category[]>('${this.apiUrl}/categories-with-sections');
-  }
   
   
   

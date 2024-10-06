@@ -4,10 +4,10 @@ import { FlotaService } from '../../../Services/flota.service';
 import { FlowbiteService } from '../../../Services/flowbite.service';
 import { NgFor, NgIf, NgClass, UpperCasePipe } from '@angular/common';
 import { Validators, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { Vehicle } from '../../models/vehicle.model';
+import { Category, Vehicle } from '../../models/vehicle.model';
 import { HeadercComponent } from '../headerc/headerc.component';
 import { Router } from '@angular/router';
-import { Category } from '../../models/category.model';
+
 
 
 
@@ -41,6 +41,7 @@ export class HomeinsComponent {
       mileage: [0],
       owner: [''],
       status: ['', [Validators.required]]
+
     });
   }
 
@@ -155,15 +156,9 @@ export class HomeinsComponent {
 
 
 
-
-
-
-
-
-
-
-  openins(vehicle: Vehicle) {
-    this.router.navigate(['/listcheck', vehicle.category])
+  openins(category: Category) {
+    console.log(this.flotas)
+    this.router.navigate(['/inspeccion2', category])
   }
   
 

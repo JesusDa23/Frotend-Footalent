@@ -1,9 +1,50 @@
-<h1>section by cat</h1>
-<div *ngFor="let category of categories">
-    <h2 class="text-xl font-semibold">{{ category.name }}</h2>
-    <ul>
-      <li *ngFor="let section of category.sections" class="p-4 shadow-md mb-2 hover:shadow-lg transition">
-        {{ section.name }}
-      </li>
-    </ul>
+<div class="container border-gray-900 mx-auto p-4 pt-16">
+  <div class="bg-[#E8EFFF] border p-4 mb-4">
+    Elija la opción correcta según el estado de los diferentes elementos del vehículo.
   </div>
+
+  <!-- List of sections with edit button -->
+  <form [formGroup]="bulletsForm" (ngSubmit)="onSubmit()">
+    <div *ngFor="let section of sections" (click)="onSectionClick(section._id!)">
+      <div class="border border-gray-300 mb-2 my-2 transition-shadow duration-200 hover:shadow-lg">
+        <div class="flex w-full bg-[#D4E0FF] p-2 max-h-28">
+          <p class="text-lg m-2">{{ section.name }}</p>
+        </div>
+
+        <!-- List of bullets -->
+        <div *ngIf="section.bullets && section.bullets.length > 0" class="flex w-full">
+          <ul>
+            <li *ngFor="let bullet of section.bullets">
+              <!-- Bullet label -->
+              <label>
+                <!-- Add a red mark for required bullets -->
+                {{ bullet.description }}
+                <span *ngIf="bullet.requerido" class="text-red-600">*</span>
+              </label>
+
+              <!-- Toggle switch -->
+              <input
+                type="checkbox"
+                formControlName="bullet_{{ bullet._id }}" 
+                class="toggle-switch" 
+              />
+              <div class="relative w-9 h-5 rounded-full transition-colors duration-300 mr-2"
+              [ngClass]="bullet.requerido ? 'bg-green-600' : 'bg-red-600'">
+              <!-- Toggle handle inside the switch -->
+              <div class="absolute top-[2px] left-[2px] bg-white border border-gray-300 rounded-full h-4 w-4 transition-transform"
+                [ngClass]="bullet.requerido ? 'translate-x-full' : ''">
+              </div>
+            </div>
+
+            </li>
+          </ul>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="mt-4 bg-blue-500 text-white p-2 rounded">Submit Answers</button>
+  </form>
+</div>

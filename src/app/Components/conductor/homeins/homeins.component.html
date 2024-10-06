@@ -10,28 +10,26 @@
         </div>
         
         <!-- Status badge -->
-        <div class="flex-none w-28 mr-1 text text-white">
+        <div class="flex-none w-32 mr-1 text text-white">
           <span class="flex justify-center items-center rounded-full px-1 " [ngClass]="{
                   'bg-green-600 text-white': vehicle.status === 'Disponible', 
                   'bg-yellow-400 text-white': vehicle.status === 'Reparacion',
                   'bg-red-500 text-white': vehicle.status === 'Ocupado',
-                  'bg-slate-800 text-white': vehicle.status === 'Deshabilitado'
+                  'bg-slate-500 text-white': vehicle.status === 'Deshabilitado'
                   }">
             <i class="fas fa-circle text-[8px] mr-2" [ngClass]="{
-                  'border-2 border-green-500 text-green-500': vehicle.status === 'Disponible', 
-                  'border-2 border-yellow-500 text-yellow-600': vehicle.status === 'Reparacion',
-                  'border-2 border-red-500 text-red-800': vehicle.status === 'Ocupado',
-                  'border-2 border-slate-700 text-white': vehicle.status === 'Deshabilitado'
+                  'border-green-500 text-green-500': vehicle.status === 'Disponible', 
+                  'border-yellow-500 text-yellow-600': vehicle.status === 'Reparacion',
+                  'border-red-500 text-red-800': vehicle.status === 'Ocupado',
+                  'border-slate-700 text-white': vehicle.status === 'Deshabilitado'
                   }"></i>  
             {{ vehicle.status }}
           </span>
         </div>
         
         <!-- Arrow icon -->
-        <div class="flex-none w-3 ml-2 "  >
-          <svg xmlns="http://www.w3.org/2000/svg" width="9" height="14" viewBox="0 0 9 14" fill="none">
-            <path d="M0.441098 13.4613C0.688936 13.7575 1.13127 13.7933 1.42357 13.541L8.12324 7.75694C8.58525 7.35806 8.58525 6.64194 8.12324 6.24306L1.38994 0.42998C1.11358 0.191395 0.696946 0.218576 0.453934 0.491044C0.204692 0.770497 0.233489 1.20013 0.517795 1.44382L7 7L0.524269 12.4898C0.234184 12.7357 0.197033 13.1697 0.441098 13.4613Z" fill="#85868B"/>
-          </svg>
+        <div class="flex-none w-3 ml-2 "  routerLink="inspeccion2">
+            <i class="fa-solid fa-chevron-right"></i>
         </div>
         
       </div>
