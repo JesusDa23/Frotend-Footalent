@@ -1,6 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FlotaService } from '../../../../Services/flota.service';
 import { NgClass, UpperCasePipe } from '@angular/common';
 import { Location } from '@angular/common';
@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-perfil-vehiculo',
   standalone: true,
-  imports: [FormsModule, UpperCasePipe, NgClass],
+  imports: [FormsModule, UpperCasePipe, NgClass, RouterLink],
   templateUrl: './perfil-vehiculo.component.html',
   styleUrl: './perfil-vehiculo.component.css'
 })
