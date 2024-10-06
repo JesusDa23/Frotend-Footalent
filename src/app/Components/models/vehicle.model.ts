@@ -10,5 +10,10 @@ export interface Vehicle {
     owner?: string;
     status: 'available' | 'sold' | 'maintenance';
     createdAt?: Date;
+    category?: Category [];
   }
   
+  export interface Category {
+    _id?: string;
+    name: string;
+  }
