@@ -19,7 +19,9 @@ module.exports = {
         reparacion: '#C39F0B',
         textReparacion: '#815B12',
         deshabilitado: '#5B5C5F',
-        textDeshabilitado: '#F5F5F6'
+        textDeshabilitado: '#F5F5F6',
+        bgColorBlue: '#0A135D',
+        bgAzulClaron:'#E8EFFF'
       }
     },
   },

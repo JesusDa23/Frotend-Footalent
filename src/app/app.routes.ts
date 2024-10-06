@@ -14,6 +14,7 @@ import { ReporteComponent } from './Components/conductor/reporte/reporte.compone
 import { AdmincheckComponent } from './Components/admin/admincheck/admincheck.component';
 import { ListcheckComponent } from './Components/admin/admincheck/listcheck/listcheck.component';
 import { ListbulletsComponent } from './Components/admin/admincheck/listcheck/listbullets/listbullets.component';
+import { PerfilVehiculoComponent } from './Components/admin/flota/perfil-vehiculo/perfil-vehiculo.component';
 
 
 export const routes: Routes = [
@@ -30,7 +31,8 @@ export const routes: Routes = [
   { path: 'inspeccion', component: InspeccionComponent, canActivate: [authGuard]},
   { path: 'crear-flota', component:CrearVehiculoComponent, canActivate:[authGuard]},
   { path: 'reporte', component: ReporteComponent, canActivate: [authGuard]},
-  { path: 'sections/:sectionId', component: ListbulletsComponent, canActivate: [authGuard]}
+  { path: 'sections/:sectionId', component: ListbulletsComponent, canActivate: [authGuard]},
+  { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]}
 
 ];
 

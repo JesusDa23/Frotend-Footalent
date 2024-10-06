@@ -1,0 +1,58 @@
+<div class="bg-white min-h-screen">
+  <header class="relative flex items-center bg-bgColorBlue text-white p-4 shadow-md">
+    <button class="absolute left-0 p-4 " (click)="onClose()">
+      <i class="fas fa-chevron-left text-white"></i>
+    </button>
+  
+    <!-- Información del vehículo centrada -->
+    <div class="mx-auto flex items-center">
+      <h1 class="text-xl font-medium">{{ vehicle.make }} - {{ vehicle.model }}</h1>
+      <p class="text-xl ml-4">{{ vehicle.plate | uppercase }}</p>
+    </div>
+  </header>
+  
+  <div class="bg-bgAzulClaron p-4 shadow-md flex items-center justify-between">
+    <!-- Tipo de vehículo -->
+    <p class="text-lg font-normal">Tipo: <span class="font-bold text-lg">Transporte</span></p>
+  
+    <!-- Selector para cambiar estado del vehículo, con margen a la izquierda -->
+    <div class="ml-4 max-w-40">
+      <label for="status" class="text-sm font-bold mb-2"></label>
+      <select id="status" class="p-2 border border-gray-300 rounded-3xl w-full"
+              [(ngModel)]="vehicle.status"
+              (change)="onStatusChange()">
+        <option value="Disponible">Disponible</option>
+        <option value="Ocupado">Ocupado</option>
+        <option value="Reparacion">Reparación</option>
+        <option value="Deshabilitado">Deshabilitado</option>
+      </select>
+
+    </div>
+  </div>
+  
+
+  <!-- Botones de acción -->
+  <div class="flex flex-col gap-4 p-4">
+    <button class="bg-bgColorBlue text-white py-2 rounded-md shadow-md w-full text-center">Ver Mantenimientos</button>
+    <button class="bg-bgColorBlue text-white py-2 rounded-md shadow-md w-full text-center">Historial de Inspecciones</button>
+  </div>
+
+  <!-- Sección del conductor -->
+  <div class="p-4">
+    <h2 class="font-bold text-sm">Conductor</h2>
+    <select class="mt-2 p-2 border border-gray-300 rounded w-full">
+      <option>Seleccionar conductor</option>
+      <!-- Opciones dinámicas de conductores -->
+    </select>
+  </div>
+
+  <!-- Botones adicionales -->
+  <div class="flex flex-col gap-4 p-4">
+    <button class="bg-bgColorBlue text-white py-2 rounded-md shadow-md flex items-center justify-center">
+      <i class="fas fa-calendar-alt mr-2"></i> Historial de Conductores
+    </button>
+    <button class="bg-bgColorBlue text-white py-2 rounded-md shadow-md flex items-center justify-center">
+      <i class="fas fa-edit mr-2"></i> Editar Inspección
+    </button>
+  </div>
+</div>
