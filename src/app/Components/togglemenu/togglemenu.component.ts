@@ -30,8 +30,17 @@ export class TogglemenuComponent {
   }
 
   // Method to toggle the menu
-  toggleMenu(): void {
+  toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+
+    if (this.isMenuOpen) {
+      // Add the no-scroll class to the body
+      document.body.classList.remove('no-scroll');
+    } else {
+      // Remove the no-scroll class from the body
+      
+      document.body.classList.add('no-scroll');
+    }
   }
 
   signOut() {
