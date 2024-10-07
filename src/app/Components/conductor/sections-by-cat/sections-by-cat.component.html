@@ -1,50 +1,72 @@
-<div class="container border-gray-900 mx-auto p-4 pt-16">
-  <div class="bg-[#E8EFFF] border p-4 mb-4">
+<header 
+    id="top-bar"
+    class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
+    <div class="flex justify-between items-center p-4">
+      <button (click)="goBack()" class="text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+      </button>
+      <h1 class="text-lg text-white text-center">Formulario de Inspeccion</h1>
+      <nav class="mx-1 text-[#0a135d]">|</nav>
+    </div>
+  </header>
+
+
+<div class="container border-gray-900 mx-auto p-4 pt-20">
+  <div class="bg-[#E8EFFF]  p-4 mb-4">
     Elija la opción correcta según el estado de los diferentes elementos del vehículo.
   </div>
 
   <!-- List of sections with edit button -->
   <form [formGroup]="bulletsForm" (ngSubmit)="onSubmit()">
-    <div *ngFor="let section of sections" (click)="onSectionClick(section._id!)">
-      <div class="border border-gray-300 mb-2 my-2 transition-shadow duration-200 hover:shadow-lg">
-        <div class="flex w-full bg-[#D4E0FF] p-2 max-h-28">
+    <div *ngFor="let section of sections">
+      <div 
+        class="border rounded border-gray-300 mb-2 my-2 transition-shadow duration-200 hover:shadow-lg">
+        
+        <!-- Section header -->
+        <div class="flex justify-between items-center rounded bg-[#D4E0FF] p-2 cursor-pointer max-h-28" (click)="onSectionClick(section._id!)">
           <p class="text-lg m-2">{{ section.name }}</p>
+
+          <!-- Arrow indicator -->
+          <div [ngClass]="openSectionId === section._id ? 'rotate-180' : ''" class="transition-transform duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
         </div>
 
-        <!-- List of bullets -->
-        <div *ngIf="section.bullets && section.bullets.length > 0" class="flex w-full">
-          <ul>
-            <li *ngFor="let bullet of section.bullets">
+        <!-- List of bullets with animation -->
+        <div class="overflow-hidden transition-all duration-500 ease-in-out"
+          [ngClass]="openSectionId === section._id ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'">
+          <ul class="w-full p-2">
+            <li *ngFor="let bullet of section.bullets" class="flex justify-between items-center mb-2">
               <!-- Bullet label -->
-              <label>
-                <!-- Add a red mark for required bullets -->
+              <label class="mr-2 flex-grow">
                 {{ bullet.description }}
+                <!-- Red mark for required bullets -->
                 <span *ngIf="bullet.requerido" class="text-red-600">*</span>
+                
               </label>
 
-              <!-- Toggle switch -->
-              <input
-                type="checkbox"
-                formControlName="bullet_{{ bullet._id }}" 
-                class="toggle-switch" 
-              />
-              <div class="relative w-9 h-5 rounded-full transition-colors duration-300 mr-2"
-              [ngClass]="bullet.requerido ? 'bg-green-600' : 'bg-red-600'">
-              <!-- Toggle handle inside the switch -->
-              <div class="absolute top-[2px] left-[2px] bg-white border border-gray-300 rounded-full h-4 w-4 transition-transform"
-                [ngClass]="bullet.requerido ? 'translate-x-full' : ''">
+              <!-- Custom Toggle Switch -->
+              <div class="relative w-9 h-5 rounded-full transition-colors duration-300 mr-2 cursor-pointer"
+                (click)="toggleBullet(bullet._id!)"
+                [ngClass]="bulletsForm.get('bullet_' + bullet._id)?.value ? 'bg-green-600' : 'bg-red-600'">
+                <!-- Toggle handle inside the switch -->
+                <div class="absolute top-[2px] left-[2px] bg-white border border-gray-300 rounded-full h-4 w-4 transition-transform"
+                  [ngClass]="bulletsForm.get('bullet_' + bullet._id)?.value ? 'translate-x-full' : ''">
+                </div>
               </div>
-            </div>
-
             </li>
           </ul>
         </div>
-
-
       </div>
     </div>
 
     <!-- Submit button -->
-    <button type="submit" class="mt-4 bg-blue-500 text-white p-2 rounded">Submit Answers</button>
+    <div class="flex justify-center ">
+      <button type="submit" class="mt-4 text-white bg-[#0a135d] p-2 rounded w-80">Enviar</button>
+    </div>
   </form>
 </div>

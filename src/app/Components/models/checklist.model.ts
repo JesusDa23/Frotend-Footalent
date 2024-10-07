@@ -41,3 +41,24 @@ export interface ChecklistData {
     detalles?: string;
   }
   
+
+  // Define the interface for a bullet
+interface Bullet {
+  bulletName: string;
+  response: boolean; // Assuming the response is a boolean (true/false)
+}
+
+// Define the interface for a section
+export interface SectionData {
+  sectionName: string;
+  bullets: Bullet[]; // Array of Bullet objects
+}
+
+// Update the UserInfo interface if necessary
+export interface UserInfo {
+  dni: string;
+  name: string;
+  email: string;
+  password: string;
+  rol: string;
+}

@@ -1,0 +1,23 @@
+<!-- header.component.html -->
+<div class="relative  p-2">
+    <div class="mx-2">
+        <i class="text-white fa-sharp fa-bars fa-solid fa-xl cursor-pointer" (click)="toggleMenu()"></i>
+    </div>
+</div>
+
+<!-- Sliding Menu -->
+<div [ngClass]="{'top-[-220%]': !isMenuOpen, 'top-[80px]': isMenuOpen}"
+     class="absolute left-0 w-full bg-[#D4E0FF] text-blue-950 transition-all duration-500 ease-in-out z-50"
+     >
+    <ul class="text-center space-y-4 py-4">
+        <div class="font-bold flex justify-between px-2 flex justify-between border-b border-b-blue-950 mx-8 p-1">
+            <a roterLink="#" class="font-bold text-lg">Mi cuenta</a></div>
+        <div class="font-bold flex justify-between px-2 border-b border-b-blue-950 mx-8 p-1">
+            <a roterLink="#" class="font-bold text-">Ver inspecciones</a><i class="fa-sharp fa-solid fa-chevron-right"></i></div>
+        <div class="font-bold flex justify-between px-2 border-b border-b-blue-950 mx-8 p-1">
+            <a roterLink="#" class="font-bold text-md">Ver mantenimientos</a><i class="fa-sharp fa-solid fa-chevron-right"></i></div>
+        <div class="font-bold flex justify-between px-2 border-b border-b-blue-950 mx-8 p-1">
+            <a roterLink="#" class="font-bold text-md">Ayuda y soporte técnico</a><i class="fa-sharp fa-solid fa-chevron-right"></i></div>
+        <button class="p-2 px-4 bg-[#0A135D] text-white rounded m-2" (click)="signOut()">Cerrar sesion</button>
+    </ul>
+</div>

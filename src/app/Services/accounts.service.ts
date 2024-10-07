@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Credentials, UserInfo } from '../Interfaces/credentials';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class AccountsService {
     }
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.appUrl = `${environment.apiUrl}/auth`;
   }
 
@@ -39,6 +40,13 @@ export class AccountsService {
   retrieveUsers(): Observable<any> {
     this.construirHeaders(); 
     return this.http.get(this.appUrl + '/users', { headers: this.requestHeaders });
+  }
+
+  logout() {
+    // Clear the user session or token from sessionStorage
+    sessionStorage.removeItem('token'); // Example of removing a token
+    // Redirect to the login page or home page
+    this.router.navigate(['/login']);
   }
 
 

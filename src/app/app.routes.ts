@@ -33,7 +33,7 @@ export const routes: Routes = [
   { path: 'crear-flota', component:CrearVehiculoComponent, canActivate:[authGuard]},
   { path: 'reporte', component: ReporteComponent, canActivate: [authGuard]},
   { path: 'sections/:sectionId', component: ListbulletsComponent, canActivate: [authGuard]},
-  { path: 'inspeccion2/:categoryId', component: SectionsByCatComponent, canActivate: [authGuard]},
+  { path: 'inspeccion2/:categoryId/:vehicle', component: SectionsByCatComponent, canActivate: [authGuard]},
   { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]}
 
 ];

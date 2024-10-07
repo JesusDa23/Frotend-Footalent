@@ -1,4 +1,4 @@
-export interface Vehicle {
+  export interface Vehicle {
     id: any;
     make: string;
     model: string;
@@ -16,4 +16,11 @@ export interface Vehicle {
   export interface Category {
     _id?: string;
     name: string;
+  }
+
+  export interface vehicleData {
+    make: string;
+    model: string;
+    year: number;
+    licensePlate: string
   }
