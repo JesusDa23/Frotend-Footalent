@@ -1,7 +1,7 @@
 <!-- Main modal -->
 <!-- <app-editmodal
-*ngIf="isEditMode" 
-[vehicle]="selectedVehicle" 
+*ngIf="isEditMode"
+[vehicle]="selectedVehicle"
 (vehicleUpdated)="onVehicleUpdated(selectedVehicle?.id, $event)"
 (vehicleCreated)="onVehicleCreated($event)"
 (modalClosed)="onCloseModal()"><button (click)="onCloseModal()">x</button>
@@ -20,9 +20,9 @@
 
       <!-- Estado del vehículo -->
       <div class="flex items-center">
-        <span class="flex items-center rounded-full px-2 py-1 text-white text-sm" 
+        <span class="flex items-center rounded-full px-2 py-1 text-white text-sm"
               [ngClass]="{
-                'bg-disponible': vehicle.status === 'Disponible', 
+                'bg-disponible': vehicle.status === 'Disponible',
                 'bg-reparacion': vehicle.status === 'Reparacion',
                 'bg-ocupado': vehicle.status === 'Ocupado',
                 'bg-deshabilitado': vehicle.status === 'Deshabilitado'
@@ -30,11 +30,11 @@
           <!-- Icono del círculo de estado -->
           <i class="fas fa-circle text-xs mr-2"
              [ngClass]="{
-                'text-textDisponible': vehicle.status === 'Disponible', 
+                'text-textDisponible': vehicle.status === 'Disponible',
                 'text-textReparacion': vehicle.status === 'Reparacion',
                 'text-textOcupado': vehicle.status === 'Ocupado',
                 'text-textDeshabilitado': vehicle.status === 'Deshabilitado'
-              }"></i>  
+              }"></i>
           {{ vehicle.status | titlecase }}
         </span>
       </div>
@@ -47,5 +47,5 @@
 </div>
 
 <div class="fixed bottom-0 w-full p-4 bg-bgBtn flex justify-center">
-    <button class="bg-btnColor text-white  w-11/12 px-4 py-2 rounded">Agregar vehículo</button>
+    <button a routerLink="/crear-flota" class="bg-btnColor text-white  w-11/12 px-4 py-2 rounded">Agregar vehículo</button>
 </div>

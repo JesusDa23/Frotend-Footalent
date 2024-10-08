@@ -1,1 +1,95 @@
-<p>crear-vehiculo works!</p>
+<div class="bg-white min-h-screen">
+  <header
+    class="relative flex items-center bg-bgColorBlue text-white p-4 shadow-md"
+  >
+    <button class="absolute left-0 p-4" (click)="onClose()">
+      <i class="fas fa-chevron-left text-white"></i>
+    </button>
+
+    <!-- Información del vehículo centrada -->
+    <div class="mx-auto flex items-center">
+      <h1 class="text-xl">Agregar vehículo</h1>
+    </div>
+  </header>
+  <div class="p-4 flex items-center justify-between shadow-md bg-bgAzulClaron">
+    <!-- Tipo de vehículo -->
+    <p class="text-xl font-medium">Perfil del vehiculo</p>
+
+    <!-- Selector para cambiar estado del vehículo, con margen a la izquierda -->
+    <div class="ml-4 max-w-40">
+      <label for="status" class="text-sm font-bold mb-2"></label>
+      <select [(ngModel)]="status" id="status" class="p-2 border border-gray-300 rounded-3xl w-full">
+        <option value="Disponible">Disponible</option>
+        <option value="Ocupado">Ocupado</option>
+        <option value="Reparacion">Reparación</option>
+        <option value="Deshabilitado">Deshabilitado</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Sección de marca y placa -->
+  <div class="p-4 space-y-4">
+    <section class="flex space-x-4">
+      <div class="flex-1 text-lg">
+        <label>Marca</label>
+        <input [(ngModel)]="make"
+          class="w-full px-4 py-1 border-2 border-gray-500"
+          id="selectMarca"
+        />
+      </div>
+      <div class="flex-1 text-lg">
+        <label>Placa</label>
+        <input [(ngModel)]="plate"
+          class="w-full px-4 py-1 border-2 border-gray-500"
+          id="selectPlaca"
+        />
+      </div>
+    </section>
+
+    <!-- Sección de tipo de vehículo y modelo -->
+    <section class="flex space-x-4">
+      <div class="flex-1 text-lg">
+        <label>Tipo de vehículo</label>
+        <select
+          class="w-full px-4 py-1 border-2 border-gray-500"
+          id="selectTipoV"
+        >
+          <option value=""></option>
+          @for (tipo of arrayVehiculo; track $index) {
+          <option [value]="tipo.name">{{ tipo.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="flex-1 text-lg">
+        <label>Modelo</label>
+        <input [(ngModel)]="model"
+          class="w-full px-4 py-1 border-2 border-gray-500"
+          id="selectModelo"/>
+      </div>
+    </section>
+
+    <section class="flex space-x-4">
+      <div class="flex-1 text-lg">
+        <label>Año de fabricación</label>
+        <input [(ngModel)]="year"
+          class="w-full px-4 py-1 border-2 border-gray-500"
+          id="selectModelo"/>
+      </div>
+      <div class="flex-1 text-lg">
+        <label>Kilometraje</label>
+        <input [(ngModel)]="mileage"
+          class="w-full px-4 py-1 border-2 border-gray-500"
+          id="selectModelo"/>
+      </div>
+    </section>
+
+
+
+
+  </div>
+</div>
+<div class="fixed bottom-0 w-full p-4 bg-bgAzulClaron flex flex-col space-y-2 justify-center">
+  <button a routerLink="/crear-flota" class="border-2 text-white w-full px-4 py-2 rounded bg-transparent
+  border-btnColor"><i class="text-btnColor fa-solid fa-pen text-lg"></i><span class="font-medium ml-2 text-btnColor text-lg">Editar Inspección</span></button>
+  <button a routerLink="/crear-flota" (click)="guardarVehiculo()" class="border-2 border-btnColor bg-btnColor text-white  w-full px-4 py-2 rounded text-lg font-medium">Confirmar</button>
+</div>
