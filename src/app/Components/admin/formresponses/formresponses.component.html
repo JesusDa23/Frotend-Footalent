@@ -1,13 +1,29 @@
+<header 
+    id="top-bar"
+class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
+    <div class="flex justify-between p-4">
+      <button (click)="goBack()" class="text-blue-500">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+        <h1 class="text-lg text-white">Secciones</h1>
+      <app-togglemenu></app-togglemenu>
+    </div>
+  </header>
+
 <!-- Search Input Field -->
-<div class="mb-4">
-    <input
-      type="text"
-      [(ngModel)]="searchTerm"
-      (input)="searchForms()"
-      placeholder="Search forms (Conductor, DNI, Vehicle Model...)"
-      class="border p-2 rounded-lg w-full"
-    />
-  </div>
+<div class="flex justify-end">
+    <div class="mr-8 mb-4 pt-28">
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (input)="searchForms()"
+          placeholder="Buscar"
+          class="border p-1 rounded-lg w-80"
+        />
+      </div>
+</div>
   
   <!-- Loading State -->
   <div *ngIf="loading" class="text-center p-4">Cargando formularios...</div>

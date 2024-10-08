@@ -1,15 +1,16 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { AdmincheckService } from '../../../Services/admincheck.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import html2canvas from 'html2canvas'
+import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
 
 @Component({
   selector: 'app-formresponses',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, TogglemenuComponent],
   templateUrl: './formresponses.component.html',
   styleUrl: './formresponses.component.css'
 })
@@ -20,7 +21,7 @@ export class FormresponsesComponent {
   searchTerm: string = '';
   filteredForms: any[] = [];  // Ensure it's an empty array initially
 
-  constructor(private inspectionService: AdmincheckService) {}
+  constructor(private inspectionService: AdmincheckService, private location: Location) {}
 
   ngOnInit(): void {
     this.retrieveForms(); // Fetch forms when the component loads
@@ -105,5 +106,10 @@ export class FormresponsesComponent {
     // // Save the PDF with the form's user name as the file name
     // doc.save(`${form.user.name}-inspection-form.pdf`);
   }
+
+  goBack(): void {
+    this.location.back();
+  }
+  
 
 }

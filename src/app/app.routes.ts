@@ -7,7 +7,6 @@ import { authGuard } from './guards/auth.guard';
 import { HomeComponent } from './Components/admin/home/home.component';
 import { ConductoresComponent } from './Components/admin/conductores/conductores.component';
 import { FlotaComponent } from './Components/admin/flota/flota.component';
-import { InspeccionComponent } from './Components/conductor/inspeccion/inspeccion.component';
 import { CrearVehiculoComponent } from './Components/admin/flota/crear-vehiculo/crear-vehiculo.component';
 import { HomecComponent } from './Components/conductor/home/homec.component';
 import { ReporteComponent } from './Components/conductor/reporte/reporte.component';
@@ -30,7 +29,6 @@ export const routes: Routes = [
   { path: 'flota', component: FlotaComponent, canActivate: [authGuard]},
   { path: 'admincheck', component: AdmincheckComponent, canActivate: [authGuard]},
   { path: 'listcheck/:categoryId', component: ListcheckComponent, canActivate: [authGuard]},
-  { path: 'inspeccion', component: InspeccionComponent, canActivate: [authGuard]},
   { path: 'agregar-vehiculo', component:CrearVehiculoComponent, canActivate:[authGuard]},
   { path: 'reporte', component: ReporteComponent, canActivate: [authGuard]},
   { path: 'sections/:sectionId', component: ListbulletsComponent, canActivate: [authGuard]},

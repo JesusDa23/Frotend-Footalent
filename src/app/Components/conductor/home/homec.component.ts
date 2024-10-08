@@ -8,7 +8,7 @@ import { HomeinsComponent } from "../homeins/homeins.component";
   standalone: true,
   imports: [HeadercComponent, FlotaComponent, HomeinsComponent],
   templateUrl: './homec.component.html',
-  styleUrl: './homec.component.css'
+  styleUrl: './home.component.css'
 })
 export class HomecComponent {
 

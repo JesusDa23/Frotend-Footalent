@@ -1,13 +1,9 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-
 import { FormsModule } from '@angular/forms';
-import { Credentials, CreateDriver } from '../../../Interfaces/credentials';
+import {  CreateDriver } from '../../../Interfaces/credentials';
 import Swal from 'sweetalert2'
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-
 import { AccountsService } from '../../../Services/accounts.service';
-
 import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
 
 

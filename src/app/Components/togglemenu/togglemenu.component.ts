@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 import { UserInfo } from '../models/checklist.model';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AccountsService } from '../../Services/accounts.service';
 
-import { InspeccionComponent } from '../conductor/inspeccion/inspeccion.component';
 
 
 @Component({
   selector: 'app-togglemenu',
   standalone: true,
-  imports: [CommonModule, RouterLink, InspeccionComponent],
+  imports: [CommonModule, RouterLink],
   templateUrl: './togglemenu.component.html',
   styleUrl: './togglemenu.component.css'
 })

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CheckheaderComponent } from "../inspeccion/checkheader/checkheader.component";
 import { HeadercComponent } from "../headerc/headerc.component";
 import { Checklistreport } from '../../models/checklist.model';
 import { ChecklistService } from '../../../Services/checklist.service';
@@ -9,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-reporte',
   standalone: true,
-  imports: [CheckheaderComponent, HeadercComponent, FormsModule],
+  imports: [ HeadercComponent, FormsModule],
   templateUrl: './reporte.component.html',
   styleUrl: './reporte.component.css'
 })
