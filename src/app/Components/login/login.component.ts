@@ -45,15 +45,15 @@ export class LoginComponent implements OnInit {
     this._accountsService.logIn(user).subscribe({
       next: data => {
         console.log("data", data);
-    
+
         let dataCast = data as resLoginUser;
         sessionStorage.setItem('token', dataCast.token);
-    
+
         // Store user information in sessionStorage
         sessionStorage.setItem('userInfo', JSON.stringify(dataCast.user));
-    
+
         if(sessionStorage.getItem("token") != null){
-          this.router.navigate(['/homec']);
+          this.router.navigate(['/home']);
         }
       },
       error: err => {
