@@ -20,40 +20,20 @@
       </div>
 
       <!-- Estado del vehículo -->
-<<<<<<< HEAD
-      <div class="flex items-center">
-        <span class="flex items-center rounded-full px-2 py-1 text-white text-sm"
-              [ngClass]="{
-                'bg-disponible': vehicle.status === 'Disponible',
-                'bg-reparacion': vehicle.status === 'Reparacion',
-                'bg-ocupado': vehicle.status === 'Ocupado',
-                'bg-deshabilitado': vehicle.status === 'Deshabilitado'
-              }">
-          <!-- Icono del círculo de estado -->
-          <i class="fas fa-circle text-xs mr-2"
-             [ngClass]="{
-                'text-textDisponible': vehicle.status === 'Disponible',
-                'text-textReparacion': vehicle.status === 'Reparacion',
-                'text-textOcupado': vehicle.status === 'Ocupado',
-                'text-textDeshabilitado': vehicle.status === 'Deshabilitado'
-              }"></i>
-          {{ vehicle.status | titlecase }}
-=======
       <div class="flex-none w-28 mr-1 text text-white">
         <span class="flex justify-center items-center rounded-full px-1 " [ngClass]="{
-                'bg-green-600 text-white': vehicle.status === 'Disponible', 
+                'bg-green-600 text-white': vehicle.status === 'Disponible',
                 'bg-yellow-400 text-white': vehicle.status === 'Reparacion',
                 'bg-red-500 text-white': vehicle.status === 'Ocupado',
                 'bg-slate-500 text-white': vehicle.status === 'Deshabilitado'
                 }">
           <i class="fas fa-circle text-[8px] mr-2" [ngClass]="{
-                'border-green-500 text-green-500': vehicle.status === 'Disponible', 
+                'border-green-500 text-green-500': vehicle.status === 'Disponible',
                 'border-yellow-500 text-yellow-600': vehicle.status === 'Reparacion',
                 'border-red-500 text-red-800': vehicle.status === 'Ocupado',
                 'border-slate-700 text-white': vehicle.status === 'Deshabilitado'
-                }"></i>  
+                }"></i>
           {{ vehicle.status }}
->>>>>>> origin/master
         </span>
       </div>
       <div class="flex-none w-3 ml-2 " [routerLink]="['/perfil-vehiculo', vehicle._id]" routerLinkActive="router-link-active">
@@ -64,11 +44,6 @@
   </div>
 </div>
 
-<<<<<<< HEAD
-<div class="fixed bottom-0 w-full p-4 bg-bgBtn flex justify-center">
-    <button a routerLink="/crear-flota" class="bg-btnColor text-white  w-11/12 px-4 py-2 rounded">Agregar vehículo</button>
-</div>
-=======
 <div
         id="bottom-bar"
         class="fixed bottom-0 left-0 right-0 bg-blue-100 shadow-lg p-2 transition-transform duration-300 transform translate-y-0"
@@ -81,4 +56,3 @@
         </button>
         </div>
     </div>
->>>>>>> origin/master
