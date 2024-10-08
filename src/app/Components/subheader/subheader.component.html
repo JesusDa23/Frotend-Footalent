@@ -1,0 +1,21 @@
+<div class="sticky top-0 left-0 right-0">
+
+    <header class="flex items-center justify-between bg-[#0a135d] p-4 bg-header shadow-md ">
+      <p class="font-medium text-white">
+       Perfil de conductor
+      </p>
+      <app-togglemenu></app-togglemenu>
+    </header>
+  
+  
+
+  <nav class="flex justify-around bg-white p-2 pt-4 shadow-md">
+    <button routerLink="/home"
+      routerLinkActive="border-blue-500 text-blue-950 font-semibold border-b-4 padding-b-10 border-blue-950 "
+      class="font-medium " [routerLinkActiveOptions]="{exact: true}">Flota vehicular</button>
+    <button routerLink="/conductores"
+      routerLinkActive="border-blue-500 text-blue-950 font-semibold border-b-4 border-blue-950 " class="font-medium "
+      [routerLinkActiveOptions]="{exact: true}">Conductores</button>
+  </nav>
+
+</div>
