@@ -6,11 +6,12 @@ import Swal from 'sweetalert2'
 import { AccountsService } from '../../../Services/accounts.service';
 
 import { SubheaderComponent } from '../../subheader/subheader.component';
+import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 
 @Component({
   selector: 'app-agregar-conductor',
   standalone: true,
-  imports: [SubheaderComponent, FormsModule],
+  imports: [SubheaderComponent, TogglemenuComponent, FormsModule],
   templateUrl: './agregar-conductor.component.html',
   styleUrl: './agregar-conductor.component.css'
 })
