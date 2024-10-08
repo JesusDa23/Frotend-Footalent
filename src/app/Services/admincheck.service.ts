@@ -25,7 +25,7 @@ export class AdmincheckService {
 
   // 2. Method to get all categories
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(`${this.apiUrl}/categories`);
+    return this.http.get<Category[]>(`${this.apiUrl}/getCategories`);
   }
 
   // 3. Method to create a section
@@ -52,11 +52,11 @@ export class AdmincheckService {
     return this.http.patch<Bullet>(`${this.apiUrl}/bullets/${bulletId}`, { description });
   }
 
-    // Delete a bullet  
+    // Delete a bullet
   deleteBullet(bulletId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/bullets/${bulletId}`);
   }
-  
+
 
     // Update a category by ID
   updateCategory(id: string, category: Category): Observable<Category> {
@@ -80,12 +80,5 @@ export class AdmincheckService {
   updateRequerido(bulletId: string, requerido: boolean): Observable<Bullet> {
     return this.http.patch<Bullet>(`${this.apiUrl}/bullets/${bulletId}/requerido`, { requerido });
   }
-
-  
-
-  
-  
-  
-
 
 }
