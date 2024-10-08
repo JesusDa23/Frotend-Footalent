@@ -2,19 +2,23 @@ import { Component, NgModule } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FlotaService } from '../../../../Services/flota.service';
-import { NgClass, UpperCasePipe } from '@angular/common';
+import { CommonModule, NgClass, UpperCasePipe } from '@angular/common';
 import { Location } from '@angular/common';
 
 
 @Component({
   selector: 'app-perfil-vehiculo',
   standalone: true,
-  imports: [FormsModule, UpperCasePipe, NgClass, RouterLink],
+  imports: [FormsModule, UpperCasePipe, NgClass, RouterLink, CommonModule],
   templateUrl: './perfil-vehiculo.component.html',
   styleUrl: './perfil-vehiculo.component.css'
 })
 export class PerfilVehiculoComponent {
   vehicle: any;  // Aquí recibiremos los datos del vehículo
+
+  isDropdownOpen = false;
+  selectedStatus: string = 'Disponible';
+  
 
   constructor(private route: ActivatedRoute, private flotaService: FlotaService, private location: Location) { }
 
@@ -38,6 +42,18 @@ export class PerfilVehiculoComponent {
           // Opcional: Aquí podrías manejar el error, mostrando una notificación de fallo.
         }
       });
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen; // Toggle dropdown visibility
+  }
+
+  selectStatus(status: string) {
+    this.selectedStatus = status; // Update the selected status
+    this.vehicle.status = status; // Update the vehicle status
+
+    this.onStatusChange(); // Call the update method
+    this.isDropdownOpen = false; // Close dropdown after selection
   }
 
   onClose(): void {

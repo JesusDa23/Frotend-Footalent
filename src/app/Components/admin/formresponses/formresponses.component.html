@@ -1,37 +1,118 @@
-<div *ngIf="loading" class="text-center p-4">Loading inspection forms...</div>
-
-<div *ngIf="!loading && inspectionForms.length > 0">
-  <h2 class="text-lg font-bold mb-4">Inspection Forms</h2>
-
-  <div *ngFor="let form of inspectionForms" class="border border-gray-300 rounded-lg p-4 mb-4">
-    <!-- User Details -->
-    <h3 class="text-blue-600 font-semibold">User: {{ form.user.conductor }}</h3>
-    <p>Email: {{ form.user.email }}</p>
-    <p>Role: {{ form.user.rol }}</p>
-
-    <!-- Vehicle Details -->
-    <h4 class="text-lg font-bold mt-4">Vehicle Information</h4>
-    <p>Make: {{ form.vehicle.make }}</p>
-    <p>Model: {{ form.vehicle.model }}</p>
-    <p>Year: {{ form.vehicle.year }}</p>
-
-    <!-- Sections and Bullets -->
-    <h4 class="text-lg font-bold mt-4">Inspection Sections</h4>
-
-    <div *ngFor="let section of form.sections" class="mt-2">
-      <h5 class="font-semibold">{{ section.sectionName }}</h5>
-      <ul class="list-disc ml-6">
-        <li *ngFor="let bullet of section.bullets">
-          {{ bullet.bulletName }} - Response: {{ bullet.response ? 'Yes' : 'No' }}
-        </li>
-      </ul>
-    </div>
-
-    <!-- Timestamp -->
-    <p class="mt-4 text-sm text-gray-500">Submission Time: {{ form.submissionTime | date:'short' }}</p>
+<!-- Search Input Field -->
+<div class="mb-4">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="searchForms()"
+      placeholder="Search forms (Conductor, DNI, Vehicle Model...)"
+      class="border p-2 rounded-lg w-full"
+    />
   </div>
-</div>
-
-<div *ngIf="!loading && inspectionForms.length === 0" class="text-center p-4">
-  No inspection forms found.
-</div>
+  
+  <!-- Loading State -->
+  <div *ngIf="loading" class="text-center p-4">Cargando formularios...</div>
+  
+  <!-- Main Table for Inspection Forms -->
+  <div *ngIf="!loading && filteredForms.length > 0">
+    <h2 class="text-lg font-bold mb-4">Formularios de inspeccion</h2>
+  
+    <!-- Table Wrapper -->
+    <div class="border border-gray-300 rounded-lg p-4 mb-4">
+      <!-- Table Structure -->
+      <table class="min-w-full table-auto border-collapse">
+        <thead class="bg-[#0A135D] text-white">
+          <tr>
+            <th class="border px-4 py-2">Fecha</th>
+            <th class="border px-4 py-2">Conductor</th>
+            <th class="border px-4 py-2">DNI</th>
+            <th class="border px-4 py-2">Email</th>
+            <th class="border px-4 py-2">Marca</th>
+            <th class="border px-4 py-2">Modelo</th>
+            <th class="border px-4 py-2">Placa</th>
+            <th class="border px-4 py-2">Acciones</th>
+          </tr>
+        </thead>
+  
+        <!-- Table Body -->
+        <tbody>
+            <ng-container *ngFor="let form of filteredForms; let i = index">
+          <tr>
+            <td class="border px-4 py-2">{{ form.submissionTime | date:'short' }}</td>
+            <td class="border px-4 py-2">{{ form.user.name }}</td>
+            <td class="border px-4 py-2">{{ form.user.dni }}</td>
+            <td class="border px-4 py-2">{{ form.user.email }}</td>
+            <td class="border px-4 py-2">{{ form.vehicle.make }}</td>
+            <td class="border px-4 py-2">{{ form.vehicle.model }}</td>
+            <td class="border px-4 py-2">{{ form.vehicle.plate }}</td>
+            <td class="border px-4 py-2">
+              <button (click)="toggleForm(i)" class="text-blue-500">
+                {{ expandedFormIndex === i ? 'Ocultar' : 'Detalles' }}
+              </button>
+               <!-- Download PDF Button -->
+              <!-- <button (click)="generatePDF(form)" class="text-green-500 ml-4">
+                Download PDF
+              </button> -->
+            </td>
+          </tr>
+  
+          <!-- Expanded Section for Details -->
+          <tr *ngIf="expandedFormIndex === i">
+            <td colspan="8" class="p-4">
+              <!-- Sections Header -->
+              <h4 class="text-lg font-bold mt-4">Secciones de inspeccion</h4>
+  
+              <!-- Table for Section Details -->
+              <table class="min-w-full table-auto border-collapse border border-gray-300 mt-2">
+                <thead class="bg-gray-200">
+                  <tr>
+                    <th class="border px-4 py-2">Nombre de seccion</th>
+                    <th class="border px-4 py-2">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let section of form.sections; let si = index">
+                    <td class="border px-4 py-2">{{ section.sectionName }}</td>
+                    <td class="border px-4 py-2">
+                      <button (click)="toggleSection(form, si)" class="text-blue-500">
+                        {{ section.expanded ? 'Hide Bullets' : 'Show Bullets' }}
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+  
+              <!-- Section Bullets -->
+              <ng-container *ngFor="let section of form.sections">
+                <div class="mt-2" *ngIf="section.expanded">
+                  <h5 class="font-semibold">Checklist {{ section.sectionName }}</h5>
+  
+                  <!-- Bullets as a Sub-Table -->
+                  <table class="min-w-full table-auto border-collapse border border-gray-300 mt-2">
+                    <thead class="bg-gray-100">
+                      <tr>
+                        <th class="border px-4 py-2">Descripcion</th>
+                        <th class="border px-4 py-2">Respuesta</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let bullet of section.bullets" class="text-sm text-sm">
+                        <td class="border px-4 py-2">{{ bullet.bulletName }}</td>
+                        <td class="border px-4 py-2">{{ bullet.response ? 'Yes' : 'No' }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ng-container>
+            </td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- No Forms Found -->
+  <div *ngIf="!loading && filteredForms.length === 0" class="text-center p-4">
+    No se encontraros formularios.
+  </div>
+  

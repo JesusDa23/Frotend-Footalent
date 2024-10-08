@@ -1,4 +1,6 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
+
 import { FormsModule } from '@angular/forms';
 import { Credentials, CreateDriver } from '../../../Interfaces/credentials';
 import Swal from 'sweetalert2'
@@ -6,14 +8,18 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 import { AccountsService } from '../../../Services/accounts.service';
 
+import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
+
+
 @Component({
   selector: 'app-agregar-conductor',
   standalone: true,
-  imports: [FormsModule],
+  imports: [TogglemenuComponent, FormsModule],
   templateUrl: './agregar-conductor.component.html',
   styleUrl: './agregar-conductor.component.css'
 })
 export class AgregarConductorComponent {
+
   name: string = "";
   dni: string = "";
   email: string = "";
@@ -24,8 +30,11 @@ export class AgregarConductorComponent {
   licencia: string = "";
   rol: string = "user";
 
-  constructor(private _accountsService: AccountsService, http: HttpClient) { }
-  private requestHeaders: HttpHeaders = new HttpHeaders();
+  constructor(
+    private _accountsService: AccountsService, 
+    private location: Location
+  ) { }
+ 
 
   // creatar passwortd aleatorio 
   generatePassword() {
@@ -104,6 +113,12 @@ export class AgregarConductorComponent {
 
   ngOnInit() {
     this.generatePassword()
+
+
+    
+  }
+  goBack(): void {
+    this.location.back();
   }
 
 }
