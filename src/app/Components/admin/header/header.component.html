@@ -1,15 +1,15 @@
-<div class="container sticky top-0 left-0 right-0">
+<div class="sticky top-0 left-0 right-0">
 
-  <header class="flex items-center justify-between p-4 bg-bgColorBlue text-white shadow-md">
-    <div>
-      <h1 class="text-xl">Bienvenido, {{nombre}}</h1>
-      <span class="text-sm">Administrador</span>
-    </div>
-
-    <button class="p-2 text-[25px]">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-  </header>
+    <header class="flex items-center justify-between bg-[#0a135d] p-4 bg-header shadow-md ">
+      <div class="font-medium text-white">
+        <ul>
+          <li>Bienvenido, {{User?.name}}!</li>
+          <li class="text-gray-400">{{User?.rol}}</li>
+        </ul>
+      </div>
+      <app-togglemenu></app-togglemenu>
+    </header>
+  
   
 
   <nav class="flex justify-around bg-white p-2 pt-4 shadow-md">

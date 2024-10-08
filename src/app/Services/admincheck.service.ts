@@ -81,9 +81,17 @@ export class AdmincheckService {
     return this.http.patch<Bullet>(`${this.apiUrl}/bullets/${bulletId}/requerido`, { requerido });
   }
 
+<<<<<<< HEAD
 
 
 
+=======
+  
+
+  
+  
+  
+>>>>>>> origin/master
 
 
 }

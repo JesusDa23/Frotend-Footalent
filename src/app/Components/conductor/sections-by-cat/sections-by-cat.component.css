@@ -14,7 +14,7 @@ h2 {
 
   }
   
-/* 
+
   .toggle-switch {
     width: 40px;
     height: 20px;
@@ -46,4 +46,4 @@ h2 {
   .toggle-switch:checked::before {
     left: 21px;
   }
-   */
+  

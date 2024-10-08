@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FlotaService } from '../../../Services/flota.service';
 import { FlowbiteService } from '../../../Services/flowbite.service';
@@ -18,6 +18,7 @@ import { PerfilVehiculoComponent } from './perfil-vehiculo/perfil-vehiculo.compo
   styleUrl: './flota.component.css'
 })
 export class FlotaComponent {
+  private lastScrollTop = 0;
   flotas:any = [];
   vehicleForm: FormGroup;
 
@@ -143,5 +144,25 @@ export class FlotaComponent {
     this.selectedVehicle = null;
   }
   
+
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    const bottomBar = document.getElementById('bottom-bar');
+
+    if (bottomBar) {
+      if (currentScroll > this.lastScrollTop) {
+        // Scrolling down
+        bottomBar.classList.remove('translate-y-0');
+        bottomBar.classList.add('translate-y-full');
+      } else {
+        // Scrolling up
+        bottomBar.classList.remove('translate-y-full');
+        bottomBar.classList.add('translate-y-0');
+      }
+      this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+    }
+  }
 
 }

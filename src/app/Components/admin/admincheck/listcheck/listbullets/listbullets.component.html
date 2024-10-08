@@ -68,13 +68,15 @@
     <div
         id="bottom-bar"
         class="fixed bottom-0 left-0 right-0 bg-blue-100 shadow-lg p-2 transition-transform duration-300 transform translate-y-0"
-            >
-        <button
-            class="w-full bg-[#0a135d] rounded p-2 text-white text-center"
-            (click)="showNewBulletInput = true"
+        (click)="showNewBulletInput = true"    
+        >
+        <div class="flex justify-center">
+          <button
+            class="w-80 bg-[#0a135d] rounded p-2 text-white text-center m-2"
             >
             Crear check
         </button>
+        </div>
     </div>
   
   <!-- Error message -->

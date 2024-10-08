@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 
 
 
+
 @Component({
   selector: 'app-homeins',
   standalone: true,
@@ -22,9 +23,9 @@ export class HomeinsComponent {
   
   flotas:any = [];
   vehicleForm: FormGroup;
-
   isEditMode = false;
   selectedVehicle: Vehicle | null = null;
+  
 
   constructor(
     private flotaService: FlotaService, 
@@ -51,6 +52,7 @@ export class HomeinsComponent {
     if (this.selectedVehicle) {
       this.isEditMode = true;
     }
+ 
   }
 
   loadFlotas() {
@@ -58,6 +60,8 @@ export class HomeinsComponent {
       this.flotas = data;
     });
   }
+
+
 
   onSubmit() {
     // Verificamos si el formulario es válido antes de continuar
@@ -151,14 +155,8 @@ export class HomeinsComponent {
   }
 
 
-
-
-
-
-
-  openins(category: Category) {
-    console.log(this.flotas)
-    this.router.navigate(['/inspeccion2', category])
+  openins(category: Category, vehicleId:string) {
+    this.router.navigate(['/inspeccion2', category, vehicleId])
   }
   
 

@@ -1,7 +1,8 @@
-<div class="p-4 bg-white">
-    <div class="container gap-[8px] justify-center">
+<div class="container mx-auto p-4 bg-white">
+    <div class=" gap-[8px] ">
       <!-- Vehículo 1 -->
-      <div class="flex p-2 bg-white shadow-md rounded border border-cardBorder w-full mt-2 items-center justify-between" (click)="openins(vehicle.category)" *ngFor="let vehicle of flotas">
+      <div class="flex p-2 bg-white shadow-md rounded border border-cardBorder w-full mt-2 items-center justify-between" 
+      (click)="openins(vehicle.category, vehicle._id)" *ngFor="let vehicle of flotas">
         
         <!-- Vehicle info (Make and Model) -->
         <div class="flex-1 w-32 m-2">
@@ -10,7 +11,7 @@
         </div>
         
         <!-- Status badge -->
-        <div class="flex-none w-32 mr-1 text text-white">
+        <div class="flex-none w-28 mr-1 text text-white">
           <span class="flex justify-center items-center rounded-full px-1 " [ngClass]="{
                   'bg-green-600 text-white': vehicle.status === 'Disponible', 
                   'bg-yellow-400 text-white': vehicle.status === 'Reparacion',
@@ -28,7 +29,7 @@
         </div>
         
         <!-- Arrow icon -->
-        <div class="flex-none w-3 ml-2 "  routerLink="inspeccion2">
+        <div class="flex-none w-3 ml-2 cursor-pointer"  routerLink="inspeccion2">
             <i class="fa-solid fa-chevron-right"></i>
         </div>
         
