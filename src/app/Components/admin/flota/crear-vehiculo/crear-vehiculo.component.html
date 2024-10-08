@@ -53,10 +53,11 @@
         <select
           class="w-full px-4 py-1 border-2 border-gray-500"
           id="selectTipoV"
+          [(ngModel)]="TipoId"
         >
           <option value=""></option>
           @for (tipo of arrayVehiculo; track $index) {
-          <option [value]="tipo.name">{{ tipo.name }}</option>
+          <option [value]="tipo._id" >{{ tipo.name }}</option>
           }
         </select>
       </div>

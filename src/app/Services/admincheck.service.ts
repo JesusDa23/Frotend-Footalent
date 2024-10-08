@@ -81,4 +81,9 @@ export class AdmincheckService {
     return this.http.patch<Bullet>(`${this.apiUrl}/bullets/${bulletId}/requerido`, { requerido });
   }
 
+  getInspectionForms(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/inspectionForms`);  // Ensure you're correctly returning the API response
+  }
+  
+
 }

@@ -17,7 +17,7 @@ import { log } from 'console';
   styleUrl: './crear-vehiculo.component.css'
 })
 export class CrearVehiculoComponent {
-
+  constructor(private location: Location, private _categorias: AdmincheckService, private _flotaService: FlotaService) { }
   arrayVehiculo: any = []
 
   status: any;
@@ -27,15 +27,19 @@ export class CrearVehiculoComponent {
   model: any;
   mileage: any;
   year: any;
+  TipoId: string = "";
 
-
-  constructor(private location: Location, private _categorias: AdmincheckService, private _flotaService: FlotaService) { }
 
   onClose(): void {
     this.location.back();
   }
 
   ngOnInit(): void {
+    this.cargarcategorias()
+  }
+
+  cargarcategorias(){
+    
     this._categorias.getCategories().subscribe(
       (data: any) => {
         this.arrayVehiculo = data;
@@ -60,17 +64,22 @@ export class CrearVehiculoComponent {
 
     const vin = this.generateVIN();
     console.log("VIN generado:", vin);
+    console.log("status:", this.TipoId);
+    console.log("marca:", this.make);
+    console.log("placa:", this.plate);
+    console.log("arrayvehiculo",this.arrayVehiculo)
+    console.log("modelo:", this.model);
 
     const vehiculo: any = {
-      status: this.status,
+      category: this.TipoId,
       make : this.make,
       plate : this.plate,
-
       model: this.model,
       mileage : this.mileage,
       year: this.year,
       vin: vin
     }
+    
 
     this._flotaService.createNewFlota(vehiculo).subscribe({
       next: (response) => {
@@ -83,11 +92,7 @@ export class CrearVehiculoComponent {
       }
     });
 
-    console.log("status:", this.status);
-    console.log("marca:", this.make);
-    console.log("placa:", this.plate);
-
-    console.log("modelo:", this.model);
+    
   }
 
 

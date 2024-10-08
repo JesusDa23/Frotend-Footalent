@@ -1,1 +1,37 @@
-<p>formresponses works!</p>
+<div *ngIf="loading" class="text-center p-4">Loading inspection forms...</div>
+
+<div *ngIf="!loading && inspectionForms.length > 0">
+  <h2 class="text-lg font-bold mb-4">Inspection Forms</h2>
+
+  <div *ngFor="let form of inspectionForms" class="border border-gray-300 rounded-lg p-4 mb-4">
+    <!-- User Details -->
+    <h3 class="text-blue-600 font-semibold">User: {{ form.user.conductor }}</h3>
+    <p>Email: {{ form.user.email }}</p>
+    <p>Role: {{ form.user.rol }}</p>
+
+    <!-- Vehicle Details -->
+    <h4 class="text-lg font-bold mt-4">Vehicle Information</h4>
+    <p>Make: {{ form.vehicle.make }}</p>
+    <p>Model: {{ form.vehicle.model }}</p>
+    <p>Year: {{ form.vehicle.year }}</p>
+
+    <!-- Sections and Bullets -->
+    <h4 class="text-lg font-bold mt-4">Inspection Sections</h4>
+
+    <div *ngFor="let section of form.sections" class="mt-2">
+      <h5 class="font-semibold">{{ section.sectionName }}</h5>
+      <ul class="list-disc ml-6">
+        <li *ngFor="let bullet of section.bullets">
+          {{ bullet.bulletName }} - Response: {{ bullet.response ? 'Yes' : 'No' }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Timestamp -->
+    <p class="mt-4 text-sm text-gray-500">Submission Time: {{ form.submissionTime | date:'short' }}</p>
+  </div>
+</div>
+
+<div *ngIf="!loading && inspectionForms.length === 0" class="text-center p-4">
+  No inspection forms found.
+</div>
