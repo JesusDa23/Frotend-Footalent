@@ -38,6 +38,7 @@ export class HeadercComponent {
 
   toggleMenu() {
     this.menuVisible = !this.menuVisible;
+  
   }
 
 

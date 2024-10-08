@@ -7,18 +7,18 @@
           <li class="text-gray-400">{{User?.rol}}</li>
         </ul>
       </div>
-      <app-togglemenu ></app-togglemenu>
+      <app-togglemenu></app-togglemenu>
     </header>
   
 
     <!-- barra de navegacion -->
-    <nav class="flex justify-around bg-white p-2 pt-4 shadow-md">
+    <nav class="flex justify-around bg-white p-2 pt-4 shadow-md cursor-pointer">
       <button routerLink="/homec"
         routerLinkActive="border-blue-500 text-blue-950 font-semibold border-b-4 padding-b-10 border-blue-950 "
-        class="font-medium " [routerLinkActiveOptions]="{exact: true}">Inspeccion Vehicular</button>
+        class="font-medium " >Inspeccion Vehicular</button>
       <button routerLink="/reporte"
-        routerLinkActive="border-blue-500 text-blue-950 font-semibold border-b-4 border-blue-950 " class="font-medium "
-        [routerLinkActiveOptions]="{exact: true}">Reportar Incidente</button>
+        routerLinkActive="border-blue-500 text-blue-950 font-semibold border-b-4 border-blue-950 cursor-pointer" class="font-medium "
+        >Reportar Incidente</button>
     </nav>
   
   </div>

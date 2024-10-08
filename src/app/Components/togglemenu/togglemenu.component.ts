@@ -33,13 +33,16 @@ export class TogglemenuComponent {
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
 
-    if (this.isMenuOpen) {
-      // Add the no-scroll class to the body
-      document.body.classList.remove('no-scroll');
-    } else {
-      // Remove the no-scroll class from the body
-      
-      document.body.classList.add('no-scroll');
+    // Get the element by its id
+    const menuElement = document.getElementById('menu');
+    
+    if (menuElement) {
+      // Toggle the 'hidden' class based on menuVisible
+      if (this.isMenuOpen) {
+        menuElement.classList.remove('hidden');
+      } else {
+        menuElement.classList.add('hidden');
+      }
     }
   }
 
