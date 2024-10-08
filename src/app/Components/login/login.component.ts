@@ -52,8 +52,18 @@ export class LoginComponent implements OnInit {
         // Store user information in sessionStorage
         sessionStorage.setItem('userInfo', JSON.stringify(dataCast.user));
 
+        console.log("DATA CONSOLA: ", dataCast.user.rol);
+
+
         if(sessionStorage.getItem("token") != null){
-          this.router.navigate(['/home']);
+
+          if(dataCast.user.rol == "admin"){
+            this.router.navigate(['/home']);
+          }
+          else if(dataCast.user.rol == "user"){
+            this.router.navigate(['/homec']);
+          }
+
         }
       },
       error: err => {
