@@ -5,11 +5,14 @@ import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk
 import { AccountsService } from '../../../Services/accounts.service';
 import { inject } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
+
+import { AgregarConductorComponent } from '../agregar-conductor/agregar-conductor.component';
 
 @Component({
   selector: 'app-conductores',
   standalone: true,
-  imports: [HeaderComponent, CdkDropList, CdkDrag],
+  imports: [HeaderComponent, AgregarConductorComponent, CdkDropList, CdkDrag, RouterLink],
   templateUrl: './conductores.component.html',
   styleUrl: './conductores.component.css'
 })
@@ -27,8 +30,6 @@ export class ConductoresComponent {
     this.accountService.retrieveUsers().subscribe((res: any) => {
       if (res) {
         this.retrievedUsers = res.data
-        console.log("Funcionó");
-        console.log(this.retrievedUsers);
       } else {
         console.log("No se obtuvieron usuarios");
       }

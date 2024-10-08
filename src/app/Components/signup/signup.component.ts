@@ -20,6 +20,7 @@ export class SignupComponent implements OnInit {
   confirmPassword: string = "";
   name: string = "";
   dni: string = "";
+  phone: string = "";
   termsAccepted: boolean = false;
 
   constructor(private _accountsService: AccountsService, private router: Router) { }

@@ -8,12 +8,16 @@ import { Vehicle } from '../../models/vehicle.model';
 import { EditmodalComponent } from './editmodal/editmodal.component';
 import { HeaderComponent } from '../header/header.component';
 import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
+// componentes
 import { PerfilVehiculoComponent } from './perfil-vehiculo/perfil-vehiculo.component';
+import { CrearVehiculoComponent } from './crear-vehiculo/crear-vehiculo.component';
+
 
 @Component({
   selector: 'app-flota',
   standalone: true,
-  imports: [PerfilVehiculoComponent, NgFor,ReactiveFormsModule, NgIf, EditmodalComponent, RouterModule, NgClass, UpperCasePipe,HeaderComponent, TitleCasePipe],
+  imports: [PerfilVehiculoComponent, CrearVehiculoComponent, NgFor,ReactiveFormsModule,RouterLink, NgIf, EditmodalComponent, RouterModule, NgClass, UpperCasePipe,HeaderComponent, TitleCasePipe],
   templateUrl: './flota.component.html',
   styleUrl: './flota.component.css'
 })

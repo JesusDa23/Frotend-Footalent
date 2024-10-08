@@ -17,7 +17,7 @@ import { ListbulletsComponent } from './Components/admin/admincheck/listcheck/li
 import { SectionsByCatComponent } from './Components/conductor/sections-by-cat/sections-by-cat.component';
 import { PerfilVehiculoComponent } from './Components/admin/flota/perfil-vehiculo/perfil-vehiculo.component';
 import { FormresponsesComponent } from './Components/admin/formresponses/formresponses.component';
-
+import { AgregarConductorComponent } from './Components/admin/agregar-conductor/agregar-conductor.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -31,12 +31,13 @@ export const routes: Routes = [
   { path: 'admincheck', component: AdmincheckComponent, canActivate: [authGuard]},
   { path: 'listcheck/:categoryId', component: ListcheckComponent, canActivate: [authGuard]},
   { path: 'inspeccion', component: InspeccionComponent, canActivate: [authGuard]},
-  { path: 'crear-flota', component:CrearVehiculoComponent, canActivate:[authGuard]},
+  { path: 'agregar-vehiculo', component:CrearVehiculoComponent, canActivate:[authGuard]},
   { path: 'reporte', component: ReporteComponent, canActivate: [authGuard]},
   { path: 'sections/:sectionId', component: ListbulletsComponent, canActivate: [authGuard]},
   { path: 'formresponses', component: FormresponsesComponent, canActivate: [authGuard]},
   { path: 'inspeccion2/:categoryId/:vehicle', component: SectionsByCatComponent, canActivate: [authGuard]},
-  { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]}
+  { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]},
+  { path: 'agregar-conductor', component: AgregarConductorComponent, canActivate: [authGuard]}
 
 ];
 
