@@ -27,8 +27,9 @@ export class AccountsService {
     this.appUrl = `${environment.apiUrl}/auth`;
   }
 
-  signUp(credentials: UserInfo) {
-    return this.http.post(this.appUrl + "/register", credentials);
+  signUp(credentials: UserInfo): Observable<any>  {
+    this.construirHeaders(); 
+    return this.http.post(this.appUrl + "/register", credentials, { headers: this.requestHeaders });
   }
 
   logIn(credentials: Credentials) {

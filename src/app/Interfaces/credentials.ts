@@ -17,3 +17,14 @@ export interface resLoginUser {
   token: string
   user: UserInfo
 }
+
+export interface CreateDriver {
+  dni: string
+  name: string
+  email: string
+  password: string
+  phone: string
+  address: string
+  licencia: string
+  rol: string
+}
