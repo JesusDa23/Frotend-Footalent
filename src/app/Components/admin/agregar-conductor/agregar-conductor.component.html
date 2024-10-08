@@ -71,6 +71,7 @@
                 </div>
             </div>
 
+            <button type="reset"  class="bg-red-700 font-normal mx-auto text-white w-full px-4 py-2 rounded">Reiniciar credenciales</button>
 
         </form>
 
@@ -78,8 +79,12 @@
 </section>
 
 <section>
-    <div class="fixed bottom-0 w-full p-4 bg-bgBtn flex justify-center" type="submit">
-        <button (click)="onSubmit()" class="bg-btnColor text-white w-11/12 px-4 py-2 rounded">Guardar
+    <div class="fixed bottom-0  w-full p-4 bg-bgBtn flex flex-col gap-5 justify-center" type="submit">
+        
+        <button style="border: 1px solid #0A135D;" class="bg-inherit font-normal mx-auto text-blue-950 w-full px-6 py-2 rounded ">Historial de vehículos</button>
+        
+        
+        <button (click)="onSubmit()" class="bg-btnColor font-normal mx-auto text-white w-full px-4 py-2 rounded">Guardar
             perfil</button>
     </div>
 </section>

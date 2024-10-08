@@ -1,21 +1,21 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import {  CreateDriver } from '../../../Interfaces/credentials';
+import { FormsModule, FormGroup } from '@angular/forms';
+import { Credentials, CreateDriver } from '../../../Interfaces/credentials';
 import Swal from 'sweetalert2'
 import { AccountsService } from '../../../Services/accounts.service';
-import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
 
+import { SubheaderComponent } from '../../subheader/subheader.component';
 
 @Component({
   selector: 'app-agregar-conductor',
   standalone: true,
-  imports: [TogglemenuComponent, FormsModule],
+  imports: [SubheaderComponent, FormsModule],
   templateUrl: './agregar-conductor.component.html',
   styleUrl: './agregar-conductor.component.css'
 })
 export class AgregarConductorComponent {
-
+  
   name: string = "";
   dni: string = "";
   email: string = "";
@@ -44,6 +44,7 @@ export class AgregarConductorComponent {
     return result;
   }
 
+  
 
   onSubmit() {
     // verificacion de llenado de campos
@@ -105,6 +106,7 @@ export class AgregarConductorComponent {
 
     })
   }
+
 
 
   ngOnInit() {
