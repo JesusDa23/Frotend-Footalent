@@ -1,4 +1,19 @@
-<section class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+<header 
+    id="top-bar"
+    class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
+    <div class="flex justify-between items-center p-4">
+      <button (click)="goBack()" class="text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+      </button>
+      <h1 class="text-lg text-white text-center my-2">Agregar Conductor</h1>
+      <app-togglemenu/>
+    </div>
+  </header>
+
+
+<section class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 pt-24">
     <div class="w-full  md:mt-0 sm:max-w-md xl:p-0 ">
 
         <form class="space-y-4 md:space-y-6" action="#">

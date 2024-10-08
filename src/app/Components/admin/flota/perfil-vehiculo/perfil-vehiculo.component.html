@@ -11,21 +11,77 @@
     </div>
   </header>
 
-  <div class="bg-bgAzulClaron p-4 shadow-md flex items-center justify-between">
+  <div class="bg-bgAzulClaron p-4 shadow-md flex justify-between">
     <!-- Tipo de vehículo -->
-    <p class="text-lg font-normal">Tipo: <span class="font-bold text-lg">Transporte</span></p>
+    <div class="flex-1">
+      <p class="text-lg font-normal">Tipo: <span class="font-bold text-lg">{{vehicle.category}}</span></p>
+    </div>
+
+
 
     <!-- Selector para cambiar estado del vehículo, con margen a la izquierda -->
-    <div class="ml-4 max-w-40">
-      <label for="status" class="text-sm font-bold mb-2"></label>
-      <select id="status" class="p-2 border border-gray-300 rounded-3xl w-full"
-              [(ngModel)]="vehicle.status"
-              (change)="onStatusChange()">
-        <option value="Disponible">Disponible</option>
-        <option value="Ocupado">Ocupado</option>
-        <option value="Reparacion">Reparación</option>
-        <option value="Deshabilitado">Deshabilitado</option>
-      </select>
+    <div class="relative inline-block text-left w-36 text-white text-sm">
+      <!-- Trigger dropdown with lighter background for the selected option -->
+      <div 
+        class="p-1 border border-gray-300 rounded-3xl flex items-center justify-between cursor-pointer"
+        [ngClass]="{
+          'bg-green-600': selectedStatus === 'Disponible', 
+          'bg-yellow-400': selectedStatus === 'Reparacion', 
+          'bg-red-600': selectedStatus === 'Ocupado', 
+          'bg-slate-200': selectedStatus === 'Deshabilitado'
+        }"
+        (click)="toggleDropdown()">
+        <div class="flex items-center">
+          <!-- Colored ball to represent the status -->
+          <span 
+            class="flex items-center justify-center h-2 w-2 rounded-full mx-2"
+            [ngClass]="{
+              'bg-[#59F63A]': selectedStatus === 'Disponible',
+              'bg-yellow-600': selectedStatus === 'Reparacion',
+              'bg-[#9E1618]': selectedStatus === 'Ocupado',
+              'bg-slate-700': selectedStatus === 'Deshabilitado'
+            }"></span>
+          {{ selectedStatus }}
+        </div>
+        <i class="fas fa-chevron-down mr-1"></i>
+      </div>
+    
+      <!-- Dropdown menu -->
+      <div *ngIf="isDropdownOpen" 
+           class="absolute z-10 mt-2 w-full rounded-md bg-white shadow-lg text-black">
+        <div class="py-1">
+          <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
+               (click)="selectStatus('Disponible')">
+            <span class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-green-600"></span>
+            Disponible
+          </div>
+          <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
+               (click)="selectStatus('Ocupado')">
+            <span class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-red-500"></span>
+            Ocupado
+          </div>
+          <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
+               (click)="selectStatus('Reparacion')">
+            <span class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-yellow-400"></span>
+            Reparación
+          </div>
+          <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
+               (click)="selectStatus('Deshabilitado')">
+            <span class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-slate-500"></span>
+            Deshabilitado
+          </div>
+        </div>
+      </div>
+
+    
+   
+    
+ 
+    
+
+
+      
+      
 
     </div>
   </div>
