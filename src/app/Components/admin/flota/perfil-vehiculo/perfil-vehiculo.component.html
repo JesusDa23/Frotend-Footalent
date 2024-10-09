@@ -86,9 +86,10 @@
     <div class="grid grid-cols-2 gap-4 m-4">
       <div>
         <label class="block text-sm font-semibold mb-1">Tipo de Vehículo</label>
-        <select class="w-full border rounded-md px-3 py-2">
-          <option>Transporte</option>
-          <!-- Más opciones -->
+        <select class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.category">
+          <ng-container *ngFor="let item of categoriesNames">
+            <option [value]='item._id'>{{item.name}}</option>
+        </ng-container>
         </select>
       </div>
 

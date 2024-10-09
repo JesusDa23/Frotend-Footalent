@@ -7,6 +7,8 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AccountsService } from '../../../../Services/accounts.service';
 import Swal from 'sweetalert2';
+import { AdmincheckService } from '../../../../Services/admincheck.service';
+import { map } from 'rxjs';
 
 
 @Component({
@@ -22,9 +24,11 @@ export class PerfilVehiculoComponent {
 
   isDropdownOpen = false;
   selectedStatus: string = 'Disponible';
+  categoriesNames:any[] = []
+  
   
 
-  constructor(private accountsService: AccountsService, private route: ActivatedRoute, private flotaService: FlotaService, private location: Location, private router: Router) { }
+  constructor(private accountsService: AccountsService, private route: ActivatedRoute, private flotaService: FlotaService, private location: Location, private router: Router, private categoriesService: AdmincheckService) { }
 
   ngOnInit(): void {
     this.vehicleId = this.route.snapshot.paramMap.get('id');
@@ -32,6 +36,7 @@ export class PerfilVehiculoComponent {
       this.vehicle = data;
     });
     this.accountsService.isAdmin();
+    this.loadCategories();
 
   }
 
@@ -48,6 +53,18 @@ export class PerfilVehiculoComponent {
           // Opcional: Aquí podrías manejar el error, mostrando una notificación de fallo.
         }
       });
+  }
+
+  loadCategories() {
+    this.categoriesService.getCategories().subscribe(data => {
+      this.categoriesNames = data;
+  
+      // Verificar si la categoría seleccionada del vehículo existe entre las opciones
+      const selectedCategory = this.categoriesNames.find(category => category._id === this.vehicle.category);
+      if (selectedCategory) {
+        this.vehicle.category = selectedCategory._id;  // Asignar la categoría seleccionada
+      }
+    });
   }
 
   guardarPerfil() {
