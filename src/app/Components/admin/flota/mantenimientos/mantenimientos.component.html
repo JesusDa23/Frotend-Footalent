@@ -1,12 +1,12 @@
 <div class="min-h-screen">
   <!-- Header -->
-  <div class="flex justify-evenly items-center p-2 bg-bgColorBlue">
+  <div class="flex justify-between items-center p-2 bg-bgColorBlue">
     <button class="p-4">
-      <i class="fas fa-chevron-left text-white"></i>
+      <i class="fas fa-chevron-left text-white" routerlink="home"></i>
     </button>
     <h1 class="text-xl text-white">Mantenimientos</h1>
     <button class="p-4">
-      <i class="fas fa-bars text-white"></i>
+      <app-togglemenu/>
     </button>
   </div>
 
@@ -46,9 +46,12 @@
               <input [(ngModel)]="mantenimiento.fecha" (change)="actualizarMantenimiento(mantenimiento)" type="date" class="border border-gray-300 rounded p-1 w-full" />
             </td>
             <td class="p-2">
-              <select [(ngModel)]="mantenimiento.categoria" (change)="actualizarMantenimiento(mantenimiento)" class="border border-gray-300 rounded p-1 w-full">
-                <option value="Mecánico">Mecánico</option>
-                <option value="Eléctrico">Eléctrico</option>
+              <select [(ngModel)]="mantenimientoSelect" 
+              (change)="actualizarMantenimiento(mantenimiento)" 
+              class="border border-gray-300 rounded p-1 w-full"
+              *ngFor="let item of mantenimiento">
+                <option [value]='mantenimiento._id'>{{item.name}}</option>
+                
               </select>
             </td>
             <td class="p-2">

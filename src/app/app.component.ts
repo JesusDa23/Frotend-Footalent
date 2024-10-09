@@ -5,11 +5,13 @@ import { SwPush } from '@angular/service-worker';
 import { PushService } from './Services/push.service';
 import { initFlowbite } from 'flowbite';
 import { InactivityServiceService } from './Services/inactivity-service.service';
+import { AlertComponent } from "./Components/alert/alert.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, LoginComponent],
+  imports: [RouterOutlet, LoginComponent, AlertComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']  
 })

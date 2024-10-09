@@ -1,0 +1,7 @@
+<div *ngIf="alert" class="alert" [ngClass]="{
+    'bg-green-100 text-green-800 border-green-200': alert.type === 'success',
+    'bg-red-100 text-red-800 border-red-200': alert.type === 'error',
+    'bg-blue-100 text-blue-800 border-blue-200': alert.type === 'info'
+  }" role="alert">
+    {{ alert.message }}
+  </div>

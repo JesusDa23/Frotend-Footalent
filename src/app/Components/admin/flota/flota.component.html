@@ -9,7 +9,9 @@
 
 
 <div class="container mx-auto bg-white">
-  <div class="flex-col  gap-[8px] p-4">
+
+  <div class="flex-col gap-[8px] p-4">
+    <!-- Vehículo -->
     <div class="flex p-2 bg-white shadow-md rounded border border-cardBorder w-full mt-2 items-center justify-between"
      *ngFor="let vehicle of flotas">
       <!-- Información del vehículo -->
@@ -40,9 +42,9 @@
         </span>
     
         <!-- Botón de flecha -->
-        <button [routerLink]="['/perfil-vehiculo', vehicle._id]" routerLinkActive="router-link-active">
-          <i class="fas fa-chevron-right text-gray-500"></i>
-        </button>
+      </div>
+      <div class="flex-none w-3 ml-2 cursor-pointer" [routerLink]="['/perfil-vehiculo', vehicle._id]" routerLinkActive="router-link-active">
+        <i class="fa-solid fa-chevron-right"></i>
       </div>
     </div>
     

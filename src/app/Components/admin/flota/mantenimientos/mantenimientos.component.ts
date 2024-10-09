@@ -3,17 +3,20 @@ import { ChangeDetectorRef, Component, NgModule } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { MantenimientoService } from '../../../../Services/mantenimiento.service';
 import { ActivatedRoute } from '@angular/router';
+import { TogglemenuComponent } from "../../../togglemenu/togglemenu.component";
 
 @Component({
   selector: 'app-mantenimientos',
   standalone: true,
   imports: [FormsModule, NgFor],
+  imports: [FormsModule, NgFor, TogglemenuComponent],
   templateUrl: './mantenimientos.component.html',
   styleUrl: './mantenimientos.component.css'
 })
 export class MantenimientosComponent {
   mantenimientos: any[] = [];
   vehicleId: any = ''
+  mantenimientoSelect: any[] = []
 
   constructor(private mantenimientoService: MantenimientoService,private cdr: ChangeDetectorRef, private route: ActivatedRoute ) { }
 
