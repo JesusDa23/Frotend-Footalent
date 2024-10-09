@@ -15,7 +15,7 @@ import Swal from 'sweetalert2'
 })
 export class LoginComponent implements OnInit {
 
-  dni: string = ""
+  email: string = ""
   password: string = ""
 
   constructor(private _accountsService: AccountsService, private router: Router) { }
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   botonLogIn() {
-    if (this.dni == "" || this.password == "") {
+    if (this.email == "" || this.password == "") {
       Swal.fire({
         position: "top-end",
         icon: "error",
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     }
 
     let user: Credentials = {
-      dni: this.dni,
+      email: this.email,
       password: this.password
     }
     this._accountsService.logIn(user).subscribe({

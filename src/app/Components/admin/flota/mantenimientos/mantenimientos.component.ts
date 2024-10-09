@@ -56,10 +56,6 @@ export class MantenimientosComponent {
     });
   }
 
-
-
-
-
   agregarMantenimiento() {
     const nuevoMantenimiento = {
       vehicleId: this.vehicleId,  // Aquí debes referenciar el vehículo por su ObjectId
