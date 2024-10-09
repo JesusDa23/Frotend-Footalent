@@ -12,17 +12,19 @@
         <!-- Status badge -->
         <div class="flex-none w-32 mr-1 text text-white">
           <span class="flex justify-center items-center rounded-full px-1 " [ngClass]="{
-                  'bg-green-600 text-white': vehicle.status === 'Disponible', 
-                  'bg-yellow-400 text-white': vehicle.status === 'Reparacion',
-                  'bg-red-500 text-white': vehicle.status === 'Ocupado',
-                  'bg-slate-500 text-white': vehicle.status === 'Deshabilitado'
-                  }">
-            <i class="fas fa-circle text-[8px] mr-2" [ngClass]="{
-                  'border-green-500 text-green-500': vehicle.status === 'Disponible', 
-                  'border-yellow-500 text-yellow-600': vehicle.status === 'Reparacion',
-                  'border-red-500 text-red-800': vehicle.status === 'Ocupado',
-                  'border-slate-700 text-white': vehicle.status === 'Deshabilitado'
-                  }"></i>  
+            'bg-disponible': vehicle.status === 'Disponible', 
+            'bg-reparacion': vehicle.status === 'Reparacion',
+            'bg-ocupado': vehicle.status === 'Ocupado',
+            'bg-deshabilitado': vehicle.status === 'Deshabilitado'
+          }">
+      <!-- Icono del círculo de estado -->
+      <i class="fas fa-circle text-xs mr-2"
+         [ngClass]="{
+            'text-textDisponible': vehicle.status === 'Disponible', 
+            'text-textReparacion': vehicle.status === 'Reparacion',
+            'text-textOcupado': vehicle.status === 'Ocupado',
+            'text-textDeshabilitado': vehicle.status === 'Deshabilitado'
+          }"></i>  
             {{ vehicle.status }}
           </span>
         </div>

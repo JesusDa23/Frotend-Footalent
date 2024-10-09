@@ -1,9 +1,10 @@
 import { Component, NgModule } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Route, RouterLink } from '@angular/router';
 import { FlotaService } from '../../../../Services/flota.service';
 import { NgClass, UpperCasePipe } from '@angular/common';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,12 +16,13 @@ import { Location } from '@angular/common';
 })
 export class PerfilVehiculoComponent {
   vehicle: any;  // Aquí recibiremos los datos del vehículo
+  vehicleId: any = '';
 
-  constructor(private route: ActivatedRoute, private flotaService: FlotaService, private location: Location) { }
+  constructor(private route: ActivatedRoute, private flotaService: FlotaService, private location: Location, private router: Router) { }
 
   ngOnInit(): void {
-    const vehicleId:any = this.route.snapshot.paramMap.get('id');
-    this.flotaService.getFlotaById(vehicleId).subscribe(data => {
+    this.vehicleId = this.route.snapshot.paramMap.get('id');
+    this.flotaService.getFlotaById(this.vehicleId).subscribe(data => {
       this.vehicle = data;
     });
   }
@@ -40,7 +42,15 @@ export class PerfilVehiculoComponent {
       });
   }
 
-  onClose(): void {
-    this.location.back();
+  onEditInspeccion(){
+    this.router.navigate(['/admincheck'])
+  }
+
+  onClose() {
+    this.router.navigate(['/home'])
+  }
+
+  onNavegation(){
+    this.router.navigate(['/mantenimientos' , this.vehicleId])
   }
 }
