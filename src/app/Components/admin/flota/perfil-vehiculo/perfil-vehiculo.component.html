@@ -6,20 +6,12 @@
 
     <!-- Información del vehículo centrada -->
     <div class="mx-auto flex items-center">
-      <h1 class="text-xl font-medium">{{ vehicle.make }} - {{ vehicle.model }}</h1>
-      <p class="text-xl ml-4">{{ vehicle.plate | uppercase }}</p>
+      <h1 class="text-xl font-medium">Perfil del vehiculo</h1>
     </div>
   </header>
 
-  <div class="bg-bgAzulClaron p-4 shadow-md flex justify-between">
-    <!-- Tipo de vehículo -->
-    <div class="flex-1">
-      <p class="text-lg font-normal">Tipo: <span class="font-bold text-lg">{{vehicle.category}}</span></p>
-    </div>
-
-
-
-    <!-- Selector para cambiar estado del vehículo, con margen a la izquierda -->
+  <div class="p-4 shadow-md flex justify-between">
+    <h1 class="text-black font-bold">Estado del vehiculo:</h1>
     <div class="relative inline-block text-left w-36 text-white text-sm">
       <!-- Trigger dropdown with lighter background for the selected option -->
       <div 
@@ -72,30 +64,50 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
 
-  <!-- Botones de acción -->
-  <div class="flex flex-col gap-4 p-4">
-    <button class="bg-bgColorBlue text-white py-2 rounded-md shadow-md w-full text-center" (click)="onNavegation()">Ver Mantenimientos</button>
-    <button class="bg-bgColorBlue text-white py-2 rounded-md shadow-md w-full text-center">Historial de Inspecciones</button>
-  </div>
+ <!-- Marca y Placa -->
+    <div class="grid grid-cols-2 gap-4 m-4">
+      <div>
+        <label class="block text-sm font-semibold mb-1">Marca</label>
+        <input class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.make"/>
+      </div>
 
-  <!-- Sección del conductor -->
-  <div class="p-4">
-    <h2 class="font-bold text-sm">Conductor</h2>
-    <select class="mt-2 p-2 border border-gray-300 rounded w-full">
-      <option>Seleccionar conductor</option>
-    </select>
-  </div>
+      <div>
+        <label class="block text-sm font-semibold mb-1">Placa</label>
+        <input class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.plate" />
+      </div>
+    </div>
 
-  <div class="flex flex-col gap-4 p-4">
-    <button class="bg-bgColorBlue text-white py-2 rounded-md shadow-md flex items-center justify-center">
-      <i class="fas fa-calendar-alt mr-2"></i> Historial de Conductores
-    </button>
-    <button (click)="onEditInspeccion()" class="bg-bgColorBlue text-white py-2 rounded-md shadow-md flex items-center justify-center">
-      <i class="fas fa-edit mr-2"></i> Editar Inspección
-    </button>
+    <!-- Tipo de Vehículo y Modelo -->
+    <div class="grid grid-cols-2 gap-4 m-4">
+      <div>
+        <label class="block text-sm font-semibold mb-1">Tipo de Vehículo</label>
+        <select class="w-full border rounded-md px-3 py-2">
+          <option>Transporte</option>
+          <!-- Más opciones -->
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Modelo</label>
+        <input class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.model"/>
+      </div>
+    </div>
+
+    <hr class="my-4" />
+
+    <!-- Botones de Historial y Guardar -->
+    <div class="flex flex-col space-y-4 m-4">
+      <button class="flex items-center justify-center bg-transparent text-[#001A72] border border-[#001A72] px-4 py-2 rounded-lg">
+        <i class="far fa-calendar-alt mr-2"></i> Historial de conductores
+      </button>
+
+      <button (click)="guardarPerfil()" class="flex items-center justify-center bg-[#001A72] text-white px-4 py-2 rounded-lg">
+        <i class="far fa-save mr-2"></i> Guardar perfil
+      </button>
+    </div>
   </div>
-</div>
