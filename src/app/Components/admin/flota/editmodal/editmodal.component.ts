@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup,  Validators, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Vehicle } from '../../../models/vehicle.model';
+import { AccountsService } from '../../../../Services/accounts.service';
 
 @Component({
   selector: 'app-editmodal',
@@ -16,7 +17,7 @@ export class EditmodalComponent {
   @Output() modalClosed = new EventEmitter<void>();
   vehicleForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private accountsService: AccountsService) {
     // Initialize the form
     this.vehicleForm = this.fb.group({
       make: ['', [Validators.required]],
@@ -36,6 +37,8 @@ export class EditmodalComponent {
       // Patch form with the selected vehicle data
       this.vehicleForm.patchValue(this.vehicle);
     }
+    this.accountsService.isAdmin();
+
   }
 
   onSubmit() {

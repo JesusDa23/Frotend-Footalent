@@ -1,9 +1,9 @@
 <div class="sticky top-0 left-0 right-0">
 
-    <header class="flex items-center justify-between bg-[#0a135d] p-4 bg-header shadow-md ">
+    <header class="flex items-center justify-between bg-[#0a135d] pt-2 pl-4 bg-header shadow-md ">
       <div class="font-medium text-white">
         <ul>
-          <li>Bienvenido, {{User?.name}}!</li>
+          <li class="text-lg">Bienvenido, {{User?.name}}!</li>
           <li class="text-gray-400">{{User?.rol}}</li>
         </ul>
       </div>
@@ -12,12 +12,12 @@
   
   
 
-  <nav class="flex justify-around bg-white p-2 pt-4 shadow-md">
+  <nav class="flex justify-around bg-white padding-b-10 p-2 pt-4 shadow-md">
     <button routerLink="/home"
-      routerLinkActive="border-blue-500 text-blue-950 font-semibold border-b-4 padding-b-10 border-blue-950 "
+      routerLinkActive="border-blue-500 text-blue-950 text-lg font-medium border-b-4 padding-b-10 border-blue-950 "
       class="font-medium " [routerLinkActiveOptions]="{exact: true}">Flota vehicular</button>
     <button routerLink="/conductores"
-      routerLinkActive="border-blue-500 text-blue-950 font-semibold border-b-4 border-blue-950 " class="font-medium "
+      routerLinkActive="border-blue-500 text-blue-950 text-lg font-medium border-b-4 border-blue-950 " class="font-medium "
       [routerLinkActiveOptions]="{exact: true}">Conductores</button>
   </nav>
 

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule, Location } from '@angular/common';
 import { Section } from '../../models/section.model';
 import { Router } from '@angular/router';
+import { AccountsService } from '../../../Services/accounts.service';
 
 @Component({
   selector: 'app-admincheck',
@@ -25,9 +26,10 @@ export class AdmincheckComponent {
   editedCategory: Category | null = null ;  // To store the category being edited
   isEditing: boolean = false; 
 
-  constructor(private admincheckService: AdmincheckService, private router: Router, private location: Location) {}
+  constructor(private admincheckService: AdmincheckService, private router: Router, private location: Location, private  accountsService: AccountsService) {}
 
   ngOnInit(): void {
+    this.accountsService.isAdmin()
     // Load categories when component is initialized
     this.admincheckService.getCategories().subscribe(data => {
       this.categories = data;

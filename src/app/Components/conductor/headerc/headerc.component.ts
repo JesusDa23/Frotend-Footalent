@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserInfo } from '../../models/checklist.model';
@@ -11,7 +10,6 @@ import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
   imports: [
     RouterLink, 
     RouterLinkActive, 
-    NgClass, 
     TogglemenuComponent,
   ],
   

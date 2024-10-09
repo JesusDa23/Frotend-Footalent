@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { FlotaComponent } from '../flota/flota.component';
+import { AccountsService } from '../../../Services/accounts.service';
+
 
 @Component({
   selector: 'app-home',
@@ -10,5 +12,9 @@ import { FlotaComponent } from '../flota/flota.component';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  
+  constructor(private accountsService: AccountsService) { }
+
+  ngOnInit() {
+    this.accountsService.isAdmin();
+  }
 }

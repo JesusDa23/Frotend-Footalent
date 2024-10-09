@@ -1,12 +1,12 @@
-<div class="container mx-auto p-4 bg-white">
-    <div class=" gap-[8px] ">
+<div class="container mx-auto bg-white">
+    <div class=" gap-[8px] p-4">
       <!-- Vehículo 1 -->
       <div class="flex p-2 bg-white shadow-md rounded border border-cardBorder w-full mt-2 items-center justify-between" 
       (click)="openins(vehicle.category, vehicle._id)" *ngFor="let vehicle of flotas">
         
         <!-- Vehicle info (Make and Model) -->
         <div class="flex-1 w-32 m-2">
-          <h2 class="text-[14px] font-bold">{{ vehicle.make }} - {{ vehicle.model }}</h2>
+          <h2 class="text-lg font-medium">{{ vehicle.make }} - {{ vehicle.model }}</h2>
           <p class="text-gray-500">{{ vehicle.plate | uppercase }}</p>
         </div>
         
