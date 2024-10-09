@@ -2,11 +2,9 @@
 
 
 <main>
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="flex flex-col px-6 rounded-sm mt-5 my-10  z-1">
         @for (user of retrievedUsers; track user) {
-
-
-        <div class="example-box" cdkDrag>
+        <div class="example-box">
             <svg width="35px" height="35px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -46,14 +44,14 @@
 
             </div>
             <div class="ml-auto">
-                <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path d="M5 10H19M14 19L12 21L10 19M14 5L12 3L10 5M5 14H19" stroke="#5d5d5d" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round"></path>
-                    </g>
+
+
+                <svg width="9" height="14" viewBox="0 0 9 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M0.441098 13.4613C0.688936 13.7575 1.13127 13.7933 1.42357 13.541L8.12324 7.75694C8.58525 7.35806 8.58525 6.64194 8.12324 6.24306L1.38994 0.42998C1.11358 0.191395 0.696946 0.218576 0.453934 0.491044C0.204692 0.770497 0.233489 1.20013 0.517795 1.44382L7 7L0.524269 12.4898C0.234184 12.7357 0.197033 13.1697 0.441098 13.4613Z"
+                        fill="#85868B" />
                 </svg>
+
             </div>
         </div>
         }
@@ -62,7 +60,8 @@
 
 
 <section>
-    <div class="fixed bottom-0 w-full p-4  bg-blue-100 flex justify-center">
-        <button routerLink="/agregar-conductor" class="bg-btnColor text-white w-full px-4 py-2 rounded">Agregar conductor</button>
+    <div class="fixed bottom-0 w-full p-4  bg-blue-100 flex justify-center z-10">
+        <button routerLink="/agregar-conductor" class="bg-btnColor text-white w-full px-4 py-2 rounded">Agregar
+            conductor</button>
     </div>
 </section>

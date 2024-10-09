@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
-import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { AccountsService } from '../../../Services/accounts.service';
 import { inject } from '@angular/core';
@@ -12,7 +11,7 @@ import { AgregarConductorComponent } from '../agregar-conductor/agregar-conducto
 @Component({
   selector: 'app-conductores',
   standalone: true,
-  imports: [HeaderComponent, AgregarConductorComponent, CdkDropList, CdkDrag, RouterLink],
+  imports: [HeaderComponent, AgregarConductorComponent, RouterLink],
   templateUrl: './conductores.component.html',
   styleUrl: './conductores.component.css'
 })
@@ -35,11 +34,6 @@ export class ConductoresComponent {
       }
     })
   }
-
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.retrievedUsers, event.previousIndex, event.currentIndex);
-  }
-
 
   ngOnInit() {
     this.retrieveUsers();
