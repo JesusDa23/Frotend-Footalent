@@ -38,7 +38,7 @@ export const routes: Routes = [
   { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]},
   { path: 'agregar-conductor', component: AgregarConductorComponent, canActivate: [authGuard]},
   { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]},
-  // { path: 'mantenimientos', component: MantenimientosComponent, canActivate: [authGuard]},
+  { path: 'mantenimientos', component: MantenimientosComponent, canActivate: [authGuard]},
   { path: 'mantenimientos/:vehicleId', component: MantenimientosComponent, canActivate: [authGuard]}
 
 ];

@@ -2,29 +2,36 @@ import { NgClass, NgFor } from '@angular/common';
 import { ChangeDetectorRef, Component, NgModule } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { MantenimientoService } from '../../../../Services/mantenimiento.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TogglemenuComponent } from "../../../togglemenu/togglemenu.component";
+import { FlotaService } from '../../../../Services/flota.service';
 
 @Component({
   selector: 'app-mantenimientos',
   standalone: true,
-  imports: [FormsModule, NgFor],
-  imports: [FormsModule, NgFor, TogglemenuComponent],
+  imports: [FormsModule, NgFor, TogglemenuComponent, RouterModule],
   templateUrl: './mantenimientos.component.html',
   styleUrl: './mantenimientos.component.css'
 })
 export class MantenimientosComponent {
   mantenimientos: any[] = [];
   vehicleId: any = ''
+  flotas:any = [] 
   mantenimientoSelect: any[] = []
 
-  constructor(private mantenimientoService: MantenimientoService,private cdr: ChangeDetectorRef, private route: ActivatedRoute ) { }
+  constructor(
+    private mantenimientoService: MantenimientoService,
+    private cdr: ChangeDetectorRef, 
+    private route: ActivatedRoute,
+    private flotaService: FlotaService 
+  ) { }
 
   ngOnInit() {
     // Al iniciar, obtenemos los mantenimientos desde el servidor
     this.vehicleId = this.route.snapshot.paramMap.get('vehicleId');
     console.log(this.vehicleId)
     this.obtenerMantenimientos();
+    this.loadFlotas()
   }
 
   obtenerMantenimientos() {
@@ -42,6 +49,16 @@ export class MantenimientosComponent {
       }
     );
   }
+
+  loadFlotas() {
+    this.flotaService.getFlotas().subscribe(data => {
+      this.flotas = data;
+    });
+  }
+
+
+
+
 
   agregarMantenimiento() {
     const nuevoMantenimiento = {

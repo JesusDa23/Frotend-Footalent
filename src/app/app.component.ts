@@ -10,7 +10,6 @@ import { AlertComponent } from "./Components/alert/alert.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoginComponent],
   imports: [RouterOutlet, LoginComponent, AlertComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']  

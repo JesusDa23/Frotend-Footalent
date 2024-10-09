@@ -1,8 +1,8 @@
 <div class="min-h-screen">
   <!-- Header -->
   <div class="flex justify-between items-center p-2 bg-bgColorBlue">
-    <button class="p-4">
-      <i class="fas fa-chevron-left text-white" routerlink="home"></i>
+    <button class="p-4" routerLink="/home">
+      <i class="fas fa-chevron-left text-white" ></i>
     </button>
     <h1 class="text-xl text-white">Mantenimientos</h1>
     <button class="p-4">
@@ -37,7 +37,14 @@
               </select>
             </td>
             <td class="p-2">
-              <input [(ngModel)]="mantenimiento.vehicle" (blur)="actualizarMantenimiento(mantenimiento)" type="text" class="border border-gray-300 rounded p-1 w-full" />
+              <select [(ngModel)]="mantenimientoSelect" 
+              (blur)="actualizarMantenimiento(mantenimiento)" 
+              type="text" class="border border-gray-300 rounded p-1 w-full">
+              <ng-container *ngFor="let item of flotas">
+                <option value=""></option>
+                <option [value]='item._id'>{{item.plate}}</option>
+              </ng-container>
+            </select>
             </td>
             <td class="p-2">
               <input [(ngModel)]="mantenimiento.descripcion" (blur)="actualizarMantenimiento(mantenimiento)" type="text" class="border border-gray-300 rounded p-1 w-full" />
@@ -46,12 +53,9 @@
               <input [(ngModel)]="mantenimiento.fecha" (change)="actualizarMantenimiento(mantenimiento)" type="date" class="border border-gray-300 rounded p-1 w-full" />
             </td>
             <td class="p-2">
-              <select [(ngModel)]="mantenimientoSelect" 
-              (change)="actualizarMantenimiento(mantenimiento)" 
-              class="border border-gray-300 rounded p-1 w-full"
-              *ngFor="let item of mantenimiento">
-                <option [value]='mantenimiento._id'>{{item.name}}</option>
-                
+              <select [(ngModel)]="mantenimiento.categoria" (change)="actualizarMantenimiento(mantenimiento)" class="border border-gray-300 rounded p-1 w-full">
+                <option value="Mecánico">Mecánico</option>
+                <option value="Eléctrico">Eléctrico</option>
               </select>
             </td>
             <td class="p-2">
