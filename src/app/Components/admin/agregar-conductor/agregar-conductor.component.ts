@@ -8,15 +8,23 @@ import { AccountsService } from '../../../Services/accounts.service';
 import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+interface TipoLicencia {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-agregar-conductor',
   standalone: true,
-  imports: [SubheaderComponent, TogglemenuComponent, FormsModule],
+  imports: [SubheaderComponent, TogglemenuComponent, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
   templateUrl: './agregar-conductor.component.html',
   styleUrl: './agregar-conductor.component.css'
 })
 export class AgregarConductorComponent {
-  
   name: string = "";
   dni: string = "";
   email: string = "";
@@ -25,13 +33,22 @@ export class AgregarConductorComponent {
   password: string = "12345";
   address: string = "";
   licencia: string = "";
+  selectedLicence: string = "";
+  vencimiento: string ="";
+  
+
   rol: string = "user";
+  tiposLicencia: TipoLicencia[] = [
+    { value: 'tipo A', viewValue: 'Tipo A' },
+    { value: 'tipo B', viewValue: 'Tipo B' },
+    { value: 'tipo C', viewValue: 'Tipo C' }
+  ]
 
   constructor(
-    private accountsService: AccountsService, 
+    private accountsService: AccountsService,
     private location: Location
   ) { }
- 
+
 
   // creatar passwortd aleatorio 
   generatePassword() {
@@ -46,7 +63,7 @@ export class AgregarConductorComponent {
     return result;
   }
 
-  
+
 
   onSubmit() {
     // verificacion de llenado de campos
@@ -82,9 +99,13 @@ export class AgregarConductorComponent {
       name: this.name,
       phone: this.phone,
       licencia: this.licencia,
+      tipoLicencia: this.selectedLicence,
       address: this.address,
+      vencimiento: this.vencimiento,
       rol: this.rol
     };
+
+    console.log(newDriver);
 
     this.accountsService.signUp(newDriver).subscribe((res: any) => {
 
@@ -115,7 +136,7 @@ export class AgregarConductorComponent {
     this.generatePassword()
 
 
-    
+
   }
   goBack(): void {
     this.location.back();
