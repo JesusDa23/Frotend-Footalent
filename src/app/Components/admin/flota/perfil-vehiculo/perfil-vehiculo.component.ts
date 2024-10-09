@@ -6,6 +6,7 @@ import { CommonModule, NgClass, UpperCasePipe } from '@angular/common';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AccountsService } from '../../../../Services/accounts.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -48,6 +49,26 @@ export class PerfilVehiculoComponent {
         }
       });
   }
+
+  guardarPerfil() {
+  // Guardar los cambios en el vehículo
+  this.flotaService.updateFlotas(this.vehicleId, this.vehicle)
+    .subscribe({
+      next: (response) => {
+        console.log('Perfil actualizado exitosamente', response);
+        Swal.fire({
+          position: "center",
+          icon: "success",  // Corrige el icono a 'success'
+          title: "Se guardó exitosamente",  // Pequeño ajuste ortográfico
+          showConfirmButton: false,
+          timer: 1000
+        });  // Cierra correctamente el paréntesis
+      },
+      error: (error) => {
+        console.error('Error al actualizar el perfil', error);
+      }
+    });
+}
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen; // Toggle dropdown visibility
