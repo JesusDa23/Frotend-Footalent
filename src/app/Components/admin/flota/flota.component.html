@@ -10,7 +10,6 @@
 
 <div class="container mx-auto bg-white">
   <div class="flex-col  gap-[8px] p-4">
-    <!-- Vehículo -->
     <div class="flex p-2 bg-white shadow-md rounded border border-cardBorder w-full mt-2 items-center justify-between"
      *ngFor="let vehicle of flotas">
       <!-- Información del vehículo -->
@@ -18,29 +17,35 @@
         <h2 class="text-[14px] font-bold">{{ vehicle.make }} - {{ vehicle.model }}</h2>
         <p class="text-gray-500">{{ vehicle.plate | uppercase }}</p>
       </div>
-
-      <!-- Estado del vehículo -->
-      <div class="flex-none w-28 mr-1 text text-white">
-        <span class="flex justify-center items-center rounded-full px-1 " [ngClass]="{
-                'bg-green-600 text-white': vehicle.status === 'Disponible',
-                'bg-yellow-400 text-white': vehicle.status === 'Reparacion',
-                'bg-red-500 text-white': vehicle.status === 'Ocupado',
-                'bg-slate-500 text-white': vehicle.status === 'Deshabilitado'
-                }">
-          <i class="fas fa-circle text-[8px] mr-2" [ngClass]="{
-                'border-green-500 text-green-500': vehicle.status === 'Disponible',
-                'border-yellow-500 text-yellow-600': vehicle.status === 'Reparacion',
-                'border-red-500 text-red-800': vehicle.status === 'Ocupado',
-                'border-slate-700 text-white': vehicle.status === 'Deshabilitado'
-                }"></i>
-          {{ vehicle.status }}
+    
+      <!-- Estado y flecha al final -->
+      <div class="flex items-center space-x-4">
+        <!-- Estado del vehículo -->
+        <span class="flex items-center rounded-full px-2 py-1 w-32 text-white text-sm" 
+              [ngClass]="{
+                'bg-disponible': vehicle.status === 'Disponible', 
+                'bg-reparacion': vehicle.status === 'Reparacion',
+                'bg-ocupado': vehicle.status === 'Ocupado',
+                'bg-deshabilitado': vehicle.status === 'Deshabilitado'
+              }">
+          <!-- Icono del círculo de estado -->
+          <i class="fas fa-circle text-xs mr-2"
+             [ngClass]="{
+                'text-textDisponible': vehicle.status === 'Disponible', 
+                'text-textReparacion': vehicle.status === 'Reparacion',
+                'text-textOcupado': vehicle.status === 'Ocupado',
+                'text-textDeshabilitado': vehicle.status === 'Deshabilitado'
+              }"></i>  
+          {{ vehicle.status | titlecase }}
         </span>
+    
+        <!-- Botón de flecha -->
+        <button [routerLink]="['/perfil-vehiculo', vehicle._id]" routerLinkActive="router-link-active">
+          <i class="fas fa-chevron-right text-gray-500"></i>
+        </button>
       </div>
-      <div class="flex-none w-3 ml-2 cursor-pointer" [routerLink]="['/perfil-vehiculo', vehicle._id]" routerLinkActive="router-link-active">
-        <i class="fa-solid fa-chevron-right"></i>
-      </div>
-
     </div>
+    
   </div>
 </div>
 

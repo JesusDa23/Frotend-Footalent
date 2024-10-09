@@ -17,6 +17,8 @@ import { SectionsByCatComponent } from './Components/conductor/sections-by-cat/s
 import { PerfilVehiculoComponent } from './Components/admin/flota/perfil-vehiculo/perfil-vehiculo.component';
 import { FormresponsesComponent } from './Components/admin/formresponses/formresponses.component';
 import { AgregarConductorComponent } from './Components/admin/agregar-conductor/agregar-conductor.component';
+import { MantenimientosComponent } from './Components/admin/flota/mantenimientos/mantenimientos.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -35,7 +37,9 @@ export const routes: Routes = [
   { path: 'formresponses', component: FormresponsesComponent, canActivate: [authGuard]},
   { path: 'inspeccion2/:categoryId/:vehicle', component: SectionsByCatComponent, canActivate: [authGuard]},
   { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]},
-  { path: 'agregar-conductor', component: AgregarConductorComponent, canActivate: [authGuard]}
+  { path: 'agregar-conductor', component: AgregarConductorComponent, canActivate: [authGuard]},
+  { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]},
+  { path: 'mantenimientos/:vehicleId', component: MantenimientosComponent, canActivate: [authGuard]}
 
 ];
 

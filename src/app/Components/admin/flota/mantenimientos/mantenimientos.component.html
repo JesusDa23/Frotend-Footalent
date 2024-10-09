@@ -1,0 +1,73 @@
+<div class="min-h-screen">
+  <!-- Header -->
+  <div class="flex justify-evenly items-center p-2 bg-bgColorBlue">
+    <button class="p-4">
+      <i class="fas fa-chevron-left text-white"></i>
+    </button>
+    <h1 class="text-xl text-white">Mantenimientos</h1>
+    <button class="p-4">
+      <i class="fas fa-bars text-white"></i>
+    </button>
+  </div>
+
+  <div class="sm:m-5 lg:m-10">
+    <h1 class="text-[25px] pb-4 font-semibold m-3">Listado</h1>
+    <!-- Tabla de Mantenimientos -->
+    <div class="overflow-x-auto text-black shadow-lg m-3">
+      <table class="min-w-full table-auto">
+        <thead class="bg-bgColorBlue text-white">
+          <tr>
+            <th class="p-2 text-left">Estado</th>
+            <th class="p-2 text-left">Vehículo</th>
+            <th class="p-2 text-left">Descripción</th>
+            <th class="p-2 text-left">Fecha</th>
+            <th class="p-2 text-left">Categoría</th>
+            <th class="p-2 text-left">Coste</th>
+            <th class="p-2 text-left text-bgColorBlue ">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Itera sobre el array de mantenimientos -->
+          <tr *ngFor="let mantenimiento of mantenimientos" class="border-b">
+            <td class="p-2">
+              <select [(ngModel)]="mantenimiento.estado" (change)="actualizarMantenimiento(mantenimiento)" class="bg-yellow-500 text-white px-2 py-1 rounded-full text-sm">
+                <option value="Pendiente" class="bg-yellow-500 text-white">Pendiente</option>
+                <option value="Realizado" class="bg-green-500 text-white">Realizado</option>
+                <option value="Vencido" class="bg-red-500 text-white">Vencido</option>
+              </select>
+            </td>
+            <td class="p-2">
+              <input [(ngModel)]="mantenimiento.vehicle" (blur)="actualizarMantenimiento(mantenimiento)" type="text" class="border border-gray-300 rounded p-1 w-full" />
+            </td>
+            <td class="p-2">
+              <input [(ngModel)]="mantenimiento.descripcion" (blur)="actualizarMantenimiento(mantenimiento)" type="text" class="border border-gray-300 rounded p-1 w-full" />
+            </td>
+            <td class="p-2">
+              <input [(ngModel)]="mantenimiento.fecha" (change)="actualizarMantenimiento(mantenimiento)" type="date" class="border border-gray-300 rounded p-1 w-full" />
+            </td>
+            <td class="p-2">
+              <select [(ngModel)]="mantenimiento.categoria" (change)="actualizarMantenimiento(mantenimiento)" class="border border-gray-300 rounded p-1 w-full">
+                <option value="Mecánico">Mecánico</option>
+                <option value="Eléctrico">Eléctrico</option>
+              </select>
+            </td>
+            <td class="p-2">
+              <input [(ngModel)]="mantenimiento.coste" (blur)="actualizarMantenimiento(mantenimiento)" type="number" class="border border-gray-300 rounded p-1 w-full text-right" />
+            </td>
+            <td>
+                <button class="flex justify-center m-auto" (click)="eliminarMantenimiento(mantenimiento._id)" >
+                    <i class="text-red-700 text-lg fa-regular fa-circle-xmark"></i>
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Botón Agregar Mantenimiento -->
+    <div class="flex justify-center mt-4">
+      <button (click)="agregarMantenimiento()" class="bg-bgColorBlue text-white py-2 px-4 hover:bg-blue-800">
+        Agregar mantenimiento
+      </button>
+    </div>
+</div>
