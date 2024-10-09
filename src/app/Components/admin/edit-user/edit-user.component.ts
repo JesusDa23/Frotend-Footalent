@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, FormGroup } from '@angular/forms';
 import { Credentials, CreateDriver } from '../../../Interfaces/credentials';
@@ -7,16 +6,16 @@ import { AccountsService } from '../../../Services/accounts.service';
 
 import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-agregar-conductor',
+  selector: 'app-edit-user',
   standalone: true,
   imports: [SubheaderComponent, TogglemenuComponent, FormsModule],
-  templateUrl: './agregar-conductor.component.html',
-  styleUrl: './agregar-conductor.component.css'
+  templateUrl: './edit-user.component.html',
+  styleUrl: './edit-user.component.css'
 })
-export class AgregarConductorComponent {
-  
+export class EditUserComponent {
   name: string = "";
   dni: string = "";
   email: string = "";
@@ -28,10 +27,10 @@ export class AgregarConductorComponent {
   rol: string = "user";
 
   constructor(
-    private accountsService: AccountsService, 
+    private accountsService: AccountsService,
     private location: Location
   ) { }
- 
+
 
   // creatar passwortd aleatorio 
   generatePassword() {
@@ -46,7 +45,7 @@ export class AgregarConductorComponent {
     return result;
   }
 
-  
+
 
   onSubmit() {
     // verificacion de llenado de campos
@@ -115,7 +114,7 @@ export class AgregarConductorComponent {
     this.generatePassword()
 
 
-    
+
   }
   goBack(): void {
     this.location.back();
