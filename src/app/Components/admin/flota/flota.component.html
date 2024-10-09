@@ -15,7 +15,7 @@
      *ngFor="let vehicle of flotas">
       <!-- Información del vehículo -->
       <div class="flex-1 w-32 m-2">
-        <h2 class="text-[14px] font-bold">{{ vehicle.make }} - {{ vehicle.model }}</h2>
+        <h2 class=" text-lg font-medium">{{ vehicle.make }} - {{ vehicle.model }}</h2>
         <p class="text-gray-500">{{ vehicle.plate | uppercase }}</p>
       </div>
 
@@ -50,7 +50,7 @@
             >
         <div class="flex justify-center">
           <button routerLink="/agregar-vehiculo"
-            class="w-80 bg-[#0a135d] rounded p-2 text-white text-center m-2">
+            class="w-full bg-[#0a135d] rounded p-2 text-white text-center m-2">
             Agregar vehiculo
         </button>
         </div>

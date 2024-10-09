@@ -7,12 +7,14 @@ import { NgClass, UpperCasePipe } from '@angular/common';
 import { Location } from '@angular/common';
 import { log } from 'console';
 
+import { SubheaderComponent } from '../../../subheader/subheader.component';
+
 
 
 @Component({
   selector: 'app-crear-vehiculo',
   standalone: true,
-  imports: [FormsModule, UpperCasePipe, NgClass, RouterLink],
+  imports: [SubheaderComponent, FormsModule, UpperCasePipe, NgClass, RouterLink],
   templateUrl: './crear-vehiculo.component.html',
   styleUrl: './crear-vehiculo.component.css'
 })

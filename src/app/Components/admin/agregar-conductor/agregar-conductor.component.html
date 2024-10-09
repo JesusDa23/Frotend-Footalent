@@ -1,4 +1,4 @@
-<app-subheader></app-subheader>
+<app-subheader [pageTitle]="'Perfil de conductor'"></app-subheader>
 
 
 <section class="flex flex-col mx-auto items-center justify-center px-6 py-4 mx-auto md:h-screen lg:py-0">
@@ -11,7 +11,7 @@
                 <label for="nombre" class="block mb-2 text-sm font-medium ">Nombres y Apellidos</label>
                 <input [(ngModel)]="name" type="text" name="nombre" id="nombre"
                     class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500 "
-                    placeholder="John" required="">
+                    placeholder="John Smith" required="">
             </div>
 
             <!-- <div>

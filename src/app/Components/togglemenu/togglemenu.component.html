@@ -9,31 +9,43 @@
 </div>
 
 <!-- Sliding Menu -->
-<div id="menu"
-    [ngClass]="{
+<div id="menu" [ngClass]="{
     'w-0 opacity-0': !isMenuOpen, 
     'w-full opacity-100': isMenuOpen 
     }" class="fixed bg-[#D4E0FF] text-blue-950 
      fixed top-20 right-0 w-[75%] bg-blue-100 transition-all duration-500 ease-in-out
       shadow-xl">
     <ul class="text-center space-y-4 py-4">
-        <div class="font-bold flex justify-between px-2 flex justify-between border-b border-b-blue-950 mx-8 p-1">
-            <a routerLink="#" class="font-medium text-lg">Mi cuenta</a>
-        </div>
-        <div class="font-bold flex justify-between px-2 border-b border-b-blue-950 mx-8 p-1">
-            <a routerLink="/inspeccion" class="font-medium text-">Ver inspecciones</a><i
-                class="fa-sharp fa-solid fa-chevron-right"></i>
-        </div>
-        <div class="font-bold flex justify-between px-2 border-b border-b-blue-950 mx-8 p-1">
-            <a routerLink="#" class="font-medium text-md">Ver mantenimientos</a><i
-                class="fa-sharp fa-solid fa-chevron-right"></i>
+
+        <!-- mi cuenta -->
+        <div class="font-bold flex justify-between  px-2 flex justify-between border-b border-b-blue-950 mx-8 ">
+            <a routerLink="#" class="font-medium text-xl mb-3">Mi cuenta</a>
         </div>
 
+        <!-- ver inspecciones -->
         <div class="font-bold flex gap-2 space-between items-center px-2 border-b border-b-blue-950 mx-8 p-1">
-            <!-- question mark icon -->
-            <svg version="1.1" id="_x32_" class="m-0" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" width="18px" height="18px"
-                 fill="#000000">
+            <svg class="mb-3" width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 14H8V12H3V14ZM12.55 12L17.5 7.05L16.075 5.625L12.55 9.175L11.125 7.75L9.725 9.175L12.55 12ZM3 10H8V8H3V10ZM3 6H8V4H3V6ZM0 18V0H20V18H0ZM2 16H18V2H2V16Z" fill="#0A135D"/>
+                </svg>
+                
+            <a routerLink="/inspeccion" class="font-medium text-md mb-3">Ver inspecciones</a>
+            <i class="fa-sharp fa-solid fa-chevron-right ml-auto mb-3"></i>
+        </div>
+
+        <!-- ver mantenimientos -->
+        <div class="font-bold flex gap-2 space-between items-center px-2 border-b border-b-blue-950 mx-8 p-1">
+            <svg class="mb-3" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 20V11L2.45 4H8.075C8.025 4.33333 8 4.66667 8 5C8 5.33333 8.025 5.66667 8.075 6H3.85L2.8 9H9.275C9.55833 9.4 9.875 9.771 10.225 10.113C10.575 10.455 10.9667 10.7507 11.4 11H2V16H16V11.925C16.35 11.875 16.6917 11.8 17.025 11.7C17.3583 11.6 17.6833 11.475 18 11.325V20H15V18H3V20H0ZM13.5 15C13.9167 15 14.271 14.8543 14.563 14.563C14.855 14.2717 15.0007 13.9173 15 13.5C14.9993 13.0827 14.8537 12.7287 14.563 12.438C14.2723 12.1473 13.918 12.0013 13.5 12C13.082 11.9987 12.728 12.1447 12.438 12.438C12.148 12.7313 12.002 13.0853 12 13.5C11.998 13.9147 12.144 14.269 12.438 14.563C12.732 14.857 13.086 15.0027 13.5 15ZM4.5 15C4.91667 15 5.271 14.8543 5.563 14.563C5.855 14.2717 6.00067 13.9173 6 13.5C5.99933 13.0827 5.85367 12.7287 5.563 12.438C5.27233 12.1473 4.918 12.0013 4.5 12C4.082 11.9987 3.728 12.1447 3.438 12.438C3.148 12.7313 3.002 13.0853 3 13.5C2.998 13.9147 3.144 14.269 3.438 14.563C3.732 14.857 4.086 15.0027 4.5 15ZM15 10C13.6167 10 12.4377 9.51233 11.463 8.537C10.4883 7.56167 10.0007 6.38267 10 5C10 3.63333 10.4833 2.45833 11.45 1.475C12.4167 0.491667 13.6 0 15 0C16.3833 0 17.5627 0.487333 18.538 1.462C19.5133 2.43667 20.0007 3.616 20 5C19.9993 6.384 19.5117 7.56333 18.537 8.538C17.5623 9.51267 16.3833 10 15 10ZM14.5 6H15.5V2H14.5V6ZM15 8C15.1333 8 15.25 7.95 15.35 7.85C15.45 7.75 15.5 7.63333 15.5 7.5C15.5 7.36667 15.45 7.25 15.35 7.15C15.25 7.05 15.1333 7 15 7C14.8667 7 14.75 7.05 14.65 7.15C14.55 7.25 14.5 7.36667 14.5 7.5C14.5 7.63333 14.55 7.75 14.65 7.85C14.75 7.95 14.8667 8 15 8Z" fill="#0A135D"/>
+                </svg>       
+            <a routerLink="#" class="font-medium text-md mb-3">Ver mantenimientos</a><i
+                class="fa-sharp fa-solid fa-chevron-right ml-auto mb-3"></i>
+        </div>
+
+        <!-- ayuda y soporte -->
+        <div class="font-bold flex gap-2 space-between items-center px-2 border-b border-b-blue-950 mx-8 p-1">
+            <svg  version="1.1" id="_x32_" class="mb-3" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" width="18px"
+                height="18px" fill="#000000">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                 <g id="SVGRepo_iconCarrier">
@@ -53,11 +65,12 @@
                     </g>
                 </g>
             </svg>
-            <a routerLink="#" class="font-medium text-md m-0">Ayuda y soporte técnico</a><i
-                class="fa-sharp fa-solid fa-chevron-right ml-auto"></i>
+            <a routerLink="#" class="font-medium text-md mb-3">Ayuda y soporte técnico</a><i
+                class="fa-sharp fa-solid fa-chevron-right ml-auto mb-3"></i>
         </div>
+
+        <!-- log out -->
         <button class="flex items-center m-auto gap-2 p-2 px-4 bg-[#0A135D] text-white rounded m-2" (click)="signOut()">
-            <!-- log out icon -->
             <svg width="18px" height="18px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
                 stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="feather feather-log-out">

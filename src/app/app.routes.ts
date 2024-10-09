@@ -6,7 +6,6 @@ import { ProfileComponent } from './Components/user/profile/profile.component';
 import { authGuard } from './guards/auth.guard';
 import { HomeComponent } from './Components/admin/home/home.component';
 import { ConductoresComponent } from './Components/admin/conductores/conductores.component';
-import { FlotaComponent } from './Components/admin/flota/flota.component';
 import { InspeccionComponent } from './Components/conductor/inspeccion/inspeccion.component';
 import { CrearVehiculoComponent } from './Components/admin/flota/crear-vehiculo/crear-vehiculo.component';
 import { HomecComponent } from './Components/conductor/home/homec.component';
@@ -27,7 +26,6 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [authGuard]},
   { path: 'homec', component: HomecComponent, canActivate: [authGuard]},
   { path: 'conductores', component: ConductoresComponent, canActivate:[authGuard]},
-  { path: 'flota', component: FlotaComponent, canActivate: [authGuard]},
   { path: 'admincheck', component: AdmincheckComponent, canActivate: [authGuard]},
   { path: 'listcheck/:categoryId', component: ListcheckComponent, canActivate: [authGuard]},
   { path: 'inspeccion', component: InspeccionComponent, canActivate: [authGuard]},
