@@ -6,6 +6,7 @@ import { FlotaService } from '../../../../Services/flota.service';
 import { NgClass, UpperCasePipe } from '@angular/common';
 import { Location } from '@angular/common';
 import { log } from 'console';
+import { AccountsService } from '../../../../Services/accounts.service';
 
 import { SubheaderComponent } from '../../../subheader/subheader.component';
 
@@ -19,7 +20,7 @@ import { SubheaderComponent } from '../../../subheader/subheader.component';
   styleUrl: './crear-vehiculo.component.css'
 })
 export class CrearVehiculoComponent {
-  constructor(private location: Location, private _categorias: AdmincheckService, private _flotaService: FlotaService) { }
+  constructor(private accountsService: AccountsService, private location: Location, private _categorias: AdmincheckService, private _flotaService: FlotaService) { }
   arrayVehiculo: any = []
 
   status: any;
@@ -38,6 +39,8 @@ export class CrearVehiculoComponent {
 
   ngOnInit(): void {
     this.cargarcategorias()
+    this.accountsService.isAdmin();
+
   }
 
   cargarcategorias(){

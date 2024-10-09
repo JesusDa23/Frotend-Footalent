@@ -13,7 +13,7 @@ export class AccountsService {
   private appUrl: string;
   private requestHeaders: HttpHeaders = new HttpHeaders();
 
- // Para construir headers 
+  // Para construir headers 
   private construirHeaders(): void {
     const token = sessionStorage.getItem('token');
     this.requestHeaders = new HttpHeaders().set('Content-Type', 'application/json');
@@ -27,8 +27,8 @@ export class AccountsService {
     this.appUrl = `${environment.apiUrl}/auth`;
   }
 
-  signUp(credentials: UserInfo): Observable<any>  {
-    this.construirHeaders(); 
+  signUp(credentials: UserInfo): Observable<any> {
+    this.construirHeaders();
     return this.http.post(this.appUrl + "/register", credentials, { headers: this.requestHeaders });
   }
 
@@ -39,7 +39,7 @@ export class AccountsService {
 
   // Para obtener la lista de todos los conductores
   retrieveUsers(): Observable<any> {
-    this.construirHeaders(); 
+    this.construirHeaders();
     return this.http.get(this.appUrl + '/users', { headers: this.requestHeaders });
   }
 
@@ -50,7 +50,35 @@ export class AccountsService {
     this.router.navigate(['/login']);
   }
 
+  isLogedIn() {
+    if (localStorage.getItem('token')) {
+      return true;
+    } else {
+      this.router.navigate(['/home']);
+      return false;
+    }
+  }
 
+  isAdmin(): boolean {
+    const userInfo = sessionStorage.getItem('userInfo');
+
+    if (userInfo) {
+      const parsedInfo = JSON.parse(userInfo);
+
+      if (parsedInfo.rol === 'admin') {
+        console.log("is admin");
+        return true;
+      }
+      else {
+        this.router.navigate(['/homec']);
+        return false
+      }
+    }
+    else {
+      console.log("not retrieved");
+      return false
+    }
+  }
 
   // Para colocarle la cabecera de autorización a la petición, se debe de hacer de la siguiente manera
 

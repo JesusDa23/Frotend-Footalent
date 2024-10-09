@@ -18,7 +18,7 @@ import { AgregarConductorComponent } from '../agregar-conductor/agregar-conducto
 })
 export class ConductoresComponent {
 
-  accountService = inject(AccountsService)
+  accountsService = inject(AccountsService)
   retrievedUsers: any[] = [];
   httpClient = inject(HttpClient)
 
@@ -27,7 +27,7 @@ export class ConductoresComponent {
 
 
   retrieveUsers() {
-    this.accountService.retrieveUsers().subscribe((res: any) => {
+    this.accountsService.retrieveUsers().subscribe((res: any) => {
       if (res) {
         this.retrievedUsers = res.data
       } else {
@@ -43,6 +43,8 @@ export class ConductoresComponent {
 
   ngOnInit() {
     this.retrieveUsers();
+    this.accountsService.isAdmin();
+
   }
 
 }

@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FlotaService } from '../../../../Services/flota.service';
 import { NgClass, UpperCasePipe } from '@angular/common';
 import { Location } from '@angular/common';
+import { AccountsService } from '../../../../Services/accounts.service';
 
 
 @Component({
@@ -16,13 +17,15 @@ import { Location } from '@angular/common';
 export class PerfilVehiculoComponent {
   vehicle: any;  // Aquí recibiremos los datos del vehículo
 
-  constructor(private route: ActivatedRoute, private flotaService: FlotaService, private location: Location) { }
+  constructor(private accountsService: AccountsService, private route: ActivatedRoute, private flotaService: FlotaService, private location: Location) { }
 
   ngOnInit(): void {
     const vehicleId:any = this.route.snapshot.paramMap.get('id');
     this.flotaService.getFlotaById(vehicleId).subscribe(data => {
       this.vehicle = data;
     });
+    this.accountsService.isAdmin();
+
   }
 
   onStatusChange(): void {

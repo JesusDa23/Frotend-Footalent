@@ -21,12 +21,10 @@ export class LoginComponent implements OnInit {
   constructor(private _accountsService: AccountsService, private router: Router) { }
 
   ngOnInit(): void {
-
+    this._accountsService.isLogedIn()
   }
 
   botonLogIn() {
-
-
     if (this.dni == "" || this.password == "") {
       Swal.fire({
         position: "top-end",

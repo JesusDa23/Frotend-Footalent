@@ -27,7 +27,7 @@ export class AgregarConductorComponent {
   licencia: string = "";
   rol: string = "user";
 
-  constructor(private _accountsService: AccountsService, http: HttpClient) { }
+  constructor(private accountsService: AccountsService, http: HttpClient) { }
   private requestHeaders: HttpHeaders = new HttpHeaders();
 
   // creatar passwortd aleatorio 
@@ -82,7 +82,7 @@ export class AgregarConductorComponent {
       rol: this.rol
     };
 
-    this._accountsService.signUp(newDriver).subscribe((res: any) => {
+    this.accountsService.signUp(newDriver).subscribe((res: any) => {
 
       if (res) {
         Swal.fire({
@@ -109,6 +109,8 @@ export class AgregarConductorComponent {
 
   ngOnInit() {
     this.generatePassword()
+    this.accountsService.isAdmin();
+
   }
 
 }
