@@ -28,7 +28,7 @@ export class AgregarConductorComponent {
   rol: string = "user";
 
   constructor(
-    private _accountsService: AccountsService, 
+    private accountsService: AccountsService, 
     private location: Location
   ) { }
  
@@ -85,7 +85,7 @@ export class AgregarConductorComponent {
       rol: this.rol
     };
 
-    this._accountsService.signUp(newDriver).subscribe((res: any) => {
+    this.accountsService.signUp(newDriver).subscribe((res: any) => {
 
       if (res) {
         Swal.fire({

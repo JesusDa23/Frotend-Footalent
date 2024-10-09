@@ -5,6 +5,7 @@ import { FlotaService } from '../../../../Services/flota.service';
 import { CommonModule, NgClass, UpperCasePipe } from '@angular/common';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { AccountsService } from '../../../../Services/accounts.service';
 import Swal from 'sweetalert2';
 
 
@@ -23,13 +24,15 @@ export class PerfilVehiculoComponent {
   selectedStatus: string = 'Disponible';
   
 
-  constructor(private route: ActivatedRoute, private flotaService: FlotaService, private location: Location, private router: Router) { }
+  constructor(private accountsService: AccountsService, private route: ActivatedRoute, private flotaService: FlotaService, private location: Location, private router: Router) { }
 
   ngOnInit(): void {
     this.vehicleId = this.route.snapshot.paramMap.get('id');
     this.flotaService.getFlotaById(this.vehicleId).subscribe(data => {
       this.vehicle = data;
     });
+    this.accountsService.isAdmin();
+
   }
 
   onStatusChange(): void {

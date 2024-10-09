@@ -28,7 +28,6 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [authGuard]},
   { path: 'homec', component: HomecComponent, canActivate: [authGuard]},
   { path: 'conductores', component: ConductoresComponent, canActivate:[authGuard]},
-  { path: 'flota', component: FlotaComponent, canActivate: [authGuard]},
   { path: 'admincheck', component: AdmincheckComponent, canActivate: [authGuard]},
   { path: 'listcheck/:categoryId', component: ListcheckComponent, canActivate: [authGuard]},
   { path: 'agregar-vehiculo', component:CrearVehiculoComponent, canActivate:[authGuard]},

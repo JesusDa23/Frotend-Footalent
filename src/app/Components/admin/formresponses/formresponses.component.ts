@@ -1,6 +1,7 @@
 import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { AdmincheckService } from '../../../Services/admincheck.service';
+import { AccountsService } from '../../../Services/accounts.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -21,9 +22,11 @@ export class FormresponsesComponent {
   searchTerm: string = '';
   filteredForms: any[] = [];  // Ensure it's an empty array initially
 
-  constructor(private inspectionService: AdmincheckService, private location: Location) {}
+  constructor(private inspectionService: AdmincheckService, private accountsService: AccountsService, private location: Location) {}
 
   ngOnInit(): void {
+    this.accountsService.isAdmin();
+
     this.retrieveForms(); // Fetch forms when the component loads
   }
 
