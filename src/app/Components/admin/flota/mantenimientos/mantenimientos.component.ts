@@ -62,7 +62,7 @@ export class MantenimientosComponent {
 
   agregarMantenimiento() {
     const nuevoMantenimiento = {
-      vehicleId: this.vehicleId || 0,  // Aquí debes referenciar el vehículo por su ObjectId
+      vehicleId: this.vehicleId,  // Aquí debes referenciar el vehículo por su ObjectId
       estado: 'Pendiente',
       descripcion: 'n/a',
       fecha: new Date,  // Fecha actual

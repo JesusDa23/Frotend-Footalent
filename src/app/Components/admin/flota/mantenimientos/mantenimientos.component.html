@@ -37,7 +37,7 @@
               </select>
             </td>
             <td class="p-2">
-              <select [(ngModel)]="mantenimientoSelect" 
+              <select [(ngModel)]="mantenimiento.vehicleId" 
               (blur)="actualizarMantenimiento(mantenimiento)" 
               type="text" class="border border-gray-300 rounded p-1 w-full">
               <ng-container *ngFor="let item of flotas">
