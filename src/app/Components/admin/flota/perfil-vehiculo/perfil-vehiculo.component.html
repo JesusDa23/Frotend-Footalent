@@ -22,10 +22,10 @@
       <div 
         class="p-1 border border-gray-300 rounded-3xl flex items-center justify-between cursor-pointer"
         [ngClass]="{
-          'bg-green-600': selectedStatus === 'Disponible', 
-          'bg-yellow-400': selectedStatus === 'Reparacion', 
-          'bg-red-600': selectedStatus === 'Ocupado', 
-          'bg-slate-200': selectedStatus === 'Deshabilitado'
+          'bg-green-600': vehicle.status === 'Disponible', 
+          'bg-yellow-400': vehicle.status === 'Reparacion', 
+          'bg-red-600': vehicle.status === 'Ocupado', 
+          'bg-slate-200': vehicle.status === 'Deshabilitado'
         }"
         (click)="toggleDropdown()">
         <div class="flex items-center">
@@ -33,12 +33,12 @@
           <span 
             class="flex items-center justify-center h-2 w-2 rounded-full mx-2"
             [ngClass]="{
-              'bg-[#59F63A]': selectedStatus === 'Disponible',
-              'bg-yellow-600': selectedStatus === 'Reparacion',
-              'bg-[#9E1618]': selectedStatus === 'Ocupado',
-              'bg-slate-700': selectedStatus === 'Deshabilitado'
+              'bg-[#59F63A]': vehicle.status === 'Disponible',
+              'bg-yellow-600': vehicle.status === 'Reparacion',
+              'bg-[#9E1618]': vehicle.status === 'Ocupado',
+              'bg-slate-700': vehicle.status === 'Deshabilitado'
             }"></span>
-          {{ selectedStatus }}
+          {{ vehicle.status }}
         </div>
         <i class="fas fa-chevron-down mr-1"></i>
       </div>
