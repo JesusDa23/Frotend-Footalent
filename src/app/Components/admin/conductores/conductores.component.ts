@@ -1,7 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
-import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
-
+import { CdkDropList, CdkDrag, moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AccountsService } from '../../../Services/accounts.service';
 import { inject } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';

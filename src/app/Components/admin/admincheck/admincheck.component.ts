@@ -6,11 +6,12 @@ import { CommonModule, Location } from '@angular/common';
 import { Section } from '../../models/section.model';
 import { Router } from '@angular/router';
 import { AccountsService } from '../../../Services/accounts.service';
+import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
 
 @Component({
   selector: 'app-admincheck',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, TogglemenuComponent],
   templateUrl: './admincheck.component.html',
   styleUrl: './admincheck.component.css'
 })

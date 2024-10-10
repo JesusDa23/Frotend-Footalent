@@ -1,16 +1,15 @@
-<header 
-    id="top-bar"
-    class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
+<header id="top-bar" class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
     <div class="flex justify-between items-center p-4">
-      <button (click)="goBack()" class="text-white">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <button (click)="goBack()" class="text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
             </svg>
-      </button>
-      <h1 class="text-lg text-white text-center my-2">Agregar Conductor</h1>
-      <app-togglemenu/>
+        </button>
+        <h1 class="text-lg text-white text-center my-2">Agregar Conductor</h1>
+        <app-togglemenu />
     </div>
-  </header>
+</header>
 
 
 <section class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 pt-24">
@@ -18,7 +17,6 @@
 
         <form class="space-y-4 md:space-y-6" action="#">
 
-            <!-- <div class="flex gap-5"> -->
             <div>
                 <label for="nombre" class="block mb-2 text-sm font-medium ">Nombres y Apellidos</label>
                 <input [(ngModel)]="name" type="text" name="nombre" id="nombre"
@@ -26,19 +24,19 @@
                     placeholder="John Smith" required="">
             </div>
 
-            <!-- <div>
-                    <label for="email" class="block mb-2 text-sm font-medium ">Apellido</label>
-                    <input [(ngModel)]="email" type="email" name="email" id="email"
-                        class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 "
-                        placeholder="Perez" required="">
-                </div> -->
-            <!-- </div> -->
-
-            <div>
-                <label for="dni" class="block mb-2 text-sm font-medium ">DNI</label>
-                <input [(ngModel)]="dni" type="text" name="DNI" id="DNI"
-                    class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
-                    placeholder="12345789" required="">
+            <div class="flex gap-5">
+                <div>
+                    <label for="dni" class="block mb-2 text-sm font-medium ">DNI</label>
+                    <input [(ngModel)]="dni" type="text" name="DNI" id="DNI"
+                        class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
+                        placeholder="12345789" required="">
+                </div>
+                <div>
+                    <label for="phone" class="block mb-2 text-sm font-medium ">Teléfono</label>
+                    <input [(ngModel)]="phone" type="text" name="phone" id="phone"
+                        class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
+                        placeholder="12345789" required="">
+                </div>
             </div>
 
             <div>
@@ -54,25 +52,36 @@
                     class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
                     placeholder="Miguel Angel Carcano, 1195" required="">
             </div>
+            <hr>
+            <div>
+                <label for="licencia" class="block mb-2 text-sm font-medium ">Número de licencia</label>
+                <input [(ngModel)]="licencia" type="text" name="licencia" id="licencia"
+                    class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500 "
+                    placeholder="12345789" required="">
+            </div>
 
-            <div class="flex gap-5">
+            <div class="flex gap-5  content-stretch">
                 <div>
-                    <label for="licencia" class="block mb-2 text-sm font-medium ">Licencia</label>
-                    <input [(ngModel)]="licencia" type="text" name="licencia" id="licencia"
+                    <label for="tipoLicencia" class="block mb-2 text-sm font-medium ">Tipo de licencia</label>
+                    <select id="tipoLicencia" name="tipoLicencia" [(ngModel)]="selectedLicence"
+                        class="text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500"
+                        required="">
+                        
+                        @for (item of tiposLicencia; track item) {
+                            <option [value]="item.value">{{item.viewValue}}</option>
+                            }
+                       
+                    </select>
+                </div>
+
+                <div>
+                    <label for="vencimiento" class="block  mb-2 text-sm font-medium ">Vencimiento</label>
+                    <input [(ngModel)]="vencimiento" type="date" name="vencimiento" id="vencimiento"
                         class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500 "
                         placeholder="12345789" required="">
                 </div>
 
-                <div>
-                    <label for="phone" class="block mb-2 text-sm font-medium ">Teléfono</label>
-                    <input [(ngModel)]="phone" type="text" name="phone" id="phone"
-                        class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
-                        placeholder="12345789" required="">
-                </div>
             </div>
-
-            <button type="reset"  class="bg-red-700 font-normal mx-auto text-white w-full px-4 py-2 rounded">Reiniciar credenciales</button>
-
         </form>
 
     </div>
@@ -80,10 +89,7 @@
 
 <section>
     <div class="fixed bottom-0  w-full p-4 bg-bgBtn flex flex-col gap-5 justify-center" type="submit">
-        
-        <button style="border: 1px solid #0A135D;" class="bg-inherit font-normal mx-auto text-blue-950 w-full px-6 py-2 rounded ">Historial de vehículos</button>
-        
-        
+
         <button (click)="onSubmit()" class="bg-btnColor font-normal mx-auto text-white w-full px-4 py-2 rounded">Guardar
             perfil</button>
     </div>

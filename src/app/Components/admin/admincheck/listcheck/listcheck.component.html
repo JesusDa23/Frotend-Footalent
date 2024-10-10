@@ -8,14 +8,14 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
             <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-        <h1 class="text-lg text-white">Secciones</h1>
-      <nav class="mx-1 text-[#0a135d]">|</nav>
+        <h1 class="text-lg text-white pt-2">Secciones</h1>
+      <app-togglemenu></app-togglemenu>
     </div>
   </header>
   
 
 
-<div class="container mx-auto p-4 pt-16"> 
+<div class="container mx-auto p-4 pt-20"> 
     
     <!-- Input field to add a new section, visible when showNewSectionInput is true -->
     <div *ngIf="showNewSectionInput" class="mt-2">
@@ -40,10 +40,10 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
     <div *ngIf="errorMessage" class="text-red-500 mt-2">
       {{ errorMessage }}
     </div>
-    
+
     <!-- Button to add a new section -->
 
-    <!-- <div id="bottom-bar"
+    <div id="bottom-bar"
         class="fixed bottom-0 left-0 right-0 bg-[#E8EFFF] shadow-lg p-2 transition-transform duration-300 
         transform translate-y-0"
             >
@@ -53,7 +53,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
             >
             Crear seccion
         </button>
-    </div> -->
+    </div>
 
 
   </div>
