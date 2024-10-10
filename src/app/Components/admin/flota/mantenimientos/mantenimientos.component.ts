@@ -9,7 +9,7 @@ import { FlotaService } from '../../../../Services/flota.service';
 @Component({
   selector: 'app-mantenimientos',
   standalone: true,
-  imports: [FormsModule, NgFor, TogglemenuComponent, RouterModule, NgIf],
+  imports: [FormsModule, NgFor, TogglemenuComponent, RouterModule, NgIf, NgClass ],
   templateUrl: './mantenimientos.component.html',
   styleUrl: './mantenimientos.component.css'
 })
@@ -64,6 +64,26 @@ export class MantenimientosComponent {
       }
     );
   }
+
+
+  toggleDropdown(mantenimiento: any) {
+    // Cerrar todos los demás dropdowns
+    this.mantenimientos.forEach(m => {
+      if (m !== mantenimiento) {
+        m.isDropdownOpen = false;
+      }
+    });
+  
+    // Abrir o cerrar el dropdown del mantenimiento seleccionado
+    mantenimiento.isDropdownOpen = !mantenimiento.isDropdownOpen;
+  }
+  
+  selectEstado(mantenimiento: any, estado: string) {
+    mantenimiento.estado = estado;
+    mantenimiento.isDropdownOpen = false; // Cerrar el dropdown al seleccionar un estado
+    this.actualizarMantenimiento(mantenimiento);
+  }
+
 
   agregarMantenimiento() {
     const nuevoMantenimiento = {
