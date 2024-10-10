@@ -112,8 +112,14 @@
         <i class="far fa-calendar-alt mr-2"></i> Historial de conductores
       </button>
 
-      <button (click)="guardarPerfil()" class="flex items-center justify-center bg-[#001A72] text-white px-4 py-2 rounded-lg">
+      <!-- <button (click)="guardarPerfil()" class="flex items-center justify-center bg-[#001A72] text-white px-4 py-2 rounded-lg">
         <i class="far fa-save mr-2"></i> Guardar perfil
-      </button>
+      </button> -->
+
+      <div class="fixed bottom-0 left-0 w-full bg-white z-10 shadow-lg p-4">
+        <button (click)="guardarPerfil()" class="w-full bg-[#001A72] text-white py-3 rounded-lg flex items-center justify-center">
+          <i class="far fa-save mr-2"></i> Guardar perfil
+        </button>
+      </div>
     </div>
   </div>
