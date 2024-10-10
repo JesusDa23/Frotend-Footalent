@@ -28,8 +28,6 @@
   font-weight: 400;
 }
 
-
-
 .example-box {
   margin-bottom: 5px;
   padding: 10px 15px;
@@ -41,5 +39,9 @@
   box-sizing: border-box;
   background: white;
   font-size: 14px;
+  
 }
 
+.example-box:last-child {
+  margin-bottom: 50px;
+}
