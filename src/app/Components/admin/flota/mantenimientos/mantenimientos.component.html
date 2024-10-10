@@ -97,7 +97,7 @@
               </select>
             </td>
             <td class="p-2">
-              <input [(ngModel)]="mantenimiento.coste" (blur)="actualizarMantenimiento(mantenimiento)" type="number" class="border border-gray-300 rounded p-1 w-full text-right" />
+              <input [(ngModel)]="mantenimiento.coste" (blur)="actualizarMantenimiento(mantenimiento)" type="text" class="border border-gray-300 rounded p-1 w-full" />
             </td>
             <td>
                 <button class="flex justify-center m-auto" (click)="eliminarMantenimiento(mantenimiento._id)" >
