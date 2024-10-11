@@ -26,7 +26,7 @@ export class EditUserComponent {
   licencia: string = "";
   rol: string = "user";
   selectedLicence: string = "";
-  vencimiento: string ="";
+  expiration_licence: string ="";
 
   constructor(
     private accountsService: AccountsService,
@@ -83,9 +83,9 @@ export class EditUserComponent {
       name: this.name,
       phone: this.phone,
       licencia: this.licencia,
-      tipoLicencia: this.selectedLicence,
+      type_licence: this.selectedLicence,
       address: this.address,
-      vencimiento: this.vencimiento,
+      expiration_licence: this.expiration_licence,
       rol: this.rol
     };
 
