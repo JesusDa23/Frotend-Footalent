@@ -39,9 +39,8 @@ export class AgregarConductorComponent {
 
   rol: string = "user";
   tiposLicencia: TipoLicencia[] = [
-    { value: 'tipo A', viewValue: 'Tipo A' },
-    { value: 'tipo B', viewValue: 'Tipo B' },
-    { value: 'tipo C', viewValue: 'Tipo C' }
+    { value: 'comun', viewValue: 'Común' },
+    { value: 'especial', viewValue: 'Especial' },
   ]
 
   constructor(

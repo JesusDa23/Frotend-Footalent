@@ -17,16 +17,17 @@ export class TogglemenuComponent {
 
   constructor(private accountService: AccountsService) {}
 
-  ngOnInit(){
-    this.getUserInfo()
-  }
-
-  User = this.getUserInfo()
   isMenuOpen = false; 
+  isAdmin = false;  // Define if the user is admin or not
+  user: UserInfo | null = null;
+
+  ngOnInit() {
+    this.user = this.getUserInfo();
+    this.isAdmin = this.user?.rol === 'admin'; // Assuming the role field is 'admin' or 'user'
+  }
 
   private getUserInfo(): UserInfo | null {
     const userInfo = sessionStorage.getItem('userInfo');
-    // console.log("que es esto:",userInfo)
     return userInfo ? JSON.parse(userInfo) : null;
   }
 
@@ -50,6 +51,4 @@ export class TogglemenuComponent {
   signOut() {
     this.accountService.logout(); // Call the logout method from the AuthService
   }
-
-
 }

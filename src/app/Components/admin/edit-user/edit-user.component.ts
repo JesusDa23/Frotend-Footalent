@@ -3,10 +3,17 @@ import { FormsModule, FormGroup } from '@angular/forms';
 import { Credentials, CreateDriver } from '../../../Interfaces/credentials';
 import Swal from 'sweetalert2'
 import { AccountsService } from '../../../Services/accounts.service';
+import { ActivatedRoute } from '@angular/router';
 
 import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 import { Location } from '@angular/common';
+
+interface TipoLicencia {
+  value: string;
+  viewValue: string;
+}
+
 
 @Component({
   selector: 'app-edit-user',
@@ -24,14 +31,30 @@ export class EditUserComponent {
   password: string = "12345";
   address: string = "";
   licencia: string = "";
-  rol: string = "user";
   selectedLicence: string = "";
   vencimiento: string ="";
+<<<<<<< HEAD
   isFirstLogin: boolean = true;
+=======
+  
+
+  rol: string = "user";
+  tiposLicencia: TipoLicencia[] = [
+    { value: 'comun', viewValue: 'Común' },
+    { value: 'especial', viewValue: 'Especial' },
+  ]
+
+
+  // *******************
+
+  driver: any;
+>>>>>>> 5e8e01551de2057af70cf31c4d612ec79a8a3bcd
 
   constructor(
     private accountsService: AccountsService,
-    private location: Location
+    private location: Location,
+    private route: ActivatedRoute,
+
   ) { }
 
 
@@ -91,6 +114,8 @@ export class EditUserComponent {
       isFirstLogin: true
     };
 
+    console.log(newDriver);
+
     this.accountsService.signUp(newDriver).subscribe((res: any) => {
 
       if (res) {
@@ -114,14 +139,6 @@ export class EditUserComponent {
     })
   }
 
-
-
-  ngOnInit() {
-    this.generatePassword()
-
-
-
-  }
   goBack(): void {
     this.location.back();
   }

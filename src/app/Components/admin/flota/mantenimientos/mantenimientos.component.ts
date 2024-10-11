@@ -1,4 +1,4 @@
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, NgModule } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { MantenimientoService } from '../../../../Services/mantenimiento.service';
@@ -9,7 +9,7 @@ import { FlotaService } from '../../../../Services/flota.service';
 @Component({
   selector: 'app-mantenimientos',
   standalone: true,
-  imports: [FormsModule, NgFor, TogglemenuComponent, RouterModule],
+  imports: [FormsModule, NgFor, TogglemenuComponent, RouterModule, NgIf, NgClass ],
   templateUrl: './mantenimientos.component.html',
   styleUrl: './mantenimientos.component.css'
 })
@@ -18,6 +18,7 @@ export class MantenimientosComponent {
   vehicleId: any = ''
   flotas:any = [] 
   mantenimientoSelect: any[] = []
+  isLoading = false;
 
   constructor(
     private mantenimientoService: MantenimientoService,
@@ -27,34 +28,62 @@ export class MantenimientosComponent {
   ) { }
 
   ngOnInit() {
-    // Al iniciar, obtenemos los mantenimientos desde el servidor
+    this.isLoading = true;  // Activar el spinner al iniciar la carga
     this.vehicleId = this.route.snapshot.paramMap.get('vehicleId');
-    console.log(this.vehicleId)
+    console.log(this.vehicleId);
     this.obtenerMantenimientos();
-    this.loadFlotas()
+    this.loadFlotas();
   }
-
+  
   obtenerMantenimientos() {
     this.mantenimientoService.getMantenimientoById(this.vehicleId).subscribe(
       (data: any) => {
         this.mantenimientos = data.map((mantenimiento: any) => {
           // Formatear la fecha para que se ajuste al campo input date
           mantenimiento.fecha = new Date(mantenimiento.fecha).toISOString().split('T')[0];
-          return mantenimiento;  // Asegúrate de que el backend devuelve un array de mantenimientos
+          return mantenimiento;  
         });
-
+        this.isLoading = false;  // Desactivar el spinner cuando termine la carga
       },
       (error) => {
         console.error('Error al obtener mantenimientos:', error);
+        this.isLoading = false;  // Desactivar el spinner si ocurre un error
+      }
+    );
+  }
+  
+  loadFlotas() {
+    this.flotaService.getFlotas().subscribe(
+      (data: any) => {
+        this.flotas = data;
+        this.isLoading = false;  // Desactivar el spinner cuando termine la carga
+      },
+      (error) => {
+        console.error('Error al cargar flotas:', error);
+        this.isLoading = false;  // Desactivar el spinner si ocurre un error
       }
     );
   }
 
-  loadFlotas() {
-    this.flotaService.getFlotas().subscribe(data => {
-      this.flotas = data;
+
+  toggleDropdown(mantenimiento: any) {
+    // Cerrar todos los demás dropdowns
+    this.mantenimientos.forEach(m => {
+      if (m !== mantenimiento) {
+        m.isDropdownOpen = false;
+      }
     });
+  
+    // Abrir o cerrar el dropdown del mantenimiento seleccionado
+    mantenimiento.isDropdownOpen = !mantenimiento.isDropdownOpen;
   }
+  
+  selectEstado(mantenimiento: any, estado: string) {
+    mantenimiento.estado = estado;
+    mantenimiento.isDropdownOpen = false; // Cerrar el dropdown al seleccionar un estado
+    this.actualizarMantenimiento(mantenimiento);
+  }
+
 
   agregarMantenimiento() {
     const nuevoMantenimiento = {

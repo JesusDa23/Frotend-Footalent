@@ -1,3 +1,8 @@
+<!-- Spinner de carga -->
+<div *ngIf="isLoading" class="absolute inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-30 z-10">
+  <div class="loader"></div>
+</div>
+
 <div class="min-h-screen">
   <!-- Header -->
   <div class="flex justify-between items-center p-2 bg-bgColorBlue">
@@ -30,11 +35,44 @@
           <!-- Itera sobre el array de mantenimientos -->
           <tr *ngFor="let mantenimiento of mantenimientos" class="border-b">
             <td class="p-2">
-              <select [(ngModel)]="mantenimiento.estado" (change)="actualizarMantenimiento(mantenimiento)" class="bg-yellow-500 text-white px-2 py-1 rounded-full text-sm">
-                <option value="Pendiente" class="bg-yellow-500 text-white">Pendiente</option>
-                <option value="Realizado" class="bg-green-500 text-white">Realizado</option>
-                <option value="Vencido" class="bg-red-500 text-white">Vencido</option>
-              </select>
+          <div 
+            class="p-1 border border-gray-300 rounded-3xl flex items-center justify-between cursor-pointer text-white"
+            [ngClass]="{
+              'bg-green-600': mantenimiento.estado === 'Realizado', 
+              'bg-[#C39F0B]': mantenimiento.estado === 'Pendiente', 
+              'bg-red-600': mantenimiento.estado === 'Vencido'
+            }"
+            (click)="toggleDropdown(mantenimiento)">
+            <div class="flex items-center">
+              <span 
+                class="flex items-center justify-center h-2 w-2 rounded-full mx-2"
+                [ngClass]="{
+                  'bg-[#59F63A]': mantenimiento.estado === 'Realizado',
+                  'bg-[#815B12]': mantenimiento.estado === 'Pendiente',
+                  'bg-[#9E1618]': mantenimiento.estado === 'Vencido'
+                }"></span>
+              {{ mantenimiento.estado }}
+            </div>
+            <i class="fas fa-chevron-down mr-1"></i>
+          </div>
+
+          <!-- Dropdown menu -->
+          <div *ngIf="mantenimiento.isDropdownOpen" class="absolute z-10 mt-2 w-36 bg-white rounded-md shadow-lg">
+            <div class="py-1">
+              <div class="px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center"
+                  (click)="selectEstado(mantenimiento, 'Pendiente')">
+                <span class="bg-yellow-400 h-4 w-4 rounded-full mr-2"></span>Pendiente
+              </div>
+              <div class="px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center"
+                  (click)="selectEstado(mantenimiento, 'Realizado')">
+                <span class="bg-green-600 h-4 w-4 rounded-full mr-2"></span>Realizado
+              </div>
+              <div class="px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center"
+                  (click)="selectEstado(mantenimiento, 'Vencido')">
+                <span class="bg-red-600 h-4 w-4 rounded-full mr-2"></span>Vencido
+              </div>
+            </div>
+          </div>
             </td>
             <td class="p-2">
               <select [(ngModel)]="mantenimiento.vehicleId" 
@@ -59,7 +97,7 @@
               </select>
             </td>
             <td class="p-2">
-              <input [(ngModel)]="mantenimiento.coste" (blur)="actualizarMantenimiento(mantenimiento)" type="number" class="border border-gray-300 rounded p-1 w-full text-right" />
+              <input [(ngModel)]="mantenimiento.coste" (blur)="actualizarMantenimiento(mantenimiento)" type="text" class="border border-gray-300 rounded p-1 w-full" />
             </td>
             <td>
                 <button class="flex justify-center m-auto" (click)="eliminarMantenimiento(mantenimiento._id)" >
