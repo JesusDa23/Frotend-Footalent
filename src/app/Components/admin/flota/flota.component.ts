@@ -12,12 +12,13 @@ import { RouterLink } from '@angular/router';
 // componentes
 import { PerfilVehiculoComponent } from './perfil-vehiculo/perfil-vehiculo.component';
 import { CrearVehiculoComponent } from './crear-vehiculo/crear-vehiculo.component';
+import { FooterDesktopComponent } from '../../footer-desktop/footer-desktop.component';
 
 
 @Component({
   selector: 'app-flota',
   standalone: true,
-  imports: [PerfilVehiculoComponent, CrearVehiculoComponent, NgFor,ReactiveFormsModule,RouterLink, NgIf, EditmodalComponent, RouterModule, NgClass, UpperCasePipe,HeaderComponent, TitleCasePipe],
+  imports: [PerfilVehiculoComponent, FooterDesktopComponent, CrearVehiculoComponent, NgFor,ReactiveFormsModule,RouterLink, NgIf, EditmodalComponent, RouterModule, NgClass, UpperCasePipe,HeaderComponent, TitleCasePipe],
   templateUrl: './flota.component.html',
   styleUrl: './flota.component.css'
 })

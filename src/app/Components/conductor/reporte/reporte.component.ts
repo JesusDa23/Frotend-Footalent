@@ -36,7 +36,7 @@ export class ReporteComponent {
       this.crearReporte();
     }
     else{
-      console.error( 'error al enviar el reporte', error);
+      
     }
     
   }
