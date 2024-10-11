@@ -25,7 +25,7 @@ export class FlotaComponent {
   private lastScrollTop = 0;
   flotas:any = [];
   vehicleForm: FormGroup;
-
+  isLoading = false;
   isEditMode = false;
   selectedVehicle: Vehicle | null = null;
 
@@ -51,9 +51,28 @@ export class FlotaComponent {
     }
   }
 
+  // Método para cargar las flotas
   loadFlotas() {
-    this.flotaService.getFlotas().subscribe(data => {
-      this.flotas = data;
+    this.isLoading = true; // Activa el spinner antes de hacer la solicitud
+
+    this.flotaService.getFlotas().subscribe({
+      next: (data) => {
+        this.flotas = data;
+        if (this.flotas.length === 0) {
+          Swal.fire('Sin datos', 'No se encontraron vehículos.', 'warning');
+        }
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        Swal.fire({
+          title: 'Error!',
+          text: 'Hubo un problema al cargar los vehículos. Intentando de nuevo...',
+          icon: 'error',
+          confirmButtonText: 'Intentar de nuevo',
+          confirmButtonColor: '#0A135D'  // Cambia el color del botón de confirmación
+        });
+      }
     });
   }
 

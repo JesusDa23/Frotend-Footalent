@@ -5,11 +5,12 @@ import { AdmincheckService } from '../../../../Services/admincheck.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Bullet } from '../../../models/bullet.model';
+import { TogglemenuComponent } from "../../../togglemenu/togglemenu.component";
 
 @Component({
   selector: 'app-listcheck',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TogglemenuComponent],
   templateUrl: './listcheck.component.html',
   styleUrl: './listcheck.component.css'
 })
@@ -39,6 +40,9 @@ export class ListcheckComponent {
       this.loadSections();
     }
   }
+
+
+  
 
   loadSections(): void {
     this.admincheckService.getSectionsByCategory(this.categoryId!).subscribe(

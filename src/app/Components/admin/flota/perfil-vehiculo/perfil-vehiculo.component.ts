@@ -21,7 +21,7 @@ import { map } from 'rxjs';
 export class PerfilVehiculoComponent {
   vehicle: any;  // Aquí recibiremos los datos del vehículo
   vehicleId: any = '';
-
+  isLoading = false;
   isDropdownOpen = false;
   selectedStatus: string = 'Disponible';
   categoriesNames:any[] = []
@@ -31,12 +31,22 @@ export class PerfilVehiculoComponent {
   constructor(private accountsService: AccountsService, private route: ActivatedRoute, private flotaService: FlotaService, private location: Location, private router: Router, private categoriesService: AdmincheckService) { }
 
   ngOnInit(): void {
+    this.isLoading = true;  // Activar el spinner antes de la carga de datos
     this.vehicleId = this.route.snapshot.paramMap.get('id');
-    this.flotaService.getFlotaById(this.vehicleId).subscribe(data => {
-      this.vehicle = data;
+    
+    this.flotaService.getFlotaById(this.vehicleId).subscribe({
+      next: (data) => {
+        this.vehicle = data;
+        this.loadCategories();
+        this.isLoading = false;  // Desactivar el spinner cuando los datos se carguen
+      },
+      error: (error) => {
+        console.error('Error al obtener los datos del vehículo', error);
+        this.isLoading = false;  // Desactivar el spinner también si hay un error
+      }
     });
+  
     this.accountsService.isAdmin();
-    this.loadCategories();
 
   }
 
