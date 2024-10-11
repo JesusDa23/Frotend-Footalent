@@ -1,134 +1,146 @@
 <header 
     id="top-bar"
-class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
+    class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
     <div class="flex justify-between p-4">
-      <button (click)="goBack()" class="text-blue-500">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-        <h1 class="text-lg text-white">Secciones</h1>
-      <app-togglemenu></app-togglemenu>
+        <button (click)="goBack()" class="text-blue-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <h1 class="text-lg text-white">Historial de Inspecciones</h1>
+        <app-togglemenu></app-togglemenu>
     </div>
-  </header>
+</header>
 
 <!-- Search Input Field -->
 <div class="flex justify-end">
-    <div class="mr-8 mb-4 pt-28">
+    <div class="m-4 pt-28 pr-4 relative w-80">
         <input
-          type="text"
-          [(ngModel)]="searchTerm"
-          (input)="searchForms()"
-          placeholder="Buscar"
-          class="border p-1 rounded-lg w-80"
+            type="text"
+            [(ngModel)]="searchTerm"
+            (input)="searchForms()"
+            placeholder="Buscar"
+            class="border p-2 pl-3 w-full pr-10 rounded"
         />
-      </div>
-</div>
-  
-  <!-- Loading State -->
-  <div *ngIf="loading" class="text-center p-4">Cargando formularios...</div>
-  
-  <!-- Main Table for Inspection Forms -->
-  <div *ngIf="!loading && filteredForms.length > 0">
-    <h2 class="text-lg font-bold mx-4 mb-4">Formularios de inspeccion</h2>
-  
-    <!-- Table Wrapper -->
-    <div class="border border-gray-300 rounded-lg p-4 mb-4">
-      <!-- Table Structure -->
-      <table class="min-w-full table-auto border-collapse">
-        <thead class="bg-[#0A135D] text-white">
-          <tr>
-            <th class="border px-4 py-2">Fecha</th>
-            <th class="border px-4 py-2">Conductor</th>
-            <th class="border px-4 py-2">DNI</th>
-            <th class="border px-4 py-2">Email</th>
-            <th class="border px-4 py-2">Marca</th>
-            <th class="border px-4 py-2">Modelo</th>
-            <th class="border px-4 py-2">Placa</th>
-            <th class="border px-4 py-2">Acciones</th>
-          </tr>
-        </thead>
-  
-        <!-- Table Body -->
-        <tbody>
-            <ng-container *ngFor="let form of filteredForms; let i = index">
-          <tr>
-            <td class="border px-4 py-2">{{ form.submissionTime | date:'short' }}</td>
-            <td class="border px-4 py-2">{{ form.user.name }}</td>
-            <td class="border px-4 py-2">{{ form.user.dni }}</td>
-            <td class="border px-4 py-2">{{ form.user.email }}</td>
-            <td class="border px-4 py-2">{{ form.vehicle.make }}</td>
-            <td class="border px-4 py-2">{{ form.vehicle.model }}</td>
-            <td class="border px-4 py-2">{{ form.vehicle.plate }}</td>
-            <td class="border px-4 py-2">
-              <button (click)="toggleForm(i)" class="text-blue-500">
-                {{ expandedFormIndex === i ? 'Ocultar' : 'Detalles' }}
-              </button>
-               <!-- Download PDF Button -->
-              <!-- <button (click)="generatePDF(form)" class="text-green-500 ml-4">
-                Download PDF
-              </button> -->
-            </td>
-          </tr>
-  
-          <!-- Expanded Section for Details -->
-          <tr *ngIf="expandedFormIndex === i">
-            <td colspan="8" class="p-4">
-              <!-- Sections Header -->
-              <h4 class="text-lg font-bold mt-4">Secciones de inspeccion</h4>
-  
-              <!-- Table for Section Details -->
-              <table class="min-w-full table-auto border-collapse border border-gray-300 mt-2">
-                <thead class="bg-gray-200">
-                  <tr>
-                    <th class="border px-4 py-2">Nombre de seccion</th>
-                    <th class="border px-4 py-2">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let section of form.sections; let si = index">
-                    <td class="border px-4 py-2">{{ section.sectionName }}</td>
-                    <td class="border px-4 py-2">
-                      <button (click)="toggleSection(form, si)" class="text-blue-500">
-                        {{ section.expanded ? 'Hide Bullets' : 'Show Bullets' }}
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-  
-              <!-- Section Bullets -->
-              <ng-container *ngFor="let section of form.sections">
-                <div class="mt-2" *ngIf="section.expanded">
-                  <h5 class="font-semibold">Checklist {{ section.sectionName }}</h5>
-  
-                  <!-- Bullets as a Sub-Table -->
-                  <table class="min-w-full table-auto border-collapse border border-gray-300 mt-2">
-                    <thead class="bg-gray-100">
-                      <tr>
-                        <th class="border px-4 py-2">Descripcion</th>
-                        <th class="border px-4 py-2">Respuesta</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let bullet of section.bullets" class="text-sm text-sm">
-                        <td class="border px-4 py-2">{{ bullet.bulletName }}</td>
-                        <td class="border px-4 py-2">{{ bullet.response ? 'Yes' : 'No' }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </ng-container>
-            </td>
-          </tr>
-        </ng-container>
-        </tbody>
-      </table>
+        <!-- Ícono de búsqueda alineado a la derecha dentro del input -->
+        <i class="fas fa-search absolute right-6 top-[87%] transform -translate-y-1/2 text-gray-500"></i>
     </div>
-  </div>
-  
-  <!-- No Forms Found -->
-  <div *ngIf="!loading && filteredForms.length === 0" class="text-center p-4">
-    No se encontraros formularios.
-  </div>
-  
+</div>
+
+<!-- Loading State -->
+<div *ngIf="loading" class="text-center p-4">Cargando formularios...</div>
+
+<!-- Main Table for Inspection Forms -->
+<div *ngIf="!loading && filteredForms.length > 0">
+    <h2 class="text-2xl font-bold m-4">Listado</h2>
+
+    <!-- Table Wrapper -->
+    <div class="overflow-x-auto m-4">
+        <!-- Table Structure -->
+        <table class="min-w-full table-auto border-collapse">
+            <thead class="bg-[#0A135D] text-white">
+                <tr>
+                    <!-- Checkbox Column -->
+                    <th class="border px-4 py-2">
+                        <input type="checkbox" (change)="toggleAll($event)" /> <!-- Checkbox to select all -->
+                    </th>
+                    <th class="border px-4 py-2">Fecha</th>
+                    <th class="border px-4 py-2">Conductor</th>
+                    <th class="border px-4 py-2">DNI</th>
+                    <th class="border px-4 py-2">Email</th>
+                    <th class="border px-4 py-2">Marca</th>
+                    <th class="border px-4 py-2">Modelo</th>
+                    <th class="border px-4 py-2">Placa</th>
+                    <th class="border px-4 py-2">Acciones</th>
+                </tr>
+            </thead>
+
+            <!-- Table Body -->
+            <tbody>
+                <ng-container *ngFor="let form of filteredForms; let i = index">
+                    <tr>
+                        <!-- Checkbox for each row -->
+                        <td class="border px-4 py-2">
+                            <input type="checkbox" [(ngModel)]="form.selected" />
+                        </td>
+                        <td class="border px-4 py-2">{{ form.submissionTime | date:'short' }}</td>
+                        <td class="border px-4 py-2">{{ form.user.name }}</td>
+                        <td class="border px-4 py-2">{{ form.user.dni }}</td>
+                        <td class="border px-4 py-2">{{ form.user.email }}</td>
+                        <td class="border px-4 py-2">{{ form.vehicle.make }}</td>
+                        <td class="border px-4 py-2">{{ form.vehicle.model }}</td>
+                        <td class="border px-4 py-2">{{ form.vehicle.plate }}</td>
+                        <td class="border px-4 py-2">
+                            <button (click)="toggleForm(i)" class="text-blue-500">
+                                {{ expandedFormIndex === i ? 'Ocultar' : 'Detalles' }}
+                            </button>
+                        </td>
+                    </tr>
+
+                    <!-- Expanded Section for Details -->
+                    <tr *ngIf="expandedFormIndex === i">
+                        <td colspan="9" class="p-4">
+                            <!-- Sections Header -->
+                            <h4 class="text-lg font-bold mt-4">Secciones de inspección</h4>
+
+                            <!-- Table for Section Details -->
+                            <table class="min-w-full overflow-x-auto border-collapse border border-gray-300 mt-2">
+                                <thead class="bg-gray-200">
+                                    <tr>
+                                        <th class="border px-4 py-2">Nombre de sección</th>
+                                        <th class="border px-4 py-2">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let section of form.sections; let si = index">
+                                        <td class="border px-4 py-2">{{ section.sectionName }}</td>
+                                        <td class="border px-4 py-2">
+                                            <button (click)="toggleSection(form, si)" class="text-blue-500">
+                                                {{ section.expanded ? 'Ocultar' : 'Mostrar' }}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Section Bullets -->
+                            <ng-container *ngFor="let section of form.sections">
+                                <div class="mt-2" *ngIf="section.expanded">
+                                    <h5 class="font-semibold">Checklist {{ section.sectionName }}</h5>
+
+                                    <!-- Bullets as a Sub-Table -->
+                                    <table class="min-w-full table-auto border-collapse border border-gray-300 mt-2">
+                                        <thead class="bg-gray-100">
+                                            <tr>
+                                                <th class="border px-4 py-2">Descripción</th>
+                                                <th class="border px-4 py-2">Respuesta</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let bullet of section.bullets" class="text-sm">
+                                                <td class="border px-4 py-2">{{ bullet.bulletName }}</td>
+                                                <td class="border px-4 py-2">{{ bullet.response ? 'Sí' : 'No' }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </ng-container>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Button to Download PDF: Fixed at the bottom -->
+<div class="fixed bottom-0 left-0 right-0 p-4 bg-white shadow-lg flex justify-between items-center">
+    <button class="bg-[#0A135D] text-white px-4 w-full py-2 shadow lg:w-96 " (click)="downloadSelectedForms()">
+        Descargar historial
+    </button>
+</div>
+
+<!-- No Forms Found -->
+<div *ngIf="!loading && filteredForms.length === 0" class="text-center p-4">
+    No se encontraron formularios.
+</div>
