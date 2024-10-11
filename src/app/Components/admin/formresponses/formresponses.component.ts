@@ -91,7 +91,7 @@ export class FormresponsesComponent {
                 new Date(form.submissionTime).toLocaleDateString(),
                 form.vehicle.make,
                 form.vehicle.model,
-                form.vehicle.plate
+                form.vehicle.plate   
             ]],
             startY: 20 // Ajusta la posición vertical
         });
