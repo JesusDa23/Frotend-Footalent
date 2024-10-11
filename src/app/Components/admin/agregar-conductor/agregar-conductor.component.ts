@@ -35,12 +35,13 @@ export class AgregarConductorComponent {
   licencia: string = "";
   selectedLicence: string = "";
   vencimiento: string ="";
-  
+
 
   rol: string = "user";
   tiposLicencia: TipoLicencia[] = [
-    { value: 'comun', viewValue: 'Común' },
-    { value: 'especial', viewValue: 'Especial' },
+    { value: 'tipo A', viewValue: 'Tipo A' },
+    { value: 'tipo B', viewValue: 'Tipo B' },
+    { value: 'tipo C', viewValue: 'Tipo C' }
   ]
 
   constructor(
@@ -49,7 +50,7 @@ export class AgregarConductorComponent {
   ) { }
 
 
-  // creatar passwortd aleatorio 
+  // creatar passwortd aleatorio
   generatePassword() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let length = 5
@@ -101,7 +102,8 @@ export class AgregarConductorComponent {
       tipoLicencia: this.selectedLicence,
       address: this.address,
       vencimiento: this.vencimiento,
-      rol: this.rol
+      rol: this.rol,
+      isFirstLogin: true
     };
 
     console.log(newDriver);

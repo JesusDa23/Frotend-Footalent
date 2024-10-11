@@ -1,80 +1,38 @@
 import { Component } from '@angular/core';
 import { HeadercComponent } from "../headerc/headerc.component";
+import { Checklistreport } from '../../models/checklist.model';
 import { ChecklistService } from '../../../Services/checklist.service';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ReportarIncidenteService } from '../../../Services/reportar-incidente.service';
-import Swal from 'sweetalert2';
-import { error } from 'console';
+import { FormsModule } from '@angular/forms';
+
+
 @Component({
   selector: 'app-reporte',
   standalone: true,
-  imports: [ HeadercComponent, FormsModule, ReactiveFormsModule],
+  imports: [ HeadercComponent, FormsModule],
   templateUrl: './reporte.component.html',
   styleUrl: './reporte.component.css'
 })
 export class ReporteComponent {
 
-  // checklistreport: Checklistreport = new Checklistreport(); 
-  reporteForm: FormGroup;
+  checklistreport: Checklistreport = new Checklistreport(); // Initialize an empty checklist
 
+  constructor(private checklistService: ChecklistService) {}
 
-  constructor(private checklistService: ChecklistService, private reportService: ReportarIncidenteService, private fb: FormBuilder  ) {
-    this.reporteForm = this.fb.group({
-      date: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      passengers:['', [Validators.required]],
-      vehicleStateDescription: ['', [Validators.required]]
-    })
+  onSubmit(): void {
+    this.createChecklist();
   }
 
-  // onSubmit(): void {
-  //   this.createChecklist();
-  // }
-
-  onSubmit(){
-    if(this.reporteForm.valid){
-      this.crearReporte();
-    }
-    else{
-      
-    }
-    
+  createChecklist(): void {
+    this.checklistService.createChecklist(this.checklistreport).subscribe({
+      next: (response: Checklistreport) => {
+        console.log('Checklist created successfully:', response);
+        // Reset the form or show a success message
+      },
+      error: (error: any) => {
+        console.error('Error creating checklist:', error);
+        // Handle error, show error message, etc.
+      }
+    });
   }
-
-  crearReporte(){
-    this.reportService.crearReporte(this.reporteForm.value).subscribe({
-    next: (data) => {
-      Swal.fire({
-        title: '¡Éxito!',
-        text: 'El reporte ha sido creado exitosamente',
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#0A135D'
-      });
-    },
-    error: (error) => {
-      Swal.fire({
-        title: 'Error',
-        text: 'Hubo un problema al crear el reporte',
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#0A135D'
-      });
-      console.error('Error al crear el reporte:', error);
-    }
-  }
-    )
-  }
-
-  // createChecklist(): void {
-  //   this.checklistService.createChecklist(this.checklistreport).subscribe({
-  //     next: (response: Checklistreport) => {
-  //       console.log('Checklist created successfully:', response);
-  //     },
-  //     error: (error: any) => {
-  //       console.error('Error creating checklist:', error);
-  //     }
-  //   });
-  // }
 
 }

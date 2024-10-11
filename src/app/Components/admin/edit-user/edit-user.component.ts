@@ -3,17 +3,10 @@ import { FormsModule, FormGroup } from '@angular/forms';
 import { Credentials, CreateDriver } from '../../../Interfaces/credentials';
 import Swal from 'sweetalert2'
 import { AccountsService } from '../../../Services/accounts.service';
-import { ActivatedRoute } from '@angular/router';
 
 import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 import { Location } from '@angular/common';
-
-interface TipoLicencia {
-  value: string;
-  viewValue: string;
-}
-
 
 @Component({
   selector: 'app-edit-user',
@@ -31,30 +24,18 @@ export class EditUserComponent {
   password: string = "12345";
   address: string = "";
   licencia: string = "";
+  rol: string = "user";
   selectedLicence: string = "";
   vencimiento: string ="";
-  
-
-  rol: string = "user";
-  tiposLicencia: TipoLicencia[] = [
-    { value: 'comun', viewValue: 'Común' },
-    { value: 'especial', viewValue: 'Especial' },
-  ]
-
-
-  // *******************
-
-  driver: any;
+  isFirstLogin: boolean = true;
 
   constructor(
     private accountsService: AccountsService,
-    private location: Location,
-    private route: ActivatedRoute,
-
+    private location: Location
   ) { }
 
 
-  // creatar passwortd aleatorio 
+  // creatar passwortd aleatorio
   generatePassword() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let length = 5
@@ -106,10 +87,9 @@ export class EditUserComponent {
       tipoLicencia: this.selectedLicence,
       address: this.address,
       vencimiento: this.vencimiento,
-      rol: this.rol
+      rol: this.rol,
+      isFirstLogin: true
     };
-
-    console.log(newDriver);
 
     this.accountsService.signUp(newDriver).subscribe((res: any) => {
 
@@ -134,6 +114,14 @@ export class EditUserComponent {
     })
   }
 
+
+
+  ngOnInit() {
+    this.generatePassword()
+
+
+
+  }
   goBack(): void {
     this.location.back();
   }

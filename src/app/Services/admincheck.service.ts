@@ -71,10 +71,6 @@ export class AdmincheckService {
   updateSection(sectionId: string, section: Section): Observable<Section> {
     return this.http.put<Section>(`${this.apiUrl}/sections/${sectionId}`, section, { headers: this.headers });
   }
-  // Delete section
-  deleteSection(sectionId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/sections/${sectionId}`);
-  }
 
   addBullet(sectionId: string, bullet: { description: string }): Observable<Section> {
     const url = `${this.apiUrl}/sections/${sectionId}/bullets`;

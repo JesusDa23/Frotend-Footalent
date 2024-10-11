@@ -9,6 +9,7 @@ export interface UserInfo {
   email: string
   password: string
   rol: string
+  isFirstLogin: boolean;
 }
 
 
@@ -29,4 +30,5 @@ export interface CreateDriver {
   tipoLicencia: string,
   vencimiento: string,
   rol: string
+  isFirstLogin: boolean;
 }

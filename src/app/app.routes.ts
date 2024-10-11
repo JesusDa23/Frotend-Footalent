@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './Components/login/login.component';
 import { SignupComponent } from './Components/signup/signup.component';
+import { ChangePasswordComponent } from './Components/change-password/change-password.component';
+import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { ProfileComponent } from './Components/user/profile/profile.component';
 import { authGuard } from './guards/auth.guard';
 import { HomeComponent } from './Components/admin/home/home.component';
@@ -18,34 +20,32 @@ import { PerfilVehiculoComponent } from './Components/admin/flota/perfil-vehicul
 import { FormresponsesComponent } from './Components/admin/formresponses/formresponses.component';
 import { AgregarConductorComponent } from './Components/admin/agregar-conductor/agregar-conductor.component';
 import { MantenimientosComponent } from './Components/admin/flota/mantenimientos/mantenimientos.component';
-import { EditUserComponent } from './Components/admin/edit-user/edit-user.component'; 
-import { FooterDesktopComponent } from './Components/footer-desktop/footer-desktop.component';
+import { EditUserComponent } from './Components/admin/edit-user/edit-user.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', title: "Login", component: LoginComponent },
   { path: 'signup', title: "Sign Up", component: SignupComponent },
+  { path: 'change-password', title: "Change Password", component: ChangePasswordComponent }, //voluntario
+  { path: 'change-password-for-email/:token', title: "Change Password", component: ChangePasswordComponent }, //recuperar contraseña
+  { path: 'forgot-password', title: "Forgot Password", component: ForgotPasswordComponent },
   { path: 'my-profile', title: "Personal Profile", component: ProfileComponent, canActivate: [authGuard] },
-  { path: 'home', component: HomeComponent, canActivate: [authGuard]},
-  { path: 'homec', component: HomecComponent, canActivate: [authGuard]},
-  { path: 'conductores', component: ConductoresComponent, canActivate:[authGuard]},
-  { path: 'admincheck', component: AdmincheckComponent, canActivate: [authGuard]},
-  { path: 'listcheck/:categoryId', component: ListcheckComponent, canActivate: [authGuard]},
-  { path: 'agregar-vehiculo', component:CrearVehiculoComponent, canActivate:[authGuard]},
-  { path: 'reporte', component: ReporteComponent, canActivate: [authGuard]},
-  { path: 'sections/:sectionId', component: ListbulletsComponent, canActivate: [authGuard]},
-  { path: 'formresponses', component: FormresponsesComponent, canActivate: [authGuard]},
-  { path: 'inspeccion2/:categoryId/:vehicle', component: SectionsByCatComponent, canActivate: [authGuard]},
-  { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]},
-  { path: 'agregar-conductor', component: AgregarConductorComponent, canActivate: [authGuard]},
-  { path: 'editar-perfil', component: EditUserComponent, canActivate: [authGuard]},
-  { path: 'editar-perfil/:id', component: EditUserComponent, canActivate: [authGuard]},
-  { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]},
-  { path: 'mantenimientos', component: MantenimientosComponent, canActivate: [authGuard]},
-  { path: 'mantenimientos/:vehicleId', component: MantenimientosComponent, canActivate: [authGuard]},
-
-
-  { path: 'footer', component: FooterDesktopComponent}
+  { path: 'home', component: HomeComponent, canActivate: [authGuard] },
+  { path: 'homec', component: HomecComponent, canActivate: [authGuard] },
+  { path: 'conductores', component: ConductoresComponent, canActivate: [authGuard] },
+  { path: 'admincheck', component: AdmincheckComponent, canActivate: [authGuard] },
+  { path: 'listcheck/:categoryId', component: ListcheckComponent, canActivate: [authGuard] },
+  { path: 'agregar-vehiculo', component: CrearVehiculoComponent, canActivate: [authGuard] },
+  { path: 'reporte', component: ReporteComponent, canActivate: [authGuard] },
+  { path: 'sections/:sectionId', component: ListbulletsComponent, canActivate: [authGuard] },
+  { path: 'formresponses', component: FormresponsesComponent, canActivate: [authGuard] },
+  { path: 'inspeccion2/:categoryId/:vehicle', component: SectionsByCatComponent, canActivate: [authGuard] },
+  { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard] },
+  { path: 'agregar-conductor', component: AgregarConductorComponent, canActivate: [authGuard] },
+  { path: 'editar-perfil', component: EditUserComponent, canActivate: [authGuard] },
+  { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard] },
+  { path: 'mantenimientos', component: MantenimientosComponent, canActivate: [authGuard] },
+  { path: 'mantenimientos/:vehicleId', component: MantenimientosComponent, canActivate: [authGuard] }
 
 ];
 
@@ -54,4 +54,4 @@ export const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class AppRoutingModule {}
+export class AppRoutingModule { }

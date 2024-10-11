@@ -8,7 +8,7 @@ export interface ChecklistData {
     parteInterna: { [key: string]: boolean };
     documentacion: { [key: string]: boolean };
   }
-  
+
   export class Checklist {
     tipoVehiculo?: string;
     area?: string;
@@ -32,7 +32,7 @@ export interface ChecklistData {
     choquesYRaspaduras?: string;
     afirmacion?: boolean;
   }
-  
+
 
   export class Checklistreport {
     fecha?: Date;
@@ -40,7 +40,7 @@ export interface ChecklistData {
     pasajeros?: number;
     detalles?: string;
   }
-  
+
 
   // Define the interface for a bullet
 interface Bullet {
