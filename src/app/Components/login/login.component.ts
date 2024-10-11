@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountsService } from '../../Services/accounts.service';
 import { Credentials, resLoginUser } from '../../Interfaces/credentials';
-import { log } from 'node:console';
 import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2'
 
@@ -11,17 +10,17 @@ import Swal from 'sweetalert2'
   standalone: true,
   imports: [FormsModule, RouterModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css'] // Corregir a styleUrls en plural
 })
 export class LoginComponent implements OnInit {
 
-  email: string = ""
-  password: string = ""
+  email: string = "";
+  password: string = "";
 
   constructor(private _accountsService: AccountsService, private router: Router) { }
 
   ngOnInit(): void {
-    this._accountsService.isLogedIn()
+    this._accountsService.isLogedIn();
   }
 
   botonLogIn() {
@@ -39,32 +38,37 @@ export class LoginComponent implements OnInit {
     let user: Credentials = {
       email: this.email,
       password: this.password
-    }
-    this._accountsService.logIn(user).subscribe({
-      next: data => {
-        // console.log("data", data);
+    };
 
+    this._accountsService.logIn(user).subscribe({
+      next: (data) => {
         let dataCast = data as resLoginUser;
         sessionStorage.setItem('token', dataCast.token);
 
-        // Store user information in sessionStorage
+        // Guardar la información del usuario en sessionStorage
         sessionStorage.setItem('userInfo', JSON.stringify(dataCast.user));
 
-        console.log("DATA CONSOLA: ", dataCast.user.rol);
 
+        if (sessionStorage.getItem("token") != null) {
+          console.log("Este es el resultado:", dataCast.user);
 
-        if(sessionStorage.getItem("token") != null){
-
-          if(dataCast.user.rol == "admin"){
-            this.router.navigate(['/home']);
-          }
-          else if(dataCast.user.rol == "user"){
-            this.router.navigate(['/homec']);
+          // Verifica si es la primera vez que el usuario inicia sesión
+          if (dataCast.user.isFirstLogin) {
+            // Redirigir a la página de cambio de contraseña si es la primera vez
+            this.router.navigate(['/change-password']);
           }
 
+          else {
+            // Redirigir según el rol del usuario
+            if (dataCast.user.rol === "admin") {
+              this.router.navigate(['/home']);
+            } else if (dataCast.user.rol === "user") {
+              this.router.navigate(['/homec']);
+            }
+          }
         }
       },
-      error: err => {
+      error: (err) => {
         Swal.fire({
           position: "top-end",
           icon: "error",
@@ -75,15 +79,5 @@ export class LoginComponent implements OnInit {
         console.log("data", err);
       }
     });
-
   }
-
-  // ToDo: Si quieren implementar el login por medio de cookies, deben de armar la cookie desde el backend para enviarla al frontend y guardarla
-  // Para realizar esto, se debe de usar una libreria de node llamada cookie-parser, esta es la encargada de armar la cookie con la siguiente estructura
-  // res.cookie('cookieName', 'cookieValue', { maxAge: 900000, httpOnly: true });
-  // ? cookieName: es el nombre de la cookie
-  // ? cookieValue: es el valor de la cookie
-  // ? {} : es un objeto que contiene las opciones o configuraciones de la cookie
-
-
 }

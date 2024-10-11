@@ -84,7 +84,8 @@ export class SignupComponent implements OnInit {
       password: this.password,
       dni: this.dni,
       name: this.name,
-      rol: "user"
+      rol: "user",
+      isFirstLogin: true
     };
 
     this._accountsService.signUp(user).subscribe({

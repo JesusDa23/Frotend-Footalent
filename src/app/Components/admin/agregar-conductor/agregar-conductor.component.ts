@@ -35,7 +35,7 @@ export class AgregarConductorComponent {
   licencia: string = "";
   selectedLicence: string = "";
   vencimiento: string ="";
-  
+
 
   rol: string = "user";
   tiposLicencia: TipoLicencia[] = [
@@ -50,7 +50,7 @@ export class AgregarConductorComponent {
   ) { }
 
 
-  // creatar passwortd aleatorio 
+  // creatar passwortd aleatorio
   generatePassword() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let length = 5
@@ -102,7 +102,8 @@ export class AgregarConductorComponent {
       tipoLicencia: this.selectedLicence,
       address: this.address,
       vencimiento: this.vencimiento,
-      rol: this.rol
+      rol: this.rol,
+      isFirstLogin: true
     };
 
     console.log(newDriver);

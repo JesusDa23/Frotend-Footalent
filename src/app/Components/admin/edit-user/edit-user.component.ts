@@ -27,6 +27,7 @@ export class EditUserComponent {
   rol: string = "user";
   selectedLicence: string = "";
   vencimiento: string ="";
+  isFirstLogin: boolean = true;
 
   constructor(
     private accountsService: AccountsService,
@@ -34,7 +35,7 @@ export class EditUserComponent {
   ) { }
 
 
-  // creatar passwortd aleatorio 
+  // creatar passwortd aleatorio
   generatePassword() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let length = 5
@@ -86,7 +87,8 @@ export class EditUserComponent {
       tipoLicencia: this.selectedLicence,
       address: this.address,
       vencimiento: this.vencimiento,
-      rol: this.rol
+      rol: this.rol,
+      isFirstLogin: true
     };
 
     this.accountsService.signUp(newDriver).subscribe((res: any) => {
