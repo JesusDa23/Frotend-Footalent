@@ -4,13 +4,12 @@ import { AdmincheckService } from '../../../../../Services/admincheck.service';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Bullet } from '../../../../models/bullet.model';
-import { TogglemenuComponent } from "../../../../togglemenu/togglemenu.component";
 
 
 @Component({
   selector: 'app-listbullets',
   standalone: true,
-  imports: [CommonModule, FormsModule, TogglemenuComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './listbullets.component.html',
   styleUrl: './listbullets.component.css'
 })

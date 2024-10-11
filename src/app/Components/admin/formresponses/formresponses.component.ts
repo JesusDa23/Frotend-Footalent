@@ -3,8 +3,9 @@ import { Component } from '@angular/core';
 import { AdmincheckService } from '../../../Services/admincheck.service';
 import { AccountsService } from '../../../Services/accounts.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable';
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import html2canvas from 'html2canvas'
 import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
 
 @Component({
@@ -15,28 +16,29 @@ import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
   styleUrl: './formresponses.component.css'
 })
 export class FormresponsesComponent {
-  inspectionForms: any[] = [];  // Para almacenar los formularios obtenidos
+  inspectionForms: any[] = [];  // To hold the fetched forms
   loading: boolean = true;
   expandedFormIndex: number | null = null;
   searchTerm: string = '';
-  filteredForms: any[] = [];  // Inicializar como un array vacío
+  filteredForms: any[] = [];  // Ensure it's an empty array initially
 
   constructor(private inspectionService: AdmincheckService, private accountsService: AccountsService, private location: Location) {}
 
   ngOnInit(): void {
     this.accountsService.isAdmin();
-    this.retrieveForms(); // Obtener formularios al cargar el componente
+
+    this.retrieveForms(); // Fetch forms when the component loads
   }
 
   retrieveForms() {
     this.inspectionService.getInspectionForms().subscribe({
       next: (data) => {
-        this.inspectionForms = data;  // Asignar los datos de la API a inspectionForms
-        this.filteredForms = [...this.inspectionForms]; // Inicializar filteredForms con todos los formularios
+        this.inspectionForms = data;  // Assign data from API to inspectionForms
+        this.filteredForms = [...this.inspectionForms]; // Initialize filteredForms with all forms
         this.loading = false;
       },
       error: (error) => {
-        // Manejar error al obtener datos
+        // Handle error while fetching data
         console.error('Error fetching inspection forms:', error);
         this.loading = false;
       }
@@ -53,7 +55,7 @@ export class FormresponsesComponent {
         form.vehicle.model.toLowerCase().includes(term)
       );
     } else {
-      // Resetear a todos los formularios si no se proporciona un término de búsqueda
+      // Reset to all forms if no search term is provided
       this.filteredForms = [...this.inspectionForms];
     }
   }
@@ -66,66 +68,51 @@ export class FormresponsesComponent {
     form.sections[sectionIndex].expanded = !form.sections[sectionIndex].expanded;
   }
 
-  downloadSelectedForms() {
-    const doc = new jsPDF();
-    const selectedForms = this.filteredForms.filter(form => form.selected);
+  // PDF Generation for a specific form
+  generatePDF(form: any) {
+    // const doc = new jsPDF();
   
-    if (selectedForms.length === 0) {
-        alert('Por favor, selecciona al menos un formulario.');
-        return;
-    }
+    // // Add title
+    // doc.text(`Inspection Form for ${form.user.name}`, 10, 10);
+    // doc.setFontSize(12);
   
-    selectedForms.forEach((form, index) => {
-        if (index > 0) {
-            doc.addPage(); // Añadir nueva página para cada formulario
-        }
-        doc.text(`Formulario de Inspección para ${form.user.name}`, 10, 10);
+    // // Add form data (Conductor, DNI, etc.)
+    // doc.autoTable({
+    //   head: [['Conductor', 'DNI', 'Email', 'Fecha', 'Vehicle Make', 'Modelo', 'Placa']],
+    //   body: [[
+    //     form.user.name,
+    //     form.user.dni,
+    //     form.user.email,
+    //     new Date(form.submissionTime).toLocaleDateString(),
+    //     form.vehicle.make,
+    //     form.vehicle.model,
+    //     form.vehicle.plate
+    //   ]],
+    //   startY: 20
+    // });
   
-        // Agregar los datos del formulario al PDF usando autoTable
-        autoTable(doc, {
-            head: [['Conductor', 'DNI', 'Email', 'Fecha', 'Marca', 'Modelo', 'Placa']],
-            body: [[
-                form.user.name,
-                form.user.dni,
-                form.user.email,
-                new Date(form.submissionTime).toLocaleDateString(),
-                form.vehicle.make,
-                form.vehicle.model,
-                form.vehicle.plate
-            ]],
-            startY: 20 // Ajusta la posición vertical
-        });
+    // // Add sections if available
+    // if (form.sections && form.sections.length > 0) {
+    //   form.sections.forEach((section: any, index: number) => {
+    //     doc.text(`Section ${index + 1}: ${section.sectionName}`, 10, doc.autoTable.previous.finalY + 10);
+    //     doc.autoTable({
+    //       head: [['Bullet Name', 'Response']],
+    //       body: section.bullets.map((bullet: any) => [
+    //         bullet.bulletName,
+    //         bullet.response ? 'Yes' : 'No'
+    //       ]),
+    //       startY: doc.autoTable.previous.finalY + 20
+    //     });
+    //   });
+    // }
   
-        if (form.sections && form.sections.length > 0) {
-          form.sections.forEach((section: any, sectionIndex: number) => {
-              const previousY = (doc as any).lastAutoTable.finalY; // Guardar la posición final de la última tabla
-              doc.text(`Sección ${sectionIndex + 1}: ${section.sectionName}`, 10, previousY + 10);
-              autoTable(doc, {
-                  head: [['Nombre del Bullet', 'Respuesta']],
-                  body: section.bullets.map((bullet: any) => [
-                      bullet.bulletName,
-                      bullet.response ? 'Sí' : 'No'
-                  ]),
-                  startY: previousY + 20 // Ajustar la posición vertical con base en la tabla anterior
-              });
-          });
-        }
-    });
-  
-    // Guardar el PDF
-    doc.save('formularios_inspeccion.pdf');
+    // // Save the PDF with the form's user name as the file name
+    // doc.save(`${form.user.name}-inspection-form.pdf`);
   }
-
-
 
   goBack(): void {
     this.location.back();
   }
-
-  // Función para seleccionar/desmarcar todos los checkboxes
-  toggleAll(event: any) {
-    const checked = event.target.checked;
-    this.filteredForms.forEach(form => form.selected = checked);
-  }
+  
 
 }

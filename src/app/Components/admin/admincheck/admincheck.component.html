@@ -1,124 +1,88 @@
 <header 
     id="top-bar"
 class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
-    <div class="flex justify-between m-1">
-      <div class="flex items-center p-4">
-        <button (click)="goBack()" class="text-blue-500">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button> 
-      </div>
-        <h1 class="text-lg text-white text-center p-3">Tipos de vehiculo</h1>
-        <app-togglemenu class="p-2"/>
-      
+    <div class="flex items-center p-4">
+      <button (click)="goBack()" class="text-blue-500">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button> 
+      <h1 class="text-lg text-white text-center">Categorias</h1>
+      <nav class="mx-1 text-[#0a135d]">|</nav>
     </div>
   </header>
 
-  <div class="container mx-auto p-4 pt-20">
+<div class="container mx-auto p-4 pt-16">
+    
   
-    <!-- Display List of Categories -->
-<div *ngIf="categories.length > 0">
-  <ul>
-    <li 
-      *ngFor="let category of categories"  
-      (click)="onCategoryClick(category)" 
-      class="bg-[#FAFAFA] border font-medium p-1 mb-2 flex justify-between items-center rounded"
-    >
-      <!-- Inline display or input for creating/editing -->
-      <div class="m-2 w-3/5 text-lg">
-        <!-- Show the input field when adding or editing -->
-        <ng-container *ngIf="isEditing && editedCategory?._id === category._id; else viewCategory">
-          <input 
-            type="text" 
-            [(ngModel)]="categoryName"
-            class="border p-2 w-full rounded"
-            placeholder="Enter category name"
-          />
-        </ng-container>
-        <ng-template #viewCategory>
-          {{ category.name }}
-        </ng-template>
+    <!-- Add or Edit Category -->
+    <div class="mb-4 mt-2">
+      <div >
+        <input 
+        type="text" 
+        class="border p-2 w-full rounded" 
+        placeholder="Enter category name" 
+        [(ngModel)]="categoryName" 
+      />
       </div>
-<!-- Action buttons for edit, delete, and add new category -->
-<div class="flex w-2/5 justify-end relative">
-  <!-- Three dots icon to open the modal on smaller screens -->
-  <div class="block md:hidden">
-    <button (click)="toggleModal(category._id)" class="p-2">
-      <i class="fa-solid fa-ellipsis-vertical"></i>
-    </button>
-  </div>
-
-  <!-- Modal for lower screens with edit and delete options -->
-  <div 
-    *ngIf="isModalOpen[category._id]" 
-    class="absolute top-8 right-0 bg-white shadow-md rounded-lg z-10 p-2 w-32"
-  >
-    <button class="w-full text-left border border-blue-400 text-blue-500 bg-blue-100 text-white p-1 rounded mb-2" (click)="editCategory(category); toggleModal(category._id)">
-      Editar
-    </button>
-    <button class="w-full text-left bg-red-100 text-red-500 border border-red-500 p-1 rounded" (click)="deleteCategory(category._id!); toggleModal(category._id)">
-      Eliminar
-    </button>
-  </div>
-
-  <!-- Default actions for larger screens -->
-  <div class="hidden md:flex">
-    <div *ngIf="isEditing && editedCategory?._id === category._id; else defaultActions">
-      <button class="border border-blue-400 text-blue-500 bg-blue-100 text-white p-1 rounded" (click)="updateCategory()">
-        Guardar
+      
+      <div class=" flex justify-between">
+        <button 
+        class="bg-[#0a135d] hover:bg-blue-900 text-white py-2 px-4 mt-2 rounded" 
+        (click)="isEditing ? updateCategory() : createCategory()"
+      >
+        {{ isEditing ? 'Cambiar nombre' : 'Añadir' }}
       </button>
-      <button class="bg-gray-100 text-red-500 border border-red-500 p-1 ml-2 rounded" (click)="cancelEdit()">
+  
+      <!-- Show Cancel button when editing -->
+      <button 
+        *ngIf="isEditing"
+        class="bg-gray-500 hover:bg-red-600 text-white py-2 px-4 mt-2 ml-2 rounded"
+        (click)="cancelEdit()"
+      >
         Cancelar
       </button>
-    </div>
-
-    <!-- Default actions for view mode -->
-    <ng-template #defaultActions>
-      <button class="border border-blue-400 text-blue-500 bg-blue-100 text-white p-1 rounded" (click)="editCategory(category)">
+      <button class="top-4 right-4 bg-[#0a135d] text-white p-2 rounded mt-2 " (click)="toggleButtons()">
         Editar
       </button>
-      <button class="border border-red-500 bg-red-100 text-red-500 p-1 ml-2 rounded" (click)="deleteCategory(category._id!)">
-        Eliminar
-      </button>
-    </ng-template>
-  </div>
-</div>
-    </li>
-
-    <!-- If in Add New mode, show a separate input field for new category -->
-    <li *ngIf="isAdding" class="border border-blue-400 text-blue-500 bg-blue-100 border p-2 mb-2 flex justify-between items-center rounded">
-      <input 
-        type="text" 
-        [(ngModel)]="categoryName"
-        class="border p-2 w-3/5 rounded"
-        placeholder="ej: Carro a gas"
-      />
-      <div class="flex w-2/5 justify-end">
-        <button class="border border-blue-400 text-blue-500 bg-white p-1 rounded" (click)="createCategory()">
-          Guardar
-        </button>
-        <button class="bg-red-100 text-red-500 px-3 ml-2 border border-red-500 rounded" (click)="cancelAddNew()">
-           x 
-        </button>
       </div>
-    </li>
-  </ul>
-</div>
-
-
-        <!-- Fixed button at the bottom of the screen to add new category -->
-
-    <div id="bottom-bar"
-        class="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-2 transition-transform duration-300 
-        transform translate-y-0"
-            >
-        <button
-            class="w-full bg-[#0a135d] rounded p-2 text-white text-center"
-            (click)="enableAddNew()"
-            >
-            Agregar
-        </button>
     </div>
+
+
+    
+    <!-- Display List of Categories -->
+    <div *ngIf="categories.length > 0" >
+      <ul>
+        <li 
+          *ngFor="let category of categories" 
+          class="bg-blue-100 border p-2 mb-2 flex justify-between items-center">
+          <div class="m-2 w-3/5 text-lg" (click)="onCategoryClick(category)">{{ category.name }}
+          </div>
+          <div class="flex w-2/5 justify-end">
+            <!-- Edit and Delete buttons -->
+            <div *ngIf="showActions" >
+                <button  class="bg-green-500 text-white p-1 rounded" (click)="editCategory(category)">
+                    Edit
+                </button>
+                <button class="bg-red-500 text-white p-1 ml-2 rounded" (click)="deleteCategory(category._id!)">
+                    Delete
+                </button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  <!-- Message if no sections are available -->
+ <div *ngIf="selectedCategory" class="mt-6">
+    <h2 class="text-xl font-semibold mb-2">Sections for {{ selectedCategory.name }}</h2>
+    <ul>
+      <li 
+        *ngFor="let section of sections" 
+        class="bg-gray-100 border p-2 mb-2 rounded"
+      >
+        {{ section.name }}
+      </li>
+    </ul>
   </div>
-  
+</div>

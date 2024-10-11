@@ -69,7 +69,7 @@ export class ChangePasswordComponent {
   handleChangePassword() {
     this._accountsService.updatePassword(this.userId, this.newPassword, this.oldPassword, this.changeForEmail).subscribe({
       next: () => {
-
+        console.log('--------------', this.userId)
         this._accountsService.updateFirstLogin(this.userId, false).subscribe({
           next: () => {
             Swal.fire({
@@ -79,11 +79,9 @@ export class ChangePasswordComponent {
               showConfirmButton: false,
               timer: 1600
             });
-
             setTimeout(() => {
               this.router.navigate(['/login']);
             }, 1700);
-
           },
           error: (err) => {
             Swal.fire({
@@ -105,7 +103,7 @@ export class ChangePasswordComponent {
           icon: "error",
           title: `Error al cambiar la contraseña\n${err.error.error}`,
           showConfirmButton: false,
-          timer: 1600
+          // timer: 1600
         });
       }
     });

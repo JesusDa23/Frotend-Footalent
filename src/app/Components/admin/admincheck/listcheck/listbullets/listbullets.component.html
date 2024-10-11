@@ -1,19 +1,19 @@
+<!-- header.component.html -->
 <header 
     id="top-bar"
-class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
-    <div class="flex justify-between p-4">
-      <button (click)="goBack()" class="text-blue-500">
+    class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
+    <div class="flex justify-between items-center p-4">
+      <button (click)="goBack()" class="text-white">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+            </svg>
       </button>
-        <h1 class="text-lg text-white pt-2">Checklist</h1>
-      <app-togglemenu></app-togglemenu>
+      <h1 class="text-lg text-white text-center">Checklist</h1>
+      <nav class="mx-1 text-[#0a135d]">|</nav>
     </div>
   </header>
-  
 
-<div class="container mx-auto p-4 pt-20">
+<div class="container mx-auto p-4 pt-16">
     <!-- Input field to add a new section, visible when showNewSectionInput is true -->
 <div *ngIf="showNewBulletInput" class="mt-2">
     <input

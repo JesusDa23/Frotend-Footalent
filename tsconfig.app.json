@@ -5,9 +5,7 @@
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": [
-      "node",
-      "jspdf"
-
+      "node"
     ]
   },
   "files": [

@@ -34,6 +34,9 @@ export class ForgotPasswordComponent {
         showConfirmButton: false,
         timer: 1600
       });
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 1700);
     })
   }
 }

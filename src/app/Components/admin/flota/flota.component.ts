@@ -12,13 +12,12 @@ import { RouterLink } from '@angular/router';
 // componentes
 import { PerfilVehiculoComponent } from './perfil-vehiculo/perfil-vehiculo.component';
 import { CrearVehiculoComponent } from './crear-vehiculo/crear-vehiculo.component';
-import { FooterDesktopComponent } from '../../footer-desktop/footer-desktop.component';
 
 
 @Component({
   selector: 'app-flota',
   standalone: true,
-  imports: [PerfilVehiculoComponent, FooterDesktopComponent, CrearVehiculoComponent, NgFor,ReactiveFormsModule,RouterLink, NgIf, EditmodalComponent, RouterModule, NgClass, UpperCasePipe,HeaderComponent, TitleCasePipe],
+  imports: [PerfilVehiculoComponent, CrearVehiculoComponent, NgFor,ReactiveFormsModule,RouterLink, NgIf, EditmodalComponent, RouterModule, NgClass, UpperCasePipe,HeaderComponent, TitleCasePipe],
   templateUrl: './flota.component.html',
   styleUrl: './flota.component.css'
 })
@@ -26,7 +25,7 @@ export class FlotaComponent {
   private lastScrollTop = 0;
   flotas:any = [];
   vehicleForm: FormGroup;
-  isLoading = false;
+
   isEditMode = false;
   selectedVehicle: Vehicle | null = null;
 
@@ -52,28 +51,9 @@ export class FlotaComponent {
     }
   }
 
-  // Método para cargar las flotas
   loadFlotas() {
-    this.isLoading = true; // Activa el spinner antes de hacer la solicitud
-
-    this.flotaService.getFlotas().subscribe({
-      next: (data) => {
-        this.flotas = data;
-        if (this.flotas.length === 0) {
-          Swal.fire('Sin datos', 'No se encontraron vehículos.', 'warning');
-        }
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error(err);
-        Swal.fire({
-          title: 'Error!',
-          text: 'Hubo un problema al cargar los vehículos. Intentando de nuevo...',
-          icon: 'error',
-          confirmButtonText: 'Intentar de nuevo',
-          confirmButtonColor: '#0A135D'  // Cambia el color del botón de confirmación
-        });
-      }
+    this.flotaService.getFlotas().subscribe(data => {
+      this.flotas = data;
     });
   }
 
