@@ -18,7 +18,8 @@ import { PerfilVehiculoComponent } from './Components/admin/flota/perfil-vehicul
 import { FormresponsesComponent } from './Components/admin/formresponses/formresponses.component';
 import { AgregarConductorComponent } from './Components/admin/agregar-conductor/agregar-conductor.component';
 import { MantenimientosComponent } from './Components/admin/flota/mantenimientos/mantenimientos.component';
-import { EditUserComponent } from './Components/admin/edit-user/edit-user.component';
+import { EditUserComponent } from './Components/admin/edit-user/edit-user.component'; 
+import { FooterDesktopComponent } from './Components/footer-desktop/footer-desktop.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -41,7 +42,10 @@ export const routes: Routes = [
   { path: 'editar-perfil/:id', component: EditUserComponent, canActivate: [authGuard]},
   { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]},
   { path: 'mantenimientos', component: MantenimientosComponent, canActivate: [authGuard]},
-  { path: 'mantenimientos/:vehicleId', component: MantenimientosComponent, canActivate: [authGuard]}
+  { path: 'mantenimientos/:vehicleId', component: MantenimientosComponent, canActivate: [authGuard]},
+
+
+  { path: 'footer', component: FooterDesktopComponent}
 
 ];
 
