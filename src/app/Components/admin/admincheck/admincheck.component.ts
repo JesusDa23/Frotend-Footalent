@@ -44,6 +44,9 @@ export class AdmincheckComponent {
         showActions: false  // Initialize showActions for each category
       }));
     });
+    this.categories.forEach(category => {
+      this.isModalOpen[category._id] = false;
+    });
   }
 
   // Create a new category
