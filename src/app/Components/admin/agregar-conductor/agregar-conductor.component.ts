@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-interface TipoLicencia {
+interface type_licence {
   value: string;
   viewValue: string;
 }
@@ -25,29 +25,26 @@ interface TipoLicencia {
   styleUrl: './agregar-conductor.component.css'
 })
 export class AgregarConductorComponent {
-  name: string = "";
   dni: string = "";
+  name: string = "";
+  password: string = "";
   email: string = "";
-  phone: string = "";
-  randomPassword: string = "";
-  password: string = "12345";
   address: string = "";
+  phone: string = "";
   licencia: string = "";
-  selectedLicence: string = "";
-  vencimiento: string ="";
-  
-
   rol: string = "user";
-  tiposLicencia: TipoLicencia[] = [
+  licenceOptions: type_licence[] = [
     { value: 'comun', viewValue: 'Común' },
     { value: 'especial', viewValue: 'Especial' },
   ]
+  randomPassword: string = "";
+  selectedLicence: string = "";
+  expiration_licence: string = "";
 
   constructor(
     private accountsService: AccountsService,
     private location: Location
   ) { }
-
 
   // creatar passwortd aleatorio 
   generatePassword() {
@@ -62,11 +59,9 @@ export class AgregarConductorComponent {
     return result;
   }
 
-
-
   onSubmit() {
     // verificacion de llenado de campos
-    if (this.name === "" || this.dni === "" || this.email === "" || this.phone === "" || this.address === "" || this.licencia === "") {
+    if (this.name === "" || this.dni === "" || this.email === "" || this.phone === "" || this.address === "" || this.licencia === "" || this.selectedLicence === "") {
 
       Swal.fire({
         position: "top-end",
@@ -92,19 +87,17 @@ export class AgregarConductorComponent {
     this.randomPassword = this.generatePassword()
 
     const newDriver: CreateDriver = {
-      email: this.email,
       dni: this.dni,
-      password: this.randomPassword,
       name: this.name,
       phone: this.phone,
-      licencia: this.licencia,
-      tipoLicencia: this.selectedLicence,
+      email: this.email,
       address: this.address,
-      vencimiento: this.vencimiento,
+      password: this.randomPassword,
+      licencia: this.licencia,
+      type_licence: this.selectedLicence,
+      expiration_licence: this.expiration_licence,
       rol: this.rol
     };
-
-    console.log(newDriver);
 
     this.accountsService.signUp(newDriver).subscribe((res: any) => {
 
@@ -124,6 +117,7 @@ export class AgregarConductorComponent {
           showConfirmButton: false,
           timer: 1500
         });
+        console.log("no enviado");
       }
 
     })
