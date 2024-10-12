@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { FormsModule, FormGroup } from '@angular/forms';
-import { Credentials, CreateDriver } from '../../../Interfaces/credentials';
 import Swal from 'sweetalert2'
 import { AccountsService } from '../../../Services/accounts.service';
 import { ActivatedRoute } from '@angular/router';
@@ -24,7 +23,7 @@ interface type_licence {
 })
 export class EditUserComponent {
   userId: any = "";
-  user: any = "";
+  // user: any = "";
   name: string = "";
   dni: string = "";
   password: string = "";
@@ -33,13 +32,28 @@ export class EditUserComponent {
   phone: string = "";
   licencia: string = "";
   rol: string = "user";
+  randomPassword: string = "";
+  type_licence: string = "";
+  expiration_licence: string = "";
+
+  user: any = {
+    user: "",
+    name: "",
+    dni: "",
+    password: "",
+    email: "",
+    address: "",
+    phone: "",
+    licencia: "",
+    rol: "",
+    type_licence: "",
+    expiration_licence: ""
+  }
+
   licenceOptions: type_licence[] = [
     { value: 'comun', viewValue: 'Común' },
     { value: 'especial', viewValue: 'Especial' },
   ]
-  randomPassword: string = "";
-  type_licence: string = "";
-  expiration_licence: string = "";
 
   // *******************
 
@@ -50,28 +64,32 @@ export class EditUserComponent {
     private location: Location,
     private route: ActivatedRoute,
 
-  ) {  }
+  ) { }
 
   getUserInfo() {
     this.userId = this.route.snapshot.paramMap.get('id');
 
-    this.accountsService.getUser(this.userId).subscribe((res: any) => {
-      if (res) {
-        this.user = res
-        this.name = res.name
-        this.dni = res.dni,
-        this.name = res.name,
-        this.phone = res.phone,
-        this.email = res.email,
-        this.address = res.address,
-        this.password = res.password,
-        this.licencia = res.licencia,
-        this.type_licence = res.type_licence,
-        this.expiration_licence = res.expiration_licence,
-        console.log(this.password);
-      } else {
-        console.log("Not retrieved");
-      }
+    this.accountsService.getUser(this.userId).subscribe((data: any) => {
+      if (data) {
+        this.user = data
+        this.name = data.name
+        this.dni = data.dni,
+          this.name = data.name,
+          this.phone = data.phone,
+          this.email = data.email,
+          this.address = data.address,
+          this.password = data.password,
+          this.licencia = data.licencia,
+          this.type_licence = data.type_licence,
+          this.expiration_licence = data.expiration_licence
+      } 
+    })
+  }
+
+
+  editUser() {
+    console.log(this.user);
+    this.accountsService.updateUser(this.userId, this.user).subscribe((res: any) => {
     })
   }
 
@@ -88,15 +106,16 @@ export class EditUserComponent {
     return result;
   }
 
+  resetPassword(){
+    this.generatePassword()
+  }
+
+
   goBack(): void {
     this.location.back();
   }
 
   ngOnInit() {
-    // this.route.paramMap.subscribe(params => {
-    //   this.userId = params.get('id') ?? '';
-    // });
-
     this.getUserInfo()
   }
 
