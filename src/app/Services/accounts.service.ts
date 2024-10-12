@@ -15,7 +15,7 @@ export class AccountsService {
   private appUrl: string;
   private requestHeaders: HttpHeaders = new HttpHeaders();
 
-  // Para construir headers 
+  // Para construir headers
   private construirHeaders(): void {
     const token = sessionStorage.getItem('token');
     this.requestHeaders = new HttpHeaders().set('Content-Type', 'application/json');
@@ -97,8 +97,6 @@ export class AccountsService {
     }
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   updatePassword(userId: string, newPassword: string, oldPassword: string, forEmail: boolean = false): Observable<any> {
     return this.http.put(`${this.appUrl}/users/${userId}/password`, { newPassword, oldPassword, forEmail });
   }
@@ -115,12 +113,6 @@ export class AccountsService {
   findDataUser(email: string): Observable<any> {
     return this.http.get(`${this.appUrl}/users/${email}`);
   }
-=======
-
->>>>>>> mafe
-=======
-
->>>>>>> 756bd65e09b1a2bef9c951d7484d0fe57150fbe1
 
   // Para colocarle la cabecera de autorización a la petición, se debe de hacer de la siguiente manera
 
@@ -137,6 +129,6 @@ export class AccountsService {
           this.construirHeaders();
           return this.http.get(this.appUrl + "/ruta", { headers: this.requestHeaders });
         }
-          
+
   */
 }
