@@ -112,10 +112,13 @@ export class ListcheckComponent {
     }
   }
 
-  // Toggle modal for smaller screens
-  toggleModal(sectionId: string): void {
+
+  toggleModal(sectionId: string, event: Event): void {
+    event.stopPropagation(); // Detiene la propagación para evitar que se navegue
     this.isModalOpen[sectionId] = !this.isModalOpen[sectionId];
+    console.log(this.isModalOpen); // Verifica el estado del modal
   }
+  
 
   // Cancel editing mode
   cancelEdit(): void {

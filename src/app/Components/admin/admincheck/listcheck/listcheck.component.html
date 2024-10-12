@@ -46,7 +46,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
           <div class="flex w-2/5 justify-end relative">
             <!-- Three dots icon to open the modal on smaller screens -->
             <div class="block md:hidden">
-              <button (click)="toggleModal(section._id!)" class="p-2">
+              <button (click)="toggleModal(section._id!, $event)" class="p-2">
                 <i class="fa-solid fa-ellipsis-vertical"></i>
               </button>
             </div>
@@ -56,10 +56,10 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
               *ngIf="isModalOpen[section._id!]" 
               class="absolute top-8 right-0 bg-white shadow-md rounded-lg z-10 p-2 w-32"
             >
-              <button class="w-full text-left border border-blue-400 text-blue-500 bg-blue-100 text-white p-1 rounded mb-2" (click)="editSection(section); toggleModal(section._id!)">
+              <button class="w-full text-left border border-blue-400 text-blue-500 bg-blue-100 p-1 rounded mb-2" (click)="editSection(section); toggleModal(section._id!,$event)">
                 Editar
               </button>
-              <button class="w-full text-left bg-red-100 text-red-500 border border-red-500 p-1 rounded" (click)="deleteSection(section._id!); toggleModal(section._id!)">
+              <button class="w-full text-left bg-red-100 text-red-500 border border-red-500 p-1 rounded" (click)="deleteSection(section._id!); toggleModal(section._id!,$event)">
                 Eliminar
               </button>
             </div>
@@ -68,7 +68,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
              
             <div class="hidden md:flex">
               <div *ngIf="isEditing && editedSection?._id === section._id; else defaultActions">
-                <button class="border border-blue-400 text-blue-500 bg-blue-100 text-white p-1 rounded" (click)="updateSection()">
+                <button class="border border-blue-400 text-blue-500 bg-blue-100 p-1 rounded" (click)="updateSection()">
                   Guardar
                 </button>
                 <button class="bg-gray-100 text-red-500 border border-red-500 p-1 ml-2 rounded" (click)="cancelEdit()">
@@ -79,7 +79,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
               <!-- Default actions for view mode -->
 
               <ng-template #defaultActions>
-                <button class="border border-blue-400 text-blue-500 bg-blue-100 text-white p-1 rounded" (click)="editSection(section)">
+                <button class="border border-blue-400 text-blue-500 bg-blue-100  p-1 rounded" (click)="editSection(section)">
                   Editar
                 </button>
                 <button class="border border-red-500 bg-red-100 text-red-500 p-1 ml-2 rounded" (click)="deleteSection(section._id!)">
@@ -92,7 +92,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
   
         <!-- If in Add New mode, show a separate input field for new section -->
 
-        <li *ngIf="isAdding" class="border border-blue-400 text-blue-500 bg-blue-100 border p-2 mb-2 flex justify-between items-center rounded">
+        <li *ngIf="isAdding" class="border border-blue-400 text-blue-500 bg-blue-100 p-2 mb-2 flex justify-between items-center rounded">
           <input 
             type="text" 
             [(ngModel)]="sectionName"

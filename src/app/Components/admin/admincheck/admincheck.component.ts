@@ -71,7 +71,8 @@ export class AdmincheckComponent {
   }
 
   // Edit an existing category
-  editCategory(category: Category): void {
+  editCategory(category: Category, event:Event): void {
+    event.stopPropagation(); 
     this.isEditing = true;
     this.editedCategory = { ...category };  // Copy category for editing
     this.categoryName = category.name;  // Pre-fill the input with the current name
@@ -133,9 +134,12 @@ export class AdmincheckComponent {
     this.categoryName = '';
   }
 
-  toggleModal(categoryId: string): void {
+  toggleModal(categoryId: string, event: Event): void {
+    event.stopPropagation(); // Detiene la propagación para evitar que se navegue
     this.isModalOpen[categoryId] = !this.isModalOpen[categoryId];
+    console.log(this.isModalOpen); // Verifica el estado del modal
   }
+  
 
   // Toggle the actions (edit/delete) visibility for the clicked category
   toggleActions(category: any): void {
