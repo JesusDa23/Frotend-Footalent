@@ -1,4 +1,4 @@
-<!-- <header id="top-bar" class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
+<header id="top-bar" class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
     <div class="flex justify-between items-center p-4">
         <button (click)="goBack()" class="text-white">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -63,20 +63,20 @@
             <div class="flex gap-5  content-stretch">
                 <div>
                     <label for="tipoLicencia" class="block mb-2 text-sm font-medium ">Tipo de licencia</label>
-                    <select id="tipoLicencia" name="tipoLicencia" [(ngModel)]="selectedLicence"
+                    <select id="tipoLicencia" name="tipoLicencia" [(ngModel)]="type_licence"
                         class="text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500"
                         required="">
-                        
-                        @for (item of tiposLicencia; track item) {
-                            <option [value]="item.value">{{item.viewValue}}</option>
-                            }
-                       
+
+                        @for (item of licenceOptions; track item) {
+                        <option [value]="item.value">{{item.viewValue}}</option>
+                        }
+
                     </select>
                 </div>
 
                 <div>
                     <label for="vencimiento" class="block  mb-2 text-sm font-medium ">Vencimiento</label>
-                    <input [(ngModel)]="vencimiento" type="date" name="vencimiento" id="vencimiento"
+                    <input [(ngModel)]="expiration_licence" type="date" name="vencimiento" id="vencimiento"
                         class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500 "
                         placeholder="12345789" required="">
                 </div>
@@ -97,7 +97,7 @@
             vehículos</button>
 
 
-        <button (click)="onSubmit()" class="bg-btnColor font-normal mx-auto text-white w-full px-4 py-2 rounded">Guardar
+        <button class="bg-btnColor font-normal mx-auto text-white w-full px-4 py-2 rounded">Guardar
             perfil</button>
     </div>
-</section> -->
+</section>

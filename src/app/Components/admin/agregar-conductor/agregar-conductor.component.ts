@@ -99,8 +99,6 @@ export class AgregarConductorComponent {
       rol: this.rol
     };
 
-    console.log(newDriver);
-
     this.accountsService.signUp(newDriver).subscribe((res: any) => {
 
       if (res) {

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClientService } from './http-client.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,13 +25,17 @@ export class AccountsService {
     }
   }
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private httpService: HttpClientService) {
     this.appUrl = `${environment.apiUrl}/auth`;
   }
 
   signUp(credentials: UserInfo): Observable<any> {
     this.construirHeaders();
     return this.http.post(this.appUrl + "/register", credentials, { headers: this.requestHeaders });
+  }
+
+  getUser(id: number) {
+    return this.httpService.getById(`/auth/users/${id}`)
   }
 
   logIn(credentials: Credentials) {
@@ -88,9 +93,7 @@ export class AccountsService {
     }
   }
 
-  getUser(userId: string): Observable<any> {
-    return this.http.get(this.appUrl + `/users/${userId}`)
-  }
+  
 
   // Para colocarle la cabecera de autorización a la petición, se debe de hacer de la siguiente manera
 

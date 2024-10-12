@@ -9,7 +9,7 @@ import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 import { Location } from '@angular/common';
 
-interface TipoLicencia {
+interface type_licence {
   value: string;
   viewValue: string;
 }
@@ -26,6 +26,20 @@ export class EditUserComponent {
   userId: any = "";
   user: any = "";
   name: string = "";
+  dni: string = "";
+  password: string = "";
+  email: string = "";
+  address: string = "";
+  phone: string = "";
+  licencia: string = "";
+  rol: string = "user";
+  licenceOptions: type_licence[] = [
+    { value: 'comun', viewValue: 'Común' },
+    { value: 'especial', viewValue: 'Especial' },
+  ]
+  randomPassword: string = "";
+  type_licence: string = "";
+  expiration_licence: string = "";
 
   // *******************
 
@@ -36,28 +50,30 @@ export class EditUserComponent {
     private location: Location,
     private route: ActivatedRoute,
 
-  ) {
-    this.accountsService.currentDni$.subscribe(dni => {
-      this.selectedDni = dni; // Update the local variable when the service emits a new value
-      console.log('Child received DNI:', this.selectedDni); // Log for debugging
-    });
-  }
+  ) {  }
 
   getUserInfo() {
     this.userId = this.route.snapshot.paramMap.get('id');
 
-    this.accountsService.getUser(this.userId).subscribe ((res: any) => {
-      if(res){
+    this.accountsService.getUser(this.userId).subscribe((res: any) => {
+      if (res) {
         this.user = res
         this.name = res.name
-        console.log(this.user, this.name);
+        this.dni = res.dni,
+        this.name = res.name,
+        this.phone = res.phone,
+        this.email = res.email,
+        this.address = res.address,
+        this.password = res.password,
+        this.licencia = res.licencia,
+        this.type_licence = res.type_licence,
+        this.expiration_licence = res.expiration_licence,
+        console.log(this.password);
       } else {
         console.log("Not retrieved");
       }
     })
   }
-
-
 
   // creatar passwortd aleatorio 
   generatePassword() {
@@ -80,8 +96,6 @@ export class EditUserComponent {
     // this.route.paramMap.subscribe(params => {
     //   this.userId = params.get('id') ?? '';
     // });
-
-    console.log("this is", this.selectedDni);
 
     this.getUserInfo()
   }
