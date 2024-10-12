@@ -26,7 +26,7 @@ export interface CreateDriver {
   phone: string
   address: string
   licencia: string
-  tipoLicencia: string,
-  vencimiento: string,
+  type_licence: string,
+  expiration_licence: string,
   rol: string
 }
