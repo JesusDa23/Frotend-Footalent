@@ -98,6 +98,7 @@ export class AccountsService {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   updatePassword(userId: string, newPassword: string, oldPassword: string, forEmail: boolean = false): Observable<any> {
     return this.http.put(`${this.appUrl}/users/${userId}/password`, { newPassword, oldPassword, forEmail });
   }
@@ -117,6 +118,9 @@ export class AccountsService {
 =======
 
 >>>>>>> mafe
+=======
+
+>>>>>>> 756bd65e09b1a2bef9c951d7484d0fe57150fbe1
 
   // Para colocarle la cabecera de autorización a la petición, se debe de hacer de la siguiente manera
 
