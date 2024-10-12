@@ -21,6 +21,12 @@ export class ListbulletsComponent {
   errorMessage: string | null = null;
   showNewBulletInput: boolean = false;
   showBottomBar: boolean = true;
+
+  isAdding: boolean = false; 
+  isEditing: boolean = false; 
+  editedSection: Bullet | null = null; 
+  isModalOpen: { [key: string]: boolean } = {}; 
+  sectionName: string = ''; 
  
   
   newBulletDescription: string = '';
@@ -66,6 +72,33 @@ export class ListbulletsComponent {
     }
   }
 
+
+  
+  // Toggle modal for smaller screens
+  toggleModal(sectionId: string): void {
+    this.isModalOpen[sectionId] = !this.isModalOpen[sectionId];
+  }
+
+  // Cancel editing mode
+  cancelEdit(): void {
+    this.isEditing = false;
+    this.editedSection = null;
+    this.sectionName = '';
+  }
+
+  // Enable add new mode
+  enableAddNew(): void {
+    this.isAdding = true;
+    this.sectionName = '';
+  }
+
+  // Cancel adding new section
+  cancelAddNew(): void {
+    this.isAdding = false;
+    this.sectionName = '';
+  }
+
+
    // Toggle the visibility of delete buttons
   toggleDeleteButtons(): void {
     this.showDeleteButtons = !this.showDeleteButtons;
@@ -96,6 +129,77 @@ export class ListbulletsComponent {
       }
     );
   }
+
+
+
+
+
+
+
+  // Edit an existing section
+  editSection(section: Bullet): void {
+    this.isEditing = true;
+    this.editedSection = { ...section }; 
+    this.sectionName = section.description;
+  }
+
+
+  // Delete a section
+  deleteSection(id: string): void {
+    if (confirm('Are you sure you want to delete this section?')) {
+      this.admincheckService.deleteSection(id).subscribe(
+        () => {
+          this.bullets = this.bullets.filter(s => s._id !== id);
+        },
+        (error) => {
+          console.error('Error deleting section:', error);
+        }
+      );
+    }
+  }
+
+    // Update section after editing
+    updateSection(): void {
+      if (this.editedSection && this.sectionName.trim() !== '') {
+        this.editedSection.description = this.sectionName;
+  
+        this.admincheckService.updateBullet(this.editedSection._id!, this.editedSection).subscribe(
+          (updatedSection: Bullet) => {
+            const index = this.bullets.findIndex(s => s._id === updatedSection._id);
+            if (index !== -1) {
+              this.bullets[index] = updatedSection;
+            }
+            this.cancelEdit(); 
+          },
+          (error) => {
+            console.error('Error updating section:', error);
+          }
+        );
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

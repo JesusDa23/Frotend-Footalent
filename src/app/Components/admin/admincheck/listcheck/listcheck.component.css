@@ -1,0 +1,8 @@
+#top-bar {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  #bottom-bar {
+    transition: transform 0.3s ease-in-out;
+  }
+  
