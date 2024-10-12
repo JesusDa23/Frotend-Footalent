@@ -5,6 +5,7 @@ import { Credentials, UserInfo } from '../Interfaces/credentials';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,13 @@ export class AccountsService {
     return this.http.get(this.appUrl + '/users', { headers: this.requestHeaders });
   }
 
+  private dniSource = new BehaviorSubject<string | null>(null); // Initialize with null
+  currentDni$ = this.dniSource.asObservable(); // Expose observable for other components
+
+  changeDni(dni: string) {
+    this.dniSource.next(dni); // Update the DNI value
+  }
+
   logout() {
     // Clear the user session or token from sessionStorage
     sessionStorage.removeItem('token'); // Example of removing a token
@@ -78,6 +86,10 @@ export class AccountsService {
       console.log("not retrieved");
       return false
     }
+  }
+
+  getUser(userId: string): Observable<any> {
+    return this.http.get(this.appUrl + `/users/${userId}`)
   }
 
   // Para colocarle la cabecera de autorización a la petición, se debe de hacer de la siguiente manera

@@ -39,7 +39,7 @@ export const routes: Routes = [
   { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]},
   { path: 'agregar-conductor', component: AgregarConductorComponent, canActivate: [authGuard]},
   { path: 'editar-perfil', component: EditUserComponent, canActivate: [authGuard]},
-  { path: 'editar-perfil/6706a88d546f6852ef54b988', component: EditUserComponent, canActivate: [authGuard]},
+  { path: 'editar-perfil/:id', component: EditUserComponent, canActivate: [authGuard]},
   { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]},
   { path: 'mantenimientos', component: MantenimientosComponent, canActivate: [authGuard]},
   { path: 'mantenimientos/:vehicleId', component: MantenimientosComponent, canActivate: [authGuard]},

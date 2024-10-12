@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule, FormGroup } from '@angular/forms';
 import { Credentials, CreateDriver } from '../../../Interfaces/credentials';
 import Swal from 'sweetalert2'
@@ -23,35 +23,40 @@ interface TipoLicencia {
   styleUrl: './edit-user.component.css'
 })
 export class EditUserComponent {
+  userId: any = "";
+  user: any = "";
   name: string = "";
-  dni: string = "";
-  email: string = "";
-  phone: string = "";
-  randomPassword: string = "";
-  password: string = "12345";
-  address: string = "";
-  licencia: string = "";
-  selectedLicence: string = "";
-  vencimiento: string ="";
-  
-
-  rol: string = "user";
-  tiposLicencia: TipoLicencia[] = [
-    { value: 'comun', viewValue: 'Común' },
-    { value: 'especial', viewValue: 'Especial' },
-  ]
-
 
   // *******************
 
-  driver: any;
+  selectedDni: any = "";
 
   constructor(
     private accountsService: AccountsService,
     private location: Location,
     private route: ActivatedRoute,
 
-  ) { }
+  ) {
+    this.accountsService.currentDni$.subscribe(dni => {
+      this.selectedDni = dni; // Update the local variable when the service emits a new value
+      console.log('Child received DNI:', this.selectedDni); // Log for debugging
+    });
+  }
+
+  getUserInfo() {
+    this.userId = this.route.snapshot.paramMap.get('id');
+
+    this.accountsService.getUser(this.userId).subscribe ((res: any) => {
+      if(res){
+        this.user = res
+        this.name = res.name
+        console.log(this.user, this.name);
+      } else {
+        console.log("Not retrieved");
+      }
+    })
+  }
+
 
 
   // creatar passwortd aleatorio 
@@ -67,75 +72,18 @@ export class EditUserComponent {
     return result;
   }
 
-
-
-  onSubmit() {
-    // verificacion de llenado de campos
-    if (this.name === "" || this.dni === "" || this.email === "" || this.phone === "" || this.address === "" || this.licencia === "") {
-
-      Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: "Todos los campos son obligatorios.",
-        showConfirmButton: false,
-        timer: 1600
-      });
-      return;
-    }
-    // verificacion de validez de correo
-    if (!/^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(this.email)) {
-      Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: "El email no es valido.",
-        showConfirmButton: false,
-        timer: 1600
-      });
-      return;
-    }
-
-    this.randomPassword = this.generatePassword()
-
-    const newDriver: CreateDriver = {
-      email: this.email,
-      dni: this.dni,
-      password: this.randomPassword,
-      name: this.name,
-      phone: this.phone,
-      licencia: this.licencia,
-      type_licence: this.selectedLicence,
-      address: this.address,
-      expiration_licence: this.expiration_licence,
-      rol: this.rol
-    };
-
-    console.log(newDriver);
-
-    this.accountsService.signUp(newDriver).subscribe((res: any) => {
-
-      if (res) {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "El usuario fue registrado con éxito.",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      } else {
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: "Hubo un error creando el usuario",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }
-
-    })
-  }
-
   goBack(): void {
     this.location.back();
+  }
+
+  ngOnInit() {
+    // this.route.paramMap.subscribe(params => {
+    //   this.userId = params.get('id') ?? '';
+    // });
+
+    console.log("this is", this.selectedDni);
+
+    this.getUserInfo()
   }
 
 }
