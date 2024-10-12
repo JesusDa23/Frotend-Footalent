@@ -20,6 +20,8 @@ import { AgregarConductorComponent } from './Components/admin/agregar-conductor/
 import { MantenimientosComponent } from './Components/admin/flota/mantenimientos/mantenimientos.component';
 import { EditUserComponent } from './Components/admin/edit-user/edit-user.component'; 
 import { FooterDesktopComponent } from './Components/footer-desktop/footer-desktop.component';
+import { ChangePasswordComponent } from './Components/change-password/change-password.component';
+import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -43,8 +45,9 @@ export const routes: Routes = [
   { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard]},
   { path: 'mantenimientos', component: MantenimientosComponent, canActivate: [authGuard]},
   { path: 'mantenimientos/:vehicleId', component: MantenimientosComponent, canActivate: [authGuard]},
-
-
+  { path: 'change-password', title: "Change Password", component: ChangePasswordComponent }, //voluntario
+  { path: 'change-password-for-email/:token', title: "Change Password", component: ChangePasswordComponent }, //recuperar contraseña
+  { path: 'forgot-password', title: "Forgot Password", component: ForgotPasswordComponent },
   { path: 'footer', component: FooterDesktopComponent}
 
 ];

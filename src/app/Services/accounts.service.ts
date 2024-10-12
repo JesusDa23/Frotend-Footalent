@@ -80,6 +80,23 @@ export class AccountsService {
     }
   }
 
+  updatePassword(userId: string, newPassword: string, oldPassword: string, forEmail: boolean = false): Observable<any> {
+    return this.http.put(`${this.appUrl}/users/${userId}/password`, { newPassword, oldPassword, forEmail });
+  }
+
+  // Método para actualizar el campo isFirstLogin
+  updateFirstLogin(userId: string, isFirstLogin: boolean): Observable<any> {
+    return this.http.put(`${this.appUrl}/users/${userId}/first-login`, { isFirstLogin });
+  }
+
+  requestResetPassword(email: string): Observable<any> {
+    return this.http.put(`${this.appUrl}/users/${email}/password-for-email`, {});
+  }
+
+  findDataUser(email: string): Observable<any> {
+    return this.http.get(`${this.appUrl}/users/${email}`);
+  }
+
   // Para colocarle la cabecera de autorización a la petición, se debe de hacer de la siguiente manera
 
   // private construirHeaders() {
