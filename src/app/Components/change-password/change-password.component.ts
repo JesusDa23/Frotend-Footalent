@@ -4,6 +4,7 @@ import { AccountsService } from '../../Services/accounts.service';
 import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { jwtDecode } from "jwt-decode";
+import { error } from 'console';
 
 @Component({
   selector: 'app-change-password',
@@ -61,6 +62,8 @@ export class ChangePasswordComponent {
             showConfirmButton: false,
             // timer: 1600
           });
+
+
         }
       })
     }
