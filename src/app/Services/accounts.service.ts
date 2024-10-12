@@ -5,6 +5,8 @@ import { Credentials, UserInfo } from '../Interfaces/credentials';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { HttpClientService } from './http-client.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,13 +25,21 @@ export class AccountsService {
     }
   }
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private httpService: HttpClientService) {
     this.appUrl = `${environment.apiUrl}/auth`;
   }
 
   signUp(credentials: UserInfo): Observable<any> {
     this.construirHeaders();
     return this.http.post(this.appUrl + "/register", credentials, { headers: this.requestHeaders });
+  }
+
+  getUser(id: number) {
+    return this.httpService.getById(`/auth/users/${id}`)
+  }
+
+  updateUser(id: number, user: any) {
+    return this.httpService.put(user, `/auth/users/${id}`)
   }
 
   logIn(credentials: Credentials) {
@@ -41,6 +51,13 @@ export class AccountsService {
   retrieveUsers(): Observable<any> {
     this.construirHeaders();
     return this.http.get(this.appUrl + '/users', { headers: this.requestHeaders });
+  }
+
+  private dniSource = new BehaviorSubject<string | null>(null); // Initialize with null
+  currentDni$ = this.dniSource.asObservable(); // Expose observable for other components
+
+  changeDni(dni: string) {
+    this.dniSource.next(dni); // Update the DNI value
   }
 
   logout() {
@@ -80,6 +97,7 @@ export class AccountsService {
     }
   }
 
+<<<<<<< HEAD
   updatePassword(userId: string, newPassword: string, oldPassword: string, forEmail: boolean = false): Observable<any> {
     return this.http.put(`${this.appUrl}/users/${userId}/password`, { newPassword, oldPassword, forEmail });
   }
@@ -96,6 +114,9 @@ export class AccountsService {
   findDataUser(email: string): Observable<any> {
     return this.http.get(`${this.appUrl}/users/${email}`);
   }
+=======
+
+>>>>>>> mafe
 
   // Para colocarle la cabecera de autorización a la petición, se debe de hacer de la siguiente manera
 

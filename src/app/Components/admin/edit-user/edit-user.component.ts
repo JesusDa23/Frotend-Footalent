@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule, FormGroup } from '@angular/forms';
-import { Credentials, CreateDriver } from '../../../Interfaces/credentials';
 import Swal from 'sweetalert2'
 import { AccountsService } from '../../../Services/accounts.service';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +8,7 @@ import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 import { Location } from '@angular/common';
 
-interface TipoLicencia {
+interface type_licence {
   value: string;
   viewValue: string;
 }
@@ -23,28 +22,42 @@ interface TipoLicencia {
   styleUrl: './edit-user.component.css'
 })
 export class EditUserComponent {
+  userId: any = "";
+  // user: any = "";
   name: string = "";
   dni: string = "";
+  password: string = "";
   email: string = "";
-  phone: string = "";
-  randomPassword: string = "";
-  password: string = "12345";
   address: string = "";
+  phone: string = "";
   licencia: string = "";
-  selectedLicence: string = "";
-  vencimiento: string ="";
-  
-
   rol: string = "user";
-  tiposLicencia: TipoLicencia[] = [
+  randomPassword: string = "";
+  type_licence: string = "";
+  expiration_licence: string = "";
+
+  user: any = {
+    user: "",
+    name: "",
+    dni: "",
+    password: "",
+    email: "",
+    address: "",
+    phone: "",
+    licencia: "",
+    rol: "",
+    type_licence: "",
+    expiration_licence: ""
+  }
+
+  licenceOptions: type_licence[] = [
     { value: 'comun', viewValue: 'Común' },
     { value: 'especial', viewValue: 'Especial' },
   ]
 
-
   // *******************
 
-  driver: any;
+  selectedDni: any = "";
 
   constructor(
     private accountsService: AccountsService,
@@ -53,6 +66,32 @@ export class EditUserComponent {
 
   ) { }
 
+  getUserInfo() {
+    this.userId = this.route.snapshot.paramMap.get('id');
+
+    this.accountsService.getUser(this.userId).subscribe((data: any) => {
+      if (data) {
+        this.user = data
+        this.name = data.name
+        this.dni = data.dni,
+          this.name = data.name,
+          this.phone = data.phone,
+          this.email = data.email,
+          this.address = data.address,
+          this.password = data.password,
+          this.licencia = data.licencia,
+          this.type_licence = data.type_licence,
+          this.expiration_licence = data.expiration_licence
+      } 
+    })
+  }
+
+
+  editUser() {
+    console.log(this.user);
+    this.accountsService.updateUser(this.userId, this.user).subscribe((res: any) => {
+    })
+  }
 
   // creatar passwortd aleatorio 
   generatePassword() {
@@ -67,75 +106,17 @@ export class EditUserComponent {
     return result;
   }
 
-
-
-  onSubmit() {
-    // verificacion de llenado de campos
-    if (this.name === "" || this.dni === "" || this.email === "" || this.phone === "" || this.address === "" || this.licencia === "") {
-
-      Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: "Todos los campos son obligatorios.",
-        showConfirmButton: false,
-        timer: 1600
-      });
-      return;
-    }
-    // verificacion de validez de correo
-    if (!/^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(this.email)) {
-      Swal.fire({
-        position: "top-end",
-        icon: "error",
-        title: "El email no es valido.",
-        showConfirmButton: false,
-        timer: 1600
-      });
-      return;
-    }
-
-    this.randomPassword = this.generatePassword()
-
-    const newDriver: CreateDriver = {
-      email: this.email,
-      dni: this.dni,
-      password: this.randomPassword,
-      name: this.name,
-      phone: this.phone,
-      licencia: this.licencia,
-      tipoLicencia: this.selectedLicence,
-      address: this.address,
-      vencimiento: this.vencimiento,
-      rol: this.rol
-    };
-
-    console.log(newDriver);
-
-    this.accountsService.signUp(newDriver).subscribe((res: any) => {
-
-      if (res) {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "El usuario fue registrado con éxito.",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      } else {
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: "Hubo un error creando el usuario",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }
-
-    })
+  resetPassword(){
+    this.generatePassword()
   }
+
 
   goBack(): void {
     this.location.back();
+  }
+
+  ngOnInit() {
+    this.getUserInfo()
   }
 
 }

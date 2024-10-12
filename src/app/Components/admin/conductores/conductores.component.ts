@@ -5,16 +5,18 @@ import { AccountsService } from '../../../Services/accounts.service';
 import { inject } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { AgregarConductorComponent } from '../agregar-conductor/agregar-conductor.component';
 import { NgModel } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import Swal from 'sweetalert2';
+import { EditUserComponent } from "../edit-user/edit-user.component";
 
 @Component({
   selector: 'app-conductores',
   standalone: true,
-  imports: [HeaderComponent, AgregarConductorComponent, CdkDropList, CdkDrag, RouterLink, NgIf],
+  imports: [CommonModule, HeaderComponent, AgregarConductorComponent, CdkDropList, CdkDrag, RouterLink, NgIf, EditUserComponent],
   templateUrl: './conductores.component.html',
   styleUrl: './conductores.component.css'
 })
@@ -25,9 +27,14 @@ export class ConductoresComponent {
   httpClient = inject(HttpClient)
   isLoading = false;
 
-  constructor(private http: HttpClient) { }
-  private requestHeaders: HttpHeaders = new HttpHeaders(); 
+  constructor(private http: HttpClient, private dniService: AccountsService) { }
+  private requestHeaders: HttpHeaders = new HttpHeaders();
 
+  selectedDni: string | null = null; 
+
+  selectDriver(dni: string) {
+    this.dniService.changeDni(dni); 
+  }
 
   retrieveUsers() {
     this.isLoading = true
@@ -39,27 +46,6 @@ export class ConductoresComponent {
         console.log("No se obtuvieron usuarios");
       }
     })
-
-
-    // this.accountsService.retrieveUsers().subscribe({
-    //   next: (data) => {
-    //     this.retrieveUsers = data;
-    //     if (this.retrieveUsers.length === 0) {
-    //       Swal.fire('Sin datos', 'No se encontraron vehículos.', 'warning');
-    //     }
-    //     this.isLoading = false;
-    //   },
-    //   error: (err) => {
-    //     console.error(err);
-    //     Swal.fire({
-    //       title: 'Error!',
-    //       text: 'Hubo un problema al cargar los vehículos. Intentando de nuevo...',
-    //       icon: 'error',
-    //       confirmButtonText: 'Intentar de nuevo',
-    //       confirmButtonColor: '#0A135D'  // Cambia el color del botón de confirmación
-    //     });
-    //   }
-    // });
   }
 
   drop(event: CdkDragDrop<string[]>) {

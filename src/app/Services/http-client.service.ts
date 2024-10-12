@@ -16,25 +16,28 @@ export class HttpClientService {
     this.headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`,
     });
-   }
-
-  post(data: any, api: string){
-    return this.http.post(`${this.apiUrl}${api}`, data, {headers: this.headers})
   }
 
-  get( api: string){
-    return this.http.get(`${this.apiUrl}${api}`, {headers: this.headers})
+  post(data: any, api: string) {
+    return this.http.post(`${this.apiUrl}${api}`, data, { headers: this.headers })
   }
 
-  getById(api: string){
-    return this.http.get(`${this.apiUrl}${api}`, {headers: this.headers})
+  get(api: string) {
+    return this.http.get(`${this.apiUrl}${api}`, { headers: this.headers })
   }
 
-  delete(api: string){
-    return this.http.delete(`${this.apiUrl}${api}`, {headers: this.headers})
+  getById(api: string) {
+    return this.http.get(`${this.apiUrl}${api}`, { headers: this.headers })
   }
 
-  put(data: any, api: string){
-    return this.http.put(`${this.apiUrl}${api}`, data, {headers: this.headers} )
+  delete(api: string) {
+    return this.http.delete(`${this.apiUrl}${api}`, { headers: this.headers })
   }
+
+  put(data: any, api: string) {
+    return this.http.put(`${this.apiUrl}${api}`, data, { headers: this.headers })
+  }
+
+
+
 }
