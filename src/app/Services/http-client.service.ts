@@ -30,8 +30,6 @@ export class HttpClientService {
     return this.http.get(`${this.apiUrl}${api}`, { headers: this.headers })
   }
 
- 
-
   delete(api: string) {
     return this.http.delete(`${this.apiUrl}${api}`, { headers: this.headers })
   }

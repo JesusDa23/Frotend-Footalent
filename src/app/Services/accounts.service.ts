@@ -38,6 +38,10 @@ export class AccountsService {
     return this.httpService.getById(`/auth/users/${id}`)
   }
 
+  updateUser(id: number, user: any) {
+    return this.httpService.put(user, `/auth/users/${id}`)
+  }
+
   logIn(credentials: Credentials) {
 
     return this.http.post(this.appUrl + "/login", credentials);
@@ -93,7 +97,7 @@ export class AccountsService {
     }
   }
 
-  
+
 
   // Para colocarle la cabecera de autorización a la petición, se debe de hacer de la siguiente manera
 
