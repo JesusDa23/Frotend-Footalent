@@ -46,7 +46,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
 <div class="flex w-2/5 justify-end relative">
   <!-- Three dots icon to open the modal on smaller screens -->
   <div class="block md:hidden">
-    <button (click)="toggleModal(category._id); $event.stopPropagation()" class="p-2 mx-2">
+    <button (click)="toggleModal(category._id, $event); " class="p-2 mx-2">
       <i class="fa-solid fa-ellipsis-vertical"></i>
     </button>
     
