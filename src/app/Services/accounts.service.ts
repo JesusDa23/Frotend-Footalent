@@ -5,6 +5,8 @@ import { Credentials, UserInfo } from '../Interfaces/credentials';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { HttpClientService } from './http-client.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,7 @@ export class AccountsService {
   private appUrl: string;
   private requestHeaders: HttpHeaders = new HttpHeaders();
 
-  // Para construir headers 
+  // Para construir headers
   private construirHeaders(): void {
     const token = sessionStorage.getItem('token');
     this.requestHeaders = new HttpHeaders().set('Content-Type', 'application/json');
@@ -23,13 +25,21 @@ export class AccountsService {
     }
   }
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private httpService: HttpClientService) {
     this.appUrl = `${environment.apiUrl}/auth`;
   }
 
   signUp(credentials: UserInfo): Observable<any> {
     this.construirHeaders();
     return this.http.post(this.appUrl + "/register", credentials, { headers: this.requestHeaders });
+  }
+
+  getUser(id: number) {
+    return this.httpService.getById(`/auth/users/${id}`)
+  }
+
+  updateUser(id: number, user: any) {
+    return this.httpService.put(user, `/auth/users/${id}`)
   }
 
   logIn(credentials: Credentials) {
@@ -41,6 +51,13 @@ export class AccountsService {
   retrieveUsers(): Observable<any> {
     this.construirHeaders();
     return this.http.get(this.appUrl + '/users', { headers: this.requestHeaders });
+  }
+
+  private dniSource = new BehaviorSubject<string | null>(null); // Initialize with null
+  currentDni$ = this.dniSource.asObservable(); // Expose observable for other components
+
+  changeDni(dni: string) {
+    this.dniSource.next(dni); // Update the DNI value
   }
 
   logout() {
@@ -112,6 +129,6 @@ export class AccountsService {
           this.construirHeaders();
           return this.http.get(this.appUrl + "/ruta", { headers: this.requestHeaders });
         }
-          
+
   */
 }
