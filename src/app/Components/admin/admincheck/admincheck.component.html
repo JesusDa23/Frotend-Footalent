@@ -20,15 +20,11 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
     <!-- Display List of Categories -->
 <div *ngIf="categories.length > 0">
   <ul>
-    <li 
-      *ngFor="let category of categories"  
-      
-      class="bg-[#FAFAFA] border font-medium p-1 mb-2 flex justify-between items-center rounded"
-    >
+    <li *ngFor="let category of categories" class="bg-[#FAFAFA] border font-medium p-1 mb-2 flex justify-between items-center rounded">
+  
       <!-- Inline display or input for creating/editing -->
-      <div class="m-2 w-3/5 text-lg"
-      (click)="onCategoryClick(category)" >
-        <!-- Show the input field when adding or editing -->
+      <div class="m-1 w-6/10 text-lg" (click)="onCategoryClick(category)">
+        <!-- Show the input field when editing -->
         <ng-container *ngIf="isEditing && editedCategory?._id === category._id; else viewCategory">
           <input 
             type="text" 
@@ -42,74 +38,62 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
           {{ category.name }}
         </ng-template>
       </div>
-<!-- Action buttons for edit, delete, and add new category -->
-<div class="flex w-2/5 justify-end relative">
-  <!-- Three dots icon to open the modal on smaller screens -->
-  <div class="block md:hidden">
-    <button (click)="toggleModal(category._id, $event); " class="p-2 mx-2">
-      <i class="fa-solid fa-ellipsis-vertical"></i>
-    </button>
     
-  </div>
-
-  <!-- Modal for lower screens with edit and delete options -->
-  <div 
-    *ngIf="isModalOpen[category._id]" 
-    class="absolute top-8 right-0 bg-white shadow-md rounded-lg z-0 p-2 w-32"
-  >
-    <button class="w-full text-left border border-blue-400 text-blue-500 bg-blue-100 p-1 rounded mb-2" (click)="editCategory(category, $event); toggleModal(category._id, $event)">
-      Editar
-    </button>
-    <button class="w-full text-left bg-red-100 text-red-500 border border-red-500 p-1 rounded" (click)="deleteCategory(category._id!); toggleModal(category._id, $event)">
-      Eliminar
-    </button>
-  </div>
-
-  <!-- Default actions for larger screens -->
-  <div class="hidden md:flex">
-    <div *ngIf="isEditing && editedCategory?._id === category._id; else defaultActions">
-      <button class="border border-blue-400 text-blue-500 bg-blue-100 p-1 rounded" (click)="updateCategory()">
-        Guardar
-      </button>
-      <button class="bg-gray-100 text-red-500 border border-red-500 p-1 ml-2 rounded" (click)="cancelEdit()">
-        Cancelar
-      </button>
-    </div>
-
-    <!-- Default actions for view mode -->
-    <ng-template #defaultActions>
-      <button class="border border-blue-400 text-blue-500 bg-blue-100 p-1 rounded" (click)="editCategory(category, $event)">
-        Editar
-      </button>
-      <button class="border border-red-500 bg-red-100 text-red-500 p-1 ml-2 rounded" (click)="deleteCategory(category._id!)">
-        Eliminar
-      </button>
-    </ng-template>
-  </div>
-</div>
-    </li>
-
-    <!-- If in Add New mode, show a separate input field for new category -->
-    <li *ngIf="isAdding" class="border border-blue-400 text-blue-500 bg-blue-100 p-2 mb-2 flex justify-between items-center rounded">
-      <input 
-        type="text" 
-        [(ngModel)]="categoryName"
-        class="border p-2 w-3/5 rounded"
-        placeholder="ej: Carro a gas"
-      />
-      <div class="flex w-2/5 justify-end">
-        <button class="border border-blue-400 text-blue-500 bg-white p-1 rounded" (click)="createCategory()">
-          Guardar
-        </button>
-        <button class="bg-red-100 text-red-500 px-3 ml-2 border border-red-500 rounded" (click)="cancelAddNew()">
-           x 
-        </button>
+      <!-- Action buttons for larger screens -->
+      <div class="hidden md:flex justify-end w-4/10">
+        <div *ngIf="isEditing && editedCategory?._id === category._id; else defaultActionsLarge">
+          <button class="border border-blue-400 text-blue-500 bg-blue-100 p-1 rounded" (click)="updateCategory()">
+            Guardar
+          </button>
+          <button class="bg-gray-100 text-red-500 border border-red-500 p-1 ml-2 rounded" (click)="cancelEdit()">
+            Cancelar
+          </button>
+        </div>
+    
+        <!-- Default actions for view mode (large screens) -->
+        <ng-template #defaultActionsLarge>
+          <button class="border border-blue-400 text-blue-500 bg-blue-100 p-1 rounded" (click)="editCategory(category, $event)">
+            Editar
+          </button>
+          <button class="border border-red-500 bg-red-100 text-red-500 p-1 ml-2 rounded" (click)="deleteCategory(category._id!)">
+            Eliminar
+          </button>
+        </ng-template>
+      </div>
+    
+      <!-- Action buttons for smaller screens -->
+      <div class="block md:hidden relative">
+        <!-- Conditionally show three dots or editing buttons based on the editing state -->
+        <ng-container *ngIf="isEditing && editedCategory?._id === category._id; else mobileDefaultActions">
+          <button class="border border-blue-400 text-blue-500 bg-blue-100 p-1 rounded" (click)="updateCategory()">
+            Guardar
+          </button>
+          <button class="bg-gray-100 text-red-500 border border-red-500 px-2 py-1 mx-3 rounded" (click)="cancelEdit()">
+            x
+          </button>
+        </ng-container>
+    
+        <!-- Show three dots for default actions on small screens -->
+        <ng-template #mobileDefaultActions>
+          <button (click)="toggleModal(category._id, $event)" class="p-2 mx-2">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
+    
+          <!-- Modal for smaller screens with edit and delete options -->
+          <div *ngIf="isModalOpen[category._id]" class="absolute top-8 right-0 bg-white shadow-md rounded-lg z-10 p-2 w-32">
+            <button class="w-full border border-blue-400 text-blue-500 bg-blue-100 p-1 rounded mb-2" (click)="editCategory(category, $event); toggleModal(category._id, $event)">
+              Editar
+            </button>
+            <button class="w-full text-left bg-red-100 text-red-500 border border-red-500 p-1 rounded" (click)="deleteCategory(category._id!); toggleModal(category._id, $event)">
+              Eliminar
+            </button>
+          </div>
+        </ng-template>
       </div>
     </li>
-  </ul>
-</div>
 
 
+<div>
         <!-- Fixed button at the bottom of the screen to add new category -->
 
     <div id="bottom-bar"

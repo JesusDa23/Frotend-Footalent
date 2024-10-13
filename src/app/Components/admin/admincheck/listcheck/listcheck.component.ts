@@ -71,12 +71,7 @@ export class ListcheckComponent {
     }
   }
 
-  // Edit an existing section
-  editSection(section: Section): void {
-    this.isEditing = true;
-    this.editedSection = { ...section }; 
-    this.sectionName = section.name;
-  }
+
 
   // Update section after editing
   updateSection(): void {
@@ -89,7 +84,7 @@ export class ListcheckComponent {
           if (index !== -1) {
             this.sections[index] = updatedSection;
           }
-          this.cancelEdit(); 
+          this.cancelEdit(event); 
         },
         (error) => {
           console.error('Error updating section:', error);
@@ -114,19 +109,31 @@ export class ListcheckComponent {
 
 
   toggleModal(sectionId: string, event: Event): void {
-    event.stopPropagation(); // Detiene la propagación para evitar que se navegue
-    this.isModalOpen[sectionId] = !this.isModalOpen[sectionId];
-    console.log(this.isModalOpen); // Verifica el estado del modal
+    event.stopPropagation();  // Prevent propagation to parent click
+    this.isModalOpen[sectionId] = !this.isModalOpen[sectionId];  // Toggle the modal visibility
   }
   
-
-  // Cancel editing mode
-  cancelEdit(): void {
+  
+  editSection(section: Section, event: Event): void {
+    event.stopPropagation();  // Prevent triggering the parent click event
+  
+    if (section._id) {
+      this.isEditing = true;
+      this.editedSection = { ...section };  // Copy the section for editing
+      this.sectionName = section.name;  // Pre-fill the input with the current name
+      this.isModalOpen[section._id] = false;  // Close the modal after starting to edit
+    }
+  }
+  
+  cancelEdit(event?: Event): void {
+    if (event) {
+      event.stopPropagation(); 
+    }  // Stop the event propagation
     this.isEditing = false;
     this.editedSection = null;
-    this.sectionName = '';
+    this.sectionName = '';  // Reset input
   }
-
+  
   // Enable add new mode
   enableAddNew(): void {
     this.isAdding = true;

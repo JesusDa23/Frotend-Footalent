@@ -73,13 +73,19 @@ export class AdmincheckComponent {
     }
   }
 
-  // Edit an existing category
-  editCategory(category: Category, event:Event): void {
-    event.stopPropagation(); 
-    this.isEditing = true;
-    this.editedCategory = { ...category };  // Copy category for editing
-    this.categoryName = category.name;  // Pre-fill the input with the current name
-  }
+// Edit an existing category
+editCategory(category: Category, event: Event): void {
+  event.stopPropagation();  // Prevent triggering the parent click event
+  this.isEditing = true;
+  this.editedCategory = { ...category };  // Copy the category for editing to avoid direct mutation
+  this.categoryName = category.name;  // Pre-fill the input with the current name
+}
+
+// Toggle modal visibility on small screens
+toggleModal(categoryId: string, event: Event): void {
+  event.stopPropagation();  // Prevent propagation
+  this.isModalOpen[categoryId] = !this.isModalOpen[categoryId];  // Toggle the modal
+}
 
   // Update a category after editing
   updateCategory(): void {
@@ -95,23 +101,23 @@ export class AdmincheckComponent {
           this.cancelEdit();  // Reset edit state
         },
         (error) => {
-          console.error('Error updating category:', error);
+          console.error('Error actualizando categoria:', error);
         }
       );
     } else {
-      console.warn('Category name cannot be empty');
+      console.warn('Nombre de categoria no puede estar vacio');
     }
   }
 
   // Delete a category
   deleteCategory(id: string): void {
-    if (confirm('Are you sure you want to delete this category?')) {
+    if (confirm('Seguro quieres eliminar esta categoria?')) {
       this.admincheckService.deleteCategory(id).subscribe(
         () => {
           this.categories = this.categories.filter(c => c._id !== id);
         },
         (error) => {
-          console.error('Error deleting category:', error);
+          console.error('Error eliminando categoria:', error);
         }
       );
     }
@@ -136,13 +142,6 @@ export class AdmincheckComponent {
     this.editedCategory = null;
     this.categoryName = '';
   }
-
-  toggleModal(categoryId: string, event: Event): void {
-    event.stopPropagation(); // Detiene la propagación para evitar que se navegue
-    this.isModalOpen[categoryId] = !this.isModalOpen[categoryId];
-    console.log(this.isModalOpen); // Verifica el estado del modal
-  }
-  
 
   // Toggle the actions (edit/delete) visibility for the clicked category
   toggleActions(category: any): void {
