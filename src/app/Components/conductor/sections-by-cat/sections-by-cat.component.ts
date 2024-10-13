@@ -10,12 +10,13 @@ import { UserInfo } from '../../../Interfaces/credentials';
 import { UserServiceService } from '../../../Services/user-service.service';
 import Swal from 'sweetalert2'
 import { SectionData } from '../../models/checklist.model';
+import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
 
 
 @Component({
   selector: 'app-sections-by-cat',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TogglemenuComponent],
   templateUrl: './sections-by-cat.component.html',
   styleUrl: './sections-by-cat.component.css'
 })

@@ -1,3 +1,8 @@
+<!-- Spinner de carga -->
+<div *ngIf="isLoading" class="absolute inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-30 z-10">
+  <div class="loader"></div>
+</div>
+
 <header 
     id="top-bar"
 class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
@@ -16,6 +21,18 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
   </header>
 
   <div class="container mx-auto p-4 pt-20">
+    
+    <div class="bg-[#E8EFFF] p-1 mb-4">
+      <div (click)="showInfo = !showInfo" class="cursor-pointer flex justify-between items-center p-2 border-b">
+        <h3 class="font-semibold">Información</h3>
+        <i class="fa-solid" [ngClass]="showInfo ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+      </div>
+    
+      <!-- Information box that shows/hides based on the showInfo variable -->
+      <div *ngIf="showInfo" class="p-4">
+        Crea listas según tipo de vehiculo, luego podras escoger en el vehiculo cambiaran las listas de revision.
+      </div>
+    </div>
   
     <!-- Display List of Categories -->
 <div *ngIf="categories.length > 0">
@@ -23,7 +40,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
     <li *ngFor="let category of categories" class="bg-[#FAFAFA] border font-medium p-1 mb-2 flex justify-between items-center rounded">
   
       <!-- Inline display or input for creating/editing -->
-      <div class="m-1 w-6/10 text-lg" (click)="onCategoryClick(category)">
+      <div class="m-1 w-7/12 text-normal" (click)="onCategoryClick(category)">
         <!-- Show the input field when editing -->
         <ng-container *ngIf="isEditing && editedCategory?._id === category._id; else viewCategory">
           <input 
@@ -40,7 +57,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
       </div>
     
       <!-- Action buttons for larger screens -->
-      <div class="hidden md:flex justify-end w-4/10">
+      <div class="hidden md:flex justify-end w-5/12">
         <div *ngIf="isEditing && editedCategory?._id === category._id; else defaultActionsLarge">
           <button class="border border-blue-400 text-blue-500 bg-blue-100 p-1 rounded" (click)="updateCategory()">
             Guardar
@@ -84,7 +101,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
             <button class="w-full border border-blue-400 text-blue-500 bg-blue-100 p-1 rounded mb-2" (click)="editCategory(category, $event); toggleModal(category._id, $event)">
               Editar
             </button>
-            <button class="w-full text-left bg-red-100 text-red-500 border border-red-500 p-1 rounded" (click)="deleteCategory(category._id!); toggleModal(category._id, $event)">
+            <button class="w-full text-center bg-red-100 text-red-500 border border-red-500 p-1 rounded" (click)="deleteCategory(category._id!); toggleModal(category._id, $event)">
               Eliminar
             </button>
           </div>
@@ -97,7 +114,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
         <!-- Fixed button at the bottom of the screen to add new category -->
 
     <div id="bottom-bar"
-        class="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-2 transition-transform duration-300 
+        class="fixed bottom-0 left-0 right-0 bg-[#E8EFFF] shadow-lg p-2 transition-transform duration-300 
         transform translate-y-0"
             >
         <button

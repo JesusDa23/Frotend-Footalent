@@ -24,11 +24,14 @@ export class ListbulletsComponent {
 
   isAdding: boolean = false; 
   isEditing: boolean = false; 
-  editedSection: Bullet | null = null; 
+  editedBullet: Bullet | null = null; 
   isModalOpen: { [key: string]: boolean } = {}; 
   sectionName: string = ''; 
- 
+  isLoading = false;
   
+
+ 
+  bulletDescription: string = ""
   newBulletDescription: string = '';
   showDeleteButtons: boolean = false;
 
@@ -45,16 +48,20 @@ export class ListbulletsComponent {
   }
 
   loadBullets(sectionId: string): void {
-    this.admincheckService.getBulletsBySection(sectionId).subscribe(
-      (data: Bullet[]) => {
-        this.bullets = data;
-        console.log('Bullets:', this.bullets);
-      },
-      (error) => {
-        console.error('Error retrieving bullets:', error);
-        this.errorMessage = 'Error loading bullets';
-      }
-    );
+    this.isLoading = true; // Start loading
+
+  this.admincheckService.getBulletsBySection(sectionId).subscribe(
+    (data: Bullet[]) => {
+      this.bullets = data;
+      console.log('Bullets:', this.bullets);
+      this.isLoading = false; // Stop loading after data is retrieved
+    },
+    (error) => {
+      console.error('Error retrieving bullets:', error);
+      this.errorMessage = 'Error loading bullets';
+      this.isLoading = false; // Stop loading if an error occurs
+    }
+  );
   }
 
   createBullet(): void {
@@ -74,17 +81,6 @@ export class ListbulletsComponent {
 
 
   
-  // Toggle modal for smaller screens
-  toggleModal(sectionId: string): void {
-    this.isModalOpen[sectionId] = !this.isModalOpen[sectionId];
-  }
-
-  // Cancel editing mode
-  cancelEdit(): void {
-    this.isEditing = false;
-    this.editedSection = null;
-    this.sectionName = '';
-  }
 
   // Enable add new mode
   enableAddNew(): void {
@@ -139,7 +135,7 @@ export class ListbulletsComponent {
   // Edit an existing section
   editSection(section: Bullet): void {
     this.isEditing = true;
-    this.editedSection = { ...section }; 
+    this.editedBullet = { ...section }; 
     this.sectionName = section.description;
   }
 
@@ -158,27 +154,46 @@ export class ListbulletsComponent {
     }
   }
 
-    // Update section after editing
-    updateSection(): void {
-      if (this.editedSection && this.sectionName.trim() !== '') {
-        this.editedSection.description = this.sectionName;
+  updateBullet(): void {
+    if (this.editedBullet && this.newBulletDescription.trim() !== '') { // Use 'newBulletDescription' here as well
+      this.editedBullet.description = this.newBulletDescription;
   
-        this.admincheckService.updateBullet(this.editedSection._id!, this.editedSection).subscribe(
-          (updatedSection: Bullet) => {
-            const index = this.bullets.findIndex(s => s._id === updatedSection._id);
-            if (index !== -1) {
-              this.bullets[index] = updatedSection;
-            }
-            this.cancelEdit(); 
-          },
-          (error) => {
-            console.error('Error updating section:', error);
+      this.admincheckService.updateBullet(this.editedBullet._id!, this.editedBullet).subscribe(
+        (updatedBullet: Bullet) => {
+          const index = this.bullets.findIndex(b => b._id === updatedBullet._id);
+          if (index !== -1) {
+            this.bullets[index] = updatedBullet;
           }
-        );
-      }
+          this.cancelEdit();
+        },
+        (error) => {
+          console.error('Error updating bullet:', error);
+        }
+      );
     }
+  }
 
-
+  
+    toggleModal(bulletId: string, event: Event): void {
+      event.stopPropagation();
+      this.isModalOpen[bulletId] = !this.isModalOpen[bulletId];
+    }
+    
+    cancelEdit(event?: Event): void {
+      if (event) {
+        event.stopPropagation(); 
+      } 
+      this.isEditing = false;
+      this.editedBullet = null;
+      this.bulletDescription = '';
+    }
+    
+    editBullet(bullet: Bullet, event: Event): void {
+      event.stopPropagation();
+      this.isEditing = true;
+      this.editedBullet = { ...bullet };
+      this.newBulletDescription = bullet.description; // Correct this to 'newBulletDescription'
+    }
 
 
 

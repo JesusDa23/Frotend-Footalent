@@ -26,6 +26,8 @@ export class ListcheckComponent {
   categoryId: string | null = null; // To store the current category ID from params
   lastScrollTop: number = 0;
 
+  isLoading = false;
+
   constructor(
     private admincheckService: AdmincheckService, 
     private route: ActivatedRoute,
@@ -44,9 +46,18 @@ export class ListcheckComponent {
   // Load sections based on the current category
   loadSections(): void {
     if (this.categoryId) {
-      this.admincheckService.getSectionsByCategory(this.categoryId).subscribe(data => {
-        this.sections = data;
-      });
+      this.isLoading = true; // Start loading
+    
+      this.admincheckService.getSectionsByCategory(this.categoryId).subscribe(
+        data => {
+          this.sections = data;
+          this.isLoading = false; // Stop loading after data is retrieved
+        },
+        error => {
+          console.error('Error retrieving sections:', error);
+          this.isLoading = false; // Stop loading if an error occurs
+        }
+      );
     }
   }
 

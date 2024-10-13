@@ -17,7 +17,7 @@ import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
 })
 export class AdmincheckComponent {
 
-
+  showInfo: boolean = false
   isModalOpen: { [key: string]: boolean } = {};
   selectedCategoryId: string | null = null;
   selectedCategory: Category | null = null;
@@ -26,29 +26,45 @@ export class AdmincheckComponent {
   editedCategory: Category | null = null;  // To store the category being edited
   isEditing: boolean = false;
   isAdding: boolean = false;
+
+  isLoading = false;
   
 
   constructor(
     private admincheckService: AdmincheckService, 
-    private router: Router, 
-    private location: Location, 
+    private router: Router,
     private accountsService: AccountsService
   ) {}
 
   ngOnInit(): void {
+    this.loadcat()
     this.accountsService.isAdmin();
-    // Load categories when component is initialized
-    this.admincheckService.getCategories().subscribe(data => {
-      this.categories = data.map(category => ({
-        ...category,
-        showActions: false  // Initialize showActions for each category
-      }));
-    });
+
     this.categories.forEach(category => {
       this.isModalOpen[category._id] = false;
     });
   }
 
+
+  loadcat(){// Load categories when the component is initialized
+    this.isLoading = true; // Start loading
+    
+    this.admincheckService.getCategories().subscribe(
+      data => {
+        this.categories = data.map(category => ({
+          ...category,
+          showActions: false  // Initialize showActions for each category
+        }));
+        this.isLoading = false; // Stop loading after data is retrieved
+      },
+      error => {
+        console.error('Error retrieving categories:', error);
+        this.isLoading = false; // Stop loading if an error occurs
+      }
+    );
+    
+
+  }
   // Create a new category
   createCategory(): void {
     if (this.categoryName.trim() !== '') {
@@ -155,7 +171,7 @@ toggleModal(categoryId: string, event: Event): void {
 
   // Go back to the previous page
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['/home']); 
   }
 
 }

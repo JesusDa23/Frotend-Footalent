@@ -1,3 +1,8 @@
+<!-- Spinner de carga -->
+<div *ngIf="isLoading" class="absolute inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-30 z-10">
+  <div class="loader"></div>
+</div>
+
 <!-- header.component.html -->
 <header 
     id="top-bar"
@@ -21,10 +26,10 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
 
     <li 
   *ngFor="let section of sections"  
-  class="bg-[#FAFAFA] border font-medium p-1 mb-2 flex justify-between items-center rounded"
+  class="bg-[#E8EFFF] border font-medium p-1 mb-2 flex justify-between items-center rounded"
 >
   <!-- Inline display or input for creating/editing -->
-  <div class="m-2 w-3/5 text-lg" (click)="onSectionClick(section)">
+  <div class="m-2 w-3/5 text-normal" (click)="onSectionClick(section)">
     <!-- Show the input field when editing -->
     <ng-container *ngIf="isEditing && editedSection?._id === section._id; else viewSection">
       <input 
@@ -127,7 +132,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
 <div>
     <!-- Fixed button at the bottom of the screen to add new section -->
     <div id="bottom-bar"
-        class="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-2 transition-transform duration-300 transform translate-y-0">
+        class="fixed bottom-0 left-0 right-0 bg-[#E8EFFF] shadow-lg p-2 transition-transform duration-300 transform translate-y-0">
       <button
         class="w-full bg-[#0a135d] rounded p-2 text-white text-center"
         (click)="enableAddNew()"
