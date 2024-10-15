@@ -34,6 +34,7 @@ export class HistorialVehiculosComponent {
     this.inspectionService.getInspectionForms().subscribe({
       next: (data) => {
         this.inspectionForms = data;  
+        console.log(this.inspectionForms);
       },
       error: (error) => {
         console.error('Error fetching inspection forms:', error);

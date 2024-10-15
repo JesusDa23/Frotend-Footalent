@@ -52,6 +52,19 @@
                     class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
                     placeholder="Miguel Angel Carcano, 1195" required="">
             </div>
+
+            <div>
+                <label for="type_rol" class="block mb-2 text-sm font-medium ">Rol de usuario</label>
+                <select id="type_rol" name="type_rol" [(ngModel)]="selectedRol"
+                    class="text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500"
+                    required="">
+                    
+                    @for (item of userOptions; track item) {
+                        <option [value]="item.value">{{item.viewValue}}</option>
+                        }
+                   
+                </select>
+            </div>
             <hr>
             <div>
                 <label for="licencia" class="block mb-2 text-sm font-medium ">Número de licencia</label>

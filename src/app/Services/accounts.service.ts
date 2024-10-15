@@ -83,7 +83,6 @@ export class AccountsService {
       const parsedInfo = JSON.parse(userInfo);
 
       if (parsedInfo.rol === 'admin') {
-        console.log("is admin");
         return true;
       }
       else {
@@ -92,7 +91,6 @@ export class AccountsService {
       }
     }
     else {
-      console.log("not retrieved");
       return false
     }
   }

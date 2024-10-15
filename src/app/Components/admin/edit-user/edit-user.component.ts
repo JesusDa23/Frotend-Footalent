@@ -8,8 +8,7 @@ import { RouterLink } from '@angular/router';
 import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
-
+import { Router, NavigationEnd } from '@angular/router';
 
 interface type_licence {
   value: string;
@@ -105,39 +104,26 @@ export class EditUserComponent {
 
   goToHistory() {
     const data = this.dni
-    this.router.navigate(['/historial-vehiculos', { state: data  }])
+    this.router.navigate(['/historial-vehiculos', { state: data }])
     console.log(data)
   }
 
-
   editUser() {
-    console.log(this.user);
-    console.log(this.rol);
     this.accountsService.updateUser(this.userId, this.user).subscribe((res: any) => {
       Swal.fire('Actualizado!', 'El perfil ha sido actualizado.', 'success');
 
     })
   }
 
-  // creatar passwortd aleatorio 
-  generatePassword() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let length = 5
-    let result = '';
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * chars.length);
-      result += chars.charAt(randomIndex);
-    }
-    console.log(result);
-    return result;
-  }
-
   resetPassword() {
-    this.generatePassword()
-    Swal.fire('Restablecido!', 'El correo de restablecimiento ha sido enviado.', 'success');
-
+    this.accountsService.requestResetPassword(this.email).subscribe((res: any) => {
+      if (res) {
+        Swal.fire('Restablecido!', 'El correo de restablecimiento ha sido enviado.', 'success');
+      } else {
+        Swal.fire('Error!', 'El correo de restablecimiento no ha sido enviado.', 'error');
+      }
+    })
   }
-
 
   goBack(): void {
     this.location.back();
@@ -145,6 +131,11 @@ export class EditUserComponent {
 
   ngOnInit() {
     this.getUserInfo()
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
 }

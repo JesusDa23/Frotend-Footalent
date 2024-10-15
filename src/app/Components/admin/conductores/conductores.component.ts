@@ -41,9 +41,8 @@ export class ConductoresComponent {
       if (res) {
         this.retrievedUsers = res.data
         this.isLoading = false
-        console.log("recibidos");
       } else {
-        console.log("No se obtuvieron usuarios");
+        Swal.fire('Error!', 'Hubo un error obteniendo la lista de conductores.', 'error');
       }
     })
   }

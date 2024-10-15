@@ -16,7 +16,7 @@
 <div class="relative overflow-x-auto mx-5 shadow-md sm:rounded-lg">
     <table class="w-full  text-left mt-24 rtl:text-right text-gray-500 ">
         <thead class="text-white  bg-[#0A135D] ">
-            <tr >
+            <tr>
                 <th scope="col" class="px-6 py-3 font-normal">
                     Vehículo
                 </th>
@@ -27,16 +27,18 @@
             </tr>
         </thead>
         <tbody>
+            
             <tr class="vehicle odd:bg-white odd: even:bg-[#E8EFFF] even: border-b" *ngFor="let form of inspectionForms">
-                <ng-container *ngIf="form.user.dni === userDNI"> <!-- Added condition to check DNI -->
-                  <th scope="row" class="px-6 py-4 font-normal">
-                    {{ form.vehicle.make }} / {{ form.vehicle.plate }}
-                  </th>
-                  <td class="px-6 py-4 font-normal text-gray-900">
-                    {{ form.submissionTime | date:'short' }}
-                  </td>
+
+                <ng-container *ngIf="form.user.dni === userDNI"> 
+                    <th scope="row" class="px-6 py-4 font-normal">
+                        {{ form.vehicle.make }} / {{ form.vehicle.plate }}
+                    </th>
+                    <td class="px-6 py-4 font-normal text-gray-900">
+                        {{ form.submissionTime | date:'short' }}
+                    </td>
                 </ng-container>
-              </tr>
+            </tr>
 
         </tbody>
     </table>

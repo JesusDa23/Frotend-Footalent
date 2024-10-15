@@ -1,24 +1,24 @@
 <div class="sticky top-0 left-0 right-0">
 
-    <header class="flex items-center justify-between bg-[#0a135d] pt-2 pl-4 shadow-md ">
-      <div class="font-medium text-white mx-2">
-        <ul>
-          <li class="text-lg">Bienvenido, {{User?.name}}!</li>
-          <li class="text-gray-400">{{User?.rol}}</li>
-        </ul>
-      </div>
-      <app-togglemenu></app-togglemenu>
-    </header>
-  
-  
+  <header class="flex items-center justify-between bg-[#0a135d] pt-2 pl-4 pb-2 shadow-md ">
+    <div class="font-medium text-white mx-2">
+      <ul>
+        <li class="text-lg">Bienvenido, {{User?.name}}!</li>
+        <li class="text-gray-400">Administrador</li>
+      </ul>
+    </div>
+    <app-togglemenu></app-togglemenu>
+  </header>
+
+
 
   <nav class="flex justify-around bg-white padding-b-10 p-2 pt-4 shadow-md">
     <button routerLink="/home"
       routerLinkActive="border-blue-500 text-blue-950 text-lg font-medium border-b-4 padding-b-10 border-blue-950 "
       class="font-medium " [routerLinkActiveOptions]="{exact: true}">Flota vehicular</button>
     <button routerLink="/conductores"
-      routerLinkActive="border-blue-500 text-blue-950 text-lg font-medium border-b-4 border-blue-950 " class="font-medium "
-      [routerLinkActiveOptions]="{exact: true}">Conductores</button>
+      routerLinkActive="border-blue-500 text-blue-950 text-lg font-medium border-b-4 border-blue-950 "
+      class="font-medium " [routerLinkActiveOptions]="{exact: true}">Conductores</button>
   </nav>
 
 </div>

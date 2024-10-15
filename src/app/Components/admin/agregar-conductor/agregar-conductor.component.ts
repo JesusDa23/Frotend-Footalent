@@ -17,6 +17,11 @@ interface type_licence {
   viewValue: string;
 }
 
+interface rol {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-agregar-conductor',
   standalone: true,
@@ -32,14 +37,21 @@ export class AgregarConductorComponent {
   address: string = "";
   phone: string = "";
   licencia: string = "";
-  rol: string = "user";
+  rol: string = "";
   licenceOptions: type_licence[] = [
     { value: 'comun', viewValue: 'Común' },
     { value: 'especial', viewValue: 'Especial' },
   ]
+  userOptions:  rol[] = [
+    {value: 'admin', viewValue: 'Administrador'},
+    {value: 'user', viewValue: 'Conductor'}
+  ]
   randomPassword: string = "";
   selectedLicence: string = "";
+  selectedRol: string = "";
   expiration_licence: string = "";
+
+  isLoading = false;
 
   constructor(
     private accountsService: AccountsService,
@@ -96,11 +108,11 @@ export class AgregarConductorComponent {
       licencia: this.licencia,
       type_licence: this.selectedLicence,
       expiration_licence: this.expiration_licence,
-      rol: this.rol
+      rol: this.selectedRol
     };
 
     this.accountsService.signUp(newDriver).subscribe((res: any) => {
-
+      this.isLoading = true; 
       if (res) {
         Swal.fire({
           position: "top-end",

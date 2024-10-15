@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
 import { UserInfo } from '../../models/checklist.model';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, TogglemenuComponent],
+  imports: [RouterLink, RouterLinkActive, TogglemenuComponent, NgIf],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -23,7 +24,6 @@ export class HeaderComponent {
 
   private getUserInfo(): UserInfo | null {
     const userInfo = sessionStorage.getItem('userInfo');
-    // console.log("que es esto:",userInfo)
     return userInfo ? JSON.parse(userInfo) : null;
   }
 
