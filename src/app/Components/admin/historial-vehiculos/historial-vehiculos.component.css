@@ -1,0 +1,8 @@
+.vehicle {
+    text-transform: capitalize;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    font-style: normal;
+    color: #0A0A0A;
+  }
