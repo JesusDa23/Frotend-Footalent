@@ -1,4 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://localhost:3000/api/v1', // Adjust the production API URL as needed
+    apiUrl: 'https://backend-footalent.onrender.com/api/v1', // Adjust the production API URL as needed
   };
+  
