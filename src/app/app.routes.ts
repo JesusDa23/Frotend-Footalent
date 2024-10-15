@@ -19,9 +19,10 @@ import { FormresponsesComponent } from './Components/admin/formresponses/formres
 import { AgregarConductorComponent } from './Components/admin/agregar-conductor/agregar-conductor.component';
 import { MantenimientosComponent } from './Components/admin/flota/mantenimientos/mantenimientos.component';
 import { EditUserComponent } from './Components/admin/edit-user/edit-user.component'; 
-import { FooterDesktopComponent } from './Components/footer-desktop/footer-desktop.component';
 import { ChangePasswordComponent } from './Components/change-password/change-password.component';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
+import { HistorialVehiculosComponent } from './Components/admin/historial-vehiculos/historial-vehiculos.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -48,7 +49,7 @@ export const routes: Routes = [
   { path: 'change-password', title: "Change Password", component: ChangePasswordComponent }, //voluntario
   { path: 'change-password-for-email/:token', title: "Change Password", component: ChangePasswordComponent }, //recuperar contraseña
   { path: 'forgot-password', title: "Forgot Password", component: ForgotPasswordComponent },
-  { path: 'footer', component: FooterDesktopComponent}
+  { path: 'historial-vehiculos', component: HistorialVehiculosComponent, canActivate: [authGuard]}
 
 ];
 

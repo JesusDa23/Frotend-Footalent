@@ -1,0 +1,44 @@
+<header id="top-bar" class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
+    <div class="flex justify-between items-center p-4">
+        <button (click)="goBack()" class="text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </button>
+        <h1 class="text-lg text-white text-center my-2">Historial de vehículos</h1>
+        <app-togglemenu />
+    </div>
+</header>
+
+
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left mt-40 rtl:text-right text-gray-500 ">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Vehículo
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Fecha de uso
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="odd:bg-white odd: even:bg-gray-50 even: border-b" *ngFor="let form of inspectionForms">
+                <ng-container *ngIf="form.user.dni === userDNI"> <!-- Added condition to check DNI -->
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                    {{ form.user.name }}
+                  </th>
+                  <td class="px-6 py-4">
+                    {{ form.submissionTime }}
+                  </td>
+                </ng-container>
+              </tr>
+
+        </tbody>
+    </table>
+</div>

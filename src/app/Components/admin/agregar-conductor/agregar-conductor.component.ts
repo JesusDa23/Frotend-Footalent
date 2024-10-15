@@ -123,14 +123,10 @@ export class AgregarConductorComponent {
     })
   }
 
-
-
   ngOnInit() {
     this.generatePassword()
-
-
-
   }
+
   goBack(): void {
     this.location.back();
   }

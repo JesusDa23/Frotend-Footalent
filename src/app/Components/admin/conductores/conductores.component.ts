@@ -28,12 +28,11 @@ export class ConductoresComponent {
   isLoading = false;
 
   constructor(private http: HttpClient, private dniService: AccountsService) { }
-  private requestHeaders: HttpHeaders = new HttpHeaders();
 
-  selectedDni: string | null = null; 
+  selectedDni: string | null = null;
 
   selectDriver(dni: string) {
-    this.dniService.changeDni(dni); 
+    this.dniService.changeDni(dni);
   }
 
   retrieveUsers() {
@@ -42,6 +41,7 @@ export class ConductoresComponent {
       if (res) {
         this.retrievedUsers = res.data
         this.isLoading = false
+        console.log("recibidos");
       } else {
         console.log("No se obtuvieron usuarios");
       }
@@ -56,7 +56,7 @@ export class ConductoresComponent {
   ngOnInit() {
     this.retrieveUsers();
     this.accountsService.isAdmin();
-
+    this.retrievedUsers
   }
 
 }

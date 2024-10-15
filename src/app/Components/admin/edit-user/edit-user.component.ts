@@ -3,12 +3,20 @@ import { FormsModule, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2'
 import { AccountsService } from '../../../Services/accounts.service';
 import { ActivatedRoute } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 interface type_licence {
+  value: string;
+  viewValue: string;
+}
+
+interface rol {
   value: string;
   viewValue: string;
 }
@@ -17,13 +25,12 @@ interface type_licence {
 @Component({
   selector: 'app-edit-user',
   standalone: true,
-  imports: [SubheaderComponent, TogglemenuComponent, FormsModule],
+  imports: [SubheaderComponent, TogglemenuComponent, FormsModule, RouterLink],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'
 })
 export class EditUserComponent {
   userId: any = "";
-  // user: any = "";
   name: string = "";
   dni: string = "";
   password: string = "";
@@ -31,10 +38,11 @@ export class EditUserComponent {
   address: string = "";
   phone: string = "";
   licencia: string = "";
-  rol: string = "user";
+  rol: string = "";
   randomPassword: string = "";
   type_licence: string = "";
   expiration_licence: string = "";
+  isLoading = false;
 
   user: any = {
     user: "",
@@ -55,6 +63,11 @@ export class EditUserComponent {
     { value: 'especial', viewValue: 'Especial' },
   ]
 
+  userOptions: rol[] = [
+    { value: 'admin', viewValue: 'Administrador' },
+    { value: 'user', viewValue: 'Conductor' },
+  ]
+
   // *******************
 
   selectedDni: any = "";
@@ -63,14 +76,17 @@ export class EditUserComponent {
     private accountsService: AccountsService,
     private location: Location,
     private route: ActivatedRoute,
-
+    private router: Router,
   ) { }
 
   getUserInfo() {
+    this.isLoading = true
     this.userId = this.route.snapshot.paramMap.get('id');
 
     this.accountsService.getUser(this.userId).subscribe((data: any) => {
       if (data) {
+        this.isLoading = false
+
         this.user = data
         this.name = data.name
         this.dni = data.dni,
@@ -78,18 +94,28 @@ export class EditUserComponent {
           this.phone = data.phone,
           this.email = data.email,
           this.address = data.address,
+          this.rol = data.rol,
           this.password = data.password,
           this.licencia = data.licencia,
           this.type_licence = data.type_licence,
           this.expiration_licence = data.expiration_licence
-      } 
+      }
     })
+  }
+
+  goToHistory() {
+    const data = this.dni
+    this.router.navigate(['/historial-vehiculos', { state: data  }])
+    console.log(data)
   }
 
 
   editUser() {
     console.log(this.user);
+    console.log(this.rol);
     this.accountsService.updateUser(this.userId, this.user).subscribe((res: any) => {
+      Swal.fire('Actualizado!', 'El perfil ha sido actualizado.', 'success');
+
     })
   }
 
@@ -106,8 +132,10 @@ export class EditUserComponent {
     return result;
   }
 
-  resetPassword(){
+  resetPassword() {
     this.generatePassword()
+    Swal.fire('Restablecido!', 'El correo de restablecimiento ha sido enviado.', 'success');
+
   }
 
 
