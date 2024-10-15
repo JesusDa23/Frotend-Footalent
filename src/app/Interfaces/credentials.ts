@@ -9,6 +9,9 @@ export interface UserInfo {
   email: string
   password: string
   rol: string
+  id?: any
+  isFirstLogin?: any
+
 }
 
 

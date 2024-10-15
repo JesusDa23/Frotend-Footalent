@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     }
     this._accountsService.logIn(user).subscribe({
       next: data => {
-        // console.log("data", data);
+        console.log("data", data);
 
         let dataCast = data as resLoginUser;
         sessionStorage.setItem('token', dataCast.token);
@@ -54,13 +54,28 @@ export class LoginComponent implements OnInit {
 
 
         if(sessionStorage.getItem("token") != null){
+          this._accountsService.updateFirstLogin(dataCast.user.id, false).subscribe(
+            {next: data=> {
+              console.log("actualizado", data);
+              if(!dataCast.user.isFirstLogin){
+                if(dataCast.user.rol == "admin"){
+                  this.router.navigate(['/home']);
+                }
+                else if(dataCast.user.rol == "user"){
+                  this.router.navigate(['/homec']);
+                }
+              }
+              else{
+                this.router.navigate(["/change-password"])
+              }
+            },
+          error: data=>
+          {
+            console.error("error al actualizar el estado del primer inicio de sesion", data);
 
-          if(dataCast.user.rol == "admin"){
-            this.router.navigate(['/home']);
           }
-          else if(dataCast.user.rol == "user"){
-            this.router.navigate(['/homec']);
-          }
+          })
+
 
         }
       },
