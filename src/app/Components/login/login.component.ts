@@ -5,11 +5,14 @@ import { Credentials, resLoginUser } from '../../Interfaces/credentials';
 import { log } from 'node:console';
 import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2'
+import { NgClass } from '@angular/common';
+import { FooterComponent } from '../footer/footer.component';
+import { FooterDesktopComponent } from "../footer-desktop/footer-desktop.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterModule],
+  imports: [FormsModule, RouterModule, NgClass, FooterComponent, FooterDesktopComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -17,12 +20,21 @@ export class LoginComponent implements OnInit {
 
   email: string = ""
   password: string = ""
+  showPassword = false;
 
   constructor(private _accountsService: AccountsService, private router: Router) { }
 
   ngOnInit(): void {
     this._accountsService.isLogedIn()
   }
+
+
+  
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  
 
   botonLogIn() {
     if (this.email == "" || this.password == "") {
