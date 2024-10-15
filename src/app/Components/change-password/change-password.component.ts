@@ -43,15 +43,20 @@ export class ChangePasswordComponent {
     }
     if (!this.changeForEmail) {
       let userInfo = JSON.parse(sessionStorage.getItem('userInfo')!);
-      this.userId = userInfo.dni;
+      this.userId = userInfo.id;
       this.handleChangePassword()
     } else {
       this.userId = jwtDecode(this.tokenUserEmail);
+      console.log(this.userId);
+
       this.userId = this.userId.email;
       this._accountsService.findDataUser(this.userId).subscribe({
         next: (data) => {
-          console.log('data:', data)
-          this.userId = data.dataUser.dni;
+          console.log(data);
+
+          this.userId = data[0].dni;
+          console.log('data:', this.userId)
+
           this.handleChangePassword()
         },
         error: (err) => {
@@ -70,32 +75,49 @@ export class ChangePasswordComponent {
   }
 
   handleChangePassword() {
+    console.log('--------------', this.changeForEmail)
     this._accountsService.updatePassword(this.userId, this.newPassword, this.oldPassword, this.changeForEmail).subscribe({
       next: () => {
-        console.log('--------------', this.userId)
-        this._accountsService.updateFirstLogin(this.userId, false).subscribe({
-          next: () => {
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Contraseña actualizada exitosamente.",
-              showConfirmButton: false,
-              timer: 1600
-            });
-            setTimeout(() => {
-              this.router.navigate(['/login']);
-            }, 1700);
-          },
-          error: (err) => {
-            Swal.fire({
-              position: "top-end",
-              icon: "error",
-              title: `Error al actualizar el estado de primer inicio\n${err.error}`,
-              showConfirmButton: false,
-              timer: 1600
-            });
-          }
-        });
+
+        if (!this.changeForEmail) {
+          this._accountsService.updateFirstLogin(this.userId, false).subscribe({
+            next: () => {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Contraseña actualizada exitosamente.",
+                showConfirmButton: false,
+                timer: 1600
+              });
+              setTimeout(() => {
+                this.router.navigate(['/login']);
+              }, 1700);
+            },
+            error: (err) => {
+              console.log(err);
+
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: `Error al actualizar el estado de primer inicio\n${err.error}`,
+                showConfirmButton: false,
+                timer: 1600
+              });
+            }
+          });
+        }
+        else{
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Contraseña actualizada exitosamente.",
+            showConfirmButton: false,
+            timer: 1600
+          });
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 1700);
+        }
 
       },
       error: (err) => {
