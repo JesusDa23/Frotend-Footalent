@@ -19,20 +19,15 @@
     <h1 class="text-black font-bold">Estado del vehiculo:</h1>
     <div class="relative inline-block text-left w-36 text-white text-sm">
       <!-- Trigger dropdown with lighter background for the selected option -->
-      <div 
-        class="p-1 border border-gray-300 rounded-3xl flex items-center justify-between cursor-pointer"
-        [ngClass]="{
+      <div class="p-1 border border-gray-300 rounded-3xl flex items-center justify-between cursor-pointer" [ngClass]="{
           'bg-green-600': vehicle.status === 'Disponible', 
           'bg-yellow-400': vehicle.status === 'Reparacion', 
           'bg-red-600': vehicle.status === 'Ocupado', 
           'bg-slate-200': vehicle.status === 'Deshabilitado'
-        }"
-        (click)="toggleDropdown()">
+        }" (click)="toggleDropdown()">
         <div class="flex items-center">
           <!-- Colored ball to represent the status -->
-          <span 
-            class="flex items-center justify-center h-2 w-2 rounded-full mx-2"
-            [ngClass]="{
+          <span class="flex items-center justify-center h-2 w-2 rounded-full mx-2" [ngClass]="{
               'bg-[#59F63A]': vehicle.status === 'Disponible',
               'bg-yellow-600': vehicle.status === 'Reparacion',
               'bg-[#9E1618]': vehicle.status === 'Ocupado',
@@ -42,28 +37,26 @@
         </div>
         <i class="fas fa-chevron-down mr-1"></i>
       </div>
-    
+
       <!-- Dropdown menu -->
-      <div *ngIf="isDropdownOpen" 
-           class="absolute z-10 mt-2 w-full rounded-md bg-white shadow-lg text-black">
+      <div *ngIf="isDropdownOpen" class="absolute z-10 mt-2 w-full rounded-md bg-white shadow-lg text-black">
         <div class="py-1">
           <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
-               (click)="selectStatus('Disponible')">
+            (click)="selectStatus('Disponible')">
             <span class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-green-600"></span>
             Disponible
           </div>
-          <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
-               (click)="selectStatus('Ocupado')">
+          <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100" (click)="selectStatus('Ocupado')">
             <span class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-red-500"></span>
             Ocupado
           </div>
           <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
-               (click)="selectStatus('Reparacion')">
+            (click)="selectStatus('Reparacion')">
             <span class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-yellow-400"></span>
             Reparación
           </div>
           <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
-               (click)="selectStatus('Deshabilitado')">
+            (click)="selectStatus('Deshabilitado')">
             <span class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-slate-500"></span>
             Deshabilitado
           </div>
@@ -74,46 +67,48 @@
   </div>
 
 
- <!-- Marca y Placa -->
-    <div class="grid grid-cols-2 gap-4 m-4">
-      <div>
-        <label class="block text-sm font-semibold mb-1">Marca</label>
-        <input class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.make"/>
-      </div>
-
-      <div>
-        <label class="block text-sm font-semibold mb-1">Placa</label>
-        <input class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.plate" />
-      </div>
+  <!-- Marca y Placa -->
+  <div class="grid grid-cols-2 gap-4 m-4">
+    <div>
+      <label class="block text-sm font-semibold mb-1">Marca</label>
+      <input class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.make" />
     </div>
 
-    <!-- Tipo de Vehículo y Modelo -->
-    <div class="grid grid-cols-2 gap-4 m-4">
-      <div>
-        <label class="block text-sm font-semibold mb-1">Tipo de Vehículo</label>
-        <select class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.category">
-          <ng-container *ngFor="let item of categoriesNames">
-            <option [value]='item._id'>{{item.name}}</option>
-        </ng-container>
-        </select>
-      </div>
-
-      <div>
-        <label class="block text-sm font-semibold mb-1">Modelo</label>
-        <input class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.model"/>
-      </div>
-    </div>
-
-    <hr class="my-4" />
-
-    <!-- Botones de Historial y Guardar -->
-    <div class="flex flex-col space-y-4 m-4">
-      <button class="flex items-center justify-center bg-transparent text-[#001A72] border border-[#001A72] px-4 py-2 rounded-lg">
-        <i class="far fa-calendar-alt mr-2"></i> Historial de conductores
-      </button>
-
-      <button (click)="guardarPerfil()" class="flex items-center justify-center bg-[#001A72] text-white px-4 py-2 rounded-lg">
-        <i class="far fa-save mr-2"></i> Guardar perfil
-      </button>
+    <div>
+      <label class="block text-sm font-semibold mb-1">Placa</label>
+      <input class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.plate" />
     </div>
   </div>
+
+  <!-- Tipo de Vehículo y Modelo -->
+  <div class="grid grid-cols-2 gap-4 m-4">
+    <div>
+      <label class="block text-sm font-semibold mb-1">Tipo de Vehículo</label>
+      <select class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.category">
+        <ng-container *ngFor="let item of categoriesNames">
+          <option [value]='item._id'>{{item.name}}</option>
+        </ng-container>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold mb-1">Modelo</label>
+      <input class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.model" />
+    </div>
+  </div>
+
+  <hr class="my-4" />
+
+  <!-- Botones de Historial y Guardar -->
+  <div class="flex flex-col space-y-4 m-4">
+    <button
+      class="flex items-center justify-center bg-transparent text-[#001A72] border border-[#001A72] px-4 py-2 rounded-lg">
+      <i class="far fa-calendar-alt mr-2"></i> Historial de conductores
+    </button>
+
+    <button (click)="guardarPerfil()"
+      class="flex items-center justify-center bg-[#001A72] text-white px-4 py-2 rounded-lg">
+      <i class="far fa-save mr-2"></i> Guardar perfil
+    </button>
+  </div>
+</div>

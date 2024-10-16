@@ -1,9 +1,9 @@
 <!-- header.component.html -->
-<div class="relative p-2">
+<div class="relative p-2 mr-56">
     <div [ngClass]="{
         'rotate-90': isMenuOpen,
         'rotate-0': !isMenuOpen  
-      }" class="mx-2 transition-transform duration-300">
+    }" class="mx-2 transition-transform duration-300">
         <i class=" text-white fa-sharp fa-bars fa-solid fa-xl cursor-pointer" (click)="toggleMenu()"></i>
     </div>
 </div>
@@ -13,14 +13,21 @@
     'w-0 opacity-0': !isMenuOpen, 
     'w-full opacity-100': isMenuOpen 
     }" class="fixed bg-[#D4E0FF] text-blue-950 
-     fixed top-20 right-0 bg-blue-100 transition-all duration-500 ease-in-out
-      shadow-xl">
+    fixed mt-2.5 right-10 bg-blue-100 transition-all duration-500 ease-in-out
+    shadow-xl">
     <ul class="text-center space-y-4 py-4">
 
         <!-- mi cuenta -->
-        <div class="font-bold flex justify-between  px-2 flex justify-between border-b border-b-blue-950 mx-8 ">
-            <a routerLink="/home" class="font-medium text-xl mb-3">Home</a>
+        <div class="font-bold flex gap-2 space-between items-center px-2 border-b border-b-blue-950 mx-8 p-1">
+            <svg class="mb-3" width="25" height="32" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 16 2.59375 L 15.28125 3.28125 L 2.28125 16.28125 L 3.71875 17.71875 L 5 16.4375 L 5 28 L 14 28 L 14 18 L 18 18 L 18 28 L 27 28 L 27 16.4375 L 28.28125 17.71875 L 29.71875 16.28125 L 16.71875 3.28125 Z M 16 5.4375 L 25 14.4375 L 25 26 L 20 26 L 20 16 L 12 16 L 12 26 L 7 26 L 7 14.4375 Z" fill="#0A135D"></path>
+            </svg>                 
+                
+            <a routerLink="/home" class="font-medium text-md mb-3">Ir a Inicio</a>
+            <i class="fa-sharp fa-solid fa-chevron-right ml-auto mb-3"></i>
         </div>
+
+
 
         <!-- ver inspecciones -->
         <div class="font-bold flex gap-2 space-between items-center px-2 border-b border-b-blue-950 mx-8 p-1">

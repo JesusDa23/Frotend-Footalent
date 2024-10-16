@@ -12,11 +12,11 @@
   <div class="loader"></div>
 </div>
 
-<div class="container mx-auto bg-white">
+<div class="container mx-auto w-3/4 bg-white">
 
-  <div *ngIf="!isLoading" class="flex-col gap-[8px] p-4">
+  <div *ngIf="!isLoading" class="flex-col grid grid-cols-1 md:grid-cols-2 gap-y-1">
     <!-- Vehículo -->
-    <div  class="flex p-2 bg-white shadow-md rounded border border-cardBorder w-full mt-2 items-center justify-between"
+    <div  class="flex p-2 bg-white shadow-md rounded border border-cardBorder w-4/5 mt-2 items-center justify-between ml-32"
      *ngFor="let vehicle of flotas">
       <!-- Información del vehículo -->
       <div class="flex-1 w-32 m-2">
@@ -25,9 +25,9 @@
       </div>
     
       <!-- Estado y flecha al final -->
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center space-x-2">
         <!-- Estado del vehículo -->
-        <span class="flex items-center rounded-full px-2 py-1 w-32 text-white text-sm" 
+        <span class="flex items-center rounded-full px-2 py-1 w-32 text-white text-sm " 
               [ngClass]="{
                 'bg-disponible': vehicle.status === 'Disponible', 
                 'bg-reparacion': vehicle.status === 'Reparacion',
@@ -36,7 +36,7 @@
               }">
           <!-- Icono del círculo de estado -->
           <i class="fas fa-circle text-xs mr-2"
-             [ngClass]="{
+            [ngClass]="{
                 'text-textDisponible': vehicle.status === 'Disponible', 
                 'text-textReparacion': vehicle.status === 'Reparacion',
                 'text-textOcupado': vehicle.status === 'Ocupado',
@@ -55,14 +55,11 @@
   </div>
 </div>
 
-<div
-        id="bottom-bar"
-        class="fixed bottom-0 left-0 right-0 bg-blue-100 shadow-lg p-2 transition-transform duration-300 transform translate-y-0"
-            >
+<div id="bottom-bar" class="fixed bottom-20 left-0 right-0  p-2 transition-transform duration-300 transform translate-y-0">
         <div class="flex justify-center">
           <button routerLink="/agregar-vehiculo"
-            class="w-full bg-[#0a135d] rounded p-2 text-white text-center m-2">
+            class="w-3/12 bg-[#0a135d] rounded p-2 text-white text-center m-2">
             Agregar vehiculo
-        </button>
+          </button>
         </div>
-    </div>
+</div>

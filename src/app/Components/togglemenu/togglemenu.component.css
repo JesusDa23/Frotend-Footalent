@@ -1,4 +1,18 @@
 .no-scroll {
     overflow: hidden;
   }
-  
+
+#menu{
+  width: 37rem;
+  height: auto;
+  margin-right: 12rem;
+}
+
+button{
+  width: 90%;
+}
+
+.feather{
+  margin-left: 10rem;
+}
+

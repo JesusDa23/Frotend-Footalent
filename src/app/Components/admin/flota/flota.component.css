@@ -13,6 +13,9 @@
 }
 
 
+
+
+
 .vehicle-card {
     border: 1px solid #ccc;
     padding: 10px;
@@ -37,4 +40,3 @@
       display: block; /* Show mobile view */
     }
   }
-  
