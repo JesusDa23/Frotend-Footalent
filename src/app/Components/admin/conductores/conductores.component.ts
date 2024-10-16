@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, HostListener, NgModule } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { CdkDropList, CdkDrag, moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AccountsService } from '../../../Services/accounts.service';
@@ -26,6 +26,7 @@ export class ConductoresComponent {
   retrievedUsers: any[] = [];
   httpClient = inject(HttpClient)
   isLoading = false;
+  private lastScrollTop = 0;
 
   constructor(private http: HttpClient, private dniService: AccountsService) { }
 
@@ -56,6 +57,25 @@ export class ConductoresComponent {
     this.retrieveUsers();
     this.accountsService.isAdmin();
     this.retrievedUsers
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    const bottomBar = document.getElementById('bottom-bar');
+
+    if (bottomBar) {
+      if (currentScroll > this.lastScrollTop) {
+        // Scrolling down
+        bottomBar.classList.remove('translate-y-0');
+        bottomBar.classList.add('translate-y-full');
+      } else {
+        // Scrolling up
+        bottomBar.classList.remove('translate-y-full');
+        bottomBar.classList.add('translate-y-0');
+      }
+      this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
+    }
   }
 
 }
