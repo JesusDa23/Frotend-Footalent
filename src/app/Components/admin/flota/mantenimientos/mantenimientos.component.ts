@@ -5,6 +5,7 @@ import { MantenimientoService } from '../../../../Services/mantenimiento.service
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TogglemenuComponent } from "../../../togglemenu/togglemenu.component";
 import { FlotaService } from '../../../../Services/flota.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mantenimientos',
@@ -108,17 +109,57 @@ export class MantenimientosComponent {
   }
 
   eliminarMantenimiento(id: number) {
-    this.mantenimientoService.deleteMantenimientos(id).subscribe(
-      () => {
-        this.mantenimientos = this.mantenimientos.filter(m => m._id !== id);
-        this.cdr.detectChanges();
-        this.obtenerMantenimientos();
-      },
-      (error) => {
-        console.error('Error al eliminar mantenimiento:', error);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Estás a punto de eliminar este mantenimiento.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#0A135D',   // Color personalizado del botón de confirmar
+      cancelButtonColor: '#A22B2B'     // Color personalizado del botón de cancelar
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Si el usuario confirma, procede con la eliminación
+        this.mantenimientoService.deleteMantenimientos(id).subscribe(
+          () => {
+            // Eliminar el mantenimiento del arreglo local
+            this.mantenimientos = this.mantenimientos.filter(m => m._id !== id);
+            this.cdr.detectChanges();
+            this.obtenerMantenimientos();
+            
+            // Mostrar un SweetAlert de éxito
+            Swal.fire({
+              title: 'Eliminado',
+              text: 'El mantenimiento ha sido eliminado correctamente.',
+              icon: 'success',
+              confirmButtonColor: '#0A135D'   // Color del botón de confirmación
+            });
+          },
+          (error) => {
+            console.error('Error al eliminar mantenimiento:', error);
+            
+            // Mostrar un SweetAlert en caso de error
+            Swal.fire({
+              title: 'Error',
+              text: 'Hubo un problema al eliminar el mantenimiento.',
+              icon: 'error',
+              confirmButtonColor: '#0A135D'
+            });
+          }
+        );
+      } else {
+        // Si el usuario cancela la eliminación
+        Swal.fire({
+          title: 'Cancelado',
+          text: 'El mantenimiento no fue eliminado.',
+          icon: 'info',
+          confirmButtonColor: '#0A135D'
+        });
       }
-    );
+    });
   }
+  
 
   actualizarMantenimiento(mantenimiento: any) {
     mantenimiento.fecha = new Date(mantenimiento.fecha).toISOString();
