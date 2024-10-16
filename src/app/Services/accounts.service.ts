@@ -112,6 +112,10 @@ export class AccountsService {
     return this.http.get(`${this.appUrl}/users/${email}`);
   }
 
+findDataUserByEmail(email: string): Observable<any> {
+  return this.http.get(`${this.appUrl}/users-email/${email}`);
+  }
+
   // Para colocarle la cabecera de autorización a la petición, se debe de hacer de la siguiente manera
 
   // private construirHeaders() {

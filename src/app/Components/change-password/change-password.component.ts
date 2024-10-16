@@ -50,11 +50,11 @@ export class ChangePasswordComponent {
       console.log(this.userId);
 
       this.userId = this.userId.email;
-      this._accountsService.findDataUser(this.userId).subscribe({
+      this._accountsService.findDataUserByEmail(this.userId).subscribe({
         next: (data) => {
           console.log(data);
 
-          this.userId = data[0].dni;
+          this.userId = data[0]._id;
           console.log('data:', this.userId)
 
           this.handleChangePassword()
