@@ -47,3 +47,30 @@ h2 {
     left: 21px;
   }
   
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-green {
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+  }
+  
+  .btn-red {
+    background-color: #dc3545; /* Red background */
+    color: white; /* White text */
+  }
+  
+  .btn-green:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  .btn-red:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  

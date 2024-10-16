@@ -11,6 +11,7 @@ import { UserServiceService } from '../../../Services/user-service.service';
 import Swal from 'sweetalert2'
 import { SectionData } from '../../models/checklist.model';
 import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
+import { Alert, AlertService } from '../../../Services/alert.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { TogglemenuComponent } from "../../togglemenu/togglemenu.component";
   styleUrl: './sections-by-cat.component.css'
 })
 export class SectionsByCatComponent {
-
+  
   categories: any[] = [];
   categoryId: string | null = null;
   vehicleId: string | null = null; 
@@ -33,6 +34,7 @@ export class SectionsByCatComponent {
   
   
   constructor(
+    
     private admincheckService: AdmincheckService , 
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -43,6 +45,7 @@ export class SectionsByCatComponent {
   ) {}
 
   ngOnInit(): void {
+   
     this.route.params.subscribe(params => {
       this.categoryId = params['categoryId'];
       this.vehicleId = params['vehicle'];
@@ -131,6 +134,7 @@ export class SectionsByCatComponent {
       }
     }
   }
+ 
 
   private getUserInfo(): UserInfo | null {
     const userInfo = sessionStorage.getItem('userInfo');
@@ -154,43 +158,50 @@ export class SectionsByCatComponent {
   // Submit form
   onSubmit(): void {
     if (this.bulletsForm.valid && this.vehicleData) {
-    const submissionData = this.collectSubmissionData();
-    const userInfo = this.getUserInfo()
-    const vehicleD = this.vehicleData
-    const submissionTime = this.getSubmissionTime()
-    
-    const dataToSend = {
-      user: userInfo,  // Assuming userData is stored similarly
-      vehicle: vehicleD,  // Include vehicle data
-      sections: submissionData, // Collected form data
-      submissionTime: submissionTime, // Add the submission time
-      submissionType: "dailycheck"
-    };
-    
-    // Check for required bullets
-    const hasRequiredUnchecked = this.checkRequiredBullets();
-
-    if (hasRequiredUnchecked) {
-      // Ask user if the vehicle is drivable
-      this.askVehicleDrivable().then((isDrivable) => {
-        if (isDrivable) {
-          console.log("Data to be sent:", dataToSend);  // Debug log
-          this.saveData(dataToSend);
-        } else {
-          this.router.navigate(['/not-drivable']); // Navigate if not drivable
-        }
-      });
+      const submissionData = this.collectSubmissionData();
+      const userInfo = this.getUserInfo();
+      const vehicleD = this.vehicleData;
+      const submissionTime = this.getSubmissionTime();
+  
+      const dataToSend = {
+        user: userInfo,
+        vehicle: vehicleD,
+        sections: submissionData,
+        submissionTime: submissionTime,
+        submissionType: "dailycheck"
+      };
+  
+      const hasRequiredUnchecked = this.checkRequiredBullets();
+  
+      if (hasRequiredUnchecked) {
+        // Ask user if the vehicle is drivable
+        this.askVehicleDrivable().then((isDrivable) => {
+          if (isDrivable) {
+            this.saveData(dataToSend);  // Save if drivable
+          } else {
+            this.router.navigate(['/reporte']);  // Navigate to report page if not drivable
+          }
+        });
+      } else {
+        Swal.fire({
+          title: 'Bien!',
+          text: 'Formulado enviado exitosamente!',
+          icon: 'success',
+          confirmButtonColor: '#0A135D'
+        });
+        this.router.navigate(['/homec']);
+        this.saveData(dataToSend);  // Save data directly if no required bullets are unchecked
+      }
     } else {
-      // Proceed to save if no required bullets are unchecked
-      console.log("Data to be sent:", dataToSend);  // Debug log
-      this.saveData(dataToSend);
+      Swal.fire({
+        title: 'Error',
+        text: 'El formulario no es válido o falta información del vehículo.',
+        icon: 'error',
+        confirmButtonColor: '#d33'
+      });
     }
-  } else {
-    console.log('Form Status:', this.bulletsForm.status);
-    console.log('Vehicle Data:', this.vehicleData);
-    console.log('Form is invalid or vehicle data is missing');
   }
-  }
+  
 
 
  // Collect data for submission
@@ -220,8 +231,7 @@ export class SectionsByCatComponent {
       }
     });
     
-    console.log("Submission Data Structure:", submissionData); // Log the structure of submission data
-    
+
     return submissionData;
   }
 
@@ -240,14 +250,39 @@ export class SectionsByCatComponent {
   // Ask user if the vehicle is drivable
   private askVehicleDrivable(): Promise<boolean> {
     return Swal.fire({
-      title: 'Vehicle Drivable?',
-      text: 'Some required checks are not completed. Is the vehicle drivable?',
+      title: 'Conducible?',
+      text: 'Algunos puntos son requeridos. El vehículo se puede conducir?',
       icon: 'warning',
+      background: "#fff",
       showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No'
-    }).then(result => result.isConfirmed);
+      confirmButtonText: 'Si',
+      cancelButtonText: 'Reportar',
+      confirmButtonColor: '#0A135D',
+      cancelButtonColor: '#A22B2B'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        return Swal.fire({
+          title: "Enviado!",
+          text: "Formulario enviado correctamente.",
+          icon: "success",
+          confirmButtonColor: '#0A135D'
+        }).then(() => {
+          this.router.navigate(['/homec']);  // Redirect to home after confirmation
+          return true;  // Return true to signal that form was confirmed and submitted
+        });
+      } else {
+        return Swal.fire({
+          title: "Reporte",
+          text: "El vehículo no es conducible. Reportando...",
+          icon: "info",
+          confirmButtonColor: '#A22B2B'
+        }).then(() => false);  // Return false if "Reportar" is clicked
+      }
+    });
   }
+  
+  
+
 
   // Save data to the backend
   private saveData(data: any): void {
