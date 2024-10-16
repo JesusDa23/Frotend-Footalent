@@ -4,36 +4,41 @@
       <div class="flex p-2 bg-white shadow-md rounded border border-cardBorder w-full mt-2 items-center justify-between" 
       (click)="openins(vehicle.category, vehicle._id)" *ngFor="let vehicle of flotas">
         
-        <!-- Vehicle info (Make and Model) -->
-        <div class="flex-1 w-32 m-2">
-          <h2 class="text-lg font-medium">{{ vehicle.make }} - {{ vehicle.model }}</h2>
-          <p class="text-gray-500">{{ vehicle.plate | uppercase }}</p>
-        </div>
-        
-        <!-- Status badge -->
-        <div class="flex-none w-28 mr-1 text text-white">
-          <span class="flex justify-center text-sm items-center rounded-full px-1 " [ngClass]="{
-            'bg-disponible': vehicle.status === 'Disponible', 
-            'bg-reparacion': vehicle.status === 'Reparacion',
-            'bg-ocupado': vehicle.status === 'Ocupado',
-            'bg-deshabilitado': vehicle.status === 'Deshabilitado'
-          }">
-      <!-- Icono del círculo de estado -->
-      <i class="fa-solid fa-circle fa-2xs text-sm mr-2"
-         [ngClass]="{
-            'text-textDisponible': vehicle.status === 'Disponible', 
-            'text-textReparacion': vehicle.status === 'Reparacion',
-            'text-textOcupado': vehicle.status === 'Ocupado',
-            'text-textDeshabilitado': vehicle.status === 'Deshabilitado'
-          }"></i>  
-            {{ vehicle.status }}
-          </span>
-        </div>
-        
-        <!-- Arrow icon -->
-        <div class="flex-none w-3 ml-2 cursor-pointer"  routerLink="inspeccion2">
-            <i class="fa-solid fa-chevron-right"></i>
-        </div>
+      <ng-container *ngIf="vehicle.status === 'Disponible'">
+
+      <!-- Vehicle info (Make and Model) -->
+      <div class="flex-1 w-32 m-2">
+        <h2 class="text-lg font-medium">{{ vehicle.make }} - {{ vehicle.model }}</h2>
+        <p class="text-gray-500">{{ vehicle.plate | uppercase }}</p>
+      </div>
+      
+      <!-- Status badge -->
+      <div class="flex items-center space-x-4">
+        <span class="flex items-center rounded-full px-2 py-1 w-32 text-white text-sm" 
+            [ngClass]="{
+              'bg-disponible': vehicle.status === 'Disponible', 
+              'bg-reparacion': vehicle.status === 'Reparacion',
+              'bg-ocupado': vehicle.status === 'Ocupado',
+              'bg-deshabilitado': vehicle.status === 'Deshabilitado'
+            }">
+        <!-- Icono del círculo de estado -->
+        <i class="fa-solid fa-circle fa-2xs mr-2"
+           [ngClass]="{
+              'text-textDisponible': vehicle.status === 'Disponible', 
+              'text-textReparacion': vehicle.status === 'Reparacion',
+              'text-textOcupado': vehicle.status === 'Ocupado',
+              'text-textDeshabilitado': vehicle.status === 'Deshabilitado'
+            }"></i>  
+          {{ vehicle.status }}
+        </span>
+      </div>
+      
+      <!-- Arrow icon -->
+      <div class="flex-none w-3 ml-2 cursor-pointer"  routerLink="inspeccion2">
+          <i class="fa-solid fa-chevron-right"></i>
+      </div>
+
+      </ng-container>
         
       </div>
     </div>
