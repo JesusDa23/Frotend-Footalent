@@ -178,7 +178,9 @@ export class SectionsByCatComponent {
         this.askVehicleDrivable().then((isDrivable) => {
           if (isDrivable) {
             this.saveData(dataToSend);  // Save if drivable
+            this.updateVehicleStatus(vehicleD._id, 'Ocupado');
           } else {
+            this.updateVehicleStatus(vehicleD._id, 'Ocupado');
             this.router.navigate(['/reporte']);  // Navigate to report page if not drivable
           }
         });
@@ -282,7 +284,19 @@ export class SectionsByCatComponent {
   }
   
   
-
+  private updateVehicleStatus(vehicleId: number, status: string): void {
+    const data = { status: status };  // Define the status update payload
+  
+    this.FlotaService.updateFlotas(vehicleId, data).subscribe(
+      (response) => {
+        console.log(`Vehicle status updated to ${status}:`, response);
+      },
+      (error) => {
+        console.error('Failed to update vehicle status:', error);
+      }
+    );
+  }
+  
 
   // Save data to the backend
   private saveData(data: any): void {

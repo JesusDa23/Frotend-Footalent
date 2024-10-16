@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { UserInfo } from '../models/checklist.model';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AccountsService } from '../../Services/accounts.service';
-
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -15,7 +15,10 @@ import { AccountsService } from '../../Services/accounts.service';
 })
 export class TogglemenuComponent {
 
-  constructor(private accountService: AccountsService) {}
+  constructor(
+    private accountService: AccountsService,
+    private router: Router,
+  ) {}
 
   isMenuOpen = false; 
   isAdmin = false;  // Define if the user is admin or not
@@ -48,7 +51,40 @@ export class TogglemenuComponent {
     }
   }
 
-  signOut() {
-    this.accountService.logout(); // Call the logout method from the AuthService
+  signOut(): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Estás a punto de cerrar la sesión.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cerrar sesión',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#0A135D',   // Optional: Customize button colors
+      cancelButtonColor: '#A22B2B'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Call the logout method from the AuthService if confirmed
+        this.accountService.logout();
+  
+        // Optionally navigate to login or home page
+        this.router.navigate(['/login']);  // Adjust the route as needed
+  
+        Swal.fire({
+          title: 'Cerrado',
+          text: 'Has cerrado la sesión correctamente.',
+          icon: 'success',
+          confirmButtonColor: '#0A135D'
+        });
+      } else {
+        // Optional: Handle case when the user cancels
+        Swal.fire({
+          title: 'Cancelado',
+          text: 'No se cerró la sesión.',
+          icon: 'info',
+          confirmButtonColor: '#0A135D'
+        });
+      }
+    });
   }
+  
 }
