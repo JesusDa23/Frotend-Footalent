@@ -9,6 +9,8 @@ import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 import { Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
+import { FooterDesktopComponent } from '../../footer-desktop/footer-desktop.component';
+
 
 interface type_licence {
   value: string;
@@ -24,7 +26,7 @@ interface rol {
 @Component({
   selector: 'app-edit-user',
   standalone: true,
-  imports: [SubheaderComponent, TogglemenuComponent, FormsModule, RouterLink],
+  imports: [SubheaderComponent, TogglemenuComponent, FormsModule, RouterLink, FooterDesktopComponent],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'
 })

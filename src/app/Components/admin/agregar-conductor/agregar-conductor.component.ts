@@ -7,10 +7,14 @@ import { AccountsService } from '../../../Services/accounts.service';
 
 import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
+import { FooterComponent } from '../../footer/footer.component';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FooterDesktopComponent } from "../../footer-desktop/footer-desktop.component";
+
+
 
 interface type_licence {
   value: string;
@@ -25,7 +29,7 @@ interface rol {
 @Component({
   selector: 'app-agregar-conductor',
   standalone: true,
-  imports: [SubheaderComponent, TogglemenuComponent, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
+  imports: [SubheaderComponent, TogglemenuComponent, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, FooterComponent, FooterDesktopComponent],
   templateUrl: './agregar-conductor.component.html',
   styleUrl: './agregar-conductor.component.css'
 })
@@ -40,7 +44,7 @@ export class AgregarConductorComponent {
   rol: string = "";
   licenceOptions: type_licence[] = [
     { value: 'comun', viewValue: 'Común' },
-    { value: 'especial', viewValue: 'Especial' },
+    { value: 'especial', viewValue: 'Especial               ' },
   ]
   userOptions:  rol[] = [
     {value: 'admin', viewValue: 'Administrador'},

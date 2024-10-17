@@ -6,7 +6,7 @@ import { inject } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { FooterDesktopComponent } from '../../footer-desktop/footer-desktop.component';
 import { AgregarConductorComponent } from '../agregar-conductor/agregar-conductor.component';
 import { NgModel } from '@angular/forms';
 import { NgIf } from '@angular/common';
@@ -16,7 +16,7 @@ import { EditUserComponent } from "../edit-user/edit-user.component";
 @Component({
   selector: 'app-conductores',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, AgregarConductorComponent, CdkDropList, CdkDrag, RouterLink, NgIf, EditUserComponent],
+  imports: [CommonModule, HeaderComponent, AgregarConductorComponent, CdkDropList, CdkDrag, RouterLink, NgIf, EditUserComponent, FooterDesktopComponent],
   templateUrl: './conductores.component.html',
   styleUrl: './conductores.component.css'
 })

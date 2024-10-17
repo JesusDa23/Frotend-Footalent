@@ -6,38 +6,42 @@
                     stroke-linejoin="round" />
             </svg>
         </button>
-        <h1 class="text-lg text-white text-center my-2">Agregar Conductor</h1>
+        <h1 class="text-lg text-white text-center my-2">Agregar conductor</h1>
         <app-togglemenu />
     </div>
 </header>
 
+<body>
+    
 
-<section class="flex flex-col items-center justify-center px-6 mx-auto md:h-screen lg:py-0 pt-20 mt-1">
+
+<section class="flex flex-col items-center justify-center px-6 mx-auto sm:pt-32 pt-24 ">
     <div class="w-full  md:mt-0 sm:max-w-md xl:p-0 ">
 
         <form class="space-y-4 md:space-y-6" action="#">
 
             <div>
-                <label for="nombre" class="block mb-2 text-sm font-medium ">Nombres y Apellidos</label>
+                <label for="nombre" class="block mb-2 text-sm font-medium">Nombres y Apellidos</label>
                 <input [(ngModel)]="name" type="text" name="nombre" id="nombre"
-                    class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500 "
+                    class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
                     placeholder="John Smith" required="">
             </div>
 
-            <div class="flex gap-5">
-                <div>
-                    <label for="dni" class="block mb-2 text-sm font-medium ">DNI</label>
+            <div class="flex justify-between w-full gap-5">
+                <div class="w-1/2">
+                    <label for="dni" class="block mb-2 text-sm font-medium">DNI</label>
                     <input [(ngModel)]="dni" type="text" name="DNI" id="DNI"
-                        class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
+                        class="text-gray-900 w-full text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
                         placeholder="12345789" required="">
                 </div>
-                <div>
-                    <label for="phone" class="block mb-2 text-sm font-medium ">Teléfono</label>
+                <div class="w-1/2">
+                    <label for="phone" class="block mb-2 text-sm font-medium">Teléfono</label>
                     <input [(ngModel)]="phone" type="text" name="phone" id="phone"
-                        class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
+                        class="text-gray-900 text-sm w-full ml-0 focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
                         placeholder="12345789" required="">
                 </div>
             </div>
+
 
             <div>
                 <label for="email" class="block mb-2 text-sm font-medium ">Correo Electrónico</label>
@@ -58,52 +62,57 @@
                 <select id="type_rol" name="type_rol" [(ngModel)]="selectedRol"
                     class="text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500"
                     required="">
-                    
+
                     @for (item of userOptions; track item) {
-                        <option [value]="item.value">{{item.viewValue}}</option>
-                        }
-                   
+                    <option [value]="item.value">{{item.viewValue}}</option>
+                    }
+
                 </select>
             </div>
             <hr>
             <div>
                 <label for="licencia" class="block mb-2 text-sm font-medium ">Número de licencia</label>
                 <input [(ngModel)]="licencia" type="text" name="licencia" id="licencia"
-                    class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500 "
+                    class="text-gray-900 text-sm w-full ml-0 focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500"
                     placeholder="12345789" required="">
             </div>
 
-            <div class="flex gap-5  content-stretch">
-                <div>
-                    <label for="type_licence" class="block mb-2 text-sm font-medium ">Tipo de licencia</label>
+            <div class="flex justify-between w-full gap-5">
+                <div class="w-1/2">
+                    <label for="type_licence" class="block mb-2 text-sm font-medium">Tipo de licencia</label>
                     <select id="type_licence" name="type_licence" [(ngModel)]="selectedLicence"
-                        class="text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500"
+                        class="text-gray-900 text-sm w-full ml-0 focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
                         required="">
-                        
                         @for (item of licenceOptions; track item) {
-                            <option [value]="item.value">{{item.viewValue}}</option>
-                            }
-                       
+                        <option [value]="item.value">{{item.viewValue}}</option>
+                        }
                     </select>
                 </div>
 
-                <div>
-                    <label for="vencimiento" class="block  mb-2 text-sm font-medium ">Vencimiento</label>
+                <div class="w-1/2">
+                    <label for="vencimiento" class="block mb-2 text-sm font-medium">Vencimiento</label>
                     <input [(ngModel)]="expiration_licence" type="date" name="vencimiento" id="vencimiento"
-                        class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500 "
+                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
                         required="">
                 </div>
-
             </div>
+
         </form>
+        <section>
+            <div class="relative bottom-0  text-gray-900 text-sm  focus:ring-primary-600  block w-full mt-6  dark:placeholder-gray-400  dark:focus:ring-blue-500 "
+                type="submit">
 
+                <button (click)="onSubmit()"
+                    class="bg-btnColor font-normal block w-full p-2.5  text-white px-4 py-2 rounded md:w-full">Guardar
+                    perfil</button>
+            </div>
+        </section>
     </div>
-</section>
 
-<section>
-    <div class="relative bottom-0  w-full p-4 bg-bgBtn flex flex-col justify-center" type="submit">
 
-        <button (click)="onSubmit()" class="bg-btnColor font-normal mx-auto text-white w-full px-4 py-2 rounded">Guardar
-            perfil</button>
-    </div>
 </section>
+</body>
+
+<div class="fixed bottom-0 left-0 right-0 w-100">
+    <app-footer-desktop></app-footer-desktop>
+</div>

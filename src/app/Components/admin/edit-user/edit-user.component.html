@@ -1,89 +1,59 @@
-<header id="top-bar" class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
-    <div class="flex justify-between items-center p-4">
-        <button (click)="goBack()" class="text-white">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </svg>
-        </button>
-        <h1 class="text-lg text-white text-center my-2">Editar perfil</h1>
-        <app-togglemenu />
-    </div>
-</header>
+<body>
 
+    <header id="top-bar" class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
+        <div class="flex justify-between items-center p-4">
+            <button (click)="goBack()" class="text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke="#FAFAFA" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            <h1 class="text-lg text-white text-center my-2">Editar perfil</h1>
+            <app-togglemenu />
+        </div>
+    </header>
 
+    <section class="mainSection flex flex-col items-center justify-center px-6 py-8 mx-auto pt-24 mb-40 overflow-y">
+        <div class="w-full md:mt-0 sm:max-w-md xl:p-0">
 
-<section class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 pt-24 mb-44 overflow-y">
-    <div class="w-full  md:mt-0 sm:max-w-md xl:p-0 ">
+            <form class="space-y-4 md:space-y-6" action="#">
 
-        <form class="space-y-4 md:space-y-6" action="#">
-
-            <div>
-                <label for="nombre" class="block mb-1 text-sm font-medium ">Nombre y Apellido</label>
-                <input [(ngModel)]="user.name" type="text" name="nombre" id="nombre"
-                    class="  text-gray-600 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500 "
-                    placeholder="John Smith" readonly>
-            </div>
-
-            <div class="flex gap-5">
                 <div>
-                    <label for="dni" class="block mb-1 text-sm font-medium ">DNI</label>
-                    <input [(ngModel)]="user.dni" type="text" name="DNI" id="DNI"
-                        class="  text-gray-600 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
-                        placeholder="12345789" readonly>
+                    <label for="nombre" class="block mb-2 text-sm font-medium">Nombre y Apellido</label>
+                    <input [(ngModel)]="user.name" type="text" name="nombre" id="nombre"
+                        class="text-gray-600 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                        placeholder="John Smith" readonly>
                 </div>
-                <div>
-                    <label for="phone" class="block mb-1 text-sm font-medium ">Teléfono</label>
-                    <input [(ngModel)]="user.phone" type="text" name="phone" id="phone"
-                        class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
-                        placeholder="12345789" required="">
+
+                <div class="flex justify-between w-full gap-5">
+                    <div class="w-1/2">
+                        <label for="dni" class="block mb-2 text-sm font-medium">DNI</label>
+                        <input [(ngModel)]="user.dni" type="text" name="DNI" id="DNI"
+                            class="text-gray-600 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                            placeholder="12345789" readonly>
+                    </div>
+                    <div class="w-1/2">
+                        <label for="phone" class="block mb-2 text-sm font-medium">Teléfono</label>
+                        <input [(ngModel)]="user.phone" type="text" name="phone" id="phone"
+                            class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                            placeholder="12345789" required>
+                    </div>
                 </div>
-            </div>
 
-            <div>
-                <label for="email" class="block mb-1 text-sm font-medium ">Correo electrónico</label>
-                <input [(ngModel)]="user.email" type="text" name="email" id="email"
-                    class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
-                    placeholder="john@mail.com" required="">
-            </div>
-
-            <div>
-                <label for="rolUsuario" class="block mb-1 text-sm font-medium ">Rol de usuario</label>
-                <select id="rolUsuario" name="rolUsuario" [(ngModel)]="user.rol"
-                    class="text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500"
-                    required="">
-
-                    @for (item of userOptions; track item) {
-                    <option [value]="item.value">{{item.viewValue}}</option>
-                    }
-
-                </select>
-            </div>
-
-            <div>
-                <label for="direccion" class="block mb-1 text-sm font-medium ">Dirección</label>
-                <input [(ngModel)]="user.address" type="text" name="direccion" id="direccion"
-                    class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 "
-                    placeholder="Miguel Angel Carcano, 1195" required="">
-            </div>
-
-
-            <hr>
-            <div>
-                <label for="licencia" class="block mb-1 text-sm font-medium ">Número de licencia</label>
-                <input [(ngModel)]="user.licencia" type="text" name="licencia" id="licencia"
-                    class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500 "
-                    placeholder="12345789" required="">
-            </div>
-
-            <div class="flex gap-5  content-stretch">
                 <div>
-                    <label for="tipoLicencia" class="block mb-1 text-sm font-medium ">Tipo de licencia</label>
-                    <select id="tipoLicencia" name="tipoLicencia" [(ngModel)]="user.type_licence"
-                        class="text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500"
-                        required="">
+                    <label for="email" class="block mb-2 text-sm font-medium">Correo electrónico</label>
+                    <input [(ngModel)]="user.email" type="text" name="email" id="email"
+                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                        placeholder="john@mail.com" required>
+                </div>
 
-                        @for (item of licenceOptions; track item) {
+                <div>
+                    <label for="rolUsuario" class="block mb-2 text-sm font-medium">Rol de usuario</label>
+                    <select id="rolUsuario" name="rolUsuario" [(ngModel)]="user.rol"
+                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                        required>
+
+                        @for (item of userOptions; track item) {
                         <option [value]="item.value">{{item.viewValue}}</option>
                         }
 
@@ -91,31 +61,66 @@
                 </div>
 
                 <div>
-                    <label for="vencimiento" class="block  mb-1 text-sm font-medium ">Vencimiento</label>
-                    <input [(ngModel)]="user.expiration_licence" type="date" name="vencimiento" id="vencimiento"
-                        class="  text-gray-900 text-sm  focus:ring-primary-600  block w-full p-2.5  dark:placeholder-gray-400  dark:focus:ring-blue-500 "
-                        placeholder="12345789" required="">
+                    <label for="direccion" class="block mb-2 text-sm font-medium">Dirección</label>
+                    <input [(ngModel)]="user.address" type="text" name="direccion" id="direccion"
+                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                        placeholder="Miguel Angel Carcano, 1195" required>
                 </div>
 
+                <hr>
+                <div>
+                    <label for="licencia" class="block mb-2 text-sm font-medium">Número de licencia</label>
+                    <input [(ngModel)]="user.licencia" type="text" name="licencia" id="licencia"
+                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                        placeholder="12345789" required>
+                </div>
 
-            </div>
-            <button (click)="resetPassword()" type="reset"
-                class="bg-red-700 font-normal mx-auto text-white w-full px-4 py-2 rounded">Restaurar Contraseña</button>
+                <div class="flex justify-between w-full gap-5">
+                    <div class="w-1/2">
+                        <label for="tipoLicencia" class="block mb-2 text-sm font-medium">Tipo de licencia</label>
+                        <select id="tipoLicencia" name="tipoLicencia" [(ngModel)]="user.type_licence"
+                            class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                            required>
 
-        </form>
+                            @for (item of licenceOptions; track item) {
+                            <option [value]="item.value">{{item.viewValue}}</option>
+                            }
+                        </select>
+                    </div>
 
+                    <div class="w-1/2">
+                        <label for="vencimiento" class="block mb-2 text-sm font-medium">Vencimiento</label>
+                        <input [(ngModel)]="user.expiration_licence" type="date" name="vencimiento" id="vencimiento"
+                            class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                            required>
+                    </div>
+                </div>
+
+                <button (click)="resetPassword()" type="reset"
+                    class="bg-red-700 font-normal mx-auto text-white w-full px-4 py-2 rounded">Restaurar
+                    Contraseña</button>
+
+            </form>
+        </div>
+    </section>
+
+
+
+    <section class="other-btns flex flex-col md:w-full md:mt-0 sm:max-w-md xl:p-0">
+        <div class="btn-container w-full p-4 bg-[#E8EFFF] flex flex-col gap-5 justify-center">
+            <button style="border: 1px solid #0A135D;" (click)="goToHistory()"
+                class="bg-inherit font-normal mx-auto text-blue-950 w-full px-6 py-2 rounded">
+                Historial de vehículos
+            </button>
+
+            <button (click)="editUser()" class="bg-btnColor font-normal mx-auto text-white w-full px-4 py-2 rounded">
+                Guardar perfil
+            </button>
+        </div>
+    </section>
+
+
+    <div class="fixed bottom-0 left-0 right-0 w-full">
+        <app-footer-desktop></app-footer-desktop>
     </div>
-</section>
-
-<section>
-    <div class="fixed bottom-0  w-full p-4 bg-[#E8EFFF] flex flex-col gap-5 justify-center" type="submit">
-
-        <button style="border: 1px solid #0A135D;" (click)="goToHistory()"
-            class="bg-inherit font-normal mx-auto text-blue-950 w-full px-6 py-2 rounded ">Historial de
-            vehículos</button>
-
-
-        <button (click)="editUser()" class="bg-btnColor font-normal mx-auto text-white w-full px-4 py-2 rounded">Guardar
-            perfil</button>
-    </div>
-</section>
+</body>

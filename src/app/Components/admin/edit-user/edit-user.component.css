@@ -1,0 +1,39 @@
+
+.other-btns {
+    background-color: #FAFAFA;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 10;
+}
+
+
+@media (max-width: 639px) {
+    .other-btns {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+
+}
+
+@media (min-width: 640px) {
+    .other-btns {
+        position: static;
+        width: 100%;
+        margin-bottom: 150px;
+    }
+
+    .mainSection {
+        margin-bottom: 0;
+    }
+
+    .btn-container{
+        padding: 0;
+        width: 100%;
+        background-color: white;
+      
+
+    }
+}
