@@ -24,16 +24,15 @@ export class PerfilVehiculoComponent {
   isLoading = false;
   isDropdownOpen = false;
   selectedStatus: string = 'Disponible';
-  categoriesNames:any[] = []
-  
-  
+
+  categoriesNames: any[] = []
 
   constructor(private accountsService: AccountsService, private route: ActivatedRoute, private flotaService: FlotaService, private location: Location, private router: Router, private categoriesService: AdmincheckService) { }
 
   ngOnInit(): void {
     this.isLoading = true;  // Activar el spinner antes de la carga de datos
     this.vehicleId = this.route.snapshot.paramMap.get('id');
-    
+
     this.flotaService.getFlotaById(this.vehicleId).subscribe({
       next: (data) => {
         this.vehicle = data;
@@ -45,13 +44,12 @@ export class PerfilVehiculoComponent {
         this.isLoading = false;  // Desactivar el spinner también si hay un error
       }
     });
-  
-    this.accountsService.isAdmin();
 
+    this.accountsService.isAdmin();
   }
 
   onStatusChange(): void {
-        // Actualizar el estado del vehículo en la base de datos
+    // Actualizar el estado del vehículo en la base de datos
     this.flotaService.updateFlotas(this.vehicle._id, { status: this.vehicle.status })
       .subscribe({
         next: (response) => {
@@ -68,7 +66,7 @@ export class PerfilVehiculoComponent {
   loadCategories() {
     this.categoriesService.getCategories().subscribe(data => {
       this.categoriesNames = data;
-  
+
       // Verificar si la categoría seleccionada del vehículo existe entre las opciones
       const selectedCategory = this.categoriesNames.find(category => category._id === this.vehicle.category);
       if (selectedCategory) {
@@ -78,24 +76,26 @@ export class PerfilVehiculoComponent {
   }
 
   guardarPerfil() {
-  // Guardar los cambios en el vehículo
-  this.flotaService.updateFlotas(this.vehicleId, this.vehicle)
-    .subscribe({
-      next: (response) => {
-        console.log('Perfil actualizado exitosamente', response);
-        Swal.fire({
-          position: "center",
-          icon: "success",  // Corrige el icono a 'success'
-          title: "Se guardó exitosamente",  // Pequeño ajuste ortográfico
-          showConfirmButton: false,
-          timer: 1000
-        });  // Cierra correctamente el paréntesis
-      },
-      error: (error) => {
-        console.error('Error al actualizar el perfil', error);
-      }
-    });
-}
+    // Guardar los cambios en el vehículo
+    this.flotaService.updateFlotas(this.vehicleId, this.vehicle)
+      .subscribe({
+        next: (response) => {
+          this.onStatusChange();
+
+          console.log('Perfil actualizado exitosamente', response);
+          Swal.fire({
+            position: "center",
+            icon: "success",  // Corrige el icono a 'success'
+            title: "Se guardó exitosamente",  // Pequeño ajuste ortográfico
+            showConfirmButton: false,
+            timer: 1000
+          });  // Cierra correctamente el paréntesis
+        },
+        error: (error) => {
+          console.error('Error al actualizar el perfil', error);
+        }
+      });
+  }
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen; // Toggle dropdown visibility
@@ -116,10 +116,9 @@ export class PerfilVehiculoComponent {
         // If confirmed, proceed with the status change
         this.selectedStatus = status; // Update the selected status
         this.vehicle.status = status;  // Update the vehicle status
-  
-        this.onStatusChange();  // Call the update method
+          // Call the update method
         this.isDropdownOpen = false; // Close dropdown after selection
-  
+
         // Show success message
         Swal.fire({
           title: 'Estado cambiado',
@@ -130,9 +129,8 @@ export class PerfilVehiculoComponent {
       }
     });
   }
-  
 
-  onEditInspeccion(){
+  onEditInspeccion() {
     this.router.navigate(['/admincheck'])
   }
 
@@ -140,7 +138,7 @@ export class PerfilVehiculoComponent {
     this.router.navigate(['/home'])
   }
 
-  onNavegation(){
-    this.router.navigate(['/mantenimientos' , this.vehicleId])
+  onNavegation() {
+    this.router.navigate(['/mantenimientos', this.vehicleId])
   }
 }
