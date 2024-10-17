@@ -14,7 +14,7 @@ body{
     z-index: 10;
 }
 
-#nombre, #dni {
+#nombre, #dni, #licencia {
     color: grey;
 }
 

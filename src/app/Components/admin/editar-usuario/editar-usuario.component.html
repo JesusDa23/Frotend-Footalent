@@ -104,10 +104,8 @@
                         class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
                         placeholder="123456789" 
                         [value]="licencia"
-                        required>
-                        <div *ngIf="f['licencia'].touched && f['licencia'].invalid" class="text-red-500 text-sm">
-                            <div *ngIf="f['licencia'].errors?.['required']">La licencia es obligatoria.</div>
-                        </div>
+                        readonly>
+                       
                 </div>
 
                 <!--TIPO LICENCIA -->
@@ -116,7 +114,7 @@
                         <label for="type_licence" class="block mb-2 text-sm font-medium">Tipo de licencia</label>
                         <select formControlName="selectedLicence" id="type_licence"
                             class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                            [value]="licencia"
+                            [value]="type_licence"
                             required>
                             <option *ngFor="let item of licenceOptions" [value]="item.value">{{ item.viewValue }}
                             </option>
