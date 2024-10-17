@@ -6,19 +6,46 @@ import { FooterDesktopComponent } from '../../footer-desktop/footer-desktop.comp
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgForOf, NgFor, NgIf } from '@angular/common';
-import Swal from 'sweetalert2'
-
+import Swal from 'sweetalert2';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 @Component({
-  selector: 'app-new-user',
+  selector: 'app-editar-usuario',
   standalone: true,
-  imports: [TogglemenuComponent, FooterDesktopComponent, ReactiveFormsModule, NgForOf, NgFor, NgIf],
-  templateUrl: './new-user.component.html',
-  styleUrl: './new-user.component.css'
+  imports: [TogglemenuComponent, FooterDesktopComponent, ReactiveFormsModule, NgForOf, NgIf],
+  templateUrl: './editar-usuario.component.html',
+  styleUrl: './editar-usuario.component.css'
 })
-export class NewUserComponent {
+export class EditarUsuarioComponent {
   conductorForm: FormGroup;
+
+  userId: any = "";
+  name: string = "";
+  dni: string = "";
+  password: string = "";
+  email: string = "";
+  address: string = "";
+  phone: string = "";
+  licencia: string = "";
+  rol: string = "";
   randomPassword: string = "";
+  type_licence: string = "";
+  expiration_licence: string = "";
+  isLoading = false;
+
+  user: any = {
+    user: "",
+    name: "",
+    dni: "",
+    password: "",
+    email: "",
+    address: "",
+    phone: "",
+    licencia: "",
+    rol: "",
+    type_licence: "",
+    expiration_licence: ""
+  }
 
   userOptions = [
     { value: 'admin', viewValue: 'Administrador' },
@@ -30,16 +57,18 @@ export class NewUserComponent {
     { value: 'especial', viewValue: 'Especial' }
   ];
 
-  isLoading = false;
-
   constructor(private fb: FormBuilder,
+    private location: Location,
+    private route: ActivatedRoute,
+    private router: Router,
     private accountsService: AccountsService
+
   ) {
 
-    
+
     this.conductorForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      dni: ['', [Validators.required,  Validators.pattern('^[0-9]{11}$')]], // 11 digitos DNI
+      dni: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]], // 11 digitos DNI
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{10,12}$')]], // 10 a 12 digitos telefono
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
@@ -63,7 +92,7 @@ export class NewUserComponent {
     return result;
   }
 
-    onSubmit(): void {
+  onSubmit(): void {
     if (this.conductorForm.valid) {
       console.log('Form Data:', this.conductorForm.value);
       this.randomPassword = this.generatePassword()
@@ -80,8 +109,8 @@ export class NewUserComponent {
 
 
       this.accountsService.signUp(this.conductorForm.value).subscribe((res: any) => {
-        this.isLoading = true; 
-        
+        this.isLoading = true;
+
         if (res) {
           Swal.fire({
             position: "top-end",
@@ -100,7 +129,7 @@ export class NewUserComponent {
           });
           console.log("no enviado");
         }
-  
+
       })
 
 
@@ -110,12 +139,67 @@ export class NewUserComponent {
     }
   }
 
-  // Navigation back
-  goBack(): void {
-    // Implement navigation logic here
+  get f() {
+    return this.conductorForm.controls;
   }
 
-   get f() {
-    return this.conductorForm.controls;
+  getUserInfo() {
+    this.isLoading = true
+    this.userId = this.route.snapshot.paramMap.get('id');
+
+    this.accountsService.getUser(this.userId).subscribe((data: any) => {
+      if (data) {
+        this.isLoading = false
+
+        this.user = data
+        this.name = data.name
+        this.dni = data.dni,
+          this.name = data.name,
+          this.phone = data.phone,
+          this.email = data.email,
+          this.address = data.address,
+          this.rol = data.rol,
+          this.password = data.password,
+          this.licencia = data.licencia,
+          this.type_licence = data.type_licence,
+          this.expiration_licence = data.expiration_licence
+      }
+    })
+  }
+
+  goToHistory() {
+    const data = this.dni
+    this.router.navigate(['/historial-vehiculos', { state: data }])
+    console.log(data)
+  }
+
+  editUser() {
+    this.accountsService.updateUser(this.userId, this.user).subscribe((res: any) => {
+      Swal.fire('Actualizado!', 'El perfil ha sido actualizado.', 'success');
+
+    })
+  }
+
+  resetPassword() {
+    this.accountsService.requestResetPassword(this.email).subscribe((res: any) => {
+      if (res) {
+        Swal.fire('Restablecido!', 'El correo de restablecimiento ha sido enviado.', 'success');
+      } else {
+        Swal.fire('Error!', 'El correo de restablecimiento no ha sido enviado.', 'error');
+      }
+    })
+  }
+
+  ngOnInit() {
+    this.getUserInfo()
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

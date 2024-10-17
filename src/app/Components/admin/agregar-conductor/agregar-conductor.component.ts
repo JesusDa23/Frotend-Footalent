@@ -125,6 +125,7 @@ export class AgregarConductorComponent {
           showConfirmButton: false,
           timer: 1500
         });
+        
       } else {
         Swal.fire({
           position: "top-end",
@@ -137,6 +138,7 @@ export class AgregarConductorComponent {
       }
 
     })
+  
   }
 
   ngOnInit() {
