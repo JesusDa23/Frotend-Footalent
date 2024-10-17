@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
 export class HomeinsComponent {
   
   flotas:any = [];
+  filteredFlotas: any[] = [];
   vehicleForm: FormGroup;
   isEditMode = false;
   selectedVehicle: Vehicle | null = null;
@@ -58,8 +59,13 @@ export class HomeinsComponent {
   loadFlotas() {
     this.flotaService.getFlotas().subscribe(data => {
       this.flotas = data;
+      // this.filterVehicles();
     });
   }
+
+  // filterVehicles(): void {
+  //   this.filteredFlotas = this.flotas.filter(vehicle => vehicle.status === 'Disponible');
+  // }
 
 
 
