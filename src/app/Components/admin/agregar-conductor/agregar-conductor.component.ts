@@ -41,10 +41,10 @@ export class AgregarConductorComponent {
   address: string = "";
   phone: string = "";
   licencia: string = "";
-  rol: string = "";
+  rol: string = "user";
   licenceOptions: type_licence[] = [
     { value: 'comun', viewValue: 'Común' },
-    { value: 'especial', viewValue: 'Especial               ' },
+    { value: 'especial', viewValue: 'Especial' },
   ]
   userOptions:  rol[] = [
     {value: 'admin', viewValue: 'Administrador'},
@@ -110,9 +110,9 @@ export class AgregarConductorComponent {
       address: this.address,
       password: this.randomPassword,
       licencia: this.licencia,
+      rol: this.selectedRol,
       type_licence: this.selectedLicence,
       expiration_licence: this.expiration_licence,
-      rol: this.selectedRol
     };
 
     this.accountsService.signUp(newDriver).subscribe((res: any) => {

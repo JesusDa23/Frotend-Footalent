@@ -22,7 +22,7 @@ import { EditUserComponent } from './Components/admin/edit-user/edit-user.compon
 import { ChangePasswordComponent } from './Components/change-password/change-password.component';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { HistorialVehiculosComponent } from './Components/admin/historial-vehiculos/historial-vehiculos.component';
-
+import { NewUserComponent } from './Components/admin/new-user/new-user.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -49,7 +49,8 @@ export const routes: Routes = [
   { path: 'change-password', title: "Change Password", component: ChangePasswordComponent }, //voluntario
   { path: 'change-password-for-email/:token', title: "Change Password", component: ChangePasswordComponent }, //recuperar contraseña
   { path: 'forgot-password', title: "Forgot Password", component: ForgotPasswordComponent },
-  { path: 'historial-vehiculos', component: HistorialVehiculosComponent, canActivate: [authGuard]}
+  { path: 'historial-vehiculos', component: HistorialVehiculosComponent, canActivate: [authGuard]},
+  { path: 'new-user', component: NewUserComponent, canActivate: [authGuard]}
 
 ];
 
