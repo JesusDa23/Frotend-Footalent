@@ -52,12 +52,6 @@ export class AdmincheckService {
     return this.http.patch<Bullet>(`${this.apiUrl}/bullets/${bulletId}`, { description });
   }
 
-    // Delete a bullet
-  deleteBullet(bulletId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/bullets/${bulletId}`);
-  }
-
-
     // Update a category by ID
   updateCategory(id: string, category: Category): Observable<Category> {
     return this.http.put<Category>(`${this.apiUrl}/categories/${id}`, category, { headers: this.headers });
@@ -71,9 +65,15 @@ export class AdmincheckService {
   updateSection(sectionId: string, section: Section): Observable<Section> {
     return this.http.put<Section>(`${this.apiUrl}/sections/${sectionId}`, section, { headers: this.headers });
   }
+
+    // Delete a bullet
+  deleteBullet(bulletId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/bullets/${bulletId}`);
+  }
+
   // Delete section
   deleteSection(sectionId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/sections/${sectionId}`);
+    return this.http.delete<void>(`${this.apiUrl}/sectionsdel/${sectionId}`);
   }
 
   addBullet(sectionId: string, bullet: { description: string }): Observable<Section> {
