@@ -11,7 +11,7 @@
 
 <main>
     <div class="conductores flex flex-col px-6 rounded-sm mt-5 my-10 z-1">
-        <button (click)="selectDriver(user.dni)" [routerLink]="['/editar-perfil', user._id]" class="example-box"
+        <button (click)="selectDriver(user.dni)" [routerLink]="['/editar-usuario', user._id]" class="example-box"
             *ngFor="let user of retrievedUsers">
             <svg width="35px" height="35px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
@@ -62,7 +62,7 @@
 <div 
     class="bottom-bar fixed bottom-0 left-0 right-0 bg-blue-100  p-2 transition-transform duration-300 transform translate-y-0">
     <div class="flex justify-center">
-        <button routerLink="/agregar-conductor" class="w-full bg-[#0a135d] rounded p-2 text-white text-center m-2">
+        <button routerLink="/new-user" class="w-full bg-[#0a135d] rounded p-2 text-white text-center m-2">
             Agregar conductor
         </button>
     </div>
