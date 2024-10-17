@@ -68,17 +68,6 @@ export class NewUserComponent {
       console.log('Form Data:', this.conductorForm.value);
       this.randomPassword = this.generatePassword()
 
-      const name = this.conductorForm.value.name;
-      const dni = this.conductorForm.value.dni;
-      const phone = this.conductorForm.value.phone;
-      const email = this.conductorForm.value.email;
-      const address = this.conductorForm.value.address;
-      const selectedRol = this.conductorForm.value.selectedRol;
-      const licencia = this.conductorForm.value.licencia;
-      const selectedLicence = this.conductorForm.value.selectedLicence;
-      const expiration_licence = this.conductorForm.value.expiration_licence;
-
-
       this.accountsService.signUp(this.conductorForm.value).subscribe((res: any) => {
         this.isLoading = true; 
         
