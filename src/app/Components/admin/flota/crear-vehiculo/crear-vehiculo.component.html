@@ -17,9 +17,10 @@
     <p class="text-xl font-medium">Perfil del vehiculo</p>
 
     <!-- Selector para cambiar estado del vehículo, con margen a la izquierda -->
-    <div class="ml-4 max-w-40">
+    <div class="ml-4 max-w-100">
       <label for="status" class="text-sm font-bold mb-2"></label>
       <select [(ngModel)]="status" id="status" class="p-2 border border-gray-300 rounded-3xl w-full">
+        <option value="" disabled selected>Seleccione un estado</option>
         <option value="Disponible">Disponible</option>
         <option value="Ocupado">Ocupado</option>
         <option value="Reparacion">Reparación</option>
@@ -33,14 +34,14 @@
     <section class="flex space-x-4">
       <div class="flex-1 text-lg">
         <label>Marca</label>
-        <input [(ngModel)]="make"
+        <input maxlength="25" [(ngModel)]="make"
           class="w-full px-4 py-1 border-2 border-gray-500"
           id="selectMarca"
         />
       </div>
       <div class="flex-1 text-lg">
         <label>Placa</label>
-        <input [(ngModel)]="plate"
+        <input maxlength="6" [(ngModel)]="plate"
           class="w-full px-4 py-1 border-2 border-gray-500"
           id="selectPlaca"
         />
@@ -64,7 +65,7 @@
       </div>
       <div class="flex-1 text-lg">
         <label>Modelo</label>
-        <input [(ngModel)]="model"
+        <input maxlength="25" [(ngModel)]="model"
           class="w-full px-4 py-1 border-2 border-gray-500"
           id="selectModelo"/>
       </div>
@@ -73,15 +74,15 @@
     <section class="flex space-x-4">
       <div class="flex-1 text-lg">
         <label>Año de fabricación</label>
-        <input [(ngModel)]="year"
-          class="w-full px-4 py-1 border-2 border-gray-500"
-          id="selectModelo"/>
+        <input (input)="limitNumberLength($event, 4, 'year')" maxlength="4" type="number" [(ngModel)]="year"
+          class="w-full px-4 py-1 border-2 border-gray-500 no-spinner"
+          (keydown)="preventNegative($event)" />
       </div>
       <div class="flex-1 text-lg">
         <label>Kilometraje</label>
-        <input [(ngModel)]="mileage"
-          class="w-full px-4 py-1 border-2 border-gray-500"
-          id="selectModelo"/>
+        <input (input)="limitNumberLength($event, 10, 'mileage')" type="number" [(ngModel)]="mileage"
+          class="w-full px-4 py-1 border-2 border-gray-500 no-spinner"
+          required min="0" (keydown)="preventNegative($event)" />
       </div>
     </section>
 

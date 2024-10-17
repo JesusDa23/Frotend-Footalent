@@ -7,7 +7,7 @@ import { NgClass, UpperCasePipe } from '@angular/common';
 import { Location } from '@angular/common';
 import { log } from 'console';
 import { AccountsService } from '../../../../Services/accounts.service';
-
+import Swal from 'sweetalert2';
 import { SubheaderComponent } from '../../../subheader/subheader.component';
 
 
@@ -23,7 +23,9 @@ export class CrearVehiculoComponent {
   constructor(private accountsService: AccountsService, private location: Location, private _categorias: AdmincheckService, private _flotaService: FlotaService) { }
   arrayVehiculo: any = []
 
-  status: any;
+  status: string = "";
+
+
   make: any;
   plate: any;
   category: any;
@@ -31,6 +33,7 @@ export class CrearVehiculoComponent {
   mileage: any;
   year: any;
   TipoId: string = "";
+
 
 
   onClose(): void {
@@ -43,8 +46,8 @@ export class CrearVehiculoComponent {
 
   }
 
-  cargarcategorias(){
-    
+  cargarcategorias() {
+
     this._categorias.getCategories().subscribe(
       (data: any) => {
         this.arrayVehiculo = data;
@@ -65,29 +68,95 @@ export class CrearVehiculoComponent {
     return vin;
   }
 
+  preventNegative(event: KeyboardEvent): void {
+    if (event.key === '-' || event.key === 'e') {
+      event.preventDefault();
+    }
+  }
+
+  limitNumberLength(event: Event, maxLength: number, field: 'year' | 'mileage'): void {
+    const input = event.target as HTMLInputElement;
+    if (input.value.length > maxLength) {
+      input.value = input.value.slice(0, maxLength);
+    }
+
+    // Asigna el valor al campo correcto
+    if (field === 'year') {
+      this.year = Number(input.value);
+    } else if (field === 'mileage') {
+      this.mileage = Number(input.value);
+    }
+  }
+
+
+
   guardarVehiculo(): void {
 
+    const placaRegex = /^[A-Za-z]{3}[0-9]{3}$/;
     const vin = this.generateVIN();
     console.log("VIN generado:", vin);
     console.log("status:", this.TipoId);
     console.log("marca:", this.make);
     console.log("placa:", this.plate);
-    console.log("arrayvehiculo",this.arrayVehiculo)
+    console.log("arrayvehiculo", this.arrayVehiculo)
     console.log("modelo:", this.model);
+    console.log("year:", this.year);
 
     const vehiculo: any = {
       category: this.TipoId,
-      make : this.make,
-      plate : this.plate,
+      make: this.make,
+      plate: this.plate,
       model: this.model,
-      mileage : this.mileage,
+      mileage: this.mileage,
       year: this.year,
       vin: vin
     }
-    
+
+    if (
+      !this.TipoId || !this.make || !this.plate || !this.model ||
+      !this.mileage || !this.year || !this.status
+    ) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Todos los campos son obligatorios.",
+        showConfirmButton: false,
+        timer: 1600
+      });
+      return;
+    }
+
+    if (this.year < 1886 || this.year > 2025) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "El año de fabricación debe ser entre los años 1886 y 2025.",
+        showConfirmButton: false,
+        timer: 1600
+      });
+      return;
+    }
+
+    if (!placaRegex.test(this.plate)) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "La placa debe tener 3 letras seguidas de 3 números.",
+        showConfirmButton: false,
+        timer: 1600
+      });
+      return;
+    }
 
     this._flotaService.createNewFlota(vehiculo).subscribe({
       next: (response) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Flota creada exitosamente.",
+          showConfirmButton: false,
+          timer: 1600
+        });
         console.log("Flota creada exitosamente:", response);
         // Aquí puedes manejar la respuesta, como mostrar un mensaje al usuario
       },
@@ -97,7 +166,7 @@ export class CrearVehiculoComponent {
       }
     });
 
-    
+
   }
 
 
