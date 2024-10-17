@@ -117,13 +117,10 @@ export class FormresponsesComponent {
     doc.save('formularios_inspeccion.pdf');
   }
 
-
-
   goBack(): void {
     this.location.back();
   }
 
-  // Función para seleccionar/desmarcar todos los checkboxes
   toggleAll(event: any) {
     const checked = event.target.checked;
     this.filteredForms.forEach(form => form.selected = checked);
