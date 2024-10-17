@@ -159,7 +159,7 @@ export class MantenimientosComponent {
       }
     });
   }
-  
+
 
   actualizarMantenimiento(mantenimiento: any) {
     mantenimiento.fecha = new Date(mantenimiento.fecha).toISOString();
