@@ -93,6 +93,9 @@ export class CrearVehiculoComponent {
   guardarVehiculo(): void {
 
     const placaRegex = /^[A-Za-z]{3}[0-9]{3}$/;
+
+    this.plate = this.plate.toUpperCase();
+
     const vin = this.generateVIN();
     console.log("VIN generado:", vin);
     console.log("status:", this.TipoId);
