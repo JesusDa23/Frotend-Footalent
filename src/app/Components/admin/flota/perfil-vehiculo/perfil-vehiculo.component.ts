@@ -102,12 +102,35 @@ export class PerfilVehiculoComponent {
   }
 
   selectStatus(status: string) {
-    this.selectedStatus = status; // Update the selected status
-    this.vehicle.status = status; // Update the vehicle status
-
-    this.onStatusChange(); // Call the update method
-    this.isDropdownOpen = false; // Close dropdown after selection
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `Cambiar el estado del vehículo a "${status}"`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#0a135d',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cambiar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If confirmed, proceed with the status change
+        this.selectedStatus = status; // Update the selected status
+        this.vehicle.status = status;  // Update the vehicle status
+  
+        this.onStatusChange();  // Call the update method
+        this.isDropdownOpen = false; // Close dropdown after selection
+  
+        // Show success message
+        Swal.fire({
+          title: 'Estado cambiado',
+          text: `El estado del vehículo ha sido cambiado a "${status}"`,
+          icon: 'success',
+          confirmButtonColor: '#0a135d'
+        });
+      }
+    });
   }
+  
 
   onEditInspeccion(){
     this.router.navigate(['/admincheck'])

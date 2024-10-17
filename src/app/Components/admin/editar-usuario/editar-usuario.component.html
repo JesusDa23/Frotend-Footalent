@@ -1,5 +1,5 @@
-<body>
 
+<body>
     <header id="top-bar" class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
         <div class="flex justify-between items-center p-4">
             <button (click)="goBack()" class="text-white">
@@ -9,93 +9,127 @@
                 </svg>
             </button>
             <h1 class="text-lg text-white text-center my-2">Editar perfil</h1>
-            <app-togglemenu />
+            <app-togglemenu></app-togglemenu>
         </div>
     </header>
 
+
     <section class="mainSection flex flex-col items-center justify-center px-6 py-8 mx-auto pt-24 mb-40 overflow-y">
         <div class="w-full md:mt-0 sm:max-w-md xl:p-0">
+            <form [formGroup]="conductorForm" (ngSubmit)="onSubmit()" class="space-y-4 md:space-y-6">
 
-            <form class="space-y-4 md:space-y-6" action="#">
 
+                <!-- NOMBRE -->
                 <div>
-                    <label for="nombre" class="block mb-2 text-sm font-medium">Nombre y Apellido</label>
-                    <input [(ngModel)]="user.name" type="text" name="nombre" id="nombre"
-                        class="text-gray-600 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        placeholder="John Smith" readonly>
+                    <label for="nombre" class="block mb-2 text-sm font-medium">Nombres y apellidos</label>
+                    <input formControlName="name" id="nombre"
+                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                        placeholder="John Smith" 
+                        [value]="name"
+                        readonly>
+                    
                 </div>
+
+
 
                 <div class="flex justify-between w-full gap-5">
+                    <!-- DNI -->
                     <div class="w-1/2">
                         <label for="dni" class="block mb-2 text-sm font-medium">DNI</label>
-                        <input [(ngModel)]="user.dni" type="text" name="DNI" id="DNI"
-                            class="text-gray-600 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                            placeholder="12345789" readonly>
+                        <input formControlName="dni" id="dni"
+                            class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                            placeholder="12345789"
+                            [value]="dni">
+                        
                     </div>
+                    <!-- PHONE -->
                     <div class="w-1/2">
                         <label for="phone" class="block mb-2 text-sm font-medium">Teléfono</label>
-                        <input [(ngModel)]="user.phone" type="text" name="phone" id="phone"
+                        <input formControlName="phone" id="phone"
                             class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                            placeholder="12345789" required>
+                            placeholder="12345789"
+                            [value]="phone">
+                        <div *ngIf="f['phone'].touched && f['phone'].invalid" class="text-red-500 text-sm">
+                            <div *ngIf="f['phone'].errors?.['required']">El teléfono es obligatorio.</div>
+                            <div *ngIf="f['phone'].errors?.['pattern']">El teléfono debe tener entre 10 y 12 dígitos.
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- EMAIL -->
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium">Correo electrónico</label>
-                    <input [(ngModel)]="user.email" type="text" name="email" id="email"
+                    <input formControlName="email" id="email"
                         class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        placeholder="john@mail.com" required>
+                        placeholder="john@mail.com"
+                        [value]="email"
+                        required>
+                    <div *ngIf="f['email'].touched && f['email'].invalid" class="text-red-500 text-sm">
+                        <div *ngIf="f['email'].errors?.['required']">El correo electrónico es obligatorio.</div>
+                        <div *ngIf="f['email'].errors?.['email']">El formato de correo electrónico no es válido.</div>
+                    </div>
                 </div>
 
+                <!-- DIRECCION -->
                 <div>
-                    <label for="rolUsuario" class="block mb-2 text-sm font-medium">Rol de usuario</label>
-                    <select id="rolUsuario" name="rolUsuario" [(ngModel)]="user.rol"
+                    <label for="address" class="block mb-2 text-sm font-medium">Dirección</label>
+                    <input formControlName="address" type="text" id="address"
                         class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                        placeholder="Miguel Angel Carcano, 1195" 
+                        [value]="address"
                         required>
+                        <div *ngIf="f['address'].touched && f['address'].invalid" class="text-red-500 text-sm">
+                            <div *ngIf="f['address'].errors?.['required']">La dirección es obligatoria.</div>
+                        </div>
+                </div>
 
-                        @for (item of userOptions; track item) {
-                        <option [value]="item.value">{{item.viewValue}}</option>
-                        }
-
+                <!-- ROL -->
+                <div>
+                    <label for="type_rol" class="block mb-2 text-sm font-medium">Rol de usuario</label>
+                    <select formControlName="selectedRol" id="type_rol"
+                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                        [value]="rol"
+                        required>
+                        <option *ngFor="let item of userOptions" [value]="item.value">{{ item.viewValue }}</option>
                     </select>
                 </div>
 
-                <div>
-                    <label for="direccion" class="block mb-2 text-sm font-medium">Dirección</label>
-                    <input [(ngModel)]="user.address" type="text" name="direccion" id="direccion"
-                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        placeholder="Miguel Angel Carcano, 1195" required>
-                </div>
-
                 <hr>
+
+                <!-- LICENCIA -->
                 <div>
                     <label for="licencia" class="block mb-2 text-sm font-medium">Número de licencia</label>
-                    <input [(ngModel)]="user.licencia" type="text" name="licencia" id="licencia"
+                    <input formControlName="licencia" type="text" id="licencia"
                         class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        placeholder="12345789" required>
+                        placeholder="123456789" 
+                        [value]="licencia"
+                        readonly>
+                       
                 </div>
 
+                <!--TIPO LICENCIA -->
                 <div class="flex justify-between w-full gap-5">
                     <div class="w-1/2">
-                        <label for="tipoLicencia" class="block mb-2 text-sm font-medium">Tipo de licencia</label>
-                        <select id="tipoLicencia" name="tipoLicencia" [(ngModel)]="user.type_licence"
+                        <label for="type_licence" class="block mb-2 text-sm font-medium">Tipo de licencia</label>
+                        <select formControlName="selectedLicence" id="type_licence"
                             class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                            [value]="type_licence"
                             required>
-
-                            @for (item of licenceOptions; track item) {
-                            <option [value]="item.value">{{item.viewValue}}</option>
-                            }
+                            <option *ngFor="let item of licenceOptions" [value]="item.value">{{ item.viewValue }}
+                            </option>
                         </select>
                     </div>
-
                     <div class="w-1/2">
                         <label for="vencimiento" class="block mb-2 text-sm font-medium">Vencimiento</label>
-                        <input [(ngModel)]="user.expiration_licence" type="date" name="vencimiento" id="vencimiento"
+                        <input formControlName="expiration_licence" type="date" id="vencimiento"
                             class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                            [value]="expiration_licence"
                             required>
                     </div>
                 </div>
 
+                <!-- BTN -->
                 <button (click)="resetPassword()" type="reset"
                     class="bg-red-700 font-normal mx-auto text-white w-full px-4 py-2 rounded">Restaurar
                     Contraseña</button>
@@ -103,7 +137,6 @@
             </form>
         </div>
     </section>
-
 
 
     <section class="other-btns flex flex-col md:w-full md:mt-0 sm:max-w-md xl:p-0">
@@ -120,7 +153,9 @@
     </section>
 
 
-    <div class="fixed bottom-0 left-0 right-0 w-full">
+    <div class="fixed bottom-0 left-0 right-0 w-100">
         <app-footer-desktop></app-footer-desktop>
     </div>
+
+
 </body>

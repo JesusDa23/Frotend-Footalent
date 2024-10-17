@@ -1,3 +1,11 @@
+body{
+    background-color: #FAFAFA;
+}
+
+.text-gray-900{
+    border: 0.8px solid black;
+}
+
 
 .other-btns {
     background-color: #FAFAFA;
@@ -6,6 +14,9 @@
     z-index: 10;
 }
 
+#nombre, #dni, #licencia {
+    color: grey;
+}
 
 @media (max-width: 639px) {
     .other-btns {

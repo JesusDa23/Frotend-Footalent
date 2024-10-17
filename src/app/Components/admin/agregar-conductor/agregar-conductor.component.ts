@@ -7,10 +7,14 @@ import { AccountsService } from '../../../Services/accounts.service';
 
 import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
+import { FooterComponent } from '../../footer/footer.component';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FooterDesktopComponent } from "../../footer-desktop/footer-desktop.component";
+
+
 
 interface type_licence {
   value: string;
@@ -25,7 +29,7 @@ interface rol {
 @Component({
   selector: 'app-agregar-conductor',
   standalone: true,
-  imports: [SubheaderComponent, TogglemenuComponent, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
+  imports: [SubheaderComponent, TogglemenuComponent, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, FooterComponent, FooterDesktopComponent],
   templateUrl: './agregar-conductor.component.html',
   styleUrl: './agregar-conductor.component.css'
 })
@@ -37,7 +41,7 @@ export class AgregarConductorComponent {
   address: string = "";
   phone: string = "";
   licencia: string = "";
-  rol: string = "";
+  rol: string = "user";
   licenceOptions: type_licence[] = [
     { value: 'comun', viewValue: 'Común' },
     { value: 'especial', viewValue: 'Especial' },
@@ -106,9 +110,9 @@ export class AgregarConductorComponent {
       address: this.address,
       password: this.randomPassword,
       licencia: this.licencia,
+      rol: this.selectedRol,
       type_licence: this.selectedLicence,
       expiration_licence: this.expiration_licence,
-      rol: this.selectedRol
     };
 
     this.accountsService.signUp(newDriver).subscribe((res: any) => {
@@ -121,6 +125,7 @@ export class AgregarConductorComponent {
           showConfirmButton: false,
           timer: 1500
         });
+        
       } else {
         Swal.fire({
           position: "top-end",
@@ -133,6 +138,7 @@ export class AgregarConductorComponent {
       }
 
     })
+  
   }
 
   ngOnInit() {

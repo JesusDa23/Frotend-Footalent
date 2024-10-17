@@ -50,7 +50,8 @@ export class FormresponsesComponent {
         form.user.name.toLowerCase().includes(term) ||
         form.user.dni.toLowerCase().includes(term) ||
         form.vehicle.make.toLowerCase().includes(term) ||
-        form.vehicle.model.toLowerCase().includes(term)
+        form.vehicle.model.toLowerCase().includes(term) ||
+        form.vehicle.plate.toLowerCase().includes(term)
       );
     } else {
       // Resetear a todos los formularios si no se proporciona un término de búsqueda
@@ -116,13 +117,10 @@ export class FormresponsesComponent {
     doc.save('formularios_inspeccion.pdf');
   }
 
-
-
   goBack(): void {
     this.location.back();
   }
 
-  // Función para seleccionar/desmarcar todos los checkboxes
   toggleAll(event: any) {
     const checked = event.target.checked;
     this.filteredForms.forEach(form => form.selected = checked);
