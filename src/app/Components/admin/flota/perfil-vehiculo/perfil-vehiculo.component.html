@@ -22,10 +22,10 @@
       <div 
         class="p-1 border border-gray-300 rounded-3xl flex items-center justify-between cursor-pointer"
         [ngClass]="{
-          'bg-green-600': vehicle.status === 'Disponible', 
-          'bg-yellow-400': vehicle.status === 'Reparacion', 
-          'bg-red-600': vehicle.status === 'Ocupado', 
-          'bg-slate-200': vehicle.status === 'Deshabilitado'
+          'bg-[#15690B]': vehicle.status === 'Disponible', 
+          'bg-[#C39F0B]': vehicle.status === 'Reparacion', 
+          'bg-[#9E1618]': vehicle.status === 'Ocupado', 
+          'bg-[#85868B]': vehicle.status === 'Deshabilitado'
         }"
         (click)="toggleDropdown()">
         <div class="flex items-center">
@@ -34,9 +34,9 @@
             class="flex items-center justify-center h-2 w-2 rounded-full mx-2"
             [ngClass]="{
               'bg-[#59F63A]': vehicle.status === 'Disponible',
-              'bg-yellow-600': vehicle.status === 'Reparacion',
-              'bg-[#9E1618]': vehicle.status === 'Ocupado',
-              'bg-slate-700': vehicle.status === 'Deshabilitado'
+              'bg-[#815B12]': vehicle.status === 'Reparacion',
+              'bg-[#FE6B6D]': vehicle.status === 'Ocupado',
+              'bg-[#FAFAFA]': vehicle.status === 'Deshabilitado'
             }"></span>
           {{ vehicle.status }}
         </div>
@@ -117,7 +117,7 @@
       </button> -->
 
       <div class="fixed bottom-0 left-0 w-full bg-white z-10 shadow-lg p-4">
-        <button (click)="guardarPerfil()" class="w-full bg-[#001A72] text-white py-3 rounded-lg flex items-center justify-center">
+        <button (click)="guardarPerfil()" class="w-full bg-[#0A135D] text-white py-3 rounded-lg flex items-center justify-center">
           <i class="far fa-save mr-2"></i> Guardar perfil
         </button>
       </div>
