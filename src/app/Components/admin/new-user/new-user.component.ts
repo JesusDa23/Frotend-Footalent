@@ -33,10 +33,10 @@ export class NewUserComponent {
   isLoading = false;
 
   constructor(private fb: FormBuilder,
-    private accountsService: AccountsService
+    private accountsService: AccountsService, private location: Location
   ) {
 
-    
+
     this.conductorForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       dni: ['', [Validators.required,  Validators.pattern('^[0-9]{11}$')]], // 11 digitos DNI
@@ -69,8 +69,8 @@ export class NewUserComponent {
       this.randomPassword = this.generatePassword()
 
       this.accountsService.signUp(this.conductorForm.value).subscribe((res: any) => {
-        this.isLoading = true; 
-        
+        this.isLoading = true;
+
         if (res) {
           Swal.fire({
             position: "top-end",
@@ -89,7 +89,7 @@ export class NewUserComponent {
           });
           console.log("no enviado");
         }
-  
+
       })
 
 
@@ -101,7 +101,7 @@ export class NewUserComponent {
 
   // Navigation back
   goBack(): void {
-    // Implement navigation logic here
+    this.location.back();
   }
 
    get f() {
