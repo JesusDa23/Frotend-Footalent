@@ -23,7 +23,7 @@ import { ChangePasswordComponent } from './Components/change-password/change-pas
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { HistorialVehiculosComponent } from './Components/admin/historial-vehiculos/historial-vehiculos.component';
 import { NewUserComponent } from './Components/admin/new-user/new-user.component';
-import { EditarUsuarioComponent } from './Components/admin/editar-usuario/editar-usuario.component';
+// import { EditarUsuarioComponent } from './Components/admin/editar-usuarioEsteNo/editar-usuario.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },

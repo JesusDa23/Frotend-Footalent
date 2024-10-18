@@ -8,10 +8,10 @@
     <!-- Grid container for vehicle cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- Vehículo -->
-      <button [routerLink]="['/perfil-vehiculo', vehicle._id]" 
+      <button [routerLink]="['/perfil-vehiculo', vehicle._id]"
         class="flex p-2 bg-white text-left shadow-md rounded border border-cardBorder w-full mt-2 items-center justify-between"
         *ngFor="let vehicle of flotas">
-        
+
         <!-- Información del vehículo -->
         <div class="flex-1 w-32 m-2">
           <h2 class="text-lg font-medium">{{ vehicle.make }} - {{ vehicle.model }}</h2>
@@ -21,28 +21,26 @@
         <!-- Estado y flecha al final -->
         <div class="flex items-center space-x-4">
           <!-- Estado del vehículo -->
-          <span class="flex items-center rounded-full px-2 py-1 w-32 text-white text-sm" 
-                [ngClass]="{
+          <span class="flex items-center rounded-full px-2 py-1 w-32 text-white text-sm" [ngClass]="{
                   'bg-disponible': vehicle.status === 'Disponible', 
                   'bg-reparacion': vehicle.status === 'Reparacion',
                   'bg-ocupado': vehicle.status === 'Ocupado',
                   'bg-deshabilitado': vehicle.status === 'Deshabilitado'
                 }">
             <!-- Icono del círculo de estado -->
-            <i class="fa-solid fa-circle fa-2xs mr-2"
-               [ngClass]="{
+            <i class="fa-solid fa-circle fa-2xs mr-2" [ngClass]="{
                   'text-textDisponible': vehicle.status === 'Disponible', 
                   'text-textReparacion': vehicle.status === 'Reparacion',
                   'text-textOcupado': vehicle.status === 'Ocupado',
                   'text-textDeshabilitado': vehicle.status === 'Deshabilitado'
-                }"></i>  
+                }"></i>
             {{ vehicle.status | titlecase }}
           </span>
 
           <!-- Botón de flecha -->
         </div>
-        <div class="flex-none w-3 ml-2 cursor-pointer" 
-             [routerLink]="['/perfil-vehiculo', vehicle._id]" routerLinkActive="router-link-active">
+        <div class="flex-none w-3 ml-2 cursor-pointer" [routerLink]="['/perfil-vehiculo', vehicle._id]"
+          routerLinkActive="router-link-active">
           <i class="fa-solid fa-chevron-right"></i>
         </div>
       </button>
@@ -51,14 +49,25 @@
 </div>
 
 <!-- Bottom bar for mobile only (fixed at the bottom of the screen) -->
-<div
-  id="bottom-bar"
+<div id="bottom-bar"
   class="fixed bottom-0 left-0 right-0 bg-blue-100 shadow-lg p-2 transition-transform duration-300 transform translate-y-0 md:hidden">
   <div class="flex justify-center">
-    <button routerLink="/agregar-vehiculo"
-      class="w-full bg-[#0a135d] rounded p-2 text-white text-center m-2">
+    <button routerLink="/agregar-vehiculo" class="w-full bg-[#0a135d] rounded p-2 text-white text-center m-2">
       Agregar vehiculo
     </button>
+  </div>
+</div>
+
+<!-- Regular button for desktop view, hidden on mobile -->
+<div class="container mx-auto hidden md:block px-6  mt-[30px] mx-auto mb-[150px] w-[745px]">
+  <div class="flex justify-center w-[745px]">
+    <!-- Spacer on mobile, button under the second column on desktop -->
+    <div></div> <!-- Empty div for first column -->
+    <div class="mt-4">
+      <button routerLink="/agregar-vehiculo" class="bg-[#0a135d] w-[745px] rounded p-2 text-white text-center m-2">
+        Agregar vehiculo
+      </button>
+    </div>
   </div>
 </div>
 
@@ -73,14 +82,6 @@
     </div>
   </div>
 </div> -->
-
-<div class="static  mt-[30px] ml-auto mb-[150px] mr-auto w-[745px]  p-2 transition-transform duration-300 transform translate-y-0">
-  <div class="flex justify-center">
-      <button routerLink="/agregar-vehiculo" class="w-full bg-[#0a135d] rounded p-2 text-white text-center m-2">
-        Agregar vehiculo
-      </button>
-  </div>
-</div>
 
 <div class="fixed bottom-0 left-0 right-0">
   <app-footer-desktop></app-footer-desktop>

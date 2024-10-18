@@ -11,35 +11,65 @@
     </div>
 </header>
 
+<div *ngIf="isLoading" class="absolute inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-30 z-10">
+    <div class="loader"></div>
+</div>
 
-
-<div class="relative overflow-x-auto mx-5 shadow-md sm:rounded-lg">
-    <table class="w-full  text-left mt-24 rtl:text-right text-gray-500 ">
-        <thead class="text-white  bg-[#0A135D] ">
+<div class="w-full mt-[100px] mb-[150px] mx-auto mt-10">
+    <p class="w-full text-xl font-medium max-md:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%]  mx-auto">Vehículos usados</p>
+    <table
+        class="w-full max-md:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] border mx-auto text-left mt-8 rtl:text-right text-gray-500 ">
+        <thead class="text-white bg-[#0A135D] ">
             <tr>
-                <th scope="col" class="px-6 py-3 font-normal">
+                <th scope="col" class="px-6 py-3 text-lg font-normal">
                     Vehículo
+                    <button (click)="toggleVehicleFilters()" class="mb-4 px-4 py-2 bg-[#0A135D] text-white rounded-md">
+                        {{ showVehicleFilter ? '' : '' }}
+                        <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 8.20005L0 2.20005L1.4 0.800049L6 5.40005L10.6 0.800049L12 2.20005L6 8.20005Z"
+                                fill="white" />
+                        </svg>
+                    </button>
+
+                    <div *ngIf="showVehicleFilter">
+                        <div class="mb-4">
+                            <input type="text" id="filterVehicle" [(ngModel)]="filterVehicle"
+                                placeholder="Buscar por vehículo"
+                                class="mt-1 text-black p-2 w-full border border-gray-300 rounded-md">
+                        </div>
+                    </div>
                 </th>
-                <th scope="col" class="px-6 py-3 font-normal">
+                <th scope="col" class="px-6 py-3 text-lg font-normal">
                     Fecha de uso
+                    <button (click)="sortByDate()" class="mb-4 px-4 py-2 bg-[#0A135D] text-white rounded-md">
+                        {{ sortOrder ? '' : '' }}
+                        <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 8.20005L0 2.20005L1.4 0.800049L6 5.40005L10.6 0.800049L12 2.20005L6 8.20005Z"
+                                fill="white" />
+                        </svg>
+                    </button>
+
                 </th>
 
             </tr>
         </thead>
         <tbody>
-            
-            <tr class="vehicle odd:bg-white odd: even:bg-[#E8EFFF] even: border-b" *ngFor="let form of inspectionForms">
-
-                <ng-container *ngIf="form.user.dni === userDNI"> 
-                    <th scope="row" class="px-6 py-4 font-normal">
+            <tr class="vehicle odd:bg-white even:bg-[#E8EFFF] border-b" *ngFor="let form of filteredInspectionForms()">
+                <ng-container *ngIf="form.user.dni === userDNI">
+                    <th scope="row" class="px-6 py-4 text-lg font-normal">
                         {{ form.vehicle.make }} / {{ form.vehicle.plate }}
                     </th>
-                    <td class="px-6 py-4 font-normal text-gray-900">
+                    <td class="px-6 py-4 font-normal text-lg text-gray-900">
                         {{ form.submissionTime | date:'short' }}
                     </td>
                 </ng-container>
             </tr>
-
         </tbody>
     </table>
+</div>
+
+
+
+<div class="fixed bottom-0 left-0 right-0">
+    <app-footer-desktop></app-footer-desktop>
 </div>

@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import { AccountsService } from '../../../Services/accounts.service';
 import { ActivatedRoute } from '@angular/router';
 import { RouterLink } from '@angular/router';
-
+import { NgIf } from '@angular/common';
 import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 import { Location } from '@angular/common';
@@ -26,7 +26,7 @@ interface rol {
 @Component({
   selector: 'app-edit-user',
   standalone: true,
-  imports: [SubheaderComponent, TogglemenuComponent, FormsModule, RouterLink, FooterDesktopComponent],
+  imports: [SubheaderComponent, TogglemenuComponent, FormsModule, RouterLink, FooterDesktopComponent, NgIf],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'
 })

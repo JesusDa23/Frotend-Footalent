@@ -1,11 +1,24 @@
 
 .other-btns {
-    background-color: #FAFAFA;
     width: 100%;
     margin: 0 auto;
     z-index: 10;
 }
 
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #0A135D; 
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
 
 @media (max-width: 639px) {
     .other-btns {
@@ -31,7 +44,6 @@
 
     .btn-container{
         padding: 0;
-        width: 100%;
         background-color: white;
       
 

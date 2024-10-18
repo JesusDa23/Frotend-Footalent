@@ -30,7 +30,7 @@ export class NewUserComponent {
     { value: 'especial', viewValue: 'Especial' }
   ];
 
-  isLoading = false;
+  isLoading = true;
 
   constructor(private fb: FormBuilder,
     private accountsService: AccountsService,
@@ -39,12 +39,12 @@ export class NewUserComponent {
 
 
     this.conductorForm = this.fb.group({
-      dni: ['', [Validators.required,  
+      dni: ['', [Validators.required,
         // Validators.pattern('^[0-9]{11}$')
       ]], // 7-8 digitos DNI
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, 
+      phone: ['', [Validators.required,
         // Validators.pattern('^[0-9]{10,12}$')
       ]], // 10 a 12 digitos telefono
       address: ['', Validators.required],
@@ -69,7 +69,7 @@ export class NewUserComponent {
     return result;
   }
 
-    onSubmit(): void {
+  onSubmit(): void {
     if (this.conductorForm.valid) {
       console.log('Form Data:', this.conductorForm.value);
       this.randomPassword = this.generatePassword()
@@ -77,10 +77,8 @@ export class NewUserComponent {
       this.conductorForm.patchValue({
         password: this.randomPassword
       });
-  
-      this.accountsService.signUp(this.conductorForm.value).subscribe((res: any) => {
-        this.isLoading = true;
 
+      this.accountsService.signUp(this.conductorForm.value).subscribe((res: any) => {
         if (res) {
           Swal.fire({
             position: "top-end",
@@ -110,7 +108,12 @@ export class NewUserComponent {
     this.location.back();
   }
 
-   get f() {
+  get f() {
     return this.conductorForm.controls;
+  }
+
+  ngOnInit() {
+    this.isLoading = false;
+
   }
 }

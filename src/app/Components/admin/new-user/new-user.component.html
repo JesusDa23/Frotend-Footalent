@@ -1,4 +1,10 @@
+<div *ngIf="isLoading" class="absolute inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-30 z-10">
+    <div class="loader"></div>
+  </div>
+
 <body>
+    
+
     <header id="top-bar" class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
         <div class="flex justify-between items-center p-4">
             <button (click)="goBack()" class="text-white">
@@ -13,122 +19,128 @@
     </header>
 
     <section class="mainContainer flex flex-col items-center justify-center px-6 mx-auto sm:pt-32 pt-24">
-        <div class="w-full md:mt-0 sm:max-w-md xl:p-0">
-            <form [formGroup]="conductorForm" (ngSubmit)="onSubmit()" class="space-y-4 md:space-y-6">
+        <div *ngIf="!isLoading" class="p-4">
+
+            <div class="w-full md:mt-0 sm:max-w-md xl:p-0">
+                <form [formGroup]="conductorForm" (ngSubmit)="onSubmit()" class="space-y-4 md:space-y-6">
 
 
-                <!-- NOMBRE -->
-                <div>
-                    <label for="nombre" class="block mb-2 text-sm font-medium">Nombres y Apellidos</label>
-                    <input formControlName="name" id="nombre"
-                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        placeholder="John Smith">
-                    <div *ngIf="f['name'].touched && f['name'].invalid" class="text-red-500 text-sm">
-                        <div *ngIf="f['name'].errors?.['required']">El nombre es obligatorio.</div>
-                        <div *ngIf="f['name'].errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</div>
-                    </div>
-                </div>
-
-
-
-                <div class="flex justify-between w-full gap-5">
-                    <!-- DNI -->
-                    <div class="w-1/2">
-                        <label for="dni" class="block mb-2 text-sm font-medium">DNI</label>
-                        <input formControlName="dni" id="dni"
+                    <!-- NOMBRE -->
+                    <div>
+                        <label for="nombre" class="block mb-2 text-sm font-medium">Nombres y Apellidos</label>
+                        <input formControlName="name" id="nombre"
                             class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                            placeholder="12345789">
-                        <div *ngIf="f['dni'].touched && f['dni'].invalid" class="text-red-500 text-sm">
-                            <div *ngIf="f['dni'].errors?.['required']">El DNI es obligatorio.</div>
-                            <div *ngIf="f['dni'].errors?.['pattern']">El DNI debe tener 11 dígitos.</div>
-                        </div>
-                    </div>
-                    <!-- PHONE -->
-                    <div class="w-1/2">
-                        <label for="phone" class="block mb-2 text-sm font-medium">Teléfono</label>
-                        <input formControlName="phone" id="phone"
-                            class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                            placeholder="12345789">
-                        <div *ngIf="f['phone'].touched && f['phone'].invalid" class="text-red-500 text-sm">
-                            <div *ngIf="f['phone'].errors?.['required']">El teléfono es obligatorio.</div>
-                            <div *ngIf="f['phone'].errors?.['pattern']">El teléfono debe tener entre 10 y 12 dígitos.
+                            placeholder="John Smith">
+                        <div *ngIf="f['name'].touched && f['name'].invalid" class="text-red-500 text-sm">
+                            <div *ngIf="f['name'].errors?.['required']">El nombre es obligatorio.</div>
+                            <div *ngIf="f['name'].errors?.['minlength']">El nombre debe tener al menos 2 caracteres.
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- EMAIL -->
-                <div>
-                    <label for="email" class="block mb-2 text-sm font-medium">Correo Electrónico</label>
-                    <input formControlName="email" id="email"
-                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        placeholder="john@mail.com">
-                    <div *ngIf="f['email'].touched && f['email'].invalid" class="text-red-500 text-sm">
-                        <div *ngIf="f['email'].errors?.['required']">El correo electrónico es obligatorio.</div>
-                        <div *ngIf="f['email'].errors?.['email']">El formato de correo electrónico no es válido.</div>
+
+
+                    <div class="flex justify-between w-full gap-5">
+                        <!-- DNI -->
+                        <div class="w-1/2">
+                            <label for="dni" class="block mb-2 text-sm font-medium">DNI</label>
+                            <input formControlName="dni" id="dni"
+                                class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                                placeholder="12345789">
+                            <div *ngIf="f['dni'].touched && f['dni'].invalid" class="text-red-500 text-sm">
+                                <div *ngIf="f['dni'].errors?.['required']">El DNI es obligatorio.</div>
+                                <div *ngIf="f['dni'].errors?.['pattern']">El DNI debe tener 11 dígitos.</div>
+                            </div>
+                        </div>
+                        <!-- PHONE -->
+                        <div class="w-1/2">
+                            <label for="phone" class="block mb-2 text-sm font-medium">Teléfono</label>
+                            <input formControlName="phone" id="phone"
+                                class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                                placeholder="12345789">
+                            <div *ngIf="f['phone'].touched && f['phone'].invalid" class="text-red-500 text-sm">
+                                <div *ngIf="f['phone'].errors?.['required']">El teléfono es obligatorio.</div>
+                                <div *ngIf="f['phone'].errors?.['pattern']">El teléfono debe tener entre 10 y 12
+                                    dígitos.
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- DIRECCION -->
-                <div>
-                    <label for="address" class="block mb-2 text-sm font-medium">Dirección</label>
-                    <input formControlName="address" type="text" id="address"
-                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        placeholder="Miguel Angel Carcano, 1195" required>
+                    <!-- EMAIL -->
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium">Correo Electrónico</label>
+                        <input formControlName="email" id="email"
+                            class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                            placeholder="john@mail.com">
+                        <div *ngIf="f['email'].touched && f['email'].invalid" class="text-red-500 text-sm">
+                            <div *ngIf="f['email'].errors?.['required']">El correo electrónico es obligatorio.</div>
+                            <div *ngIf="f['email'].errors?.['email']">El formato de correo electrónico no es válido.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DIRECCION -->
+                    <div>
+                        <label for="address" class="block mb-2 text-sm font-medium">Dirección</label>
+                        <input formControlName="address" type="text" id="address"
+                            class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                            placeholder="Miguel Angel Carcano, 1195" required>
                         <div *ngIf="f['address'].touched && f['address'].invalid" class="text-red-500 text-sm">
                             <div *ngIf="f['address'].errors?.['required']">La dirección es obligatoria.</div>
                         </div>
-                </div>
+                    </div>
 
-                <!-- ROL -->
-                <div>
-                    <label for="type_rol" class="block mb-2 text-sm font-medium">Rol de usuario</label>
-                    <select formControlName="rol" id="type_rol"
-                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        required>
-                        <option *ngFor="let item of userOptions" [value]="item.value">{{ item.viewValue }}</option>
-                    </select>
-                </div>
+                    <!-- ROL -->
+                    <div>
+                        <label for="type_rol" class="block mb-2 text-sm font-medium">Rol de usuario</label>
+                        <select formControlName="rol" id="type_rol"
+                            class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                            required>
+                            <option *ngFor="let item of userOptions" [value]="item.value">{{ item.viewValue }}</option>
+                        </select>
+                    </div>
 
-                <hr>
+                    <hr>
 
-                <!-- LICENCIA -->
-                <div>
-                    <label for="licencia" class="block mb-2 text-sm font-medium">Número de licencia</label>
-                    <input formControlName="licencia" type="text" id="licencia"
-                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        placeholder="123456789" required>
+                    <!-- LICENCIA -->
+                    <div>
+                        <label for="licencia" class="block mb-2 text-sm font-medium">Número de licencia</label>
+                        <input formControlName="licencia" type="text" id="licencia"
+                            class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                            placeholder="123456789" required>
                         <div *ngIf="f['licencia'].touched && f['licencia'].invalid" class="text-red-500 text-sm">
                             <div *ngIf="f['licencia'].errors?.['required']">La licencia es obligatoria.</div>
                         </div>
-                </div>
-
-                <!--TIPO LICENCIA -->
-                <div class="flex justify-between w-full gap-5">
-                    <div class="w-1/2">
-                        <label for="type_licence" class="block mb-2 text-sm font-medium">Tipo de licencia</label>
-                        <select formControlName="type_licence" id="type_licence"
-                            class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                            required>
-                            <option *ngFor="let item of licenceOptions" [value]="item.value">{{ item.viewValue }}
-                            </option>
-                        </select>
                     </div>
-                    <div class="w-1/2">
-                        <label for="vencimiento" class="block mb-2 text-sm font-medium">Vencimiento</label>
-                        <input formControlName="expiration_licence" type="date" id="vencimiento"
-                            class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                            required>
-                    </div>
-                </div>
 
-                <!-- BTN -->
-                <section >
-                    <button type="submit" 
-                        class="bg-[#0a135d] font-normal block w-full p-2.5 text-white px-4 py-2 rounded md:w-full">Guardar
-                        perfil</button>
-                </section>
-            </form>
+                    <!--TIPO LICENCIA -->
+                    <div class="flex justify-between w-full gap-5">
+                        <div class="w-1/2">
+                            <label for="type_licence" class="block mb-2 text-sm font-medium">Tipo de licencia</label>
+                            <select formControlName="type_licence" id="type_licence"
+                                class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                                required>
+                                <option *ngFor="let item of licenceOptions" [value]="item.value">{{ item.viewValue }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="w-1/2">
+                            <label for="vencimiento" class="block mb-2 text-sm font-medium">Vencimiento</label>
+                            <input formControlName="expiration_licence" type="date" id="vencimiento"
+                                class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- BTN -->
+                    <section>
+                        <button type="submit"
+                            class="bg-[#0a135d] font-normal block w-full p-2.5 text-white px-4 py-2 rounded md:w-full">Guardar
+                            perfil</button>
+                    </section>
+                </form>
+            </div>
         </div>
     </section>
 

@@ -1,5 +1,10 @@
-
 <body>
+
+    <div *ngIf="isLoading"
+        class="absolute inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-30 z-10">
+        <div class="loader"></div>
+    </div>
+
     <header id="top-bar" class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform duration-300">
         <div class="flex justify-between items-center p-4">
             <button (click)="goBack()" class="text-white">
@@ -24,10 +29,8 @@
                     <label for="nombre" class="block mb-2 text-sm font-medium">Nombres y apellidos</label>
                     <input formControlName="name" id="nombre"
                         class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        placeholder="John Smith" 
-                        [value]="name"
-                        readonly>
-                    
+                        placeholder="John Smith" [value]="name" readonly>
+
                 </div>
 
 
@@ -38,17 +41,15 @@
                         <label for="dni" class="block mb-2 text-sm font-medium">DNI</label>
                         <input formControlName="dni" id="dni"
                             class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                            placeholder="12345789"
-                            [value]="dni">
-                        
+                            placeholder="12345789" [value]="dni">
+
                     </div>
                     <!-- PHONE -->
                     <div class="w-1/2">
                         <label for="phone" class="block mb-2 text-sm font-medium">Teléfono</label>
                         <input formControlName="phone" id="phone"
                             class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                            placeholder="12345789"
-                            [value]="phone">
+                            placeholder="12345789" [value]="phone">
                         <div *ngIf="f['phone'].touched && f['phone'].invalid" class="text-red-500 text-sm">
                             <div *ngIf="f['phone'].errors?.['required']">El teléfono es obligatorio.</div>
                             <div *ngIf="f['phone'].errors?.['pattern']">El teléfono debe tener entre 10 y 12 dígitos.
@@ -62,9 +63,7 @@
                     <label for="email" class="block mb-2 text-sm font-medium">Correo electrónico</label>
                     <input formControlName="email" id="email"
                         class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        placeholder="john@mail.com"
-                        [value]="email"
-                        required>
+                        placeholder="john@mail.com" [value]="email" required>
                     <div *ngIf="f['email'].touched && f['email'].invalid" class="text-red-500 text-sm">
                         <div *ngIf="f['email'].errors?.['required']">El correo electrónico es obligatorio.</div>
                         <div *ngIf="f['email'].errors?.['email']">El formato de correo electrónico no es válido.</div>
@@ -76,12 +75,10 @@
                     <label for="address" class="block mb-2 text-sm font-medium">Dirección</label>
                     <input formControlName="address" type="text" id="address"
                         class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        placeholder="Miguel Angel Carcano, 1195" 
-                        [value]="address"
-                        required>
-                        <div *ngIf="f['address'].touched && f['address'].invalid" class="text-red-500 text-sm">
-                            <div *ngIf="f['address'].errors?.['required']">La dirección es obligatoria.</div>
-                        </div>
+                        placeholder="Miguel Angel Carcano, 1195" [value]="address" required>
+                    <div *ngIf="f['address'].touched && f['address'].invalid" class="text-red-500 text-sm">
+                        <div *ngIf="f['address'].errors?.['required']">La dirección es obligatoria.</div>
+                    </div>
                 </div>
 
                 <!-- ROL -->
@@ -89,8 +86,7 @@
                     <label for="type_rol" class="block mb-2 text-sm font-medium">Rol de usuario</label>
                     <select formControlName="selectedRol" id="type_rol"
                         class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        [value]="rol"
-                        required>
+                        [value]="rol" required>
                         <option *ngFor="let item of userOptions" [value]="item.value">{{ item.viewValue }}</option>
                     </select>
                 </div>
@@ -102,10 +98,8 @@
                     <label for="licencia" class="block mb-2 text-sm font-medium">Número de licencia</label>
                     <input formControlName="licencia" type="text" id="licencia"
                         class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                        placeholder="123456789" 
-                        [value]="licencia"
-                        readonly>
-                       
+                        placeholder="123456789" [value]="licencia" readonly>
+
                 </div>
 
                 <!--TIPO LICENCIA -->
@@ -114,8 +108,7 @@
                         <label for="type_licence" class="block mb-2 text-sm font-medium">Tipo de licencia</label>
                         <select formControlName="selectedLicence" id="type_licence"
                             class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                            [value]="type_licence"
-                            required>
+                            [value]="type_licence" required>
                             <option *ngFor="let item of licenceOptions" [value]="item.value">{{ item.viewValue }}
                             </option>
                         </select>
@@ -124,8 +117,7 @@
                         <label for="vencimiento" class="block mb-2 text-sm font-medium">Vencimiento</label>
                         <input formControlName="expiration_licence" type="date" id="vencimiento"
                             class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
-                            [value]="expiration_licence"
-                            required>
+                            [value]="expiration_licence" required>
                     </div>
                 </div>
 
