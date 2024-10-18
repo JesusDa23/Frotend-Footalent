@@ -62,11 +62,9 @@
   </div>
 </div>
 
-<!-- Regular button for desktop view, hidden on mobile -->
-<div class="container mx-auto hidden md:block px-6">
+<!-- <div class="container mx-auto hidden md:block px-6">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <!-- Spacer on mobile, button under the second column on desktop -->
-    <div></div>  <!-- Empty div for first column -->
+    <div></div>  
     <div class="mt-4">
       <button routerLink="/agregar-vehiculo"
         class="w-full bg-[#0a135d] rounded  p-2 text-white text-center m-2">
@@ -74,4 +72,16 @@
       </button>
     </div>
   </div>
+</div> -->
+
+<div class="static  mt-[30px] ml-auto mb-[150px] mr-auto w-[745px]  p-2 transition-transform duration-300 transform translate-y-0">
+  <div class="flex justify-center">
+      <button routerLink="/agregar-vehiculo" class="w-full bg-[#0a135d] rounded p-2 text-white text-center m-2">
+        Agregar vehiculo
+      </button>
+  </div>
+</div>
+
+<div class="fixed bottom-0 left-0 right-0">
+  <app-footer-desktop></app-footer-desktop>
 </div>
