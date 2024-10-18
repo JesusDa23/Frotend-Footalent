@@ -87,7 +87,7 @@ button.example-box {
   }
 }
 
-@media (min-width: 888px) {
+@media (min-width: 768px) {
   .conductores {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-content: center;
