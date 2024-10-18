@@ -1,5 +1,18 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+
 .font-medium {
     font-family: "Roboto", sans-serif;
     padding-bottom: 10px;
 }
 
+@media (min-width: 768px) {
+    .container {
+        margin: 10px 10% auto 10%;    }
+
+        .name{
+            font-size: 22px;
+        }
+  }
