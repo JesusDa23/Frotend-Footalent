@@ -11,7 +11,7 @@
 
 <main>
     <div class="conductores flex flex-col px-6 rounded-sm mt-5 my-10 z-1">
-        <button (click)="selectDriver(user.dni)" [routerLink]="['/editar-perfil', user._id]" class="example-box shadow-md"
+        <button (click)="selectDriver(user.dni)" [routerLink]="['/editar-perfil', user._id]" class="example-box shadow-md rounded"
             *ngFor="let user of retrievedUsers">
             <svg width="35px" height="35px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
@@ -32,8 +32,8 @@
                     </g>
                 </g>
             </svg>
-            <div class="textContainer">
-                <p class="driverName">{{user.name}}</p>
+            <div class="textContainer m-2">
+                <p class="driverName text-lg font-medium">{{user.name}}</p>
                 <div class="flex items-center gap-1">
                     <svg width="14px" height="14px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -68,8 +68,8 @@
     </div>
 </div>
 
-<!-- <div class="fixed bottom-0 left-0 right-0">
+<div class="fixed bottom-0 left-0 right-0">
     <app-footer-desktop></app-footer-desktop>
-</div> -->
+</div>
 
 </body>
