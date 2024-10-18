@@ -68,8 +68,8 @@ export class EditarUsuarioComponent {
 
     this.conductorForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      dni: ['', [Validators.required, Validators.pattern('^[0-9]{11}$')]], // 11 digitos DNI
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10,12}$')]], // 10 a 12 digitos telefono
+      dni: ['', [Validators.required, Validators.pattern('^[0-9]{7,8}$')]], // 11 digitos DNI
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10,15}$')]], // 10 a 12 digitos telefono
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
       password: this.randomPassword,

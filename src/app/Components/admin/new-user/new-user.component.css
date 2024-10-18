@@ -5,3 +5,10 @@ body{
 .text-gray-900{
     border: 0.8px solid black;
 }
+
+@media (min-width: 640px) {
+    .mainContainer {
+        margin-bottom: 150px;
+    }
+
+}

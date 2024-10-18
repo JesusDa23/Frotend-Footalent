@@ -39,16 +39,21 @@ export class NewUserComponent {
 
 
     this.conductorForm = this.fb.group({
+      dni: ['', [Validators.required,  
+        // Validators.pattern('^[0-9]{11}$')
+      ]], // 7-8 digitos DNI
       name: ['', [Validators.required, Validators.minLength(2)]],
-      dni: ['', [Validators.required,  Validators.pattern('^[0-9]{11}$')]], // 11 digitos DNI
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10,12}$')]], // 10 a 12 digitos telefono
       email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, 
+        // Validators.pattern('^[0-9]{10,12}$')
+      ]], // 10 a 12 digitos telefono
       address: ['', Validators.required],
       password: this.randomPassword,
-      selectedRol: ['', Validators.required],
       licencia: ['', Validators.required],
-      selectedLicence: ['', Validators.required],
-      expiration_licence: ['', Validators.required]
+      type_licence: ['', Validators.required],
+      expiration_licence: ['', Validators.required],
+      rol: ['', Validators.required],
+
     });
   }
 
@@ -69,6 +74,10 @@ export class NewUserComponent {
       console.log('Form Data:', this.conductorForm.value);
       this.randomPassword = this.generatePassword()
 
+      this.conductorForm.patchValue({
+        password: this.randomPassword
+      });
+  
       this.accountsService.signUp(this.conductorForm.value).subscribe((res: any) => {
         this.isLoading = true;
 

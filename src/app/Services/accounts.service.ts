@@ -31,7 +31,7 @@ export class AccountsService {
 
   signUp(credentials: UserInfo): Observable<any> {
     this.construirHeaders();
-    return this.http.post(this.appUrl + "/signup", credentials, { headers: this.requestHeaders });
+    return this.http.post(this.appUrl + "/register", credentials, { headers: this.requestHeaders });
   }
 
   getUser(id: number) {

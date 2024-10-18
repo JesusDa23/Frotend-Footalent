@@ -48,11 +48,14 @@ export const routes: Routes = [
   { path: 'change-password-for-email/:token', title: "Change Password", component: ChangePasswordComponent }, //recuperar contraseña
   { path: 'forgot-password', title: "Forgot Password", component: ForgotPasswordComponent },
   { path: 'historial-vehiculos', component: HistorialVehiculosComponent, canActivate: [authGuard] },
-  { path: 'crear-perfil', component: NewUserComponent, canActivate: [authGuard] },
-  { path: 'editar-usuario/:id', component: EditarUsuarioComponent, canActivate: [authGuard] },
 
-  // { path: 'editar-perfil/:id', component: EditUserComponent, canActivate: [authGuard]},
-  { path: 'agregar-conductor', component: AgregarConductorComponent, canActivate: [authGuard]},
+  // antiguos
+  { path: 'editar-perfil/:id', component: EditUserComponent, canActivate: [authGuard] },
+  // { path: 'agregar-conductor', component: AgregarConductorComponent, canActivate: [authGuard]},
+
+  //  nuevos
+  // { path: 'editar-usuario/:id', component: EditarUsuarioComponent, canActivate: [authGuard] },
+  { path: 'crear-perfil', component: NewUserComponent, canActivate: [authGuard] },
 
 ];
 

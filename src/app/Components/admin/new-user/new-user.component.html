@@ -12,7 +12,7 @@
         </div>
     </header>
 
-    <section class="flex flex-col items-center justify-center px-6 mx-auto sm:pt-32 pt-24">
+    <section class="mainContainer flex flex-col items-center justify-center px-6 mx-auto sm:pt-32 pt-24">
         <div class="w-full md:mt-0 sm:max-w-md xl:p-0">
             <form [formGroup]="conductorForm" (ngSubmit)="onSubmit()" class="space-y-4 md:space-y-6">
 
@@ -83,7 +83,7 @@
                 <!-- ROL -->
                 <div>
                     <label for="type_rol" class="block mb-2 text-sm font-medium">Rol de usuario</label>
-                    <select formControlName="selectedRol" id="type_rol"
+                    <select formControlName="rol" id="type_rol"
                         class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
                         required>
                         <option *ngFor="let item of userOptions" [value]="item.value">{{ item.viewValue }}</option>
@@ -107,7 +107,7 @@
                 <div class="flex justify-between w-full gap-5">
                     <div class="w-1/2">
                         <label for="type_licence" class="block mb-2 text-sm font-medium">Tipo de licencia</label>
-                        <select formControlName="selectedLicence" id="type_licence"
+                        <select formControlName="type_licence" id="type_licence"
                             class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
                             required>
                             <option *ngFor="let item of licenceOptions" [value]="item.value">{{ item.viewValue }}
@@ -123,8 +123,8 @@
                 </div>
 
                 <!-- BTN -->
-                <section>
-                    <button type="submit"
+                <section >
+                    <button type="submit" 
                         class="bg-[#0a135d] font-normal block w-full p-2.5 text-white px-4 py-2 rounded md:w-full">Guardar
                         perfil</button>
                 </section>
