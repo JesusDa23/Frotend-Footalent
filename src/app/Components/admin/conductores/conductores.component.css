@@ -38,19 +38,13 @@ body{
 .driverName {
   text-transform: capitalize;
   font-family: "Roboto", sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 500;
-  font-style: normal;
   color: #0A0A0A;
 }
 
 .subtitle {
   color: #727679;
   font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 400;
+  
 }
 
 .example-box {
