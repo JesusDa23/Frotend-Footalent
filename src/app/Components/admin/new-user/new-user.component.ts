@@ -33,7 +33,8 @@ export class NewUserComponent {
   isLoading = false;
 
   constructor(private fb: FormBuilder,
-    private accountsService: AccountsService, private location: Location
+    private accountsService: AccountsService,
+    private location: Location
   ) {
 
 
@@ -91,15 +92,11 @@ export class NewUserComponent {
         }
 
       })
-
-
-      // You can send the data to your backend here
     } else {
       console.log('Form is invalid');
     }
   }
 
-  // Navigation back
   goBack(): void {
     this.location.back();
   }

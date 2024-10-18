@@ -52,7 +52,7 @@ export const routes: Routes = [
   { path: 'editar-usuario/:id', component: EditarUsuarioComponent, canActivate: [authGuard] },
 
   // { path: 'editar-perfil/:id', component: EditUserComponent, canActivate: [authGuard]},
-  // { path: 'agregar-conductor', component: AgregarConductorComponent, canActivate: [authGuard]},
+  { path: 'agregar-conductor', component: AgregarConductorComponent, canActivate: [authGuard]},
 
 ];
 
