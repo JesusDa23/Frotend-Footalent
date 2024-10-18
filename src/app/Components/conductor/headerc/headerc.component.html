@@ -1,24 +1,27 @@
 <div class="sticky top-0 left-0 right-0">
 
-  <header class="flex items-center justify-between bg-[#0a135d] pt-2 pl-4 pb-2 shadow-md ">
-    <div class="font-medium text-white mx-2 ">
-      <ul>
-        <li class="text-lg">Bienvenido, {{User?.name}}!</li>
-        <li class="text-gray-400">Conductor</li>
-      </ul>
+ 
+
+  <header class="w-full m-0 p-0 flex items-center justify-between bg-[#0a135d] pt-2  pl-4 pb-2 shadow-md">
+    <div class="w-full flex items-center justify-between">
+      <div class="font-medium text-white sm:ml-3 md:ml-[10%]">
+        <ul>
+          <li class="text-lg">Bienvenido, {{User?.name}}</li>
+          <li class="text-gray-400">Conductor</li>
+        </ul>
+      </div>
+  
+      <app-togglemenu class="sm:mr-3 md:mr-[10%]"></app-togglemenu>
     </div>
-    <app-togglemenu></app-togglemenu>
   </header>
 
-
-  <!-- barra de navegacion -->
   <nav class="flex justify-around bg-white padding-b-10 p-2 pt-4 shadow-md">
-    <button routerLink="/homec"
+    <button routerLink="/home"
       routerLinkActive="border-blue-500 text-blue-950 text-lg font-medium border-b-4 padding-b-10 border-blue-950 "
-      class="font-medium " [routerLinkActiveOptions]="{exact: true}">Inspeccion Vehicular</button>
-    <button routerLink="/reporte"
+      class="font-medium " [routerLinkActiveOptions]="{exact: true}">Flota vehicular</button>
+    <button routerLink="/conductores"
       routerLinkActive="border-blue-500 text-blue-950 text-lg font-medium border-b-4 border-blue-950 "
-      class="font-medium " [routerLinkActiveOptions]="{exact: true}">Reportar Incidente</button>
+      class="font-medium " [routerLinkActiveOptions]="{exact: true}">Conductores</button>
   </nav>
 
 </div>

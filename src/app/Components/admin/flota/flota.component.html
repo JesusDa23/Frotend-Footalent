@@ -6,10 +6,10 @@
 <div class="container mx-auto bg-white">
   <div *ngIf="!isLoading" class="p-4">
     <!-- Grid container for vehicle cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 gap-x-4">
       <!-- Vehículo -->
       <button [routerLink]="['/perfil-vehiculo', vehicle._id]"
-        class="flex p-2 bg-white text-left shadow-md rounded border border-cardBorder w-full mt-2 items-center justify-between"
+        class="flex p-2 bg-white text-left rounded border border-cardBorder w-full mt-2 items-center justify-between"
         *ngFor="let vehicle of flotas">
 
         <!-- Información del vehículo -->
@@ -83,6 +83,6 @@
   </div>
 </div> -->
 
-<div class="fixed bottom-0 left-0 right-0">
+<div class="relative bottom-0 left-0 right-0">
   <app-footer-desktop></app-footer-desktop>
 </div>

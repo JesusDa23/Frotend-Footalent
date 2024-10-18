@@ -7,6 +7,7 @@ import { Validators, FormBuilder, ReactiveFormsModule, FormGroup } from '@angula
 import { Category, Vehicle } from '../../models/vehicle.model';
 import { HeadercComponent } from '../headerc/headerc.component';
 import { Router } from '@angular/router';
+import { FooterDesktopComponent } from "../../footer-desktop/footer-desktop.component";
 
 
 
@@ -15,7 +16,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-homeins',
   standalone: true,
-  imports: [NgFor,ReactiveFormsModule, NgIf, NgClass, UpperCasePipe,HeadercComponent],
+  imports: [NgFor, ReactiveFormsModule, NgIf, NgClass, UpperCasePipe, HeadercComponent, FooterDesktopComponent],
   templateUrl: './homeins.component.html',
   styleUrl: './homeins.component.css'
 })

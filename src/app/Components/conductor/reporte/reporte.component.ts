@@ -5,10 +5,11 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { ReportarIncidenteService } from '../../../Services/reportar-incidente.service';
 import Swal from 'sweetalert2';
 import { error } from 'console';
+import { FooterDesktopComponent } from "../../footer-desktop/footer-desktop.component";
 @Component({
   selector: 'app-reporte',
   standalone: true,
-  imports: [ HeadercComponent, FormsModule, ReactiveFormsModule],
+  imports: [HeadercComponent, FormsModule, ReactiveFormsModule, FooterDesktopComponent],
   templateUrl: './reporte.component.html',
   styleUrl: './reporte.component.css'
 })
