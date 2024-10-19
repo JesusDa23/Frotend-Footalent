@@ -5,6 +5,7 @@ import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Bullet } from '../../../../models/bullet.model';
 import { TogglemenuComponent } from "../../../../togglemenu/togglemenu.component";
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -122,17 +123,40 @@ export class ListbulletsComponent {
     );
   }
 
-  deleteBullet(bulletId: string): void {
-    this.admincheckService.deleteBullet(bulletId).subscribe(
-      () => {
-        this.bullets = this.bullets.filter(bullet => bullet._id !== bulletId); // Remove from list
-      },
-      (error) => {
-        console.error('Error deleting bullet:', error);
-      }
-    );
-  }
-
+ // Delete a bullet
+deleteBullet(bulletId: string): void {
+  Swal.fire({
+    title: 'Estas seguro?',
+    text: "No podras revertir esto!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si, eliminar!',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.admincheckService.deleteBullet(bulletId).subscribe(
+        () => {
+          this.bullets = this.bullets.filter(bullet => bullet._id !== bulletId); // Remove from list
+          Swal.fire(
+            'Eliminado!',
+            'Se ha eliminado con exito',
+            'success'
+          );
+        },
+        (error) => {
+          console.error('Error deleting bullet:', error);
+          Swal.fire(
+            'Error!',
+            'Hubo un error al eliminar.',
+            'error'
+          );
+        }
+      );
+    }
+  });
+}
 
 
 
@@ -146,21 +170,6 @@ export class ListbulletsComponent {
     this.newBulletDescription = bullet.description; // Set newBulletDescription to the current description
   }
   
-
-
-  // Delete a section
-  deleteSection(id: string): void {
-    if (confirm('Are you sure you want to delete this section?')) {
-      this.admincheckService.deleteSection(id).subscribe(
-        () => {
-          this.bullets = this.bullets.filter(s => s._id !== id);
-        },
-        (error) => {
-          console.error('Error deleting section:', error);
-        }
-      );
-    }
-  }
 
   updateBullet(): void {
     if (this.editedBullet && this.newBulletDescription.trim() !== '') { // Use 'newBulletDescription' here as well
