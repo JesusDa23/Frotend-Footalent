@@ -66,11 +66,17 @@ export class ListbulletsComponent {
 
   createBullet(): void {
     if (this.newBulletDescription.trim()) {
-      const newBullet = { description: this.newBulletDescription, requerido: false, sectionId: this.sectionId };
+      const newBullet = { 
+        description: this.newBulletDescription, 
+        requerido: false, 
+        sectionId: this.sectionId 
+      };
+  
       this.admincheckService.createBullet(newBullet).subscribe(
         (createdBullet: Bullet) => {
-          this.bullets.push(createdBullet);
-          this.newBulletDescription = ''; // Clear the input field
+          this.bullets.push(createdBullet); // Add the new bullet to the list
+          this.newBulletDescription = ''; // Clear the input field after saving
+          this.isAdding = false; // Reset isAdding to hide the input form
         },
         (error) => {
           console.error('Error creating bullet:', error);
@@ -78,6 +84,7 @@ export class ListbulletsComponent {
       );
     }
   }
+  
 
 
   
@@ -132,12 +139,13 @@ export class ListbulletsComponent {
 
 
 
-  // Edit an existing section
-  editSection(section: Bullet): void {
+  editBullet(bullet: Bullet, event: Event): void {
+    event.stopPropagation();
     this.isEditing = true;
-    this.editedBullet = { ...section }; 
-    this.sectionName = section.description;
+    this.editedBullet = { ...bullet }; // Clone the bullet object to avoid direct mutation
+    this.newBulletDescription = bullet.description; // Set newBulletDescription to the current description
   }
+  
 
 
   // Delete a section
@@ -187,15 +195,7 @@ export class ListbulletsComponent {
       this.editedBullet = null;
       this.bulletDescription = '';
     }
-    
-    editBullet(bullet: Bullet, event: Event): void {
-      event.stopPropagation();
-      this.isEditing = true;
-      this.editedBullet = { ...bullet };
-      this.newBulletDescription = bullet.description; // Correct this to 'newBulletDescription'
-    }
-
-
+  
 
 
 

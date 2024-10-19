@@ -1,7 +1,7 @@
 <div class="container mx-auto bg-white">
   <div class="gap-[8px] p-4">
     <!-- Loop through all vehicles -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 gap-x-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 gap-x-">
 
       <ng-container *ngFor="let vehicle of flotas" class="">
         <!-- Only show 'Disponible' status -->
@@ -38,7 +38,7 @@
           </div>
           
           <!-- Arrow icon -->
-          <div class="flex-none w-3 ml-2 cursor-pointer" routerLink="inspeccion2">
+          <div class="flex-none w-3 ml-2 cursor-pointer" (click)="openins(vehicle.category, vehicle._id)">
             <i class="fa-solid fa-chevron-right"></i>
           </div>
         

@@ -33,7 +33,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
       <ng-container *ngIf="isEditing && editedBullet?._id === bullet._id; else viewBullet">
         <input 
           type="text" 
-          [(ngModel)]="bulletDescription"
+          [(ngModel)]="newBulletDescription" 
           class="border p-2 w-full rounded"
           placeholder="Enter bullet description"
           (click)="$event.stopPropagation()"
@@ -134,7 +134,23 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
   
 
 
-
+  <li *ngIf="isAdding" class="border border-blue-400 text-blue-500 bg-blue-100 p-2 mb-2 flex justify-between items-center rounded">
+    <input 
+      type="text" 
+      [(ngModel)]="newBulletDescription" 
+      class="border p-2 w-3/5 rounded"
+      placeholder="ej: Nueva Sección"
+    />
+    <div class="flex w-2/5 justify-end">
+      <button class="border border-blue-400 text-blue-500 bg-white p-1 rounded" (click)="createBullet()">
+        Guardar
+      </button>
+      <button class="bg-red-100 text-red-500 px-3 ml-2 border border-red-500 rounded" (click)="cancelAddNew()">
+        x 
+      </button>
+    </div>
+  </li>
+  
 
 
 
@@ -143,8 +159,7 @@ class="fixed top-0 left-0 right-0 z-10 bg-[#0a135d] shadow transition-transform 
         class="fixed bottom-0 left-0 right-0 bg-[#E8EFFF] shadow-lg p-2 transition-transform duration-300 transform translate-y-0">
       <button
         class="w-full bg-[#0a135d] rounded p-2 text-white text-center"
-        (click)="enableAddNew()"
-      >
+        (click)="enableAddNew()">
             Añadir
         </button>
         

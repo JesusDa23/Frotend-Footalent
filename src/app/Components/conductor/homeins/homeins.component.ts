@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FlotaService } from '../../../Services/flota.service';
 import { FlowbiteService } from '../../../Services/flowbite.service';
-import { NgFor, NgIf, NgClass, UpperCasePipe } from '@angular/common';
+import { NgFor, NgIf, NgClass, UpperCasePipe, CommonModule } from '@angular/common';
 import { Validators, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Category, Vehicle } from '../../models/vehicle.model';
 import { HeadercComponent } from '../headerc/headerc.component';
 import { Router } from '@angular/router';
 import { FooterDesktopComponent } from "../../footer-desktop/footer-desktop.component";
+import {RouterModule} from '@angular/router';
 
 
 
@@ -16,7 +17,8 @@ import { FooterDesktopComponent } from "../../footer-desktop/footer-desktop.comp
 @Component({
   selector: 'app-homeins',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule, NgIf, NgClass, UpperCasePipe, HeadercComponent, FooterDesktopComponent],
+  imports: [NgFor, ReactiveFormsModule, NgIf, NgClass, UpperCasePipe, CommonModule,
+    HeadercComponent, FooterDesktopComponent, RouterModule],
   templateUrl: './homeins.component.html',
   styleUrl: './homeins.component.css'
 })

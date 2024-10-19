@@ -47,9 +47,10 @@ export class AdmincheckService {
   getBulletsBySection(sectionId: string): Observable<Bullet[]> {
     return this.http.get<Bullet[]>(`${this.apiUrl}/sections/${sectionId}/bullets`);
   }
+  
     // Update an existing bullet
   updateBullet(bulletId: string, description: Bullet): Observable<Bullet> {
-    return this.http.patch<Bullet>(`${this.apiUrl}/bullets/${bulletId}`, { description });
+    return this.http.put<Bullet>(`${this.apiUrl}/bullets/${bulletId}`, { description });
   }
 
     // Update a category by ID
