@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
       },
       error: err => {
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "error",
           title: `Error al iniciar sesión\n${err.error.error}`,
           showConfirmButton: false,
