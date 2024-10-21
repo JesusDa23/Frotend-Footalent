@@ -75,6 +75,10 @@ export class PerfilVehiculoComponent {
     });
   }
 
+  listarConductores() {
+    this.router.navigate(['/historial-conductores', this.vehicleId]);
+  }
+
   guardarPerfil() {
     // Guardar los cambios en el vehículo
     this.flotaService.updateFlotas(this.vehicleId, this.vehicle)

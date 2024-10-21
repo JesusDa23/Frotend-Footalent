@@ -1,0 +1,36 @@
+<header class="relative flex items-center bg-bgColorBlue text-white p-4 shadow-md">
+    <button class="absolute left-0 p-4" (click)="goBack()">
+        <i class="fas fa-chevron-left text-white"></i>
+    </button>
+
+    <!-- Información del vehículo centrada -->
+    <div class="mx-auto flex items-center">
+        <h1 class="text-xl font-medium">Historial de conductores</h1>
+    </div>
+</header>
+
+<div *ngIf="isLoading" class="absolute inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-30 z-10">
+    <div class="loader"></div>
+</div>
+
+<div class="w-full mt-[100px] mb-[150px] mx-auto mt-10">
+    <div class="overflow-x-auto text-black shadow-lg m-3">
+        <table class="min-w-full table-auto">
+            <thead class="bg-bgColorBlue text-white">
+                <tr>
+                    <th class="p-2 text-left">Conductor</th>
+                    <th class="p-2 text-left">Fecha de uso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b">
+                    <td class="p-2"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="fixed bottom-0 left-0 right-0">
+    <app-footer-desktop></app-footer-desktop>
+</div>
