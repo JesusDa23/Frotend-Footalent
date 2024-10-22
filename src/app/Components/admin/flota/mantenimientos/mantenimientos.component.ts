@@ -10,22 +10,22 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-mantenimientos',
   standalone: true,
-  imports: [FormsModule, NgFor, TogglemenuComponent, RouterModule, NgIf, NgClass ],
+  imports: [FormsModule, NgFor, TogglemenuComponent, RouterModule, NgIf, NgClass],
   templateUrl: './mantenimientos.component.html',
   styleUrl: './mantenimientos.component.css'
 })
 export class MantenimientosComponent {
   mantenimientos: any[] = [];
   vehicleId: any = ''
-  flotas:any = [] 
+  flotas: any = []
   mantenimientoSelect: any[] = []
   isLoading = false;
 
   constructor(
     private mantenimientoService: MantenimientoService,
-    private cdr: ChangeDetectorRef, 
+    private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private flotaService: FlotaService 
+    private flotaService: FlotaService
   ) { }
 
   ngOnInit() {
@@ -35,14 +35,14 @@ export class MantenimientosComponent {
     this.obtenerMantenimientos();
     this.loadFlotas();
   }
-  
+
   obtenerMantenimientos() {
     this.mantenimientoService.getMantenimientoById(this.vehicleId).subscribe(
       (data: any) => {
         this.mantenimientos = data.map((mantenimiento: any) => {
           // Formatear la fecha para que se ajuste al campo input date
           mantenimiento.fecha = new Date(mantenimiento.fecha).toISOString().split('T')[0];
-          return mantenimiento;  
+          return mantenimiento;
         });
         this.isLoading = false;  // Desactivar el spinner cuando termine la carga
       },
@@ -52,7 +52,7 @@ export class MantenimientosComponent {
       }
     );
   }
-  
+
   loadFlotas() {
     this.flotaService.getFlotas().subscribe(
       (data: any) => {
@@ -74,11 +74,11 @@ export class MantenimientosComponent {
         m.isDropdownOpen = false;
       }
     });
-  
+
     // Abrir o cerrar el dropdown del mantenimiento seleccionado
     mantenimiento.isDropdownOpen = !mantenimiento.isDropdownOpen;
   }
-  
+
   selectEstado(mantenimiento: any, estado: string) {
     mantenimiento.estado = estado;
     mantenimiento.isDropdownOpen = false; // Cerrar el dropdown al seleccionar un estado
@@ -127,7 +127,7 @@ export class MantenimientosComponent {
             this.mantenimientos = this.mantenimientos.filter(m => m._id !== id);
             this.cdr.detectChanges();
             this.obtenerMantenimientos();
-            
+
             // Mostrar un SweetAlert de éxito
             Swal.fire({
               title: 'Eliminado',
@@ -138,7 +138,7 @@ export class MantenimientosComponent {
           },
           (error) => {
             console.error('Error al eliminar mantenimiento:', error);
-            
+
             // Mostrar un SweetAlert en caso de error
             Swal.fire({
               title: 'Error',
@@ -163,6 +163,20 @@ export class MantenimientosComponent {
 
   actualizarMantenimiento(mantenimiento: any) {
     mantenimiento.fecha = new Date(mantenimiento.fecha).toISOString();
+    console.log(mantenimiento)
+
+    const { vehicleId, descripcion, fecha } = mantenimiento
+
+    if (!vehicleId || !descripcion || !fecha) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Faltan datos para actualizar el mantenimiento.',
+        icon: 'error',
+        confirmButtonColor: '#0A135D'
+      });
+      return;
+    }
+
     this.mantenimientoService.updateMantenimientos(mantenimiento._id, mantenimiento).subscribe(
       (data: any) => {
         const index = this.mantenimientos.findIndex(m => m._id === data._id);

@@ -76,32 +76,34 @@
             </td>
             <td class="p-2">
               <select [(ngModel)]="mantenimiento.vehicleId" 
-              (blur)="actualizarMantenimiento(mantenimiento)" 
               type="text" class="border border-gray-300 rounded p-1 w-full">
+              <option value=""></option>
               <ng-container *ngFor="let item of flotas">
-                <option value=""></option>
                 <option [value]='item._id'>{{item.plate}}</option>
               </ng-container>
             </select>
             </td>
             <td class="p-2">
-              <input [(ngModel)]="mantenimiento.descripcion" (blur)="actualizarMantenimiento(mantenimiento)" type="text" class="border border-gray-300 rounded p-1 w-full" />
+              <input [(ngModel)]="mantenimiento.descripcion" type="text" class="border border-gray-300 rounded p-1 w-full" />
             </td>
             <td class="p-2">
-              <input [(ngModel)]="mantenimiento.fecha" (change)="actualizarMantenimiento(mantenimiento)" type="date" class="border border-gray-300 rounded p-1 w-full" />
+              <input [(ngModel)]="mantenimiento.fecha" type="date" class="border border-gray-300 rounded p-1 w-full" />
             </td>
             <td class="p-2">
-              <select [(ngModel)]="mantenimiento.categoria" (change)="actualizarMantenimiento(mantenimiento)" class="border border-gray-300 rounded p-1 w-full">
+              <select [(ngModel)]="mantenimiento.categoria" class="border border-gray-300 rounded p-1 w-full">
                 <option value="Mecánico">Mecánico</option>
                 <option value="Eléctrico">Eléctrico</option>
               </select>
             </td>
             <td class="p-2">
-              <input [(ngModel)]="mantenimiento.coste" (blur)="actualizarMantenimiento(mantenimiento)" type="text" class="border border-gray-300 rounded p-1 w-full" />
+              <input [(ngModel)]="mantenimiento.coste" type="text" class="border border-gray-300 rounded p-1 w-full" />
             </td>
             <td>
-                <button class="flex justify-center m-auto" (click)="eliminarMantenimiento(mantenimiento._id)" >
+                <button class="flex justify-center m-auto" (click)="eliminarMantenimiento(mantenimiento._id)">
                     <i class="text-red-700 text-lg fa-regular fa-circle-xmark"></i>
+                </button>
+                <button class="flex justify-center m-auto" (click)="actualizarMantenimiento(mantenimiento)">
+                  <i class="text-green-700 text-lg fa-solid fa-floppy-disk"></i>
                 </button>
                 <!-- <button class="flex justify-center m-auto">
                   <i class="fa-solid fa-floppy-disk"></i>

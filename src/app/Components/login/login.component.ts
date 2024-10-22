@@ -1,8 +1,7 @@
-import { Component, NgModule, OnInit } from '@angular/core';
-import { FormsModule, NgModel } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { AccountsService } from '../../Services/accounts.service';
 import { Credentials, resLoginUser } from '../../Interfaces/credentials';
-import { log } from 'node:console';
 import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2'
 import { NgClass, NgIf } from '@angular/common';
@@ -23,19 +22,15 @@ export class LoginComponent implements OnInit {
   showPassword = false;
   isLoading = false;
 
-  constructor(private _accountsService: AccountsService, private router: Router) { }
+  constructor(private _accountsService: AccountsService, private router: Router) {}
 
   ngOnInit(): void {
     this._accountsService.isLogedIn()
   }
 
-
-  
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-
-  
 
   botonLogIn() {
     if (this.email == "" || this.password == "") {
@@ -48,57 +43,58 @@ export class LoginComponent implements OnInit {
       });
       return;
     }
+  
     this.isLoading = true;
-    let user: Credentials = {
+    
+    const user: Credentials = {
       email: this.email,
       password: this.password
-    }
+    };
+  
     this._accountsService.logIn(user).subscribe({
       next: data => {
-      
-        let dataCast = data as resLoginUser;
+        const dataCast = data as resLoginUser;
         sessionStorage.setItem('token', dataCast.token);
-        // Store user information in sessionStorage
         sessionStorage.setItem('userInfo', JSON.stringify(dataCast.user));
+  
         this.isLoading = false; 
-        if(sessionStorage.getItem("token") != null){
-          this._accountsService.updateFirstLogin(dataCast.user.id, false).subscribe(
-            {next: data=> {
-              console.log("actualizado", data);
-              if(!dataCast.user.isFirstLogin){
-                if(dataCast.user.rol == "admin"){
-                  this.router.navigate(['/home']);
-                }
-                else if(dataCast.user.rol == "user"){
-                  this.router.navigate(['/homec']);
-                }
+  
+        if (sessionStorage.getItem("token") != null) {
+          if (!dataCast.user.isFirstLogin) {
+            this.navigateToRolePage(dataCast.user.rol);
+          } else {
+            this._accountsService.updateFirstLogin(dataCast.user.id, false).subscribe({
+              next: updateData => {
+                console.log("Estado de primer inicio actualizado", updateData);
+                this.router.navigate(["/change-password"]);
+              },
+              error: updateError => {
+                this.isLoading = false;
+                console.error("Error al actualizar el estado del primer inicio de sesión", updateError);
               }
-              else{
-                this.router.navigate(["/change-password"])
-              }
-            },
-          error: data=>
-          {
-            this.isLoading = false;
-            console.error("error al actualizar el estado del primer inicio de sesion", data);
+            });
           }
-          })
-
-
         }
       },
       error: err => {
         Swal.fire({
           position: "center",
           icon: "error",
-          title: `Error al iniciar sesión${err?.error?.error ? `\n${err.error.error}` : ''}`,
+          title: `Error al iniciar sesión ${err?.error?.error ? `\n${err.error.error}` : ''}`,
           showConfirmButton: false,
           timer: 1600
         });
-        console.log("data", err);
-        this.isLoading = false; 
+        this.isLoading = false;
+        console.log("Error en el login", err);
       }
     });
-
+  }
+  
+  private navigateToRolePage(rol: string) {
+    if (rol === "admin") {
+      this.router.navigate(['/home']);
+    } else if (rol === "user") {
+      this.router.navigate(['/homec']);
+    }
   }
 }

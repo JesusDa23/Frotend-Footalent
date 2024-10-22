@@ -23,6 +23,7 @@ import { ChangePasswordComponent } from './Components/change-password/change-pas
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { HistorialVehiculosComponent } from './Components/admin/historial-vehiculos/historial-vehiculos.component';
 import { NewUserComponent } from './Components/admin/new-user/new-user.component';
+import { HistorialConductoresComponent } from './Components/admin/flota/historial-conductores/historial-conductores.component';
 // import { EditarUsuarioComponent } from './Components/admin/editar-usuarioEsteNo/editar-usuario.component';
 
 export const routes: Routes = [
@@ -48,6 +49,7 @@ export const routes: Routes = [
   { path: 'change-password-for-email/:token', title: "Change Password", component: ChangePasswordComponent }, //recuperar contraseña
   { path: 'forgot-password', title: "Forgot Password", component: ForgotPasswordComponent },
   { path: 'historial-vehiculos', component: HistorialVehiculosComponent, canActivate: [authGuard] },
+  { path: 'historial-conductores/:vehicleId', component: HistorialConductoresComponent, canActivate: [authGuard] },
 
   // antiguos
   { path: 'editar-perfil/:id', component: EditUserComponent, canActivate: [authGuard] },

@@ -1,10 +1,8 @@
 <!-- header.component.html -->
 <div class="relative p-2">
-    <div [ngClass]="{
-        'rotate-90': isMenuOpen,
-        'rotate-0': !isMenuOpen  
-      }" class="mx-2 transition-transform duration-300">
-        <i class=" text-white fa-sharp fa-bars fa-solid fa-xl cursor-pointer" (click)="toggleMenu()"></i>
+    <div class="mx-2 transition-transform duration-300">
+      <i *ngIf="isMenuOpen" class="text-white fa-sharp fa-solid fa-xmark fa-2xl cursor-pointer" (click)="toggleMenu()"></i>
+      <i *ngIf="!isMenuOpen" class="text-white fa-sharp fa-bars fa-solid fa-xl cursor-pointer" (click)="toggleMenu()"></i>
     </div>
 </div>
 
