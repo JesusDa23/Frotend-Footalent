@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export class InactivityServiceService {
 
   private timeoutId: any;
-  private readonly inactivityTimeout = 5 * 60 * 1000; // 5 minutes in milliseconds
+  private readonly inactivityTimeout = 30 * 60 * 1000; // 30 minutes in milliseconds
 
   constructor(private authService: AccountsService, private router: Router, private ngZone: NgZone) {
     this.startInactivityTimer();
