@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } 
 import { CommonModule } from '@angular/common';
 import { NgForOf, NgFor, NgIf } from '@angular/common';
 import Swal from 'sweetalert2'
+import { error } from 'console';
 
 
 @Component({
@@ -78,27 +79,54 @@ export class NewUserComponent {
         password: this.randomPassword
       });
 
-      this.accountsService.signUp(this.conductorForm.value).subscribe((res: any) => {
-        if (res) {
+      this.accountsService.signUp(this.conductorForm.value).subscribe(
+
+
+        (res: any) => {
           Swal.fire({
             position: "top-end",
             icon: "success",
             title: "El usuario fue registrado con éxito.",
             showConfirmButton: false,
-            timer: 1500
+            timer: 1600
           });
-        } else {
-          Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: "Hubo un error creando el usuario",
-            showConfirmButton: false,
-            timer: 1500
-          });
-          console.log("no enviado");
-        }
+        },
+        (error: any) => {
 
-      })
+          if (error.error.error === 'Correo ya en uso') {
+            Swal.fire({
+              position: "top-end",
+              icon: "error",
+              title: 'El correo ya está en uso',
+              showConfirmButton: false,
+              timer: 1600
+            });
+          } else if (error.error.error === 'DNI ya en uso') {
+            Swal.fire({
+              position: "top-end",
+              icon: "error",
+              title: 'El DNI ya está en uso',
+              showConfirmButton: false,
+              timer: 1600
+            });
+          } else if (error.error.error === 'Teléfono ya en uso') {
+            Swal.fire({
+              position: "top-end",
+              icon: "error",
+              title: 'El teléfono ya está en uso',
+              showConfirmButton: false,
+              timer: 1600
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Hubo un error creando el usuario',
+              timer: 1600
+            });
+          }
+        }
+      );
     } else {
       console.log('Form is invalid');
     }
