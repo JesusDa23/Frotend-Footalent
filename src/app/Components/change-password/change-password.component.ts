@@ -5,15 +5,20 @@ import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { jwtDecode } from "jwt-decode";
 import { error } from 'console';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-change-password',
   standalone: true,
-  imports: [FormsModule, RouterModule],
+  imports: [FormsModule, RouterModule, NgClass, NgIf],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.css'
 })
 export class ChangePasswordComponent {
+  showPasswordOld = false;
+  showPasswordNew = false;
+  showPasswordConfirm = false;
+
   newPassword: string = "";
   oldPassword: string = "";
   confirmPassword: string = "";
@@ -28,6 +33,18 @@ export class ChangePasswordComponent {
       this.changeForEmail = true;
       this.tokenUserEmail = this.router.url.split('/')[2];
     }
+  }
+
+  togglePasswordVisibilityOld() {
+    this.showPasswordOld = !this.showPasswordOld;
+  }
+
+  togglePasswordVisibilityNew() {
+    this.showPasswordNew = !this.showPasswordNew;
+  }
+
+  togglePasswordVisibilityConfirm() {
+    this.showPasswordConfirm = !this.showPasswordConfirm;
   }
 
   changePassword() {

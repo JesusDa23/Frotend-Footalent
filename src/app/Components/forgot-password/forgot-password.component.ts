@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
@@ -14,7 +15,10 @@ import { RouterModule } from '@angular/router';
 })
 export class ForgotPasswordComponent {
   emailUser: string = "";
+
   constructor(private _accountsService: AccountsService, private router: Router) { }
+
+
 
   sendEmailResetPassword() {
     if (this.emailUser === "") {
