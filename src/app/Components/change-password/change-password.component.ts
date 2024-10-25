@@ -48,6 +48,22 @@ export class ChangePasswordComponent {
   }
 
   changePassword() {
+
+    // Expresión regular para validar la contraseña
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\$*@#%&!])[A-Za-z\d\$*@#%&!]{8,15}$/;
+
+    // Validar si la nueva contraseña coincide con el regex
+    if (!passwordRegex.test(this.newPassword)) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: `La contraseña debe tener entre 8 y 15 caracteres, incluir una letra mayúscula, una minúscula, un número y un símbolo especial. \n($, *, @, #, %, &, !)`,
+        showConfirmButton: false,
+        timer: 8000
+      });
+      return;
+    }
+
     if (this.newPassword !== this.confirmPassword) {
       Swal.fire({
         position: "top-end",
@@ -123,7 +139,7 @@ export class ChangePasswordComponent {
             }
           });
         }
-        else{
+        else {
           Swal.fire({
             position: "top-end",
             icon: "success",
