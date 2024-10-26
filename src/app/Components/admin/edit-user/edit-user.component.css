@@ -18,6 +18,20 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+  /* Start with the section visible */
+.other-btns {
+    transition: transform 0.3s ease;
+  }
+  
+  .translate-y-full {
+    transform: translateY(100%); /* Move off-screen */
+  }
+  
+  .translate-y-0 {
+    transform: translateY(0); /* Move back on-screen */
+  }
+  
   
 
 @media (max-width: 639px) {
@@ -49,3 +63,4 @@
 
     }
 }
+

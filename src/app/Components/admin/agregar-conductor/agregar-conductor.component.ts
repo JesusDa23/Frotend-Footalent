@@ -76,9 +76,12 @@ export class AgregarConductorComponent {
   }
 
   onSubmit() {
-    // verificacion de llenado de campos
-    if (this.name === "" || this.dni === "" || this.email === "" || this.phone === "" || this.address === "" || this.licencia === "" || this.selectedLicence === "") {
-
+    // Verificación de llenado de campos
+    if (
+      this.name === "" || this.dni === "" || this.email === "" || 
+      this.phone === "" || this.address === "" || this.licencia === "" || 
+      this.selectedLicence === ""
+    ) {
       Swal.fire({
         position: "top-end",
         icon: "error",
@@ -88,7 +91,8 @@ export class AgregarConductorComponent {
       });
       return;
     }
-    // verificacion de validez de correo
+  
+    // Verificación de validez de correo
     if (!/^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(this.email)) {
       Swal.fire({
         position: "top-end",
@@ -99,9 +103,9 @@ export class AgregarConductorComponent {
       });
       return;
     }
-
-    this.randomPassword = this.generatePassword()
-
+  
+    this.randomPassword = this.generatePassword();
+  
     const newDriver: CreateDriver = {
       dni: this.dni,
       name: this.name,
@@ -114,10 +118,11 @@ export class AgregarConductorComponent {
       type_licence: this.selectedLicence,
       expiration_licence: this.expiration_licence,
     };
-
-    this.accountsService.signUp(newDriver).subscribe((res: any) => {
-      this.isLoading = true; 
-      if (res) {
+  
+    this.isLoading = true; // Show loading indicator
+  
+    this.accountsService.signUp(newDriver).subscribe(
+      (res: any) => {
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -125,21 +130,24 @@ export class AgregarConductorComponent {
           showConfirmButton: false,
           timer: 1500
         });
-        
-      } else {
+        this.isLoading = false;
+      },
+      (error) => {
+        // Display error message from the API
+        const errorMessage = error.error?.message || "Hubo un error creando el usuario";
         Swal.fire({
           position: "top-end",
           icon: "error",
-          title: "Hubo un error creando el usuario",
+          title: errorMessage,
           showConfirmButton: false,
           timer: 1500
         });
-        console.log("no enviado");
+        console.error("Error creating user:", error);
+        this.isLoading = false;
       }
-
-    })
-  
+    );
   }
+  
 
   ngOnInit() {
     this.generatePassword()

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { FormsModule, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2'
 import { AccountsService } from '../../../Services/accounts.service';
@@ -31,6 +31,9 @@ interface rol {
   styleUrl: './edit-user.component.css'
 })
 export class EditUserComponent {
+
+  @ViewChild('sectionRef') sectionRef!: ElementRef;
+  private lastScrollTop = 0;
   userId: any = "";
   name: string = "";
   dni: string = "";
@@ -139,5 +142,29 @@ export class EditUserComponent {
       }
     });
   }
+
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (this.sectionRef) {
+      const sectionElement = this.sectionRef.nativeElement;
+
+      if (currentScroll > this.lastScrollTop) {
+        // Scrolling down - hide the section
+        sectionElement.classList.add('translate-y-full');
+        sectionElement.classList.remove('translate-y-0');
+      } else {
+        // Scrolling up - show the section
+        sectionElement.classList.add('translate-y-0');
+        sectionElement.classList.remove('translate-y-full');
+      }
+      
+      // Update the last scroll position
+      this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    }
+  }
+
 
 }
