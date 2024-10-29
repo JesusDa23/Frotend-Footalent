@@ -1,16 +1,4 @@
 <div class="bg-white min-h-screen">
-  <!-- <header
-    class="relative flex items-center bg-bgColorBlue text-white p-4 shadow-md"
-  >
-    <button class="absolute left-0 p-4" (click)="onClose()">
-      <i class="fas fa-chevron-left text-white"></i>
-    </button>
-
-    <div class="mx-auto flex items-center">
-      <h1 class="text-xl">Agregar vehículo</h1>
-    </div>
-  </header> -->
-
   <app-subheader [pageTitle]="'Agregar vehículo'"></app-subheader>
   <div class="p-4 flex items-center justify-between shadow-md bg-bgAzulClaron">
     <!-- Tipo de vehículo -->
@@ -94,5 +82,5 @@
 <div class="fixed bottom-0 w-full p-4 bg-bgAzulClaron flex flex-col space-y-2 justify-center">
   <button a routerLink="/crear-flota" class="border-2 text-white w-full px-4 py-2 rounded bg-transparent
   border-btnColor"><i class="text-btnColor fa-solid fa-pen text-lg"></i><span class="font-medium ml-2 text-btnColor text-lg">Editar Inspección</span></button>
-  <button a routerLink="/crear-flota" (click)="guardarVehiculo()" class="border-2 border-btnColor bg-btnColor text-white  w-full px-4 py-2 rounded text-lg font-medium">Confirmar</button>
+  <button a routerLink="/crear-flota" (click)="guardarVehiculo() " class="border-2 border-btnColor bg-btnColor text-white  w-full px-4 py-2 rounded text-lg font-medium">Confirmar</button>
 </div>

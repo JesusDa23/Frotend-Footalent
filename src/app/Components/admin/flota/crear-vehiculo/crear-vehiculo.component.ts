@@ -9,6 +9,7 @@ import { log } from 'console';
 import { AccountsService } from '../../../../Services/accounts.service';
 import Swal from 'sweetalert2';
 import { SubheaderComponent } from '../../../subheader/subheader.component';
+import { Router } from 'express';
 
 
 
@@ -97,14 +98,6 @@ export class CrearVehiculoComponent {
     this.plate = this.plate.toUpperCase();
 
     const vin = this.generateVIN();
-    console.log("VIN generado:", vin);
-    console.log("status:", this.TipoId);
-    console.log("marca:", this.make);
-    console.log("placa:", this.plate);
-    console.log("arrayvehiculo", this.arrayVehiculo)
-    console.log("modelo:", this.model);
-    console.log("year:", this.year);
-
     const vehiculo: any = {
       category: this.TipoId,
       make: this.make,
@@ -114,6 +107,21 @@ export class CrearVehiculoComponent {
       year: this.year,
       vin: vin
     }
+
+ // Verificar si todos los campos están vacíos
+  if (
+    !this.TipoId && !this.make && !this.plate && !this.model &&
+    !this.mileage && !this.year && !this.status
+  ) {
+    Swal.fire({
+      position: "top-end",
+      icon: "error",
+      title: "Debe llenar todos los campos antes de guardar.",
+      showConfirmButton: false,
+      timer: 1600
+    });
+    return;
+  }
 
     if (
       !this.TipoId || !this.make || !this.plate || !this.model ||
@@ -160,12 +168,9 @@ export class CrearVehiculoComponent {
           showConfirmButton: false,
           timer: 1600
         });
-        console.log("Flota creada exitosamente:", response);
-        // Aquí puedes manejar la respuesta, como mostrar un mensaje al usuario
       },
       error: (err) => {
         console.error("Error al crear la flota:", err);
-        // Manejo de errores
       }
     });
 
