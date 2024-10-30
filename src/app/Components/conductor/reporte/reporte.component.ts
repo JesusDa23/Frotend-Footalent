@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { HeadercComponent } from "../headerc/headerc.component";
-import { ChecklistService } from '../../../Services/checklist.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReportarIncidenteService } from '../../../Services/reportar-incidente.service';
 import Swal from 'sweetalert2';
-import { error } from 'console';
 import { FooterDesktopComponent } from "../../footer-desktop/footer-desktop.component";
 @Component({
   selector: 'app-reporte',
@@ -19,7 +17,7 @@ export class ReporteComponent {
   reporteForm: FormGroup;
 
 
-  constructor(private checklistService: ChecklistService, private reportService: ReportarIncidenteService, private fb: FormBuilder  ) {
+  constructor(private reportService: ReportarIncidenteService, private fb: FormBuilder  ) {
     this.reporteForm = this.fb.group({
       date: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -31,51 +29,50 @@ export class ReporteComponent {
   // onSubmit(): void {
   //   this.createChecklist();
   // }
-
-  onSubmit(){
-    if(this.reporteForm.valid){
+  onSubmit() {
+    if (this.reporteForm.valid) {
       this.crearReporte();
+    } else {
+      // Muestra mensaje de error si el formulario no está completo o tiene errores
+      Swal.fire({
+        title: 'Formulario incompleto',
+        text: 'Por favor, completa todos los campos requeridos antes de enviar.',
+        icon: 'warning',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#0A135D'
+      });
     }
-    else{
-      
-    }
-    
   }
-
-  crearReporte(){
+  
+  crearReporte() {
     this.reportService.crearReporte(this.reporteForm.value).subscribe({
-    next: (data) => {
-      Swal.fire({
-        title: '¡Éxito!',
-        text: 'El reporte ha sido creado exitosamente',
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#0A135D'
-      });
-    },
-    error: (error) => {
-      Swal.fire({
-        title: 'Error',
-        text: 'Hubo un problema al crear el reporte',
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#0A135D'
-      });
-      console.error('Error al crear el reporte:', error);
-    }
+      next: (data) => {
+        Swal.fire({
+          title: '¡Éxito!',
+          text: 'El reporte ha sido creado exitosamente',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#0A135D'
+        });
+      },
+      error: (error) => {
+        let errorMessage = 'Hubo un problema al crear el reporte';
+  
+        // Si el backend devuelve un mensaje de error específico, úsalo
+        if (error?.error?.message) {
+          errorMessage = error.error.message;
+        }
+  
+        Swal.fire({
+          title: 'Error',
+          text: errorMessage,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#0A135D'
+        });
+        // console.error('Error al crear el reporte:', error);
+      }
+    });
   }
-    )
-  }
-
-  // createChecklist(): void {
-  //   this.checklistService.createChecklist(this.checklistreport).subscribe({
-  //     next: (response: Checklistreport) => {
-  //       console.log('Checklist created successfully:', response);
-  //     },
-  //     error: (error: any) => {
-  //       console.error('Error creating checklist:', error);
-  //     }
-  //   });
-  // }
-
+  
 }

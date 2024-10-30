@@ -7,8 +7,8 @@
 
 
 <main>
-    <div class="conductores flex flex-col px-6 rounded-sm mt-5 my-10 z-1 mb-[80px]">
-        <button (click)="selectDriver(user.dni)" [routerLink]="['/editar-perfil', user._id]" class="example-box shadow-md rounded"
+    <div class="conductores flex flex-col px-6 rounded-sm mt-5 my-6 z-1 mb-[80px]">
+        <button (click)="selectDriver(user.dni)" [routerLink]="['/editar-perfil', user._id]" class="example-box rounded"
             *ngFor="let user of retrievedUsers">
             <svg width="35px" height="35px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
