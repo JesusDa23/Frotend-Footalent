@@ -17,6 +17,7 @@ import { CrearVehiculoComponent } from './crear-vehiculo/crear-vehiculo.componen
 import { FooterDesktopComponent } from '../../footer-desktop/footer-desktop.component';
 
 
+
 @Component({
   selector: 'app-flota',
   standalone: true,
@@ -78,6 +79,19 @@ export class FlotaComponent {
       }
     });
   }
+
+    // Función para asignar el logo según la marca
+    getLogo(make: string): string {
+      switch(make.toLowerCase()) {
+        case 'renault':
+          return 'assets/logos/renault.png';
+        case 'ford':
+          return '../../../../assets/logos/ford.png';
+        // Añadir otros logos según las marcas necesarias
+        default:
+          return 'assets/logos/default.png'; // Logo por defecto
+      }
+    }
 
   onSubmit() {
     // Verificamos si el formulario es válido antes de continuar
