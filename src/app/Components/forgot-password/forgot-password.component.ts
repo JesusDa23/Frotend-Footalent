@@ -21,9 +21,18 @@ export class ForgotPasswordComponent {
 
 
   sendEmailResetPassword() {
+    Swal.fire({
+      position: "center",
+      icon: "info",
+      title:"Informacion",
+      text: "Si su correo esta registrado recibira instrucciones para reestablecer su contraseña.",
+      confirmButtonText: "Aceptar",
+      confirmButtonColor: "#0A135D",
+    });
+    
     if (this.emailUser === "") {
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "error",
         title: "Por favor ingrese un correo.",
         showConfirmButton: false,
