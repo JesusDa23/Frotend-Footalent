@@ -10,8 +10,8 @@ export class FlotaService {
 
   constructor(private http: HttpClientService ) { }
 
-  createNewFlota(data: any){
-    return this.http.post(data,'/vehicles/save');
+  createNewFlota(data: any) {
+    return this.http.post(data, '/vehicles/save');
   }
 
   getFlotas(){

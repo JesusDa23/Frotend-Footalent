@@ -144,6 +144,37 @@ export class EditUserComponent {
   }
 
 
+  
+
+  onlyLetters(event: KeyboardEvent) {
+    const pattern = /[a-zA-Z]/;
+    if (!pattern.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+  
+  onlyLettersAndNumbers(event: KeyboardEvent) {
+    const pattern = /[a-zA-Z0-9]/;
+    if (!pattern.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+  
+  onlyLettersNumbersAndDash(event: KeyboardEvent) {
+    const pattern = /[a-zA-Z0-9-]/;
+    if (!pattern.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+  
+  onlyNumbers(event: KeyboardEvent) {
+    const pattern = /[0-9]/;
+    if (!pattern.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const currentScroll = window.pageYOffset || document.documentElement.scrollTop;

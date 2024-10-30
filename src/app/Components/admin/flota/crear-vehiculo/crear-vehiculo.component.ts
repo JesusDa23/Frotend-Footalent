@@ -5,7 +5,6 @@ import { AdmincheckService } from '../../../../Services/admincheck.service';
 import { FlotaService } from '../../../../Services/flota.service';
 import { NgClass, UpperCasePipe } from '@angular/common';
 import { Location } from '@angular/common';
-import { log } from 'console';
 import { AccountsService } from '../../../../Services/accounts.service';
 import Swal from 'sweetalert2';
 import { SubheaderComponent } from '../../../subheader/subheader.component';
@@ -98,6 +97,15 @@ export class CrearVehiculoComponent {
     this.plate = this.plate.toUpperCase();
 
     const vin = this.generateVIN();
+    // console.log("VIN generado:", vin);
+    // console.log("status:", this.TipoId);
+    // console.log("marca:", this.make);
+    // console.log("placa:", this.plate);
+    // console.log("arrayvehiculo", this.arrayVehiculo)
+    // console.log("modelo:", this.model);
+    // console.log("year:", this.year);
+
+
     const vehiculo: any = {
       category: this.TipoId,
       make: this.make,
@@ -161,6 +169,7 @@ export class CrearVehiculoComponent {
 
     this._flotaService.createNewFlota(vehiculo).subscribe({
       next: (response) => {
+        
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -170,12 +179,42 @@ export class CrearVehiculoComponent {
         });
       },
       error: (err) => {
-        console.error("Error al crear la flota:", err);
+        // console.error("Error al crear la flota:", err);
+        // Manejo de errores
       }
     });
 
 
   }
 
+
+
+  onlyLetters(event: KeyboardEvent) {
+    const pattern = /[a-zA-Z]/;
+    if (!pattern.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+  
+  onlyLettersAndNumbers(event: KeyboardEvent) {
+    const pattern = /[a-zA-Z0-9]/;
+    if (!pattern.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+  
+  onlyLettersNumbersAndDash(event: KeyboardEvent) {
+    const pattern = /[a-zA-Z0-9-]/;
+    if (!pattern.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+  
+  onlyNumbers(event: KeyboardEvent) {
+    const pattern = /[0-9]/;
+    if (!pattern.test(event.key)) {
+      event.preventDefault();
+    }
+  }
 
 }

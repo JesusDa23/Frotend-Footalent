@@ -19,7 +19,7 @@ import { map } from 'rxjs';
   styleUrl: './perfil-vehiculo.component.css'
 })
 export class PerfilVehiculoComponent {
-  vehicle: any;  // Aquí recibiremos los datos del vehículo
+  vehicle: any = {};  // Aquí recibiremos los datos del vehículo
   vehicleId: any = '';
   isLoading = false;
   isDropdownOpen = false;
@@ -117,22 +117,38 @@ export class PerfilVehiculoComponent {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        // If confirmed, proceed with the status change
-        this.selectedStatus = status; // Update the selected status
-        this.vehicle.status = status;  // Update the vehicle status
-          // Call the update method
-        this.isDropdownOpen = false; // Close dropdown after selection
-
-        // Show success message
-        Swal.fire({
-          title: 'Estado cambiado',
-          text: `El estado del vehículo ha sido cambiado a "${status}"`,
-          icon: 'success',
-          confirmButtonColor: '#0a135d'
+        // Actualiza el estado en el objeto local del vehículo
+        this.vehicle.status = status;
+  
+        // Llamada al servicio para actualizar el vehículo en el backend
+        this.flotaService.updateFlotas(this.vehicleId, this.vehicle).subscribe({
+          next: () => {
+            // Actualiza el estado seleccionado en la interfaz solo si la actualización en el backend es exitosa
+            this.selectedStatus = status;
+            this.isDropdownOpen = false;
+  
+            // Muestra mensaje de éxito
+            Swal.fire({
+              title: 'Estado cambiado',
+              text: `El estado del vehículo ha sido cambiado a "${status}"`,
+              icon: 'success',
+              confirmButtonColor: '#0a135d'
+            });
+          },
+          error: (err) => {
+            console.error('Error al actualizar el estado:', err);
+            Swal.fire({
+              title: 'Error',
+              text: 'Hubo un problema al cambiar el estado. Inténtalo nuevamente.',
+              icon: 'error',
+              confirmButtonColor: '#0a135d'
+            });
+          }
         });
       }
     });
   }
+  
 
   onEditInspeccion() {
     this.router.navigate(['/admincheck'])
