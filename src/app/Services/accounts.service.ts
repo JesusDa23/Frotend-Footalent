@@ -46,7 +46,6 @@ export class AccountsService {
     return this.http.put(`/auth/users/${id}`, { enabled: status }, { responseType: 'text' });
   }
   logIn(credentials: Credentials) {
-
     return this.http.post(this.appUrl + "/login", credentials);
   }
 

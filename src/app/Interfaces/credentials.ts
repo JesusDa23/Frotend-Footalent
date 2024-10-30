@@ -11,7 +11,7 @@ export interface UserInfo {
   rol: string
   id?: any
   isFirstLogin?: any
-
+  status?: any
 }
 
 

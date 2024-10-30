@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   showPassword = false;
   isLoading = false;
 
-  constructor(private _accountsService: AccountsService, private router: Router) {}
+  constructor(private _accountsService: AccountsService, private router: Router) { }
 
   ngOnInit(): void {
     this._accountsService.isLogedIn()
@@ -61,8 +61,17 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
 
         if (sessionStorage.getItem("token") != null) {
-          if (!dataCast.user.isFirstLogin) {
 
+          if (dataCast.user.status === false) {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: 'Acceso denegado. Su cuenta está inactiva.',
+              showConfirmButton: true
+            });
+            return sessionStorage.removeItem('token');
+          } 
+          if (!dataCast.user.isFirstLogin) {
             this.navigateToRolePage(dataCast.user.rol);
           }
           else {
@@ -72,6 +81,7 @@ export class LoginComponent implements OnInit {
 
           }
         }
+
       },
       error: err => {
         Swal.fire({
