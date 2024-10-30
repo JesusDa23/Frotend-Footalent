@@ -114,11 +114,38 @@ export class EditUserComponent {
   }
 
   editUser() {
-    this.accountsService.updateUser(this.userId, this.user).subscribe((res: any) => {
-      Swal.fire('Actualizado!', 'El perfil ha sido actualizado.', 'success');
-
-    })
+    // Indica que la actualización está en proceso (si se usa un indicador de carga)
+    this.isLoading = true;
+  
+    // Llama al servicio para actualizar el usuario
+    this.accountsService.updateUser(this.userId, this.user).subscribe({
+      next: (res: any) => {
+        this.isLoading = false;
+        Swal.fire({
+          title: '¡Actualizado!',
+          text: 'El perfil ha sido actualizado exitosamente.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#0A135D'
+        });
+      },
+      error: (error) => {
+        this.isLoading = false;
+        // Muestra el mensaje de error del backend si está disponible, o uno genérico si no
+        const errorMessage = error.error?.message || 'Ocurrió un error al actualizar el perfil. Por favor intenta nuevamente.';
+  
+        Swal.fire({
+          title: 'Error al actualizar',
+          text: errorMessage,
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#D33'
+        });
+        console.error('Error al actualizar el usuario:', error);
+      }
+    });
   }
+  
 
   resetPassword() {
     this.accountsService.requestResetPassword(this.email).subscribe((res: any) => {

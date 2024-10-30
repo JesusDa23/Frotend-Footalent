@@ -76,34 +76,38 @@ export class AgregarConductorComponent {
   }
 
   onSubmit() {
-    // Verificación de llenado de campos
+    // Verificación de campos obligatorios
     if (
-      this.name === "" || this.dni === "" || this.email === "" || 
-      this.phone === "" || this.address === "" || this.licencia === "" || 
-      this.selectedLicence === ""
+      !this.name || !this.dni || !this.email || !this.phone || 
+      !this.address || !this.licencia || !this.selectedLicence
     ) {
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "error",
-        title: "Todos los campos son obligatorios.",
-        showConfirmButton: false,
-        timer: 1600
+        title: "Faltan datos obligatorios",
+        text: "Por favor completa todos los campos antes de enviar.",
+        showConfirmButton: true,
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: "#D33"
       });
       return;
     }
   
-    // Verificación de validez de correo
+    // Verificación de formato de correo
     if (!/^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(this.email)) {
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "error",
-        title: "El email no es valido.",
-        showConfirmButton: false,
-        timer: 1600
+        title: "Correo no válido",
+        text: "Ingresa un correo electrónico en formato válido.",
+        showConfirmButton: true,
+        confirmButtonColor: "#D33",
+        confirmButtonText: "Aceptar"
       });
       return;
     }
   
+    // Genera la contraseña si los datos son válidos
     this.randomPassword = this.generatePassword();
   
     const newDriver: CreateDriver = {
@@ -119,34 +123,41 @@ export class AgregarConductorComponent {
       expiration_licence: this.expiration_licence,
     };
   
-    this.isLoading = true; // Show loading indicator
+    // Muestra el indicador de carga
+    this.isLoading = true;
   
-    this.accountsService.signUp(newDriver).subscribe(
-      (res: any) => {
+    // Llama al servicio para crear el usuario
+    this.accountsService.signUp(newDriver).subscribe({
+      next: () => {
+        this.isLoading = false;
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "El usuario fue registrado con éxito.",
+          title: "Registro exitoso",
+          text: "El usuario fue registrado correctamente.",
           showConfirmButton: false,
           timer: 1500
         });
-        this.isLoading = false;
       },
-      (error) => {
-        // Display error message from the API
-        const errorMessage = error.error?.message || "Hubo un error creando el usuario";
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: errorMessage,
-          showConfirmButton: false,
-          timer: 1500
-        });
-        console.error("Error creating user:", error);
+      error: (error) => {
         this.isLoading = false;
+        // Define un mensaje de error detallado
+        const errorMessage = error.error?.message || "Ocurrió un error al crear el usuario. Por favor intenta nuevamente.";
+  
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error en el registro",
+          text: errorMessage,
+          showConfirmButton: true,
+          confirmButtonText: "Aceptar",
+          confirmButtonColor: "#D33"
+        });
+        console.error("Error al crear el usuario:", error);
       }
-    );
+    });
   }
+  
   
 
   ngOnInit() {
