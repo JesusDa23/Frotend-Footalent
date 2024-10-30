@@ -25,6 +25,57 @@
 
                 <form class="space-y-4 md:space-y-6" action="#">
 
+                    <!-- <select id="status" name="status" [(ngModel)]="user.status" (change)="onStatusChange()"
+                        class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
+                        required>
+                        <option *ngFor="let item of statusOptions" [value]="item.value">{{ item.viewValue }}</option>
+                    </select> -->
+
+                    <div class="relative inline-block text-left w-36 text-white text-sm">
+                        <!-- Trigger dropdown with lighter background for the selected option -->
+                        <div class="p-1 border border-gray-300 rounded-3xl flex items-center justify-between cursor-pointer"
+                            [ngClass]="{
+                            'bg-[#15690B]': user.status === 'Activo', 
+                            'bg-[#C39F0B]': user.status === 'Inhabilitado', 
+   
+                          }" (click)="toggleDropdown()">
+                            <div class="flex items-center">
+                                <!-- Colored ball to represent the status -->
+                                <span class="flex items-center justify-center h-2 w-2 rounded-full mx-2" [ngClass]="{
+                                'bg-[#59F63A]': user.status === 'Activo',
+                                'bg-[#815B12]': user.status === 'Inhabilitado',
+      
+                              }"></span>
+                                {{ user.status }}
+                            </div>
+                            <i class="fas fa-chevron-down mr-1"></i>
+                        </div>
+
+                        <!-- Dropdown menu -->
+                        <div *ngIf="isDropdownOpen"
+                            class="absolute z-10 mt-2 w-full rounded-md bg-white shadow-lg text-black">
+                            <div class="py-1">
+                                <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                    (click)="onStatusClick(true)">
+                                    <span
+                                        class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-green-600"></span>
+                                    Disponible
+                                </div>
+                                <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                    (click)="onStatusClick(false)">
+                                    <span
+                                        class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-red-500"></span>
+                                    Ocupado
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- ******************************** -->
+
                     <div>
                         <label for="nombre" class="block mb-2 text-sm font-medium">Nombre y Apellido</label>
                         <input [(ngModel)]="user.name"
@@ -123,16 +174,17 @@
 
     <section #sectionRef class="other-btns flex flex-col md:w-full md:mt-0 sm:max-w-md xl:p-0">
         <div class="btn-container w-full p-4 sm:mx-[20px] sm:w-[91%] flex flex-col gap-5 justify-center">
-            <button style="border: 1px solid #0A135D;" (click)="goToHistory()" class=" bg-white font-normal mx-auto text-blue-950 w-full px-6 py-2 rounded">
+            <button style="border: 1px solid #0A135D;" (click)="goToHistory()"
+                class=" bg-white font-normal mx-auto text-blue-950 w-full px-6 py-2 rounded">
                 Historial de vehículos
             </button>
-    
+
             <button (click)="editUser()" class="bg-btnColor font-normal mx-auto text-white w-full px-4 py-2 rounded">
                 Guardar perfil
             </button>
         </div>
     </section>
-    
+
 
 
     <div class="relative bottom-0 left-0 right-0 w-full">

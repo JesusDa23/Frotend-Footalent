@@ -42,6 +42,9 @@ export class AccountsService {
     return this.httpService.put(user, `/auth/users/${id}`)
   }
 
+  updateUserStatus(id: string, status: boolean): Observable<any> {
+    return this.http.put(`/auth/users/${id}`, { enabled: status }, { responseType: 'text' });
+  }
   logIn(credentials: Credentials) {
 
     return this.http.post(this.appUrl + "/login", credentials);
@@ -112,11 +115,11 @@ export class AccountsService {
 
   findDataUser(email: string): Observable<any> {
     return this.http.get(`${this.appUrl}/users/${email}`);
-  }
+  }
 
-findDataUserByEmail(email: string): Observable<any> {
-  return this.http.get(`${this.appUrl}/users-email/${email}`);
-  }
+  findDataUserByEmail(email: string): Observable<any> {
+    return this.http.get(`${this.appUrl}/users-email/${email}`);
+  }
 
   // Para colocarle la cabecera de autorización a la petición, se debe de hacer de la siguiente manera
 

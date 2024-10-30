@@ -89,6 +89,10 @@ export class SignupComponent implements OnInit {
 
     this._accountsService.signUp(user).subscribe({
       next: data => {
+        if(data.result === "Unsuccessful"){
+          console.log("ya existe");
+        }
+
         console.log("El usuario fue registrado con éxito");
         Swal.fire({
           position: "top-end",

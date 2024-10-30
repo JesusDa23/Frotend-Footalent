@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import { AccountsService } from '../../../Services/accounts.service';
 import { ActivatedRoute } from '@angular/router';
 import { RouterLink } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgIf, NgClass, NgForOf } from '@angular/common';
 import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 import { Location } from '@angular/common';
@@ -21,12 +21,16 @@ interface rol {
   value: string;
   viewValue: string;
 }
+interface status {
+  value: boolean;
+  viewValue: string;
+}
 
 
 @Component({
   selector: 'app-edit-user',
   standalone: true,
-  imports: [SubheaderComponent, TogglemenuComponent, FormsModule, RouterLink, FooterDesktopComponent, NgIf],
+  imports: [NgClass, NgForOf, SubheaderComponent, TogglemenuComponent, FormsModule, RouterLink, FooterDesktopComponent, NgIf],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css'
 })
@@ -46,6 +50,10 @@ export class EditUserComponent {
   randomPassword: string = "";
   type_licence: string = "";
   expiration_licence: string = "";
+  status: any = "";
+  selectedDni: any = "";
+
+  isDropdownOpen = false;
   isLoading = false;
 
   user: any = {
@@ -59,8 +67,15 @@ export class EditUserComponent {
     licencia: "",
     rol: "",
     type_licence: "",
-    expiration_licence: ""
+    expiration_licence: "",
+    status: ""
   }
+
+  statusOptions: status[] = [
+    { value: true, viewValue: "Activo" },
+    { value: false, viewValue: "Inhabilitado" }
+
+  ]
 
   licenceOptions: type_licence[] = [
     { value: 'comun', viewValue: 'Común' },
@@ -74,7 +89,6 @@ export class EditUserComponent {
 
   // *******************
 
-  selectedDni: any = "";
 
   constructor(
     private accountsService: AccountsService,
@@ -90,19 +104,19 @@ export class EditUserComponent {
     this.accountsService.getUser(this.userId).subscribe((data: any) => {
       if (data) {
         this.isLoading = false
-
         this.user = data
         this.name = data.name
         this.dni = data.dni,
-          this.name = data.name,
-          this.phone = data.phone,
-          this.email = data.email,
-          this.address = data.address,
-          this.rol = data.rol,
-          this.password = data.password,
-          this.licencia = data.licencia,
-          this.type_licence = data.type_licence,
-          this.expiration_licence = data.expiration_licence
+        this.name = data.name,
+        this.phone = data.phone,
+        this.email = data.email,
+        this.address = data.address,
+        this.rol = data.rol,
+        this.password = data.password,
+        this.licencia = data.licencia,
+        this.type_licence = data.type_licence,
+        this.status = data.status,
+        this.expiration_licence = data.expiration_licence
       }
     })
   }
@@ -114,7 +128,20 @@ export class EditUserComponent {
   }
 
   editUser() {
-    // Indica que la actualización está en proceso (si se usa un indicador de carga)
+    // Validate all required fields
+    if (!this.user.name || !this.user.dni || !this.user.phone || !this.user.email || !this.user.rol || 
+        !this.user.address || !this.user.licencia || !this.user.type_licence || !this.user.expiration_licence) {
+      Swal.fire({
+        title: 'Campos incompletos',
+        text: 'Por favor, complete todos los campos antes de guardar.',
+        icon: 'warning',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#D33'
+      });
+      return;
+    }
+  
+    // Indica que la actualización está en proceso
     this.isLoading = true;
   
     // Llama al servicio para actualizar el usuario
@@ -131,9 +158,7 @@ export class EditUserComponent {
       },
       error: (error) => {
         this.isLoading = false;
-        // Muestra el mensaje de error del backend si está disponible, o uno genérico si no
         const errorMessage = error.error?.message || 'Ocurrió un error al actualizar el perfil. Por favor intenta nuevamente.';
-  
         Swal.fire({
           title: 'Error al actualizar',
           text: errorMessage,
@@ -146,6 +171,39 @@ export class EditUserComponent {
     });
   }
   
+
+  // onStatusChange(Boolean: any) {
+  //   this.accountsService.updateUserStatus(this.userId, this.status).subscribe((res: any) => {
+  //     if (res) {
+  //       console.log("bien");
+  //     } else {
+  //       console.log("mal");
+  //     }
+  //   })
+
+  // }
+  
+
+  onStatusClick(status: boolean) {
+    this.accountsService.updateUser(this.userId, this.statusOptions).subscribe((res: any) => {
+      if (res) {
+        console.log("actualizado");
+        console.log(res);
+      } else {
+        console.log("error");
+      }
+    })
+    // ({
+    //   next: () => {
+    //     console.log('User status updated successfully');
+    //     this.status = status; // Update local status if needed
+    //     this.isDropdownOpen = false; // Close dropdown after selection
+    //   },
+    //   error: (err) => {
+    //     console.error('Error updating user status:', err);
+    //   },
+    // });
+  }
 
   resetPassword() {
     this.accountsService.requestResetPassword(this.email).subscribe((res: any) => {
@@ -162,6 +220,7 @@ export class EditUserComponent {
   }
 
   ngOnInit() {
+    console.log(this.statusOptions);
     this.getUserInfo()
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -218,11 +277,16 @@ export class EditUserComponent {
         sectionElement.classList.add('translate-y-0');
         sectionElement.classList.remove('translate-y-full');
       }
-      
+
       // Update the last scroll position
       this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }
   }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen; // Toggle dropdown visibility
+  }
+
 
 
 }

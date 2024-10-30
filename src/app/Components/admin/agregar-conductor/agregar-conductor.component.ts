@@ -71,7 +71,6 @@ export class AgregarConductorComponent {
       const randomIndex = Math.floor(Math.random() * chars.length);
       result += chars.charAt(randomIndex);
     }
-    console.log(result);
     return result;
   }
 
@@ -128,7 +127,10 @@ export class AgregarConductorComponent {
   
     // Llama al servicio para crear el usuario
     this.accountsService.signUp(newDriver).subscribe({
-      next: () => {
+      next: data => {
+        if(data.result === "Unsuccessful"){
+          console.log("ya existe");
+        }
         this.isLoading = false;
         Swal.fire({
           position: "top-end",
