@@ -43,36 +43,33 @@ export class LoginComponent implements OnInit {
       });
       return;
     }
-  
+
     this.isLoading = true;
-    
+
     const user: Credentials = {
       email: this.email,
       password: this.password
     };
-  
+
     this._accountsService.logIn(user).subscribe({
       next: data => {
         const dataCast = data as resLoginUser;
-        sessionStorage.setItem('token', dataCast.token);
+
         sessionStorage.setItem('userInfo', JSON.stringify(dataCast.user));
-  
-        this.isLoading = false; 
-  
+        sessionStorage.setItem('token', dataCast.token);
+
+        this.isLoading = false;
+
         if (sessionStorage.getItem("token") != null) {
           if (!dataCast.user.isFirstLogin) {
+
             this.navigateToRolePage(dataCast.user.rol);
-          } else {
-            this._accountsService.updateFirstLogin(dataCast.user.id, false).subscribe({
-              next: updateData => {
-                console.log("Estado de primer inicio actualizado", updateData);
-                this.router.navigate(["/change-password"]);
-              },
-              error: updateError => {
-                this.isLoading = false;
-                console.error("Error al actualizar el estado del primer inicio de sesión", updateError);
-              }
-            });
+          }
+          else {
+            sessionStorage.removeItem('token');
+
+            this.router.navigate(["/change-password"]);
+
           }
         }
       },
@@ -89,7 +86,7 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-  
+
   private navigateToRolePage(rol: string) {
     if (rol === "admin") {
       this.router.navigate(['/home']);

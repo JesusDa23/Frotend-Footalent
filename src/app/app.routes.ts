@@ -45,7 +45,7 @@ export const routes: Routes = [
   { path: 'perfil-vehiculo/:id', component: PerfilVehiculoComponent, canActivate: [authGuard] },
   { path: 'mantenimientos', component: MantenimientosComponent, canActivate: [authGuard] },
   { path: 'mantenimientos/:vehicleId', component: MantenimientosComponent, canActivate: [authGuard] },
-  { path: 'change-password', title: "Change Password", component: ChangePasswordComponent }, //voluntario
+  { path: 'change-password', title: "Change Password", component: ChangePasswordComponent}, //voluntario
   { path: 'change-password-for-email/:token', title: "Change Password", component: ChangePasswordComponent }, //recuperar contraseña
   { path: 'forgot-password', title: "Forgot Password", component: ForgotPasswordComponent },
   { path: 'historial-vehiculos', component: HistorialVehiculosComponent, canActivate: [authGuard] },

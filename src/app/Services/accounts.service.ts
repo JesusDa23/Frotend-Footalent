@@ -62,7 +62,9 @@ export class AccountsService {
 
   logout() {
     // Clear the user session or token from sessionStorage
-    sessionStorage.removeItem('token'); // Example of removing a token
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('userInfo'); // Example of removing a token
+
     // Redirect to the login page or home page
     this.router.navigate(['/login']);
   }
