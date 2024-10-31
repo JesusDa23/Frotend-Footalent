@@ -97,13 +97,6 @@ export class CrearVehiculoComponent {
     this.plate = this.plate.toUpperCase();
 
     const vin = this.generateVIN();
-    // console.log("VIN generado:", vin);
-    // console.log("status:", this.TipoId);
-    // console.log("marca:", this.make);
-    // console.log("placa:", this.plate);
-    // console.log("arrayvehiculo", this.arrayVehiculo)
-    // console.log("modelo:", this.model);
-    // console.log("year:", this.year);
 
 
     const vehiculo: any = {
@@ -122,7 +115,7 @@ export class CrearVehiculoComponent {
     !this.mileage && !this.year && !this.status
   ) {
     Swal.fire({
-      position: "top-end",
+      position: "center",
       icon: "error",
       title: "Debe llenar todos los campos antes de guardar.",
       showConfirmButton: false,
@@ -136,7 +129,7 @@ export class CrearVehiculoComponent {
       !this.mileage || !this.year || !this.status
     ) {
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "error",
         title: "Todos los campos son obligatorios.",
         showConfirmButton: false,
@@ -147,7 +140,7 @@ export class CrearVehiculoComponent {
 
     if (this.year < 1886 || this.year > 2025) {
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "error",
         title: "El año de fabricación debe ser entre los años 1886 y 2025.",
         showConfirmButton: false,
@@ -158,7 +151,7 @@ export class CrearVehiculoComponent {
 
     if (!placaRegex.test(this.plate)) {
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "error",
         title: "La placa debe tener 3 letras seguidas de 3 números.",
         showConfirmButton: false,
@@ -171,7 +164,7 @@ export class CrearVehiculoComponent {
       next: (response) => {
         
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: "Flota creada exitosamente.",
           showConfirmButton: false,

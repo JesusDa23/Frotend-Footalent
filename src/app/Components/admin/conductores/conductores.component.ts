@@ -8,15 +8,15 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FooterDesktopComponent } from '../../footer-desktop/footer-desktop.component';
 import { AgregarConductorComponent } from '../agregar-conductor/agregar-conductor.component';
-import { NgModel } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import Swal from 'sweetalert2';
-import { EditUserComponent } from "../edit-user/edit-user.component";
+import { EditarUsuarioComponent } from '../editar-usuarioEsteNo/editar-usuario.component';
 
 @Component({
   selector: 'app-conductores',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, AgregarConductorComponent, CdkDropList, CdkDrag, RouterLink, NgIf, EditUserComponent, FooterDesktopComponent],
+  imports: [CommonModule, HeaderComponent, FormsModule, AgregarConductorComponent, CdkDropList, CdkDrag, RouterLink, NgIf, EditarUsuarioComponent, FooterDesktopComponent],
   templateUrl: './conductores.component.html',
   styleUrl: './conductores.component.css'
 })
@@ -27,6 +27,9 @@ export class ConductoresComponent {
   httpClient = inject(HttpClient)
   isLoading = false;
   private lastScrollTop = 0;
+
+  searchTerm: string = '';
+  filteredForms: any[] = [];  // Inicializar como un array vacío
 
   constructor(private http: HttpClient, private dniService: AccountsService) { }
 
@@ -41,6 +44,7 @@ export class ConductoresComponent {
     this.accountsService.retrieveUsers().subscribe((res: any) => {
       if (res) {
         this.retrievedUsers = res.data
+        this.filteredForms = [...this.retrievedUsers];  
         this.isLoading = false
       } else {
         Swal.fire('Error!', 'Hubo un error obteniendo la lista de conductores.', 'error');
@@ -58,6 +62,21 @@ export class ConductoresComponent {
     this.accountsService.isAdmin();
     this.retrievedUsers
   }
+
+  searchForms() {
+    const term = this.searchTerm.toLowerCase().trim();
+    if (term) {
+      this.filteredForms = this.retrievedUsers.filter( user  =>
+        user.name?.toLowerCase().includes(term) ||
+        user.dni?.toLowerCase().includes(term) ||
+        user.phone?.toLowerCase().includes(term) 
+      );
+    } else {
+      // Resetear a todos los formularios si no se proporciona un término de búsqueda
+      this.filteredForms = [...this.retrievedUsers];
+    }
+  }
+
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

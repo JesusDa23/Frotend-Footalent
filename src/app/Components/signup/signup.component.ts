@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
     if (this.email === "" || this.password === "" || this.confirmPassword === "") {
 
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "error",
         title: "Todos los campos son obligatorios.",
         showConfirmButton: false,
@@ -47,7 +47,7 @@ export class SignupComponent implements OnInit {
     // Validar si las claves son iguales
     if (this.password !== this.confirmPassword) {
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "error",
         title: "Las contraseñas no coinciden.",
         showConfirmButton: false,
@@ -59,7 +59,7 @@ export class SignupComponent implements OnInit {
     // Validar si el email es correcto
     if (!/^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(this.email)) {
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "error",
         title: "El email no es valido.",
         showConfirmButton: false,
@@ -70,7 +70,7 @@ export class SignupComponent implements OnInit {
 
     if (!this.termsAccepted) {
       Swal.fire({
-        position: "top-end",
+        position: "center",
         icon: "error",
         title: "Debes aceptar los términos y condiciones.",
         showConfirmButton: false,
@@ -90,12 +90,12 @@ export class SignupComponent implements OnInit {
     this._accountsService.signUp(user).subscribe({
       next: data => {
         if(data.result === "Unsuccessful"){
-          console.log("ya existe");
+          // console.log("ya existe");
         }
 
         console.log("El usuario fue registrado con éxito");
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: "El usuario fue registrado con éxito.",
           showConfirmButton: false,
@@ -110,7 +110,7 @@ export class SignupComponent implements OnInit {
         console.error("Error al registrar el usuario:", err.error);
 
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "error",
           title: `Hubo un error al registrar el usuario. Inténtalo de nuevo.\n \nDetalle de error: ${err.error.error}`,
           showConfirmButton: false,

@@ -85,8 +85,6 @@ export class PerfilVehiculoComponent {
       .subscribe({
         next: (response) => {
           this.onStatusChange();
-
-          console.log('Perfil actualizado exitosamente', response);
           Swal.fire({
             position: "center",
             icon: "success",  // Corrige el icono a 'success'
