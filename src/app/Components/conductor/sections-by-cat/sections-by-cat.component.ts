@@ -49,8 +49,8 @@ export class SectionsByCatComponent {
     this.route.params.subscribe(params => {
       this.categoryId = params['categoryId'];
       this.vehicleId = params['vehicle'];
-      console.log('Category:', this.categoryId);
-      console.log('Vehicle:', this.vehicleId);
+      // console.log('Category:', this.categoryId);
+      // console.log('Vehicle:', this.vehicleId);
     });
     if (this.categoryId) {
       this.loadSections();
@@ -81,6 +81,17 @@ export class SectionsByCatComponent {
   }
 
   }
+  getBulletValue(bulletId: string | undefined): any {
+    if (!bulletId) return null; // O un valor predeterminado según sea necesario
+    return this.bulletsForm.get('bullet_' + bulletId)?.value;
+  }
+  
+  setBulletValue(bulletId: string | undefined, value: any): void {
+    if (!bulletId) return; // Evitar la llamada si bulletId es undefined
+    this.bulletsForm.get('bullet_' + bulletId)?.setValue(value);
+  }
+  
+  
 
   loadSections(): void {
     this.admincheckService.getSectionsByCategory(this.categoryId!).subscribe(
@@ -96,7 +107,7 @@ export class SectionsByCatComponent {
     this.FlotaService.getFlotaById(id).subscribe(
       (data) => {
         this.vehicleData = data;  // Store the fetched vehicle data
-        console.log('Fetched Vehicle Data:', this.vehicleData);  // Debug log
+        // console.log('Fetched Vehicle Data:', this.vehicleData);  // Debug log
       },
       (error) => {
         console.error('Error fetching vehicle data:', error);
@@ -218,7 +229,7 @@ export class SectionsByCatComponent {
 
       section.bullets!.forEach(bullet => {
         const control = this.bulletsForm.get(`bullet_${bullet._id}`);
-        console.log(`Bullet Control (${bullet.description}):`, control?.value); // Log each bullet control value
+        // console.log(`Bullet Control (${bullet.description}):`, control?.value); // Log each bullet control value
         
         if (control) {
           sectionData.bullets.push({
@@ -289,7 +300,7 @@ export class SectionsByCatComponent {
   
     this.FlotaService.updateFlotas(vehicleId, data).subscribe(
       (response) => {
-        console.log(`Vehicle status updated to ${status}:`, response);
+        // console.log(`Vehicle status updated to ${status}:`, response);
       },
       (error) => {
         console.error('Failed to update vehicle status:', error);
@@ -300,11 +311,11 @@ export class SectionsByCatComponent {
 
   // Save data to the backend
   private saveData(data: any): void {
-  console.log('Data to be sent:', JSON.stringify(data, null, 2)); // Log the data being sent to the backend
+  // console.log('Data to be sent:', JSON.stringify(data, null, 2)); // Log the data being sent to the backend
   
   this.userService.saveInspectionData(data).subscribe(
     (response) => {
-      console.log('Data saved successfully:', response);
+      // console.log('Data saved successfully:', response);
       // Optionally, navigate or reset the form after successful submission
     },
     (error) => {
