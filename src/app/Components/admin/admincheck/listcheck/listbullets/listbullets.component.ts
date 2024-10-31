@@ -54,7 +54,6 @@ export class ListbulletsComponent {
   this.admincheckService.getBulletsBySection(sectionId).subscribe(
     (data: Bullet[]) => {
       this.bullets = data;
-      console.log('Bullets:', this.bullets);
       this.isLoading = false; // Stop loading after data is retrieved
     },
     (error) => {

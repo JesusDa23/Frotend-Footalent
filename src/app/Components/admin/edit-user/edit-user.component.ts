@@ -172,25 +172,10 @@ export class EditUserComponent {
   }
   
 
-  // onStatusChange(Boolean: any) {
-  //   this.accountsService.updateUserStatus(this.userId, this.status).subscribe((res: any) => {
-  //     if (res) {
-  //       console.log("bien");
-  //     } else {
-  //       console.log("mal");
-  //     }
-  //   })
-
-  // }
-  
-
   onStatusClick(status: boolean) {
     this.accountsService.updateUser(this.userId, this.statusOptions).subscribe((res: any) => {
       if (res) {
-        console.log("actualizado");
-        console.log(res);
       } else {
-        console.log("error");
       }
     })
     // ({

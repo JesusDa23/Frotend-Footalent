@@ -66,7 +66,6 @@ export class NewUserComponent {
       const randomIndex = Math.floor(Math.random() * chars.length);
       result += chars.charAt(randomIndex);
     }
-    console.log(result);
     return result;
   }
 

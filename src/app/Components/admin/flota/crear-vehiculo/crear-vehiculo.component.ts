@@ -97,13 +97,6 @@ export class CrearVehiculoComponent {
     this.plate = this.plate.toUpperCase();
 
     const vin = this.generateVIN();
-    // console.log("VIN generado:", vin);
-    // console.log("status:", this.TipoId);
-    // console.log("marca:", this.make);
-    // console.log("placa:", this.plate);
-    // console.log("arrayvehiculo", this.arrayVehiculo)
-    // console.log("modelo:", this.model);
-    // console.log("year:", this.year);
 
 
     const vehiculo: any = {

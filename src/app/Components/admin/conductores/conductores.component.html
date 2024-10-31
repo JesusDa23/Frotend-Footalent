@@ -5,11 +5,24 @@
     <div class="loader"></div>
 </div>
 
+        <!-- Search Input Field -->
+    <div class="flex justify-center mt-4">
+      <div class="m-1 w-full lg:w-2/4">
+          <input
+              type="text"
+              [(ngModel)]="searchTerm"
+              (input)="searchForms()"
+              placeholder="Buscar..."
+              class="border p-2 pl-3 w-full pr-10 rounded"
+          />
+      </div>
+    </div>
+
 
 <main>
     <div class="conductores flex flex-col px-6 rounded-sm mt-5 my-6 z-1 mb-[80px]">
         <button (click)="selectDriver(user.dni)" [routerLink]="['/editar-usuario', user._id]" class="example-box rounded"
-            *ngFor="let user of retrievedUsers">
+            *ngFor="let user of filteredForms">
             <svg width="35px" height="35px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

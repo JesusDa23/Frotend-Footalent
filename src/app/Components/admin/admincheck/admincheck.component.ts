@@ -72,7 +72,6 @@ export class AdmincheckComponent {
 
       this.admincheckService.createCategory(category).subscribe(
         (newCategory: Category) => {
-          console.log('Category created:', newCategory);
           this.categories.push({
             ...newCategory,
             showActions: false  // Add showActions property to the new category
