@@ -6,15 +6,26 @@
 <div class="container mx-auto bg-white">
   <div *ngIf="!isLoading" class="p-4">
 
-    <div class="mb-4 flex justify-center lg:justify-center">
-      <input type="text" placeholder="Buscar..." class="p-2 border border-gray-300 rounded w-full lg:w-2/4" />
+        <!-- Search Input Field -->
+    <div class="flex justify-center">
+      <div class="m-1 w-full lg:w-2/4">
+          <input
+              type="text"
+              [(ngModel)]="searchTerm"
+              (input)="searchForms()"
+              placeholder="Buscar"
+              class="border p-2 pl-3 w-full pr-10 rounded"
+          />
+      </div>
     </div>
+
+
     <!-- Grid container for vehicle cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2 gap-x-4">
       <!-- Vehículo -->
       <button [routerLink]="['/perfil-vehiculo', vehicle._id]"
         class="flex p-2 bg-white text-left rounded border border-cardBorder w-full mt-2 items-center justify-between"
-        *ngFor="let vehicle of flotas">
+        *ngFor="let vehicle of filteredForms">
 
       <!-- Logo del vehículo -->
       <!-- <div class="flex-none w-10 h-10 mr-2">
@@ -24,7 +35,7 @@
         <!-- Información del vehículo -->
         <div class="flex-1 w-32 m-2">
           <h2 class="text-lg font-medium">{{ vehicle.make }} - {{ vehicle.model }}</h2>
-          <p class="text-gray-500">{{ vehicle.plate | uppercase }}</p>
+          <p class="text-gray-500">{{ vehicle.plate | uppercase }}</p>  
         </div>
 
         <!-- Estado y flecha al final -->

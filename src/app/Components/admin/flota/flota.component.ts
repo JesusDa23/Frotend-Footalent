@@ -5,7 +5,7 @@ import { FlotaService } from '../../../Services/flota.service';
 import { FlowbiteService } from '../../../Services/flowbite.service';
 
 import { NgFor, NgIf, NgClass, UpperCasePipe, TitleCasePipe } from '@angular/common';
-import { Validators, FormBuilder, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, ReactiveFormsModule, FormGroup, FormsModule } from '@angular/forms';
 import { Vehicle } from '../../models/vehicle.model';
 import { EditmodalComponent } from './editmodal/editmodal.component';
 import { HeaderComponent } from '../header/header.component';
@@ -21,17 +21,20 @@ import { FooterDesktopComponent } from '../../footer-desktop/footer-desktop.comp
 @Component({
   selector: 'app-flota',
   standalone: true,
-  imports: [PerfilVehiculoComponent, FooterDesktopComponent, CrearVehiculoComponent, NgFor,ReactiveFormsModule,RouterLink, NgIf, EditmodalComponent, RouterModule, NgClass, UpperCasePipe,HeaderComponent, TitleCasePipe],
+  imports: [PerfilVehiculoComponent, FooterDesktopComponent, CrearVehiculoComponent, NgFor,ReactiveFormsModule,RouterLink, NgIf, EditmodalComponent, RouterModule, NgClass, UpperCasePipe,HeaderComponent, FormsModule, TitleCasePipe],
   templateUrl: './flota.component.html',
   styleUrl: './flota.component.css'
 })
 export class FlotaComponent {
   private lastScrollTop = 0;
-  flotas:any = [];
+  flotas:any[] = [];
   vehicleForm: FormGroup;
   isLoading = false;
   isEditMode = false;
   selectedVehicle: Vehicle | null = null;
+
+  searchTerm: string = '';
+  filteredForms: any[] = [];  // Inicializar como un array vacío
 
   constructor(private flotaService: FlotaService, private flowbiteService: FlowbiteService, private fb: FormBuilder){
     this.vehicleForm = this.fb.group({
@@ -54,14 +57,30 @@ export class FlotaComponent {
       this.isEditMode = true;
     }
   }
+  
+  searchForms() {
+    const term = this.searchTerm.toLowerCase().trim();
+    if (term) {
+      this.filteredForms = this.flotas.filter( vehicle =>
+        vehicle.make?.toLowerCase().includes(term) ||
+           vehicle.model?.toLowerCase().includes(term) ||
+           vehicle.plate?.toLowerCase().includes(term)
+      );
+    } else {
+      // Resetear a todos los formularios si no se proporciona un término de búsqueda
+      this.filteredForms = [...this.flotas];
+    }
+  }
+
 
   // Método para cargar las flotas
   loadFlotas() {
     this.isLoading = true; // Activa el spinner antes de hacer la solicitud
 
     this.flotaService.getFlotas().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.flotas = data;
+        this.filteredForms = [...this.flotas];
         if (this.flotas.length === 0) {
           Swal.fire('Sin datos', 'No se encontraron vehículos.', 'warning');
         }
@@ -146,7 +165,6 @@ export class FlotaComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.flotaService.deleteFlotas(id).subscribe((data) => {
-          console.log(data);
           Swal.fire({
             title: '¡Eliminado!',
             text: 'El producto ha sido eliminado con éxito.',
