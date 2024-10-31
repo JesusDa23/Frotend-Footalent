@@ -26,8 +26,18 @@
 
                 <div class="flex justify-between w-full gap-5">
                     <!-- FOTO DE PERFIL -->
-                    <div class="foto">
-                        <img src="{{pfp}}" alt="foto de perfil" class="rounded-md w-[72px] h-[72px]">
+                    <!-- <div class="foto cursor-pointer" (click)="fileInput.click()">
+                        <img [src]="pfp" alt="foto de perfil" class="rounded-md w-[72px] h-[72px] object-cover"/>
+                    </div>
+                    <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*"
+                        style="display: none;" /> -->
+
+                    <div class="profile-picture-container relative">
+                        <input type="file" accept="image/*" (change)="pfpSelected($event)" #fileInput
+                            class="absolute inset-0 cursor-pointer opacity-0 z-10" (click)="fileInput.value = ''" />
+                        <div class="foto" (click)="fileInput.click()">
+                            <img [src]="pfp" alt="Foto de perfil" class="rounded-md w-[72px] h-[72px] cursor-pointer" />
+                        </div>
                     </div>
 
                     <!-- STATUS -->
@@ -46,24 +56,27 @@
                             </div>
                             <i class="fas fa-chevron-down mr-1"></i>
                         </div>
-                        
-                    
-                        <div *ngIf="isDropdownOpen" class="absolute z-10 mt-2 w-full rounded-md bg-white shadow-lg text-black">
+
+
+                        <div *ngIf="isDropdownOpen"
+                            class="absolute z-10 mt-2 w-full rounded-md bg-white shadow-lg text-black">
                             <div class="py-1">
                                 <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
                                     (click)="onStatusClick(true)">
-                                    <span class=" flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-green-600"></span>
+                                    <span
+                                        class=" flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-green-600"></span>
                                     Habilitado
                                 </div>
                                 <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
                                     (click)="onStatusClick(false)">
-                                    <span class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-red-500"></span>
+                                    <span
+                                        class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-red-500"></span>
                                     Inhabilitado
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <!-- NOMBRE -->
@@ -88,8 +101,10 @@
                             class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500" />
                         <div *ngIf="userForm.get('phone')?.invalid && (userForm.get('phone')?.touched || userForm.get('phone')?.dirty)"
                             class="text-red-600 text-sm">
-                            <span *ngIf="userForm.get('phone')?.errors?.['required']">El número de teléfono es obligatorio.</span>
-                            <span *ngIf="userForm.get('phone')?.errors?.['pattern']">El número de teléfono debe tener entre 10 y 15 dígitos.</span>
+                            <span *ngIf="userForm.get('phone')?.errors?.['required']">El número de teléfono es
+                                obligatorio.</span>
+                            <span *ngIf="userForm.get('phone')?.errors?.['pattern']">El número de teléfono debe tener
+                                entre 10 y 15 dígitos.</span>
                         </div>
                     </div>
                 </div>
@@ -101,8 +116,10 @@
                         class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500" />
                     <div *ngIf="userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)"
                         class="text-red-600 text-sm">
-                        <span *ngIf="userForm.get('email')?.errors?.['required']">El correo electrónico es obligatorio.</span>
-                        <span *ngIf="userForm.get('email')?.errors?.['pattern']">El correo electrónico no tiene un formato válido.</span>
+                        <span *ngIf="userForm.get('email')?.errors?.['required']">El correo electrónico es
+                            obligatorio.</span>
+                        <span *ngIf="userForm.get('email')?.errors?.['pattern']">El correo electrónico no tiene un
+                            formato válido.</span>
                     </div>
                 </div>
 
@@ -153,11 +170,11 @@
                     </div>
                 </div>
 
-                
+
             </form>
             <button (click)="resetPassword()"
-                    class="bg-red-700 space-y-4 mt-4 font-normal mx-auto text-white w-full px-4 py-2 rounded">Restaurar
-                    Contraseña</button>
+                class="bg-red-700 space-y-4 mt-4 font-normal mx-auto text-white w-full px-4 py-2 rounded">Restaurar
+                Contraseña</button>
         </div>
     </section>
 

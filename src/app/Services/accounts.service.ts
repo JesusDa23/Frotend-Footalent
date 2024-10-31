@@ -55,6 +55,12 @@ export class AccountsService {
     return this.http.get(this.appUrl + '/users', { headers: this.requestHeaders });
   }
 
+  uploadProfilePicture(id: string, file: File): Observable<any> {
+    const imageUrl = new FormData();
+    imageUrl.append('imageUrl', file, file.name);
+    return this.http.post(`${this.appUrl}/users/${id}/image`, imageUrl, { headers: this.requestHeaders });
+  }
+
   private dniSource = new BehaviorSubject<string | null>(null); // Initialize with null
   currentDni$ = this.dniSource.asObservable(); // Expose observable for other components
 
