@@ -35,14 +35,14 @@
                         <!-- Trigger dropdown with lighter background for the selected option -->
                         <div class="p-1 border border-gray-300 rounded-3xl flex items-center justify-between cursor-pointer"
                             [ngClass]="{
-                            'bg-[#15690B]': user.status === 'Activo', 
+                            'bg-[#ABFF95]': user.status === 'Activo', 
                             'bg-[#C39F0B]': user.status === 'Inhabilitado', 
    
                           }" (click)="toggleDropdown()">
                             <div class="flex items-center">
                                 <!-- Colored ball to represent the status -->
                                 <span class="flex items-center justify-center h-2 w-2 rounded-full mx-2" [ngClass]="{
-                                'bg-[#59F63A]': user.status === 'Activo',
+                                'bg-[#ABFF95]': user.status === 'Activo',
                                 'bg-[#815B12]': user.status === 'Inhabilitado',
       
                               }"></span>
@@ -59,15 +59,15 @@
                                     (click)="onStatusClick(true)">
                                     <span
                                         class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-green-600"></span>
-                                    Disponible
+                                    Habilitado
                                 </div>
                                 <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
                                     (click)="onStatusClick(false)">
                                     <span
                                         class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-red-500"></span>
-                                    Ocupado
+                                    Inhabilitado
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -78,9 +78,8 @@
 
                     <div>
                         <label for="nombre" class="block mb-2 text-sm font-medium">Nombre y Apellido</label>
-                        <input [(ngModel)]="user.name"
-                        (keypress)="onlyLetters($event)"
-                        type="text" name="nombre" id="nombre"
+                        <input [(ngModel)]="user.name" (keypress)="onlyLetters($event)" type="text" name="nombre"
+                            id="nombre"
                             class="text-gray-600 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
                             placeholder="John Smith" readonly>
                     </div>
@@ -89,14 +88,14 @@
                         <div class="w-1/2">
                             <label for="dni" class="block mb-2 text-sm font-medium">DNI</label>
                             <input [(ngModel)]="user.dni" type="text" name="DNI" id="DNI"
-                            (keypress)="onlyNumbers($event)"
+                                (keypress)="onlyNumbers($event)"
                                 class="text-gray-600 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
                                 placeholder="12345789" readonly>
                         </div>
                         <div class="w-1/2">
                             <label for="phone" class="block mb-2 text-sm font-medium">Teléfono</label>
                             <input [(ngModel)]="user.phone" type="text" name="phone" id="phone"
-                            (keypress)="onlyNumbers($event)"
+                                (keypress)="onlyNumbers($event)"
                                 class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
                                 placeholder="12345789" required>
                         </div>
@@ -133,7 +132,7 @@
                     <div>
                         <label for="licencia" class="block mb-2 text-sm font-medium">Número de licencia</label>
                         <input [(ngModel)]="user.licencia" type="text" name="licencia" id="licencia"
-                        (keypress)="onlyNumbers($event)"
+                            (keypress)="onlyNumbers($event)"
                             class="text-gray-600 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500"
                             placeholder="12345789" readonly>
                     </div>
@@ -159,20 +158,18 @@
                         </div>
                     </div>
 
-                    <button (click)="resetPassword()" type="reset"
-                        class="bg-red-700 font-normal mx-auto text-white w-full px-4 py-2 rounded">Restaurar
-                        Contraseña</button>
+
 
                 </form>
-
+                
             </div>
         </div>
 
     </section>
 
+   
 
-
-    <section #sectionRef class="other-btns flex flex-col md:w-full md:mt-0 sm:max-w-md xl:p-0">
+    <section class="other-btns flex flex-col md:w-full md:mt-0 sm:max-w-md xl:p-0">
         <div class="btn-container w-full p-4 sm:mx-[20px] sm:w-[91%] flex flex-col gap-5 justify-center">
             <button style="border: 1px solid #0A135D;" (click)="goToHistory()"
                 class=" bg-white font-normal mx-auto text-blue-950 w-full px-6 py-2 rounded">
@@ -185,6 +182,7 @@
         </div>
     </section>
 
+    
 
 
     <div class="relative bottom-0 left-0 right-0 w-full">

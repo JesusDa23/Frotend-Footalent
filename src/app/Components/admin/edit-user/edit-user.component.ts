@@ -107,16 +107,16 @@ export class EditUserComponent {
         this.user = data
         this.name = data.name
         this.dni = data.dni,
-        this.name = data.name,
-        this.phone = data.phone,
-        this.email = data.email,
-        this.address = data.address,
-        this.rol = data.rol,
-        this.password = data.password,
-        this.licencia = data.licencia,
-        this.type_licence = data.type_licence,
-        this.status = data.status,
-        this.expiration_licence = data.expiration_licence
+          this.name = data.name,
+          this.phone = data.phone,
+          this.email = data.email,
+          this.address = data.address,
+          this.rol = data.rol,
+          this.password = data.password,
+          this.licencia = data.licencia,
+          this.type_licence = data.type_licence,
+          this.status = data.status,
+          this.expiration_licence = data.expiration_licence
       }
     })
   }
@@ -124,13 +124,12 @@ export class EditUserComponent {
   goToHistory() {
     const data = this.dni
     this.router.navigate(['/historial-vehiculos', { state: data }])
-    console.log(data)
   }
 
   editUser() {
     // Validate all required fields
-    if (!this.user.name || !this.user.dni || !this.user.phone || !this.user.email || !this.user.rol || 
-        !this.user.address || !this.user.licencia || !this.user.type_licence || !this.user.expiration_licence) {
+    if (!this.user.name || !this.user.dni || !this.user.phone || !this.user.email || !this.user.rol ||
+      !this.user.address || !this.user.licencia || !this.user.type_licence || !this.user.expiration_licence) {
       Swal.fire({
         title: 'Campos incompletos',
         text: 'Por favor, complete todos los campos antes de guardar.',
@@ -140,10 +139,10 @@ export class EditUserComponent {
       });
       return;
     }
-  
+
     // Indica que la actualización está en proceso
     this.isLoading = true;
-  
+
     // Llama al servicio para actualizar el usuario
     this.accountsService.updateUser(this.userId, this.user).subscribe({
       next: (res: any) => {
@@ -166,43 +165,14 @@ export class EditUserComponent {
           confirmButtonText: 'Aceptar',
           confirmButtonColor: '#D33'
         });
-        console.error('Error al actualizar el usuario:', error);
       }
     });
   }
-  
-
-  // onStatusChange(Boolean: any) {
-  //   this.accountsService.updateUserStatus(this.userId, this.status).subscribe((res: any) => {
-  //     if (res) {
-  //       console.log("bien");
-  //     } else {
-  //       console.log("mal");
-  //     }
-  //   })
-
-  // }
-  
 
   onStatusClick(status: boolean) {
     this.accountsService.updateUser(this.userId, this.statusOptions).subscribe((res: any) => {
-      if (res) {
-        console.log("actualizado");
-        console.log(res);
-      } else {
-        console.log("error");
-      }
+
     })
-    // ({
-    //   next: () => {
-    //     console.log('User status updated successfully');
-    //     this.status = status; // Update local status if needed
-    //     this.isDropdownOpen = false; // Close dropdown after selection
-    //   },
-    //   error: (err) => {
-    //     console.error('Error updating user status:', err);
-    //   },
-    // });
   }
 
   resetPassword() {
@@ -220,7 +190,6 @@ export class EditUserComponent {
   }
 
   ngOnInit() {
-    console.log(this.statusOptions);
     this.getUserInfo()
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -229,37 +198,33 @@ export class EditUserComponent {
     });
   }
 
-
-  
-
   onlyLetters(event: KeyboardEvent) {
     const pattern = /[a-zA-Z]/;
     if (!pattern.test(event.key)) {
       event.preventDefault();
     }
   }
-  
+
   onlyLettersAndNumbers(event: KeyboardEvent) {
     const pattern = /[a-zA-Z0-9]/;
     if (!pattern.test(event.key)) {
       event.preventDefault();
     }
   }
-  
+
   onlyLettersNumbersAndDash(event: KeyboardEvent) {
     const pattern = /[a-zA-Z0-9-]/;
     if (!pattern.test(event.key)) {
       event.preventDefault();
     }
   }
-  
+
   onlyNumbers(event: KeyboardEvent) {
     const pattern = /[0-9]/;
     if (!pattern.test(event.key)) {
       event.preventDefault();
     }
   }
-
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -277,7 +242,6 @@ export class EditUserComponent {
         sectionElement.classList.add('translate-y-0');
         sectionElement.classList.remove('translate-y-full');
       }
-
       // Update the last scroll position
       this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }

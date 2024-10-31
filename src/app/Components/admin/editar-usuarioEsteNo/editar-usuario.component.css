@@ -5,6 +5,10 @@
     z-index: 10;
 }
 
+.swal2-cancelButtonText {
+  color: #0A135D !important;
+}
+
 .loader {
     border: 8px solid #f3f3f3;
     border-top: 8px solid #0A135D; 
@@ -32,7 +36,9 @@
     transform: translateY(0); /* Move back on-screen */
   }
   
-  
+.enable{
+  color: #15690B;
+}
 
 @media (max-width: 639px) {
     .other-btns {

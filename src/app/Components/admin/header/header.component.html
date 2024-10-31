@@ -2,9 +2,9 @@
 
  
 
-  <header class="w-full m-0 p-0 flex items-center justify-between bg-[#0a135d] pt-2  pl-4 pb-2 shadow-md">
+  <header class="w-full m-0 p-0 flex items-center justify-between bg-[#0a135d]  shadow-md">
     <div class="w-full flex items-center justify-between">
-      <div class="font-medium text-white sm:ml-3 md:ml-[10%]">
+      <div class="font-medium text-white px-[20px] py-[10px] md:ml-[10%]">
         <ul>
           <li class="text-lg">Bienvenido, {{User?.name}}</li>
           <li class="text-gray-400">Administrador</li>
@@ -15,12 +15,12 @@
     </div>
   </header>
 
-  <nav class="flex justify-around bg-white padding-b-10 p-2 pt-4 shadow-md">
+  <nav class="flex justify-around bg-white padding-b-10 p-2 mb-4 pt-4 shadow-md">
     <button routerLink="/home"
-      routerLinkActive="border-blue-500 text-blue-950 text-lg font-medium border-b-4 padding-b-10 border-blue-950 "
+      routerLinkActive=" text-blue-950 text-lg font-medium border-b-4 padding-b-10 border-[#F6683A] "
       class="font-medium " [routerLinkActiveOptions]="{exact: true}">Flota vehicular</button>
     <button routerLink="/conductores"
-      routerLinkActive="border-blue-500 text-blue-950 text-lg font-medium border-b-4 border-blue-950 "
+      routerLinkActive="text-blue-950 text-lg font-medium border-b-4   border-[#F6683A] "
       class="font-medium " [routerLinkActiveOptions]="{exact: true}">Conductores</button>
   </nav>
 
