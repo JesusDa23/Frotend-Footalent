@@ -214,6 +214,7 @@ import { SubheaderComponent } from '../../subheader/subheader.component';
 import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 import { Location } from '@angular/common';
 import { FooterDesktopComponent } from '../../footer-desktop/footer-desktop.component';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-edit-user',
@@ -229,11 +230,12 @@ export class EditarUsuarioComponent {
   userId: any = '';
   email: string = "";
   dni: string = "";
-  pfp: any = "";
+  pfp: any = "default-profile-pic-url";
   isLoading = false;
   isDropdownOpen = false;
   userForm!: FormGroup;
   status: any = "";
+  selectedFile: File | null = null;
 
   licenceOptions = [
     { value: 'comun', viewValue: 'Común' },
@@ -279,6 +281,19 @@ export class EditarUsuarioComponent {
       status: ['', Validators.required],
     });
   }
+
+  pfpSelected(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      this.selectedFile = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.pfp = e.target.result; // Update the profile picture preview
+      };
+      reader.readAsDataURL(this.selectedFile); // Read the file as a data URL
+    }
+  }
+
 
   getUserInfo() {
     this.isLoading = true;
