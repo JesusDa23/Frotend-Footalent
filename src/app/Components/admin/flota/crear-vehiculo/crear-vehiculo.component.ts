@@ -108,25 +108,29 @@ export class CrearVehiculoComponent {
       year: this.year,
       vin: vin
     }
+    // Verificar si todos los campos están vacíos
+    if (
+      this.TipoId === '' && this.make === '' && this.plate === '' && this.model === '' &&
+      (this.mileage === '' || this.mileage === null || this.mileage === undefined) &&
+      (this.year === '' || this.year === null || this.year === undefined) &&
+      this.status === ''
+    ) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Debe llenar todos los campos antes de guardar.",
+        showConfirmButton: false,
+        timer: 1600
+      });
+      return;
+    }
 
- // Verificar si todos los campos están vacíos
-  if (
-    !this.TipoId && !this.make && !this.plate && !this.model &&
-    !this.mileage && !this.year && !this.status
-  ) {
-    Swal.fire({
-      position: "center",
-      icon: "error",
-      title: "Debe llenar todos los campos antes de guardar.",
-      showConfirmButton: false,
-      timer: 1600
-    });
-    return;
-  }
-
+    // Verificar que todos los campos estén completos
     if (
       !this.TipoId || !this.make || !this.plate || !this.model ||
-      !this.mileage || !this.year || !this.status
+      (this.mileage === '' || this.mileage === null || this.mileage === undefined) ||
+      (this.year === '' || this.year === null || this.year === undefined) ||
+      !this.status
     ) {
       Swal.fire({
         position: "center",
@@ -162,7 +166,7 @@ export class CrearVehiculoComponent {
 
     this._flotaService.createNewFlota(vehiculo).subscribe({
       next: (response) => {
-        
+
         Swal.fire({
           position: "center",
           icon: "success",
@@ -188,21 +192,21 @@ export class CrearVehiculoComponent {
       event.preventDefault();
     }
   }
-  
+
   onlyLettersAndNumbers(event: KeyboardEvent) {
     const pattern = /[a-zA-Z0-9]/;
     if (!pattern.test(event.key)) {
       event.preventDefault();
     }
   }
-  
+
   onlyLettersNumbersAndDash(event: KeyboardEvent) {
     const pattern = /[a-zA-Z0-9-]/;
     if (!pattern.test(event.key)) {
       event.preventDefault();
     }
   }
-  
+
   onlyNumbers(event: KeyboardEvent) {
     const pattern = /[0-9]/;
     if (!pattern.test(event.key)) {
