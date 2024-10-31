@@ -29,7 +29,7 @@
       </div>
       <div class="flex-1 text-lg">
         <label>Placa</label>
-        <input maxlength="8" [(ngModel)]="plate" (keypress)="onlyLettersAndNumbers($event)"
+        <input maxlength="6" [(ngModel)]="plate" (keypress)="onlyLettersAndNumbers($event)"
           class="w-full px-4 py-1 border-2 border-gray-500"
           id="selectPlaca"
         />
@@ -63,7 +63,7 @@
     <section class="flex space-x-4">
       <div class="flex-1 text-lg">
         <label>Año de fabricación</label>
-        <input (input)="limitNumberLength($event, 4, 'year')" maxlength="4" type="number" 
+        <input (input)="limitNumberLength($event, 4, 'year')" maxlength="4" type="number"
         [(ngModel)]="year"
         (keypress)="onlyNumbers($event)"
           class="w-full px-4 py-1 border-2 border-gray-500 no-spinner"
@@ -71,7 +71,7 @@
       </div>
       <div class="flex-1 text-lg">
         <label>Kilometraje</label>
-        <input (input)="limitNumberLength($event, 10, 'mileage')" type="number" 
+        <input (input)="limitNumberLength($event, 10, 'mileage')" type="number"
         [(ngModel)]="mileage" (keypress)="onlyNumbers($event)"
           class="w-full px-4 py-1 border-2 border-gray-500 no-spinner"
           required min="0" (keydown)="preventNegative($event)" />
