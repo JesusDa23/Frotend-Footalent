@@ -3,16 +3,17 @@
     <!-- Loop through all vehicles -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2 gap-x-">
 
-      <ng-container *ngFor="let vehicle of flotas" class="">
+      <ng-container *ngFor="let vehicle of flotas" class="" >
         <!-- Only show 'Disponible' status -->
         <ng-container *ngIf="vehicle.status === 'Disponible'">
       <div 
         class="flex p-2 bg-white rounded border border-cardBorder w-full mt-2 items-center justify-between" 
+        (click)="openins(vehicle.category, vehicle._id)"  
         >
 
         
           <!-- Vehicle info (Make and Model) -->
-          <div class="flex-1 w-32 m-2">
+          <div class="flex-1 w-32 m-2" >
             <h2 class="text-lg font-medium">{{ vehicle.make }} - {{ vehicle.model }}</h2>
             <p class="text-gray-500">{{ vehicle.plate | uppercase }}</p>
           </div>
