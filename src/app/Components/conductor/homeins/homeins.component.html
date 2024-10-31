@@ -7,7 +7,7 @@
         <!-- Only show 'Disponible' status -->
         <ng-container *ngIf="vehicle.status === 'Disponible'">
       <div 
-        class="flex p-2 bg-white rounded border border-cardBorder w-full mt-2 items-center justify-between" 
+        class="flex p-2 bg-white rounded border border-cardBorder w-full mt-2 items-center justify-between cursor-pointer" 
         (click)="openins(vehicle.category, vehicle._id)"  
         >
 
@@ -32,7 +32,7 @@
           </div>
           
           <!-- Arrow icon -->
-          <div class="flex-none w-3 ml-2 cursor-pointer" (click)="openins(vehicle.category, vehicle._id)">
+          <div class="flex-none w-3 ml-2">
             <i class="fa-solid fa-chevron-right"></i>
           </div>
         
