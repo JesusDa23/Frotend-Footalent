@@ -91,11 +91,14 @@
     <div class="grid grid-cols-2 gap-4 m-4">
       <div>
         <label class="block text-sm font-semibold mb-1">Tipo de Vehículo</label>
-        <select class="w-full border rounded-md px-3 py-2" [(ngModel)]="vehicle.category">
-          <ng-container *ngFor="let item of categoriesNames">
-            <option [value]='item._id'>{{item.name}}</option>
-        </ng-container>
-        </select>
+        <select class="w-full border rounded-md px-3 py-2" 
+        [ngModel]="vehicle.category" 
+        (change)="selectCategory($event)">
+      <ng-container *ngFor="let item of categoriesNames">
+        <option [value]="item._id">{{ item.name }}</option>
+      </ng-container>
+    </select>
+
       </div>
 
       <div>
@@ -116,10 +119,5 @@
         <i class="far fa-save mr-2"></i> Guardar perfil
       </button> -->
 
-      <div class="fixed bottom-0 left-0 w-full bg-white z-10 shadow-lg p-4">
-        <button (click)="guardarPerfil()" class="w-full bg-[#0A135D] text-white py-3 rounded-lg flex items-center justify-center">
-          Guardar perfil
-        </button>
-      </div>
     </div>
   </div>

@@ -146,6 +146,49 @@ export class PerfilVehiculoComponent {
       }
     });
   }
+
+  // Function to confirm and save vehicle category selection
+  selectCategory(event: Event) {
+    const categoryId = (event.target as HTMLSelectElement).value; // Cast target to HTMLSelectElement to access value
+  
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Quieres cambiar la categoría del vehículo?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#0a135d',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, cambiar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.vehicle.category = categoryId; // Update the local category
+  
+        // Call service to save the category update to the backend
+        this.flotaService.updateFlotas(this.vehicleId, this.vehicle).subscribe({
+          next: () => {
+            Swal.fire({
+              title: 'Categoría cambiada',
+              text: 'La categoría del vehículo ha sido actualizada exitosamente.',
+              icon: 'success',
+              confirmButtonColor: '#0a135d'
+            });
+          },
+          error: (err) => {
+            console.error('Error al actualizar la categoría:', err);
+            Swal.fire({
+              title: 'Error',
+              text: 'Hubo un problema al cambiar la categoría. Inténtalo nuevamente.',
+              icon: 'error',
+              confirmButtonColor: '#0a135d'
+            });
+          }
+        });
+      }
+    });
+  }
+  
+
   
 
   onEditInspeccion() {
