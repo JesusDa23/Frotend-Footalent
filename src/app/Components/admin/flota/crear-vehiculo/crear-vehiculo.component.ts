@@ -26,12 +26,12 @@ export class CrearVehiculoComponent {
   status: string = "";
 
 
-  make: any;
-  plate: any;
-  category: any;
-  model: any;
-  mileage: any;
-  year: any;
+  make: any = "";
+  plate: any = "";
+  category: any = "";
+  model: any = "";
+  mileage: any = "";
+  year: any = "";
   TipoId: string = "";
 
 

@@ -11,7 +11,7 @@ import { AgregarConductorComponent } from '../agregar-conductor/agregar-conducto
 import { FormsModule, NgModel } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import Swal from 'sweetalert2';
-import { EditarUsuarioComponent } from '../editar-usuarioEsteNo/editar-usuario.component';
+import { EditUserComponent } from "../edit-user/edit-user.component";
 
 @Component({
   selector: 'app-conductores',

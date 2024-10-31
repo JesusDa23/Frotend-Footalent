@@ -39,8 +39,8 @@
                             }" (click)="toggleDropdown()">
                             <div class="flex items-center">
                                 <span class="flex items-center justify-center h-2 w-2 rounded-full mx-2" [ngClass]="{
-                                    'bg-[#59F63A]': status === true,
-                                    'bg-[#fe6b6d]': status === false
+                                    'bg-[#15690B]': status === true,
+                                    'bg-[#9e1618]': status === false
                                 }"></span>
                                 {{ status ? 'Habilitado' : 'Inhabilitado' }}
                             </div>
@@ -52,7 +52,7 @@
                             <div class="py-1">
                                 <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
                                     (click)="onStatusClick(true)">
-                                    <span class="flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-green-600"></span>
+                                    <span class=" flex items-center justify-center h-4 w-4 rounded-full mr-2 bg-green-600"></span>
                                     Habilitado
                                 </div>
                                 <div class="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
@@ -153,10 +153,11 @@
                     </div>
                 </div>
 
-                <button (click)="resetPassword()"
-                    class="bg-red-700 font-normal mx-auto text-white w-full px-4 py-2 rounded">Restaurar
-                    Contraseña</button>
+                
             </form>
+            <button (click)="resetPassword()"
+                    class="bg-red-700 space-y-4 mt-4 font-normal mx-auto text-white w-full px-4 py-2 rounded">Restaurar
+                    Contraseña</button>
         </div>
     </section>
 

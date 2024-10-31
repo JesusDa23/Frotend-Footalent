@@ -5,7 +5,6 @@ body {
 
 .font-medium {
     font-family: "Roboto", sans-serif;
-    padding-bottom: 10px;
 }
 
 @media (min-width: 768px) {
