@@ -26,10 +26,12 @@ export class ConductoresComponent {
   retrievedUsers: any[] = [];
   httpClient = inject(HttpClient)
   isLoading = false;
+  pfp: string = "default-profile-pic-url"
+
   private lastScrollTop = 0;
 
   searchTerm: string = '';
-  filteredForms: any[] = [];  // Inicializar como un array vacío
+  filteredForms: any[] = [];  
 
   constructor(private http: HttpClient, private dniService: AccountsService) { }
 
@@ -44,6 +46,7 @@ export class ConductoresComponent {
     this.accountsService.retrieveUsers().subscribe((res: any) => {
       if (res) {
         this.retrievedUsers = res.data
+        this.pfp = res.data.imageUrl;
         this.filteredForms = [...this.retrievedUsers];  
         this.isLoading = false
       } else {
@@ -61,6 +64,7 @@ export class ConductoresComponent {
     this.retrieveUsers();
     this.accountsService.isAdmin();
     this.retrievedUsers
+    console.log(this.pfp);
   }
 
   searchForms() {
