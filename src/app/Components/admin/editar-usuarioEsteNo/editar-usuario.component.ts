@@ -215,6 +215,7 @@ import { TogglemenuComponent } from '../../togglemenu/togglemenu.component';
 import { Location } from '@angular/common';
 import { FooterDesktopComponent } from '../../footer-desktop/footer-desktop.component';
 import { catchError, of } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-edit-user',
@@ -230,7 +231,7 @@ export class EditarUsuarioComponent {
   userId: any = '';
   email: string = "";
   dni: string = "";
-  pfp: any = "default-profile-pic-url";
+  pfp: string | ArrayBuffer | any = "default-profile-pic-url";
   isLoading = false;
   isDropdownOpen = false;
   userForm!: FormGroup;
@@ -294,11 +295,22 @@ export class EditarUsuarioComponent {
     }
   }
 
+  uploadImage(): void {
+    if (this.selectedFile) {
+      this.accountsService.uploadProfilePicture(this.userId, this.selectedFile).subscribe({
+        next: (response) => {
+          console.log('Imagen subida con éxito:', response);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Error al subir la imagen:', error);
+        },
+      });
+    }
+  }
 
   getUserInfo() {
     this.isLoading = true;
     this.userId = this.route.snapshot.paramMap.get('id');
-
 
     this.accountsService.getUser(this.userId).subscribe((data: any) => {
       if (data) {
