@@ -344,13 +344,13 @@ export class EditarUsuarioComponent {
   }
 
   onStatusClick(isActive: boolean) {
-    this.status = isActive; 
-    this.updateUserStatus(isActive); 
-    this.toggleDropdown(); 
+    this.status = isActive;
+    this.updateUserStatus(isActive);
+    this.toggleDropdown();
   }
 
   updateUserStatus(isActive: boolean) {
-    const statusUpdated = { status: isActive }; 
+    const statusUpdated = { status: isActive };
     this.accountsService.updateUser(this.userId, statusUpdated).subscribe(
       (res: any) => {
         if (res) {
@@ -364,13 +364,34 @@ export class EditarUsuarioComponent {
   }
 
   resetPassword() {
-    this.accountsService.requestResetPassword(this.email).subscribe((res: any) => {
-      if (res) {
-        Swal.fire('Restablecido!', 'El correo de restablecimiento ha sido enviado.', 'success');
+    Swal.fire({
+      title: 'Estás a punto de cerrar la sesión.',
+      text: 'Se te enviará una contraseña provisional a tu correo electrónico.',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Aceptar',
+      confirmButtonColor: '#0A135D',
+      cancelButtonColor: '#F2F5FF'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.accountsService.requestResetPassword(this.email).subscribe((res: any) => {
+          if (res) {
+            Swal.fire('Restablecido!', 'El correo de restablecimiento ha sido enviado.', 'success');
+          } else {
+            Swal.fire('Error!', 'El correo de restablecimiento no ha sido enviado.', 'error');
+          }
+        })
       } else {
-        Swal.fire('Error!', 'El correo de restablecimiento no ha sido enviado.', 'error');
+        Swal.fire({
+          title: 'Cancelado',
+          text: 'No se cerró la sesión.',
+          icon: 'info',
+          confirmButtonColor: '#0A135D'
+        });
       }
     })
+
+
   }
 
   goToHistory() {

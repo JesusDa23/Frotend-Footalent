@@ -41,12 +41,12 @@ export class NewUserComponent {
 
     this.conductorForm = this.fb.group({
       dni: ['', [Validators.required,
-        Validators.pattern('^[0-9]{8,15}$')
+        // Validators.pattern('^[0-9]{11}$')
       ]], // 7-8 digitos DNI
       name: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required,
-        Validators.pattern('^[0-9]{10,15}$')
+        // Validators.pattern('^[0-9]{10,12}$')
       ]], // 10 a 12 digitos telefono
       address: ['', Validators.required],
       password: this.randomPassword,

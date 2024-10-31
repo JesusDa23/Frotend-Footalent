@@ -75,7 +75,7 @@
                             placeholder="john@mail.com">
                         <div *ngIf="f['email'].touched && f['email'].invalid" class="text-red-500 text-sm">
                             <div *ngIf="f['email'].errors?.['required']">El correo electrónico es obligatorio.</div>
-                            <div *ngIf="f['email'].errors?.['pattern']">El formato de correo electrónico no es válido.
+                            <div *ngIf="f['email'].errors?.['email']">El formato de correo electrónico no es válido.
                             </div>
                         </div>
                     </div>
