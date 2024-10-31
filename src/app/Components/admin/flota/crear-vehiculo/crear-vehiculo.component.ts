@@ -176,8 +176,16 @@ export class CrearVehiculoComponent {
         });
       },
       error: (err) => {
-        // console.error("Error al crear la flota:", err);
-        // Manejo de errores
+        console.error("Error al crear la flota:", err);
+        if (err.error && err.error.message) {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: `Error al crear el vehiculo \n ${err.error.message}`,
+            showConfirmButton: false,
+            timer: 1600
+          });
+        }
       }
     });
 
