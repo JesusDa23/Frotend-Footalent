@@ -35,16 +35,16 @@
           <!-- Itera sobre el array de mantenimientos -->
           <tr *ngFor="let mantenimiento of mantenimientos" class="border-b">
             <td class="p-2">
-          <div 
+          <div
             class="p-1 border border-gray-300 rounded-3xl flex items-center justify-between cursor-pointer text-white"
             [ngClass]="{
-              'bg-green-600': mantenimiento.estado === 'Realizado', 
-              'bg-[#C39F0B]': mantenimiento.estado === 'Pendiente', 
+              'bg-green-600': mantenimiento.estado === 'Realizado',
+              'bg-[#C39F0B]': mantenimiento.estado === 'Pendiente',
               'bg-red-600': mantenimiento.estado === 'Vencido'
             }"
             (click)="toggleDropdown(mantenimiento)">
             <div class="flex items-center">
-              <span 
+              <span
                 class="flex items-center justify-center h-2 w-2 rounded-full mx-2"
                 [ngClass]="{
                   'bg-[#59F63A]': mantenimiento.estado === 'Realizado',
@@ -75,7 +75,7 @@
           </div>
             </td>
             <td class="p-2">
-              <select [(ngModel)]="mantenimiento.vehicleId" 
+              <select [(ngModel)]="mantenimiento.vehicleId"
               type="text" class="border border-gray-300 rounded p-1 w-full">
               <option value=""></option>
               <ng-container *ngFor="let item of flotas">
@@ -96,7 +96,7 @@
               </select>
             </td>
             <td class="p-2">
-              <input [(ngModel)]="mantenimiento.coste" type="text" class="border border-gray-300 rounded p-1 w-full" />
+              <input [(ngModel)]="mantenimiento.coste" type="number" class="border border-gray-300 rounded p-1 w-full" />
             </td>
             <td>
                 <button class="flex justify-center m-auto" (click)="eliminarMantenimiento(mantenimiento._id)">
