@@ -1,12 +1,13 @@
 <div class="bg-white min-h-screen">
   <app-subheader [pageTitle]="'Agregar vehículo'"></app-subheader>
-  <div class="p-4 flex items-center justify-between shadow-md bg-bgAzulClaron">
+ <div class="container">
+  <div class="p-4 flex items-center justify-between max-w-4xl mx-auto">
     <!-- Tipo de vehículo -->
-    <p class="text-xl font-medium">Perfil del vehículo</p>
-
-    <!-- Selector para cambiar estado del vehículo, con margen a la izquierda -->
-    <div class="ml-4 max-w-100">
-      <label for="status" class="text-sm font-bold mb-2"></label>
+    <p class="text-medium font-semibold">Perfil del vehículo</p>
+  
+    <!-- Selector para cambiar estado del vehículo -->
+    <div class="ml-6 max-w-xs">
+      <label for="status" class="text-sm font-semibold mb-2"></label>
       <select [(ngModel)]="status" id="status" class="p-2 border border-gray-300 rounded-3xl w-full">
         <option value="" disabled selected>- Seleccionar</option>
         <option value="Disponible">Disponible</option>
@@ -16,75 +17,82 @@
       </select>
     </div>
   </div>
-
+  
   <!-- Sección de marca y placa -->
-  <div class="p-4 space-y-4">
-    <section class="flex space-x-4">
-      <div class="flex-1 text-lg">
+  <div class="p-4 space-y-3 max-w-4xl mx-auto">
+    <section class="grid grid-cols-2 gap-6">
+      <div class="text-lg">
         <label>Marca</label>
         <input maxlength="25" [(ngModel)]="make" (keypress)="onlyLetters($event)"
-          class="w-full px-4 py-1 border-2 border-gray-500"
+          class="w-full px-4 pt-4 border rounded border-gray-500"
           id="selectMarca"
         />
       </div>
-      <div class="flex-1 text-lg">
+      <div class="text-lg">
         <label>Placa</label>
         <input maxlength="6" [(ngModel)]="plate" (keypress)="onlyLettersAndNumbers($event)"
-          class="w-full px-4 py-1 border-2 border-gray-500"
+          class="w-full px-4 py-2 border rounded border-gray-500"
           id="selectPlaca"
         />
       </div>
     </section>
-
+  
     <!-- Sección de tipo de vehículo y modelo -->
-    <section class="flex space-x-4">
-      <div class="flex-1 text-lg">
+    <section class="grid grid-cols-2 gap-6">
+      <div class="text-lg">
         <label>Tipo de vehículo</label>
         <select
-          class="w-full px-4 py-1 border-2 border-gray-500"
+          class="w-full px-4 py-2 border rounded border-gray-500"
           id="selectTipoV"
           [(ngModel)]="TipoId"
         >
           <option value=""></option>
-          @for (tipo of arrayVehiculo; track $index) {
-          <option [value]="tipo._id" >{{ tipo.name }}</option>
-          }
+          <!-- Adjust for Angular binding here if needed -->
+          <option *ngFor="let tipo of arrayVehiculo; trackBy: trackByTipoId" 
+          [value]="tipo._id">{{ tipo.name }}</option>
         </select>
       </div>
-      <div class="flex-1 text-lg">
+      <div class="text-lg">
         <label>Modelo</label>
         <input maxlength="25" [(ngModel)]="model"
-        (keypress)="onlyLettersNumbersAndDash($event)"
-          class="w-full px-4 py-1 border-2 border-gray-500"
-          id="selectModelo"/>
+          (keypress)="onlyLettersNumbersAndDash($event)"
+          class="w-full px-4 py-2 border rounded border-gray-500"
+          id="selectModelo"
+        />
       </div>
     </section>
-
-    <section class="flex space-x-4">
-      <div class="flex-1 text-lg">
+  
+    <section class="grid grid-cols-2 gap-6">
+      <div class="text-lg">
         <label>Año de fabricación</label>
         <input (input)="limitNumberLength($event, 4, 'year')" maxlength="4" type="number"
-        [(ngModel)]="year"
-        (keypress)="onlyNumbers($event)"
-          class="w-full px-4 py-1 border-2 border-gray-500 no-spinner"
+          [(ngModel)]="year"
+          (keypress)="onlyNumbers($event)"
+          class="w-full px-4 py-2 border rounded border-gray-500 no-spinner"
           (keydown)="preventNegative($event)" />
       </div>
-      <div class="flex-1 text-lg">
-        <label>Kilometraje</label>
-        <input (input)="limitNumberLength($event, 10, 'mileage')" type="number"
-        [(ngModel)]="mileage" (keypress)="onlyNumbers($event)"
-          class="w-full px-4 py-1 border-2 border-gray-500 no-spinner"
-          required min="0" (keydown)="preventNegative($event)" />
-      </div>
+      <!-- Add more fields or elements here if necessary -->
     </section>
-
-
-
-
   </div>
+
+
+  <!-- Desktop Button (Centered below the form, only visible on desktop) -->
+<div class="hidden md:flex justify-center mt-6 ">
+  <button (click)="guardarVehiculo()" class="border min-w-80 rounded border-btnColor bg-btnColor text-white px-8 py-3 text-lg font-medium">
+    Confirmar
+  </button>
 </div>
-<div class="fixed bottom-0 w-full p-4 bg-bgAzulClaron flex flex-col space-y-2 justify-center">
-  <button class="border-2 text-white w-full px-4 py-2 rounded bg-transparent
-  border-btnColor"><i class="text-btnColor fa-solid fa-pen text-lg"></i><span class="font-medium ml-2 text-btnColor text-lg">Editar Inspección</span></button>
-  <button (click)="guardarVehiculo()" class="border-2 border-btnColor bg-btnColor text-white  w-full px-4 py-2 rounded text-lg font-medium">Confirmar</button>
+<!-- Mobile Button (Fixed at the bottom, only visible on mobile) -->
+<div class="fixed bottom-0 w-full p-4 bg-bgAzulClaron flex flex-col space-y-2 justify-center md:hidden">
+  <button (click)="guardarVehiculo()" class="border rounded border-btnColor bg-btnColor text-white w-full px-4 py-2 text-lg font-medium">
+    Confirmar
+  </button>
 </div>
+
+
+ </div>
+</div>
+
+
+
+
