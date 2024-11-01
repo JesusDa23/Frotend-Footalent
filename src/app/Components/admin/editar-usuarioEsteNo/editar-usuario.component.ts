@@ -340,7 +340,7 @@ export class EditarUsuarioComponent {
     this.accountsService.updateUser(this.userId, this.userForm.value).subscribe({
       next: () => {
 
-        
+
         this.isLoading = false;
         Swal.fire({
           title: '¡Actualizado!',
@@ -351,7 +351,7 @@ export class EditarUsuarioComponent {
         });
       },
       error: (error) => {
-        
+
         this.isLoading = false;
         const errorMessage = error.error?.message || 'Ocurrió un error al actualizar el perfil. Por favor intenta nuevamente.';
         Swal.fire({
@@ -385,7 +385,14 @@ export class EditarUsuarioComponent {
       (res: any) => {
         if (res) {
           console.log(statusUpdated);
-          console.log('User status updated successfully', res);
+          Swal.fire({
+            icon: 'success',
+            title: 'El usuario ha sido actualizado.',
+            confirmButtonColor: '#0A135D',
+
+          }
+
+          );
         } else {
           console.log("error");
         }
@@ -427,7 +434,6 @@ export class EditarUsuarioComponent {
   goToHistory() {
     const data = this.dni
     this.router.navigate(['/historial-vehiculos', { state: data }])
-    console.log(data)
   }
 
 }

@@ -24,8 +24,8 @@ export class ForgotPasswordComponent {
     Swal.fire({
       position: "center",
       icon: "info",
-      title:"Informacion",
-      text: "Si su correo esta registrado recibira instrucciones para reestablecer su contraseña.",
+      title:"Información",
+      text: "Si su correo está registrado, recibirá instrucciones para restablecer su contraseña.",
       confirmButtonText: "Aceptar",
       confirmButtonColor: "#0A135D",
     });
