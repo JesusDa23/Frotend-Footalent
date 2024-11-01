@@ -33,8 +33,7 @@
                         style="display: none;" /> -->
 
                     <div class="profile-picture-container relative">
-                        <input type="file" accept="image/*" (change)="pfpSelected($event)" #fileInput
-                            class="absolute inset-0 cursor-pointer opacity-0 z-10" (click)="fileInput.value = ''" />
+                        <input type="file" accept="image/*" (change)="pfpSelected($event)" #fileInput class="absolute inset-0 cursor-pointer opacity-0 z-10" (click)="fileInput.value = ''" />
                         <div class="foto" (click)="fileInput.click()">
                             <img [src]="pfp" alt="Foto de perfil" class="rounded-md w-[72px] h-[72px] cursor-pointer" />
                         </div>

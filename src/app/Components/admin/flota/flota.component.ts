@@ -103,12 +103,24 @@ export class FlotaComponent {
     getLogo(make: string): string {
       switch(make.toLowerCase()) {
         case 'renault':
-          return 'assets/logos/renault.png';
+          return '../../../../assets/logos/model=renault.png';
         case 'ford':
-          return '../../../../assets/logos/ford.png';
+          return '../../../../assets/logos/model=ford.svg';
         // Añadir otros logos según las marcas necesarias
+        case 'chevrolet':
+          return '../../../../assets/logos/model=chevrolet.svg';
+        case 'mercedes':
+          return '../../../../assets/logos/model=mercedes.svg';
+        case 'caterpillar':
+          return '../../../../assets/logos/model=cat.svg';
+        case 'nissan':
+          return '../../../../assets/logos/model=nissan.svg';
+        case 'subaru':
+          return '../../../../assets/logos/model=subaru.svg';
+        case 'toyota': 
+          return '../../../../assets/logos/model=toyota.svg';
         default:
-          return 'assets/logos/default.png'; // Logo por defecto
+          return '../../../../assets/logos/model=none.svg'; // Logo por defecto
       }
     }
 
