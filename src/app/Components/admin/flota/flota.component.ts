@@ -117,7 +117,7 @@ export class FlotaComponent {
           return '../../../../assets/logos/model=nissan.svg';
         case 'subaru':
           return '../../../../assets/logos/model=subaru.svg';
-        case 'toyota':
+        case 'toyota': 
           return '../../../../assets/logos/model=toyota.svg';
         default:
           return '../../../../assets/logos/model=none.svg'; // Logo por defecto
