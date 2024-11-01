@@ -33,6 +33,7 @@ export class CrearVehiculoComponent {
   mileage: any = "";
   year: any = "";
   TipoId: string = "";
+  vin: String = "";
 
 
 
@@ -58,15 +59,7 @@ export class CrearVehiculoComponent {
     );
   }
 
-  generateVIN(): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // Letras y números
-    let vin = '';
-    for (let i = 0; i < 17; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      vin += characters[randomIndex];
-    }
-    return vin;
-  }
+
 
   preventNegative(event: KeyboardEvent): void {
     if (event.key === '-' || event.key === 'e') {
@@ -96,7 +89,7 @@ export class CrearVehiculoComponent {
 
     this.plate = this.plate.toUpperCase();
 
-    const vin = this.generateVIN();
+    
 
 
     const vehiculo: any = {
@@ -106,14 +99,14 @@ export class CrearVehiculoComponent {
       model: this.model,
       mileage: this.mileage,
       year: this.year,
-      vin: vin
+      vin: this.vin
     }
     // Verificar si todos los campos están vacíos
     if (
       this.TipoId === '' && this.make === '' && this.plate === '' && this.model === '' &&
       (this.mileage === '' || this.mileage === null || this.mileage === undefined) &&
       (this.year === '' || this.year === null || this.year === undefined) &&
-      this.status === ''
+      this.status === ''  && this.vin === ''
     ) {
       Swal.fire({
         position: "center",

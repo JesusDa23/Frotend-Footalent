@@ -3,7 +3,7 @@
  <div class="container">
   <div class="p-4 flex items-center justify-between max-w-4xl mx-auto">
     <!-- Tipo de vehículo -->
-    <p class="text-medium font-semibold">Perfil del vehículo</p>
+    <p class="text-lg font-semibold">Perfil del vehículo</p>
   
     <!-- Selector para cambiar estado del vehículo -->
     <div class="ml-6 max-w-xs">
@@ -24,14 +24,14 @@
       <div class="text-lg">
         <label>Marca</label>
         <input maxlength="25" [(ngModel)]="make" (keypress)="onlyLetters($event)"
-          class="w-full px-4 pt-4 border rounded border-gray-500"
+          class="w-full px-4 p-1 border rounded border-gray-500"
           id="selectMarca"
         />
       </div>
       <div class="text-lg">
         <label>Placa</label>
         <input maxlength="6" [(ngModel)]="plate" (keypress)="onlyLettersAndNumbers($event)"
-          class="w-full px-4 py-2 border rounded border-gray-500"
+          class="w-full px-4 p-1 border rounded border-gray-500"
           id="selectPlaca"
         />
       </div>
@@ -42,7 +42,7 @@
       <div class="text-lg">
         <label>Tipo de vehículo</label>
         <select
-          class="w-full px-4 py-2 border rounded border-gray-500"
+          class="w-full px-4 p-1 border rounded border-gray-500"
           id="selectTipoV"
           [(ngModel)]="TipoId"
         >
@@ -56,7 +56,7 @@
         <label>Modelo</label>
         <input maxlength="25" [(ngModel)]="model"
           (keypress)="onlyLettersNumbersAndDash($event)"
-          class="w-full px-4 py-2 border rounded border-gray-500"
+          class="w-full px-4 p-1 border rounded border-gray-500"
           id="selectModelo"
         />
       </div>
@@ -68,10 +68,18 @@
         <input (input)="limitNumberLength($event, 4, 'year')" maxlength="4" type="number"
           [(ngModel)]="year"
           (keypress)="onlyNumbers($event)"
-          class="w-full px-4 py-2 border rounded border-gray-500 no-spinner"
+          class="w-full px-4 p-1 border rounded border-gray-500 no-spinner"
           (keydown)="preventNegative($event)" />
       </div>
-      <!-- Add more fields or elements here if necessary -->
+      <div class="text-lg">
+        <label>Vin</label>
+        <input (input)="limitNumberLength($event, 4, 'year')" maxlength="4" type="number"
+          [(ngModel)]="vin"
+          (keypress)="onlyLettersAndNumbers($event)"
+          class="w-full px-4 p-1 border rounded border-gray-500 no-spinner"
+          (keydown)="preventNegative($event)" />
+      </div>
+      
     </section>
   </div>
 
