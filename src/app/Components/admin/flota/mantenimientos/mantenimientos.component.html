@@ -1,5 +1,8 @@
 <!-- Spinner de carga -->
-<div *ngIf="isLoading" class="absolute inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-30 z-10">
+<div
+  *ngIf="isLoading"
+  class="absolute inset-0 flex justify-center items-center backdrop-blur-sm bg-opacity-30 z-10"
+>
   <div class="loader"></div>
 </div>
 
@@ -7,11 +10,11 @@
   <!-- Header -->
   <div class="flex justify-between items-center p-2 bg-bgColorBlue">
     <button class="p-4" routerLink="/home">
-      <i class="fas fa-chevron-left text-white" ></i>
+      <i class="fas fa-chevron-left text-white"></i>
     </button>
     <h1 class="text-xl text-white">Mantenimientos</h1>
     <button class="p-4">
-      <app-togglemenu/>
+      <app-togglemenu />
     </button>
   </div>
 
@@ -28,84 +31,123 @@
             <th class="p-2 text-left">Fecha</th>
             <th class="p-2 text-left">Categoría</th>
             <th class="p-2 text-left">Coste</th>
-            <th class="p-2 text-left text-bgColorBlue ">Acción</th>
+            <th class="p-2 text-left text-bgColorBlue">Acción</th>
           </tr>
         </thead>
         <tbody>
           <!-- Itera sobre el array de mantenimientos -->
           <tr *ngFor="let mantenimiento of mantenimientos" class="border-b">
             <td class="p-2">
-          <div
-            class="p-1 border border-gray-300 rounded-3xl flex items-center justify-between cursor-pointer text-white"
-            [ngClass]="{
-              'bg-green-600': mantenimiento.estado === 'Realizado',
-              'bg-[#C39F0B]': mantenimiento.estado === 'Pendiente',
-              'bg-red-600': mantenimiento.estado === 'Vencido'
-            }"
-            (click)="toggleDropdown(mantenimiento)">
-            <div class="flex items-center">
-              <span
-                class="flex items-center justify-center h-2 w-2 rounded-full mx-2"
+              <div
+                class="p-1 border border-gray-300 rounded-3xl flex items-center justify-between cursor-pointer text-white"
                 [ngClass]="{
-                  'bg-[#59F63A]': mantenimiento.estado === 'Realizado',
-                  'bg-[#815B12]': mantenimiento.estado === 'Pendiente',
-                  'bg-[#9E1618]': mantenimiento.estado === 'Vencido'
-                }"></span>
-              {{ mantenimiento.estado }}
-            </div>
-            <i class="fas fa-chevron-down mr-1"></i>
-          </div>
+                  'bg-green-600': mantenimiento.estado === 'Realizado',
+                  'bg-[#C39F0B]': mantenimiento.estado === 'Pendiente',
+                  'bg-red-600': mantenimiento.estado === 'Vencido'
+                }"
+                (click)="toggleDropdown(mantenimiento)"
+              >
+                <div class="flex items-center">
+                  <span
+                    class="flex items-center justify-center h-2 w-2 rounded-full mx-2"
+                    [ngClass]="{
+                      'bg-[#59F63A]': mantenimiento.estado === 'Realizado',
+                      'bg-[#815B12]': mantenimiento.estado === 'Pendiente',
+                      'bg-[#9E1618]': mantenimiento.estado === 'Vencido'
+                    }"
+                  ></span>
+                  {{ mantenimiento.estado }}
+                </div>
+                <i class="fas fa-chevron-down mr-1"></i>
+              </div>
 
-          <!-- Dropdown menu -->
-          <div *ngIf="mantenimiento.isDropdownOpen" class="absolute z-10 mt-2 w-36 bg-white rounded-md shadow-lg">
-            <div class="py-1">
-              <div class="px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center"
-                  (click)="selectEstado(mantenimiento, 'Pendiente')">
-                <span class="bg-yellow-400 h-4 w-4 rounded-full mr-2"></span>Pendiente
+              <!-- Dropdown menu -->
+              <div
+                *ngIf="mantenimiento.isDropdownOpen"
+                class="absolute z-10 mt-2 w-36 bg-white rounded-md shadow-lg"
+              >
+                <div class="py-1">
+                  <div
+                    class="px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center"
+                    (click)="selectEstado(mantenimiento, 'Pendiente')"
+                  >
+                    <span class="bg-yellow-400 h-4 w-4 rounded-full mr-2"></span
+                    >Pendiente
+                  </div>
+                  <div
+                    class="px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center"
+                    (click)="selectEstado(mantenimiento, 'Realizado')"
+                  >
+                    <span class="bg-green-600 h-4 w-4 rounded-full mr-2"></span
+                    >Realizado
+                  </div>
+                  <div
+                    class="px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center"
+                    (click)="selectEstado(mantenimiento, 'Vencido')"
+                  >
+                    <span class="bg-red-600 h-4 w-4 rounded-full mr-2"></span
+                    >Vencido
+                  </div>
+                </div>
               </div>
-              <div class="px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center"
-                  (click)="selectEstado(mantenimiento, 'Realizado')">
-                <span class="bg-green-600 h-4 w-4 rounded-full mr-2"></span>Realizado
-              </div>
-              <div class="px-4 py-2 cursor-pointer hover:bg-gray-100 flex items-center"
-                  (click)="selectEstado(mantenimiento, 'Vencido')">
-                <span class="bg-red-600 h-4 w-4 rounded-full mr-2"></span>Vencido
-              </div>
-            </div>
-          </div>
             </td>
             <td class="p-2">
-              <select [(ngModel)]="mantenimiento.vehicleId"
-              type="text" class="border border-gray-300 rounded p-1 w-full">
-              <option value=""></option>
-              <ng-container *ngFor="let item of flotas">
-                <option [value]='item._id'>{{item.plate}}</option>
-              </ng-container>
-            </select>
+              <select
+                [(ngModel)]="mantenimiento.vehicleId"
+                type="text"
+                class="border border-gray-300 rounded p-1 w-full"
+              >
+                <option value=""></option>
+                <ng-container *ngFor="let item of flotas">
+                  <option [value]="item._id">{{ item.plate }}</option>
+                </ng-container>
+              </select>
             </td>
             <td class="p-2">
-              <input [(ngModel)]="mantenimiento.descripcion" type="text" class="border border-gray-300 rounded p-1 w-full" />
+              <input
+                [(ngModel)]="mantenimiento.descripcion"
+                type="text"
+                class="border border-gray-300 rounded p-1 w-full"
+              />
             </td>
             <td class="p-2">
-              <input [(ngModel)]="mantenimiento.fecha" type="date" class="border border-gray-300 rounded p-1 w-full" />
+              <input
+                [(ngModel)]="mantenimiento.fecha"
+                type="date"
+                class="border border-gray-300 rounded p-1 w-full"
+                [min]="getCurrentDate()"
+              />
             </td>
             <td class="p-2">
-              <select [(ngModel)]="mantenimiento.categoria" class="border border-gray-300 rounded p-1 w-full">
+              <select
+                [(ngModel)]="mantenimiento.categoria"
+                class="border border-gray-300 rounded p-1 w-full"
+              >
                 <option value="Mecánico">Mecánico</option>
                 <option value="Eléctrico">Eléctrico</option>
               </select>
             </td>
             <td class="p-2">
-              <input [(ngModel)]="mantenimiento.coste" type="number" class="border border-gray-300 rounded p-1 w-full" />
+              <input
+                [(ngModel)]="mantenimiento.coste"
+                type="number"
+                class="border border-gray-300 rounded p-1 w-full"
+              />
             </td>
             <td>
-                <button class="flex justify-center m-auto" (click)="eliminarMantenimiento(mantenimiento._id)">
-                    <i class="text-red-700 text-lg fa-regular fa-circle-xmark"></i>
-                </button>
-                <button class="flex justify-center m-auto" (click)="actualizarMantenimiento(mantenimiento)">
-                  <i class="text-green-700 text-lg fa-solid fa-floppy-disk"></i>
-                </button>
-                <!-- <button class="flex justify-center m-auto">
+              <button
+                class="flex justify-center m-auto"
+                (click)="eliminarMantenimiento(mantenimiento._id)"
+              >
+                <i class="text-red-700 text-lg fa-regular fa-circle-xmark"></i>
+              </button>
+              <button
+                class="flex justify-center m-auto"
+                (click)="actualizarMantenimiento(mantenimiento)"
+              >
+                <i class="text-green-700 text-lg fa-solid fa-floppy-disk"></i>
+              </button>
+              <!-- <button class="flex justify-center m-auto">
                   <i class="fa-solid fa-floppy-disk"></i>
               </button> -->
             </td>
@@ -116,8 +158,12 @@
 
     <!-- Botón Agregar Mantenimiento -->
     <div class="flex justify-center mt-4">
-      <button (click)="agregarMantenimiento()" class="bg-bgColorBlue text-white py-2 px-4 hover:bg-blue-800">
+      <button
+        (click)="agregarMantenimiento()"
+        class="bg-bgColorBlue text-white py-2 px-4 hover:bg-blue-800"
+      >
         Agregar mantenimiento
       </button>
     </div>
+  </div>
 </div>
