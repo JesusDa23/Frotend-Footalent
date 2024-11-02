@@ -389,9 +389,7 @@ export class EditarUsuarioComponent {
             icon: 'success',
             title: 'El usuario ha sido actualizado.',
             confirmButtonColor: '#0A135D',
-
           }
-
           );
         } else {
           console.log("error");
