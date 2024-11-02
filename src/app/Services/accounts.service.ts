@@ -56,6 +56,7 @@ export class AccountsService {
   }
 
   uploadProfilePicture(id: string, file: File): Observable<any> {
+    this.construirHeaders();
     const imageUrl = new FormData();
     imageUrl.append('file', file, file.name);
     return this.http.put(`${this.appUrl}/users/${id}/image`, imageUrl);

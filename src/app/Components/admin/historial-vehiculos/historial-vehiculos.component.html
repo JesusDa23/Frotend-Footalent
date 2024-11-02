@@ -15,33 +15,29 @@
     <div class="loader"></div>
 </div>
 
-<div class="w-full mt-[100px] mb-[150px] mx-auto mt-10">
-    <p class="w-full text-xl font-medium max-md:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%]  mx-auto">Vehículos usados</p>
+<div class="container mx-auto  mt-[100px] mb-[150px] ">
+    <!-- barra busqueda -->
+    <div class="flex justify-center">
+        <div class="m-1 w-full max-md:w-[90%] md:w-[80%] lg:w-2/4 xl:w-[60%] ">
+            <input type="text" id="filterVehicle" [(ngModel)]="filterVehicle" placeholder="Buscar por vehículo"
+                class="border p-2 pl-3 w-full pr-10 rounded">
+        </div>
+    </div>
+
+    <p class="w-full text-xl font-medium max-md:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] mt-4 mx-auto">Vehículos usados
+    </p>
+
+
     <table
-        class="w-full max-md:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] border mx-auto text-left mt-8 rtl:text-right text-gray-500 ">
+        class="w-full max-md:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] border mx-auto text-left mt-4 rtl:text-right text-gray-500 ">
         <thead class="text-white bg-[#0A135D] ">
             <tr>
                 <th scope="col" class="px-6 py-3 text-lg font-normal">
                     Vehículo
-                    <button (click)="toggleVehicleFilters()" class="mb-4 px-4 py-2 bg-[#0A135D] text-white rounded-md">
-                        {{ showVehicleFilter ? '' : '' }}
-                        <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 8.20005L0 2.20005L1.4 0.800049L6 5.40005L10.6 0.800049L12 2.20005L6 8.20005Z"
-                                fill="white" />
-                        </svg>
-                    </button>
-
-                    <div *ngIf="showVehicleFilter">
-                        <div class="mb-4">
-                            <input type="text" id="filterVehicle" [(ngModel)]="filterVehicle"
-                                placeholder="Buscar por vehículo"
-                                class="mt-1 text-black p-2 w-full border border-gray-300 rounded-md">
-                        </div>
-                    </div>
                 </th>
-                <th scope="col" class="px-6 py-3 text-lg font-normal">
-                    Fecha de uso
-                    <button (click)="sortByDate()" class="mb-4 px-4 py-2 bg-[#0A135D] text-white rounded-md">
+                <th scope="col" class="flex flex-row items-end px-6 py-3 text-lg font-normal">
+                    <p> Fecha de uso</p>
+                    <button (click)="sortByDate()" class="mb-4 px-4  bg-[#0A135D] text-white rounded-md">
                         {{ sortOrder ? '' : '' }}
                         <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 8.20005L0 2.20005L1.4 0.800049L6 5.40005L10.6 0.800049L12 2.20005L6 8.20005Z"
