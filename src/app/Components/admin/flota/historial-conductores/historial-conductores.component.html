@@ -31,6 +31,21 @@
     </div>
 </div>
 
-<div class="fixed bottom-0 left-0 right-0">
-    <app-footer-desktop></app-footer-desktop>
-</div>
+<div class="p-4">
+    <h2 class="text-2xl font-semibold mb-4">Historial de Conductores</h2>
+    <table class="table-auto w-full border">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="px-4 py-2 border">Nombre del Conductor</th>
+          <th class="px-4 py-2 border">Fecha de Conducción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let driver of driverHistory" class="text-center">
+          <td class="px-4 py-2 border">{{ driver.driverName }}</td>
+          <td class="px-4 py-2 border">{{ driver.submissionDate | date: 'medium' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

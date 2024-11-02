@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-
   botonLogIn() {
     if (this.email == "" || this.password == "") {
       Swal.fire({
@@ -54,6 +53,19 @@ export class LoginComponent implements OnInit {
     this._accountsService.logIn(user).subscribe({
       next: data => {
         const dataCast = data as resLoginUser;
+
+        if (!dataCast?.user) {
+          console.error("User object is missing from response");
+          this.isLoading = false;
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: 'Error en el login, usuario no encontrado.',
+            showConfirmButton: false,
+            timer: 1600
+          });
+          return;
+        }
 
         sessionStorage.setItem('userInfo', JSON.stringify(dataCast.user));
         sessionStorage.setItem('token', dataCast.token);
@@ -78,7 +90,6 @@ export class LoginComponent implements OnInit {
             sessionStorage.removeItem('token');
 
             this.router.navigate(["/change-password"]);
-
           }
         }
 
@@ -96,6 +107,7 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
 
   private navigateToRolePage(rol: string) {
     if (rol === "admin") {

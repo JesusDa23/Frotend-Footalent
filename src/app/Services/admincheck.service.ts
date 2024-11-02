@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-
 import { Category } from '../Components/models/category.model';
 import { Section } from '../Components/models/section.model';
 import { Bullet } from '../Components/models/bullet.model';
@@ -88,6 +88,18 @@ export class AdmincheckService {
 
   getInspectionForms(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/inspectionForms`);  // Ensure you're correctly returning the API response
+  }
+
+  getDriversByVehicleId(vehicleId: string): Observable<{ driverName: string; submissionDate: Date }[]> {
+    return this.http.get<{ driverName: string; submissionDate: string }[]>(`${this.apiUrl}/form-response/vehicle/${vehicleId}`)
+      .pipe(
+        map(response => 
+          response.map(item => ({
+            driverName: item.driverName,
+            submissionDate: new Date(item.submissionDate) // Convert string to Date
+          }))
+        )
+      );
   }
   
 
