@@ -33,6 +33,7 @@ export class CrearVehiculoComponent {
   mileage: any = "";
   year: any = "";
   TipoId: string = "";
+  vin: String = "";
 
 
 
@@ -58,15 +59,7 @@ export class CrearVehiculoComponent {
     );
   }
 
-  generateVIN(): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; // Letras y números
-    let vin = '';
-    for (let i = 0; i < 17; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      vin += characters[randomIndex];
-    }
-    return vin;
-  }
+
 
   preventNegative(event: KeyboardEvent): void {
     if (event.key === '-' || event.key === 'e') {
@@ -96,7 +89,7 @@ export class CrearVehiculoComponent {
 
     this.plate = this.plate.toUpperCase();
 
-    const vin = this.generateVIN();
+    
 
 
     const vehiculo: any = {
@@ -106,27 +99,31 @@ export class CrearVehiculoComponent {
       model: this.model,
       mileage: this.mileage,
       year: this.year,
-      vin: vin
+      vin: this.vin
+    }
+    // Verificar si todos los campos están vacíos
+    if (
+      this.TipoId === '' && this.make === '' && this.plate === '' && this.model === '' &&
+      (this.mileage === '' || this.mileage === null || this.mileage === undefined) &&
+      (this.year === '' || this.year === null || this.year === undefined) &&
+      this.status === ''  && this.vin === ''
+    ) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Debe llenar todos los campos antes de guardar.",
+        showConfirmButton: false,
+        timer: 1600
+      });
+      return;
     }
 
- // Verificar si todos los campos están vacíos
-  if (
-    !this.TipoId && !this.make && !this.plate && !this.model &&
-    !this.mileage && !this.year && !this.status
-  ) {
-    Swal.fire({
-      position: "center",
-      icon: "error",
-      title: "Debe llenar todos los campos antes de guardar.",
-      showConfirmButton: false,
-      timer: 1600
-    });
-    return;
-  }
-
+    // Verificar que todos los campos estén completos
     if (
       !this.TipoId || !this.make || !this.plate || !this.model ||
-      !this.mileage || !this.year || !this.status
+      (this.mileage === '' || this.mileage === null || this.mileage === undefined) ||
+      (this.year === '' || this.year === null || this.year === undefined) ||
+      !this.status
     ) {
       Swal.fire({
         position: "center",
@@ -162,7 +159,7 @@ export class CrearVehiculoComponent {
 
     this._flotaService.createNewFlota(vehiculo).subscribe({
       next: (response) => {
-        
+
         Swal.fire({
           position: "center",
           icon: "success",
@@ -172,8 +169,16 @@ export class CrearVehiculoComponent {
         });
       },
       error: (err) => {
-        // console.error("Error al crear la flota:", err);
-        // Manejo de errores
+        console.error("Error al crear la flota:", err);
+        if (err.error && err.error.message) {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: `Error al crear el vehiculo \n ${err.error.message}`,
+            showConfirmButton: false,
+            timer: 1600
+          });
+        }
       }
     });
 
@@ -188,21 +193,21 @@ export class CrearVehiculoComponent {
       event.preventDefault();
     }
   }
-  
+
   onlyLettersAndNumbers(event: KeyboardEvent) {
     const pattern = /[a-zA-Z0-9]/;
     if (!pattern.test(event.key)) {
       event.preventDefault();
     }
   }
-  
+
   onlyLettersNumbersAndDash(event: KeyboardEvent) {
     const pattern = /[a-zA-Z0-9-]/;
     if (!pattern.test(event.key)) {
       event.preventDefault();
     }
   }
-  
+
   onlyNumbers(event: KeyboardEvent) {
     const pattern = /[0-9]/;
     if (!pattern.test(event.key)) {

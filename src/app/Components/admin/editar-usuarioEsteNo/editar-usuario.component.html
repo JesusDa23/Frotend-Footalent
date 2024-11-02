@@ -127,6 +127,12 @@
                     <label for="address" class="block mb-2 text-sm font-medium">Dirección</label>
                     <input formControlName="address" type="text" id="address"
                         class="text-gray-900 text-sm focus:ring-primary-600 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500" />
+                    <div *ngIf="userForm.get('address')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)"
+                        class="text-red-600 text-sm">
+                        <span *ngIf="userForm.get('address')?.errors?.['required']">La dirección es
+                            obligatoria.</span>
+                      
+                    </div>
                 </div>
 
                 <hr>

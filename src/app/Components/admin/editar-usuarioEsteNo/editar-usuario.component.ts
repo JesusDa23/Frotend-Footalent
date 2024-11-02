@@ -327,18 +327,20 @@ export class EditarUsuarioComponent {
   editUser() {
     if (this.userForm.invalid) {
       Swal.fire({
-        title: 'Campos incompletos',
-        text: 'Por favor, complete todos los campos antes de guardar.',
+        title: 'Todos los campos obligatorios deben ser completados',
         icon: 'warning',
         confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#D33',
+        confirmButtonColor: '#0A135D',
       });
       return;
     }
 
     this.isLoading = true;
+
     this.accountsService.updateUser(this.userId, this.userForm.value).subscribe({
       next: () => {
+
+        
         this.isLoading = false;
         Swal.fire({
           title: '¡Actualizado!',
@@ -349,6 +351,7 @@ export class EditarUsuarioComponent {
         });
       },
       error: (error) => {
+        
         this.isLoading = false;
         const errorMessage = error.error?.message || 'Ocurrió un error al actualizar el perfil. Por favor intenta nuevamente.';
         Swal.fire({

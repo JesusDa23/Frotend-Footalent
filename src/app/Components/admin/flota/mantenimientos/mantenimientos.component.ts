@@ -108,6 +108,15 @@ export class MantenimientosComponent {
     );
   }
 
+  getCurrentDate(): string {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); // Enero es 0
+    const yyyy = today.getFullYear();
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+
   eliminarMantenimiento(id: number) {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -161,6 +170,7 @@ export class MantenimientosComponent {
   }
 
 
+
   actualizarMantenimiento(mantenimiento: any) {
     mantenimiento.fecha = new Date(mantenimiento.fecha).toISOString();
     console.log(mantenimiento)
@@ -177,18 +187,42 @@ export class MantenimientosComponent {
       return;
     }
 
-    this.mantenimientoService.updateMantenimientos(mantenimiento._id, mantenimiento).subscribe(
-      (data: any) => {
-        const index = this.mantenimientos.findIndex(m => m._id === data._id);
-        if (index !== -1) {
-          this.mantenimientos[index] = data;
-          this.cdr.detectChanges();
-          this.obtenerMantenimientos();
-        }
-      },
-      (error) => {
-        console.error('Error al actualizar mantenimiento:', error);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#0A135D',   // Optional: Customize button colors
+      cancelButtonColor: '#A22B2B'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.mantenimientoService.updateMantenimientos(mantenimiento._id, mantenimiento).subscribe(
+          (data: any) => {
+            const index = this.mantenimientos.findIndex(m => m._id === data._id);
+            if (index !== -1) {
+              this.mantenimientos[index] = data;
+              this.cdr.detectChanges();
+              this.obtenerMantenimientos();
+              console.log("se guardo");
+            }
+          },
+          (error) => {
+            console.error('Error al actualizar mantenimiento:', error);
+          }
+        );
+
+        Swal.fire({
+          title: 'Se ha guardado el mantenimiento',
+          icon: 'success',
+          confirmButtonColor: '#0A135D'
+        });
       }
-    );
+    });
   }
-}
+
+
+  }
+
+
