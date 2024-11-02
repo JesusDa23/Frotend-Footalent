@@ -292,6 +292,7 @@ export class EditarUsuarioComponent {
         this.pfp = e.target.result; // Update the profile picture preview
       };
       reader.readAsDataURL(this.selectedFile); // Read the file as a data URL
+      this.uploadImage();
     }
   }
 
