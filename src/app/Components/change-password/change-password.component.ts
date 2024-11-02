@@ -55,7 +55,6 @@ export class ChangePasswordComponent {
     // Validar si la nueva contraseña coincide con el regex
     if (!passwordRegex.test(this.newPassword)) {
       Swal.fire({
-        position: "top-end",
         icon: "error",
         title: `La contraseña debe tener entre 8 y 15 caracteres, incluir una letra mayúscula, una minúscula, un número y un símbolo especial. \n($, *, @, #, %, &, !)`,
         showConfirmButton: false,
@@ -66,7 +65,6 @@ export class ChangePasswordComponent {
 
     if (this.newPassword !== this.confirmPassword) {
       Swal.fire({
-        position: "top-end",
         icon: "error",
         title: "Las contraseñas no coinciden.",
         showConfirmButton: false,
@@ -94,7 +92,7 @@ export class ChangePasswordComponent {
         },
         error: (err) => {
           Swal.fire({
-            position: "top-end",
+
             icon: "error",
             title: `Error al obtener el usuario\n${err.error}`,
             showConfirmButton: false,
@@ -116,7 +114,7 @@ export class ChangePasswordComponent {
           this._accountsService.updateFirstLogin(this.userId, false).subscribe({
             next: () => {
               Swal.fire({
-                position: "top-end",
+
                 icon: "success",
                 title: "Contraseña actualizada exitosamente.",
                 showConfirmButton: false,
@@ -130,7 +128,6 @@ export class ChangePasswordComponent {
               console.log(err);
 
               Swal.fire({
-                position: "top-end",
                 icon: "error",
                 title: `Error al actualizar el estado de primer inicio\n${err.error}`,
                 showConfirmButton: false,
@@ -141,7 +138,6 @@ export class ChangePasswordComponent {
         }
         else {
           Swal.fire({
-            position: "top-end",
             icon: "success",
             title: "Contraseña actualizada exitosamente.",
             showConfirmButton: false,
@@ -157,7 +153,6 @@ export class ChangePasswordComponent {
         console.log(err);
 
         Swal.fire({
-          position: "top-end",
           icon: "error",
           title: `Error al cambiar la contraseña\n${err.error.error}`,
           showConfirmButton: false,
