@@ -84,8 +84,20 @@
     </div>
 
     <!-- Submit button -->
-    <div class="flex justify-center ">
-      <button type="submit" class="mt-4 text-white bg-[#0a135d] p-2 rounded w-80">Enviar</button>
+    <div class="flex justify-center">
+      <button 
+        type="submit" 
+        class="mt-4 p-2 rounded w-80"
+        [disabled]="!isBulletSelected"
+        [ngClass]="{
+          'bg-[#0a135d] text-white': isBulletSelected,
+          'bg-gray-400 text-black': !isBulletSelected
+        }"
+      >
+        Enviar
+      </button>
     </div>
+     
+
   </form>
 </div>

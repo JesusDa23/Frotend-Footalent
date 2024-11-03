@@ -22,7 +22,8 @@ import { Alert, AlertService } from '../../../Services/alert.service';
   styleUrl: './sections-by-cat.component.css'
 })
 export class SectionsByCatComponent {
-  
+
+  isBulletSelected: boolean = false;
   categories: any[] = [];
   categoryId: string | null = null;
   vehicleId: string | null = null; 
@@ -123,13 +124,16 @@ export class SectionsByCatComponent {
       } else {
         this.openSectionId = sectionId; // Open section
       }
-
+  
+      // Enable the submit button when a section is clicked
+      this.isBulletSelected = true;
+  
       // Fetch bullets if not already loaded
       if (!section.bullets || section.bullets.length === 0) {
         this.admincheckService.getBulletsBySection(sectionId).subscribe(
           (bullets: Bullet[]) => {
             section.bullets = bullets;
-
+  
             // Add a form control for each bullet
             bullets.forEach(bullet => {
               this.bulletsForm.addControl(
@@ -145,6 +149,7 @@ export class SectionsByCatComponent {
       }
     }
   }
+  
  
 
   private getUserInfo(): UserInfo | null {
@@ -153,13 +158,16 @@ export class SectionsByCatComponent {
     return userInfo ? JSON.parse(userInfo) : null;
   }
   
-  // Toggle the bullet value on click
+
   toggleBullet(bulletId: string): void {
     const control = this.bulletsForm.get(`bullet_${bulletId}`);
     if (control) {
       control.setValue(!control.value); // Toggle the value (true/false)
+
     }
   }
+  
+
   // Method to check if the section is open
   isSectionOpen(sectionId: string): boolean {
     return this.openSectionId === sectionId;
@@ -187,10 +195,7 @@ export class SectionsByCatComponent {
       if (hasRequiredUnchecked) {
         // Ask user if the vehicle is drivable
         this.askVehicleDrivable().then((isDrivable) => {
-          if (isDrivable) {
-            this.saveData(dataToSend);  // Save if drivable
-            this.updateVehicleStatus(vehicleD._id, 'Ocupado');
-          } else {
+          if (!isDrivable) {
             this.updateVehicleStatus(vehicleD._id, 'Ocupado');
             this.router.navigate(['/reporte']);  // Navigate to report page if not drivable
           }
@@ -214,39 +219,55 @@ export class SectionsByCatComponent {
       });
     }
   }
-  
 
 
- // Collect data for submission
+
+  // Collect data for submission
   private collectSubmissionData(): SectionData[] {
-    const submissionData: SectionData[] = []; // Use SectionData[] as the type
-
+    const submissionData: SectionData[] = [];
+    let anyBulletSelected = false; // Track if at least one bullet is selected
+  
     this.sections.forEach(section => {
       const sectionData: SectionData = {
         sectionName: section.name,
         bullets: []
       };
-
+  
       section.bullets!.forEach(bullet => {
         const control = this.bulletsForm.get(`bullet_${bullet._id}`);
-        // console.log(`Bullet Control (${bullet.description}):`, control?.value); // Log each bullet control value
-        
+  
         if (control) {
+          const bulletResponse = control.value;
           sectionData.bullets.push({
             bulletName: bullet.description,
-            response: control.value // true or false based on the toggle
+            response: bulletResponse
           });
+  
+          // Check if any bullet has been set to true
+          if (bulletResponse === true) {
+            anyBulletSelected = true;
+          }
         }
       });
-
+  
       if (sectionData.bullets.length > 0) {
         submissionData.push(sectionData);
       }
     });
-    
-
+  
+    // If no bullets were selected (none set to true), show SweetAlert and return an empty array
+    if (!anyBulletSelected) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Ningún campo fue seleccionado',
+        text: 'Por favor, selecciona al menos un campo antes de enviar.'
+      });
+      return []; // Stop the function here to prevent further actions
+    }
+  
     return submissionData;
   }
+  
 
   // Separate function for submission time (to handle timestamps for each submission)
   private getSubmissionTime(): string {
@@ -268,19 +289,19 @@ export class SectionsByCatComponent {
       icon: 'warning',
       background: "#fff",
       showCancelButton: true,
-      confirmButtonText: 'Si',
-      cancelButtonText: 'Reportar',
-      confirmButtonColor: '#0A135D',
-      cancelButtonColor: '#A22B2B'
+      confirmButtonText: `<div class="text-[#0A135D]">Cancelar</div>` ,
+      cancelButtonText: `Reportar`,
+      confirmButtonColor: '#F2F5FF',
+      cancelButtonColor: '#0A135D'
     }).then((result) => {
       if (result.isConfirmed) {
         return Swal.fire({
-          title: "Enviado!",
-          text: "Formulario enviado correctamente.",
-          icon: "success",
+          title: "Informacion",
+          text: "Por favor, completa la inspección antes de enviar el formulario.",
+          icon: "info",
           confirmButtonColor: '#0A135D'
         }).then(() => {
-          this.router.navigate(['/homec']);  // Redirect to home after confirmation
+          
           return true;  // Return true to signal that form was confirmed and submitted
         });
       } else {
